@@ -6,7 +6,7 @@ $text = '';
 $packageMenu = 0;
 
 $menus = [];
-$stmt = $mysqli->prepare("SELECT id, name, parent_id FROM product_menu WHERE deleted = '0' ORDER BY myorder ASC, id ASC");
+$stmt = $mysqli->prepare("SELECT id, name, parent_id FROM menu WHERE deleted = '0' ORDER BY myorder ASC, id ASC");
 $stmt->execute();
 $result = $stmt->get_result();
 while ($row = $result->fetch_assoc()) {
@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Form']) && $_POST['Fo
 
     $name = trim($_POST['name'] ?? '');
     $active = $_POST['active'] ?? '';
-    $description = $_POST['description'] ?? '';
     $myorder = intval($_POST['myorder'] ?? 0);
     $parent_id = intval($_POST['parent_id'] ?? 0);
 
@@ -43,22 +42,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Form']) && $_POST['Fo
         $error = true;
         $text = "وضعیت فعال‌بودن معتبر نیست";
     }else {
-        $stmt = $mysqli->prepare("INSERT INTO `product_menu` 
-            (`name`, `description`, `active`, `myorder`, `parent_id`) 
-            VALUES (?, ?, ?, ?, ?)");
+        $stmt = $mysqli->prepare("INSERT INTO `menu` 
+            (`name`, `active`, `myorder`, `parent_id`) 
+            VALUES (?, ?, ?, ?)");
 
         if ($stmt) {
             $stmt->bind_param(
-                "ssiii",
+                "siii",
                 $name,
-                $description,
                 $active,
                 $myorder,
                 $parent_id
             );
 
             if ($stmt->execute()) {
-                $text = "منوی محصول با موفقیت اضافه شد";
+                $text = "منو با موفقیت اضافه شد";
                 $error = false;
             } else {
                 $error = true;
@@ -124,9 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Form']) && $_POST['Fo
     <div class="content-body">
         <div class="container-fluid">
             <div class="page-titles">
-                <h4>محصولات</h4>
+                <h4>منو</h4>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">مدیریت منوی محصولات</li>
+                    <li class="breadcrumb-item">مدیریت منو</li>
                 </ol>
             </div>
             <!-- row -->
@@ -134,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Form']) && $_POST['Fo
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">ورود اطلاعات منوی محصول</h4>
+                            <h4 class="card-title">ورود اطلاعات منو</h4>
                         </div>
                         <?php if ($text): ?>
                             <div class="alert alert-<?php echo $error ? 'danger' : 'success'; ?> mt-3">
@@ -169,29 +167,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Form']) && $_POST['Fo
 
                                     <div class="form-group col-lg-9 col-sm-12 mb-4">
                                         <div class="row">
-                                            <div class="col-3"><label>نام منوی محصول</label></div>
+                                            <div class="col-3"><label>نام منو</label></div>
                                             <div class="col-9">
                                                 <input type="text" name="name" class="form-control input-default"
                                                        required>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group mb-4">
-                                        <label>توضیحات</label>
-                                        <textarea class="form-control" name="description" id="description" rows="10"><?php echo htmlspecialchars($description); ?></textarea>
-                                    </div>
-
-                                    <!-- لود CKEditor -->
-                                    <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function() {
-                                            CKEDITOR.replace('description', {
-                                                allowedContent: true,
-                                                versionCheck: false
-                                            });
-                                        });
-                                    </script>
 
                                     <div class="form-group col-lg-9 col-sm-12 mb-4">
                                         <div class="row">
@@ -220,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Form']) && $_POST['Fo
     <!--**********************************
         Footer start
     ***********************************-->
-   <?php require_once "inc/footer.php"?>
+    <?php require_once "inc/footer.php"?>
     <!--**********************************
         Footer end
     ***********************************-->
