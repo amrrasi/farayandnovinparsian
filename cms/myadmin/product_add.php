@@ -20,17 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception('درخواست نامعتبر است.');
         }
 
-        $name = trim($_POST['name'] ?? '');
-        $seoTitle = trim($_POST['seo_title'] ?? '');
-        $seoSlug = trim($_POST['seo_slug'] ?? '');
-        $seoDescription = trim($_POST['seo_description'] ?? '');
-        $seoKeywords = trim($_POST['seo_keywords'] ?? '');
+        $name             = trim($_POST['name'] ?? '');
+        $seoTitle         = trim($_POST['seo_title'] ?? '');
+        $seoSlug          = trim($_POST['seo_slug'] ?? '');
+        $seoDescription   = trim($_POST['seo_description'] ?? '');
+        $seoKeywords      = trim($_POST['seo_keywords'] ?? '');
 
-        $description = trim($_POST['description'] ?? '');
-        $price = (int)preg_replace('/\D/', '', $_POST['price'] ?? 0);
-        $active = (int)($_POST['active'] ?? 1);
-        $myorder = (int)($_POST['myorder'] ?? 0);
-        $productMenu = (int)($_POST['product_menu'] ?? 0);
+        $description      = trim($_POST['description'] ?? '');
+        $price            = (int)preg_replace('/\D/', '', $_POST['price'] ?? 0);
+        $active           = (int)($_POST['active'] ?? 1);
+        $myorder          = (int)($_POST['myorder'] ?? 0);
+        $productMenu      = (int)($_POST['product_menu'] ?? 0);
 
         $attributes = $_POST['attribute'] ?? [];
 
@@ -275,12 +275,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             margin-bottom: 12px;
         }
-
         .desc-input-group input[type="text"] {
             flex: 1;
             margin-left: 10px;
         }
-
         .desc-btn {
             min-width: 34px;
             height: 34px;
@@ -296,11 +294,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             justify-content: center;
         }
-
         .desc-btn.add {
             background-color: #28a745;
         }
-
         .desc-btn.remove {
             background-color: #dc3545;
         }
@@ -372,10 +368,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <label class="form-label">دسته بندی</label>
 
                                             <select
-                                                    name="product_menu"
-                                                    id="product_menu"
-                                                    class="form-control select2"
-                                                    required>
+                                                name="product_menu"
+                                                id="product_menu"
+                                                class="form-control select2"
+                                                required>
                                                 <option value="">انتخاب کنید</option>
                                                 <?php
                                                 $menus = $mysqli->query("
@@ -385,12 +381,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ORDER BY myorder ASC
         ");
 
-                                                while ($menu = $menus->fetch_assoc()):
+                                                while($menu = $menus->fetch_assoc()):
                                                     ?>
 
                                                     <option
-                                                            value="<?= $menu['id'] ?>"
-                                                        <?= ($productMenu ?? 0) == $menu['id'] ? 'selected' : '' ?>>
+                                                        value="<?= $menu['id'] ?>"
+                                                        <?= ($productMenu ?? 0) == $menu['id'] ? 'selected' : '' ?>
+                                                    >
                                                         <?= htmlspecialchars($menu['name']) ?>
                                                     </option>
 
@@ -414,17 +411,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <label class="form-label">قیمت (دلار)</label>
 
                                             <input
-                                                    type="text"
-                                                    id="price_format"
-                                                    class="form-control"
-                                                    value="<?= number_format($price ?? 0) ?>"
+                                                type="text"
+                                                id="price_format"
+                                                class="form-control"
+                                                value="<?= number_format($price ?? 0) ?>"
                                             >
 
                                             <input
-                                                    type="hidden"
-                                                    id="price"
-                                                    name="price"
-                                                    value="<?= $price ?? 0 ?>"
+                                                type="hidden"
+                                                id="price"
+                                                name="price"
+                                                value="<?= $price ?? 0 ?>"
                                             >
                                         </div>
 
@@ -433,10 +430,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <label class="form-label">ترتیب نمایش</label>
 
                                             <input
-                                                    type="number"
-                                                    name="myorder"
-                                                    class="form-control"
-                                                    value="<?= $myorder ?? 0 ?>"
+                                                type="number"
+                                                name="myorder"
+                                                class="form-control"
+                                                value="<?= $myorder ?? 0 ?>"
                                             >
                                         </div>
 
@@ -445,8 +442,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <label class="form-label">وضعیت</label>
 
                                             <select
-                                                    name="active"
-                                                    class="form-control"
+                                                name="active"
+                                                class="form-control"
                                             >
                                                 <option value="1">فعال</option>
                                                 <option value="0">غیرفعال</option>
@@ -458,20 +455,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <label class="form-label">تصویر محصول</label>
 
                                             <input
-                                                    type="file"
-                                                    name="thumbnail"
-                                                    id="thumbnail"
-                                                    class="form-control"
-                                                    accept="image/*"
-                                                    required
+                                                type="file"
+                                                name="thumbnail"
+                                                id="thumbnail"
+                                                class="form-control"
+                                                accept="image/*"
+                                                required
                                             >
                                         </div>
 
                                         <div class="col-md-6 mb-3 text-center">
                                             <img
-                                                    id="preview"
-                                                    src=""
-                                                    style="
+                                                id="preview"
+                                                src=""
+                                                style="
                                                         max-height:200px;
                                                         display:none;
                                                         border-radius:10px;
@@ -490,9 +487,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 </label>
 
                                                 <button
-                                                        type="button"
-                                                        id="addAttribute"
-                                                        class="btn btn-success btn-sm"
+                                                    type="button"
+                                                    id="addAttribute"
+                                                    class="btn btn-success btn-sm"
                                                 >
                                                     افزودن ویژگی
                                                 </button>
@@ -501,22 +498,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                             <div id="attributesWrapper">
 
-                                                <?php if (!empty($attributes)): ?>
+                                                <?php if(!empty($attributes)): ?>
 
-                                                    <?php foreach ($attributes as $attribute): ?>
+                                                    <?php foreach($attributes as $attribute): ?>
 
                                                         <div class="input-group mb-2">
 
                                                             <input
-                                                                    type="text"
-                                                                    name="attribute[]"
-                                                                    class="form-control"
-                                                                    value="<?= htmlspecialchars($attribute) ?>"
+                                                                type="text"
+                                                                name="attribute[]"
+                                                                class="form-control"
+                                                                value="<?= htmlspecialchars($attribute) ?>"
                                                             >
 
                                                             <button
-                                                                    type="button"
-                                                                    class="btn btn-danger removeAttribute"
+                                                                type="button"
+                                                                class="btn btn-danger removeAttribute"
                                                             >
                                                                 حذف
                                                             </button>
@@ -530,15 +527,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     <div class="input-group mb-2">
 
                                                         <input
-                                                                type="text"
-                                                                name="attribute[]"
-                                                                class="form-control"
-                                                                placeholder="مثال : ضد آب"
+                                                            type="text"
+                                                            name="attribute[]"
+                                                            class="form-control"
+                                                            placeholder="مثال : ضد آب"
                                                         >
 
                                                         <button
-                                                                type="button"
-                                                                class="btn btn-danger removeAttribute"
+                                                            type="button"
+                                                            class="btn btn-danger removeAttribute"
                                                         >
                                                             حذف
                                                         </button>
@@ -556,14 +553,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                             <div class="form-group mb-4">
                                                 <label>توضیحات</label>
-                                                <textarea class="form-control" name="description" id="description"
-                                                          rows="10"><?php echo htmlspecialchars($description); ?></textarea>
+                                                <textarea class="form-control" name="description" id="description" rows="10"><?php echo htmlspecialchars($description); ?></textarea>
                                             </div>
 
                                             <!-- لود CKEditor -->
                                             <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
                                             <script>
-                                                document.addEventListener("DOMContentLoaded", function () {
+                                                document.addEventListener("DOMContentLoaded", function() {
                                                     CKEDITOR.replace('description', {
                                                         allowedContent: true,
                                                         versionCheck: false
@@ -588,11 +584,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     </label>
 
                                                     <input
-                                                            type="text"
-                                                            id="seo_title"
-                                                            name="seo_title"
-                                                            class="form-control"
-                                                            maxlength="70"
+                                                        type="text"
+                                                        id="seo_title"
+                                                        name="seo_title"
+                                                        class="form-control"
+                                                        maxlength="70"
                                                     >
 
                                                     <small id="seoTitleCount">
@@ -606,10 +602,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     </label>
 
                                                     <input
-                                                            type="text"
-                                                            id="seo_slug"
-                                                            name="seo_slug"
-                                                            class="form-control"
+                                                        type="text"
+                                                        id="seo_slug"
+                                                        name="seo_slug"
+                                                        class="form-control"
                                                     >
                                                 </div>
 
@@ -619,11 +615,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     </label>
 
                                                     <textarea
-                                                            id="seo_description"
-                                                            name="seo_description"
-                                                            rows="4"
-                                                            maxlength="160"
-                                                            class="form-control"
+                                                        id="seo_description"
+                                                        name="seo_description"
+                                                        rows="4"
+                                                        maxlength="160"
+                                                        class="form-control"
                                                     ></textarea>
 
                                                     <small id="seoDescCount">
@@ -637,10 +633,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     </label>
 
                                                     <input
-                                                            type="text"
-                                                            name="seo_keywords"
-                                                            class="form-control"
-                                                            placeholder="پمپ, پمپ صنعتی"
+                                                        type="text"
+                                                        name="seo_keywords"
+                                                        class="form-control"
+                                                        placeholder="پمپ, پمپ صنعتی"
                                                     >
                                                 </div>
 
@@ -659,8 +655,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <div class="card-body">
 
                                                 <div
-                                                        id="googleTitle"
-                                                        style="
+                                                    id="googleTitle"
+                                                    style="
                                                                color:#1a0dab;
                                                                font-size:20px;
                                                                font-weight:600;
@@ -670,7 +666,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 </div>
 
                                                 <div
-                                                        style="
+                                                    style="
                                                               color:#006621;
                                                               font-size:14px;
                                                           "
@@ -680,8 +676,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 </div>
 
                                                 <div
-                                                        id="googleDesc"
-                                                        style="
+                                                    id="googleDesc"
+                                                    style="
                                                                color:#545454;
                                                                margin-top:5px;
                                                            "
@@ -696,16 +692,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                         <!-- csrf -->
                                         <input
-                                                type="hidden"
-                                                name="csrf_token"
-                                                value="<?= $_SESSION['csrf_token'] ?>"
+                                            type="hidden"
+                                            name="csrf_token"
+                                            value="<?= $_SESSION['csrf_token'] ?>"
                                         >
 
                                         <div class="col-12 text-center">
 
                                             <button
-                                                    type="submit"
-                                                    class="btn btn-primary px-5"
+                                                type="submit"
+                                                class="btn btn-primary px-5"
                                             >
                                                 ثبت محصول
                                             </button>
@@ -732,7 +728,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!--**********************************
         Footer start
     ***********************************-->
-    <?php require_once "inc/footer.php" ?>
+   <?php require_once "inc/footer.php"?>
     <!--**********************************
         Footer end
     ***********************************-->
@@ -778,7 +774,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script>
 
     $('.select2').select2({
-        width: '100%'
+        width:'100%'
     });
 
     /* CKEditor */
@@ -787,15 +783,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 
     /* Preview */
-    $('#thumbnail').on('change', function () {
+    $('#thumbnail').on('change', function(){
 
         const file = this.files[0];
 
-        if (!file) return;
+        if(!file) return;
 
         const reader = new FileReader();
 
-        reader.onload = function (e) {
+        reader.onload = function(e){
 
             $('#preview')
                 .attr('src', e.target.result)
@@ -809,7 +805,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* Dynamic Attributes */
 
-    $('#addAttribute').on('click', function () {
+    $('#addAttribute').on('click', function(){
 
         $('#attributesWrapper').append(`
         <div class="input-group mb-2">
@@ -833,7 +829,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $(document).on(
         'click',
         '.removeAttribute',
-        function () {
+        function(){
             $(this)
                 .closest('.input-group')
                 .remove();
@@ -842,10 +838,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* Price Format */
 
-    $('#price_format').on('input', function () {
+    $('#price_format').on('input', function(){
 
         let value =
-            this.value.replace(/\D/g, '');
+            this.value.replace(/\D/g,'');
 
         $('#price').val(value);
 
@@ -860,9 +856,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if(!empty($text) && !$error): ?>
 
     Swal.fire({
-        icon: 'success',
-        title: 'موفق',
-        text: '<?= addslashes($text) ?>'
+        icon:'success',
+        title:'موفق',
+        text:'<?= addslashes($text) ?>'
     });
 
     <?php endif; ?>
@@ -870,52 +866,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if(!empty($text) && $error): ?>
 
     Swal.fire({
-        icon: 'error',
-        title: 'خطا',
-        text: '<?= addslashes($text) ?>'
+        icon:'error',
+        title:'خطا',
+        text:'<?= addslashes($text) ?>'
     });
 
     <?php endif; ?>
 
 
-    $('#name').on('keyup', function () {
+        $('#name').on('keyup', function(){
 
         let slug = $(this)
-            .val()
-            .trim()
-            .replace(/[^\w\u0600-\u06FF]+/g, '-')
-            .replace(/--+/g, '-')
-            .toLowerCase();
+        .val()
+        .trim()
+        .replace(/[^\w\u0600-\u06FF]+/g,'-')
+        .replace(/--+/g,'-')
+        .toLowerCase();
 
         $('#seo_slug').val(slug);
 
     });
 
-    $('#seo_title').on('keyup', function () {
+        $('#seo_title').on('keyup', function(){
 
         $('#seoTitleCount').html(
             this.value.length + ' / 70'
         );
 
         $('#googleTitle').html(
-            $(this).val()
+        $(this).val()
         );
 
     });
 
-    $('#seo_description').on('keyup', function () {
+        $('#seo_description').on('keyup', function(){
 
         $('#seoDescCount').html(
             this.value.length + ' / 160'
         );
 
         $('#googleDesc').html(
-            $(this).val()
+        $(this).val()
         );
 
     });
 
-    $('#seo_slug').on('keyup', function () {
+        $('#seo_slug').on('keyup', function(){
 
         $('#googleSlug').html(
             $(this).val()
