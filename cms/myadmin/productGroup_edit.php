@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['Form'] === "Submitted") {
         if ($stmt) {
             $stmt->bind_param("ssiiii", $name, $description, $active, $myorder, $parent_id, $id);
             if ($stmt->execute()) {
-                $text = "منوی پکیج با موفقیت بروزرسانی شد";
+                $text = "منوی محصول با موفقیت بروزرسانی شد";
                 $menu['name'] = $name;
                 $menu['description'] = $description;
                 $menu['active'] = $active;
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['Form'] === "Submitted") {
 
                                     <div class="form-group col-lg-9 col-sm-12 mb-4">
                                         <div class="row">
-                                            <div class="col-3"><label>نام منوی پکیج</label></div>
+                                            <div class="col-3"><label>نام منوی محصول</label></div>
                                             <div class="col-9">
                                                 <input type="text" name="name" class="form-control input-default" value="<?= htmlspecialchars($menu['name']) ?>" required>
                                             </div>
@@ -234,11 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['Form'] === "Submitted") {
     <!--**********************************
         Footer start
     ***********************************-->
-    <div class="footer">
-        <div class="copyright">
-            <p>کپی رایت © ارائه توسط <?php echo $global_setting_array['website_name_per']?> <?php echo jdate('Y') ?></p>
-        </div>
-    </div>
+    <?php require_once "inc/footer.php"?>
     <!--**********************************
         Footer end
     ***********************************-->

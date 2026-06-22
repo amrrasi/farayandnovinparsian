@@ -167,6 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submited'])) {
         </div>
     </div>
 </div>
+<?php require_once "inc/footer.php" ?>
 
 
 <!--**********************************

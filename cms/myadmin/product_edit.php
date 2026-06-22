@@ -351,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 $menus = $mysqli->query("SELECT id,name FROM product_menu WHERE deleted=0");
                                                 while ($m = $menus->fetch_assoc()):
                                                     ?>
-                                                    <option value="<?= $m['id'] ?>" <?= $productMenu==$m['id']?'selected':'' ?>>
+                                                    <option value="<?= $m['id'] ?>" <?= $productMenu == $m['id'] ? 'selected' : '' ?>>
                                                         <?= htmlspecialchars($m['name']) ?>
                                                     </option>
                                                 <?php endwhile; ?>
@@ -384,8 +384,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <div class="col-md-3 mb-3">
                                             <label>وضعیت</label>
                                             <select name="active" class="form-control">
-                                                <option value="1" <?= $active==1?'selected':'' ?>>فعال</option>
-                                                <option value="0" <?= $active==0?'selected':'' ?>>غیرفعال</option>
+                                                <option value="1" <?= $active == 1 ? 'selected' : '' ?>>فعال</option>
+                                                <option value="0" <?= $active == 0 ? 'selected' : '' ?>>غیرفعال</option>
                                             </select>
                                         </div>
 
@@ -396,7 +396,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </div>
 
                                         <div class="col-md-6 mb-3 text-center">
-                                            <img src="../<?= $currentThumbnail ?>" id="preview" style="max-height:150px;">
+                                            <img src="../<?= $currentThumbnail ?>" id="preview"
+                                                 style="max-height:150px;">
                                         </div>
 
                                         <!-- ATTRIBUTES -->
@@ -410,7 +411,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         <span class="input-group-text drag-handle">☰</span>
                                                         <input type="text" name="attribute[]" class="form-control"
                                                                value="<?= htmlspecialchars($a) ?>">
-                                                        <button type="button" class="btn btn-danger removeAttribute">حذف</button>
+                                                        <button type="button" class="btn btn-danger removeAttribute">
+                                                            حذف
+                                                        </button>
                                                     </div>
                                                 <?php endforeach; ?>
 
@@ -424,13 +427,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <!-- DESCRIPTION -->
                                         <div class="form-group mb-4">
                                             <label>توضیحات</label>
-                                            <textarea class="form-control" name="description" id="description" rows="10"><?php echo htmlspecialchars($description); ?></textarea>
+                                            <textarea class="form-control" name="description" id="description"
+                                                      rows="10"><?php echo htmlspecialchars($description); ?></textarea>
                                         </div>
 
                                         <!-- لود CKEditor -->
                                         <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
                                         <script>
-                                            document.addEventListener("DOMContentLoaded", function() {
+                                            document.addEventListener("DOMContentLoaded", function () {
                                                 CKEDITOR.replace('description', {
                                                     allowedContent: true,
                                                     versionCheck: false
@@ -440,31 +444,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                         <!-- SEO -->
                                         <div class="col-12">
-                                            <h5>SEO</h5>
+                                            <h5>سئو</h5>
                                         </div>
 
                                         <div class="col-md-6 mb-3">
-                                            <label>SEO Title</label>
+                                            <label>تایتل سئو | SEO Title</label>
                                             <input type="text" name="seo_title" id="seo_title" class="form-control"
                                                    value="<?= htmlspecialchars($seoTitle) ?>">
                                         </div>
 
                                         <div class="col-md-6 mb-3">
-                                            <label>Slug</label>
+                                            <label>لینک Slug</label>
                                             <input type="text" name="seo_slug" id="seo_slug" class="form-control"
                                                    value="<?= htmlspecialchars($seoSlug) ?>">
                                             <small id="slugStatus"></small>
                                         </div>
 
                                         <div class="col-12 mb-3">
-                                            <label>SEO Description</label>
+                                            <label>توضیحات SEO</label>
                                             <textarea name="seo_description" id="seo_description" class="form-control">
-<?= htmlspecialchars($seoDescription) ?>
-</textarea>
+                                            <?= htmlspecialchars($seoDescription) ?>
+                                            </textarea>
                                         </div>
 
                                         <div class="col-12 mb-3">
-                                            <label>Keywords</label>
+                                            <label>کلمات کلیدی SEO</label>
                                             <input type="text" name="seo_keywords" class="form-control"
                                                    value="<?= htmlspecialchars($seoKeywords) ?>">
                                         </div>
@@ -555,13 +559,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
 
     // REMOVE
-    $(document).on('click','.removeAttribute',function(){
+    $(document).on('click', '.removeAttribute', function () {
         $(this).closest('.attribute-item').remove();
     });
 
     // PRICE
     $('#price_format').on('input', function () {
-        let v = this.value.replace(/\D/g,'');
+        let v = this.value.replace(/\D/g, '');
         $('#price').val(v);
         this.value = Number(v).toLocaleString();
     });

@@ -104,7 +104,7 @@ function renderTableRows($mysqli, &$i, $parent_id = 0, $level = 0) {
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">منوی صفحات</h4>
-                            <a href="productGroup_add.php">
+                            <a href="menu_add.php">
                                 <button type="button" class="btn btn-primary">افزودن منوی صفحه </button>
                             </a>
                         </div>
