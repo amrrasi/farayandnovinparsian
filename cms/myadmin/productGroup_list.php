@@ -34,10 +34,16 @@ function renderTableRows($mysqli, &$i, $parent_id = 0, $level = 0) {
         <tr>
             <td><?= $i++ ?></td>
             <td><?= str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;— ", $level) . htmlspecialchars($row['name']) ?></td>
+
             <td>
-                <?= mb_strlen($row['description']) > 30
-                    ? mb_substr($row['description'], 0, 30) . '...'
-                    : $row['description']
+                <?php
+                $description = strip_tags($row['description'] ?? '');
+
+                if (mb_strlen($description, 'UTF-8') > 30) {
+                    echo mb_substr($description, 0, 30, 'UTF-8') . '...';
+                } else {
+                    echo $description;
+                }
                 ?>
             </td>
             <td>

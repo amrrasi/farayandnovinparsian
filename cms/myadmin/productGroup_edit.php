@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['Form'] === "Submitted") {
     <div class="content-body">
         <div class="container-fluid">
             <div class="page-titles">
-                <h4>پکیج‌ها</h4>
+                <h4>محصولات</h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">مدیریت منوی محصولات</li>
                 </ol>
@@ -145,6 +145,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['Form'] === "Submitted") {
                         <?php if ($text): ?>
                             <div class="alert alert-<?= $error ? 'danger' : 'success' ?> mt-3">
                                 <?= htmlspecialchars($text) ?>
+                            </div>
+
+                            <div class="mt-3 text-center">
+                                <a href="productGroup_list.php" class="btn btn-primary">
+                                    <i class="fa fa-arrow-right ml-1"></i>
+                                    بازگشت به لیست
+                                </a>
                             </div>
                         <?php endif; ?>
                         <div class="card-body">
@@ -187,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['Form'] === "Submitted") {
 
                                     <div class="form-group mb-4">
                                         <label>توضیحات</label>
-                                        <textarea class="form-control" name="description" id="description" rows="10"><?php echo htmlspecialchars($description); ?></textarea>
+                                        <textarea class="form-control" name="description" id="description" rows="10"><?php echo htmlspecialchars($menu['description']); ?></textarea>
                                     </div>
 
                                     <!-- لود CKEditor -->
