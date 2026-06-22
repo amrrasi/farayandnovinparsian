@@ -20,30 +20,6 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 
 
 /* =========================
-   BULK DELETE
-========================= */
-if (!empty($_POST['bulk_delete'])) {
-
-    $ids = $_POST['ids'] ?? [];
-
-    if (!empty($ids)) {
-
-        $ids = array_map('intval', $ids);
-        $in  = implode(',', $ids);
-
-        $mysqli->query("
-            UPDATE product
-            SET deleted = 1
-            WHERE id IN ($in)
-        ");
-    }
-
-    header("Location: product_list.php?bulk=1");
-    exit;
-}
-
-
-/* =========================
    SEARCH + FILTER + PAGINATION
 ========================= */
 
@@ -150,9 +126,6 @@ $cats = $mysqli->query("
     <div class="alert alert-success">محصول حذف شد</div>
 <?php endif; ?>
 
-<?php if (isset($_GET['bulk'])): ?>
-    <div class="alert alert-success">حذف گروهی انجام شد</div>
-<?php endif; ?>
 <body>
 <div id="preloader">
     <div class="sk-three-bounce">
@@ -217,16 +190,7 @@ $cats = $mysqli->query("
                             </form>
 
 
-                            <!-- 🗑 BULK DELETE FORM START -->
                             <form method="POST">
-
-                                <button type="submit"
-                                        name="bulk_delete"
-                                        class="btn btn-danger mb-3"
-                                        onclick="return confirm('آیا از حذف آیتم‌های انتخاب شده مطمئن هستید؟')">
-                                    حذف انتخابی
-                                </button>
-
 
                                 <div class="table-responsive">
 
@@ -327,8 +291,6 @@ $cats = $mysqli->query("
                                 </div>
 
                             </form>
-                            <!-- 🗑 BULK DELETE FORM END -->
-
 
                             <!-- 📄 PAGINATION -->
                             <nav class="mt-3">
