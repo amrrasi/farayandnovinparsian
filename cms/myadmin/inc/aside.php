@@ -14,6 +14,16 @@
                     <li><a href="product_list.php">مدیریت محصولات</a></li>
                 </ul>
             </li>
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-paperclip"></i>
+                    <span class="nav-text">مدیریت صفحات</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="menu_list.php">مدیریت منو</a></li>
+                    <li><a href="page_list.php">مدیریت صفحه</a></li>
+                </ul>
+            </li>
             <hr>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
