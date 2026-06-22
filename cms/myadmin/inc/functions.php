@@ -321,5 +321,14 @@ function set_auth_cookie($token, $days = 30) {
     ];
     setcookie('auth_token', $token, $params);
 }
+function slugify($text)
+{
+    $text = trim($text);
 
+    $text = preg_replace('/[^A-Za-z0-9آ-ی]+/u', '-', $text);
+
+    $text = trim($text, '-');
+
+    return strtolower($text);
+}
 ?>
