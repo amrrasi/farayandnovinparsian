@@ -370,7 +370,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <select
                                                 name="product_menu"
                                                 id="product_menu"
-                                                class="form-control select2"
+                                                class="form-control select2-selection__rendered"
                                                 required>
                                                 <option value="">انتخاب کنید</option>
                                                 <?php
@@ -530,7 +530,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                             type="text"
                                                             name="attribute[]"
                                                             class="form-control"
-                                                            placeholder="مثال : ضد آب"
+                                                            placeholder="مثال : ۳ ترابایت"
                                                         >
 
                                                         <button
@@ -636,7 +636,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         type="text"
                                                         name="seo_keywords"
                                                         class="form-control"
-                                                        placeholder="پمپ, پمپ صنعتی"
+                                                        placeholder=""
                                                     >
                                                 </div>
 
@@ -773,9 +773,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 
-    $('.select2').select2({
-        width:'100%'
-    });
 
     /* CKEditor */
     ClassicEditor.create(
