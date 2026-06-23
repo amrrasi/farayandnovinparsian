@@ -345,7 +345,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <!-- CATEGORY -->
                                         <div class="col-md-6 mb-3">
                                             <label>دسته بندی</label>
-                                            <select name="product_menu" class="form-control select2" required>
+                                            <select name="product_menu" class="form-control select2-selection__rendered" required>
                                                 <option value="">انتخاب کنید</option>
                                                 <?php
                                                 $menus = $mysqli->query("SELECT id,name FROM product_menu WHERE deleted=0");
