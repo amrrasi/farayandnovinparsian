@@ -122,7 +122,9 @@ try {
 $global_base_address_per =
     '<base href="http://farayan_movin.local/" />';
 
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $cartCount = 0;
 
 if (
