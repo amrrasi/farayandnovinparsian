@@ -42499,3 +42499,27 @@ ul.timeline , .timeline {
 i.ti-calendar.a {
     float: right;
 }
+.setting-card{
+  transition:.25s;
+  border-radius:12px;
+}
+
+.setting-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.sticky-save{
+  position:sticky;
+  bottom:20px;
+  z-index:100;
+  text-align:left;
+}
+
+.form-control{
+  min-height:48px;
+}
+
+.page-titles h4{
+  font-weight:700;
+}
