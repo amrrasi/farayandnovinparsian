@@ -1,0 +1,204 @@
+﻿@font-face {
+  font-family: 'flaticon';
+  src:  url('../fonts/flaticon.eot');
+  src:  url('../fonts/flaticon.eot') format('embedded-opentype'),
+    url('../fonts/flaticon.ttf') format('truetype'),
+    url('../fonts/flaticon.woff') format('woff'),
+    url('../fonts/flaticon.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="flaticon-"], [class*=" flaticon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Flaticon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-play-button:before {
+  content: "\e93a";
+}
+.flaticon-architect:before {
+  content: "\e908";
+}
+.flaticon-plan:before {
+  content: "\e909";
+}
+.flaticon-bathroom:before {
+  content: "\e90a";
+}
+.flaticon-measure:before {
+  content: "\e90b";
+}
+.flaticon-repair:before {
+  content: "\e90c";
+}
+.flaticon-window:before {
+  content: "\e90d";
+}
+.flaticon-drawing:before {
+  content: "\e90e";
+}
+.flaticon-house:before {
+  content: "\e90f";
+}
+.flaticon-crane:before {
+  content: "\e910";
+}
+.flaticon-barrier:before {
+  content: "\e911";
+}
+.flaticon-column:before {
+  content: "\e912";
+}
+.flaticon-television:before {
+  content: "\e913";
+}
+.flaticon-wheelbarrow:before {
+  content: "\e914";
+}
+.flaticon-living-room:before {
+  content: "\e915";
+}
+.flaticon-bridge:before {
+  content: "\e916";
+}
+.flaticon-drawing1:before {
+  content: "\e917";
+}
+.flaticon-brush:before {
+  content: "\e918";
+}
+.flaticon-stairs:before {
+  content: "\e919";
+}
+.flaticon-calculator:before {
+  content: "\e91a";
+}
+.flaticon-measurement:before {
+  content: "\e91b";
+}
+.flaticon-measure1:before {
+  content: "\e91c";
+}
+.flaticon-bricks:before {
+  content: "\e91d";
+}
+.flaticon-lift:before {
+  content: "\e91e";
+}
+.flaticon-drawing2:before {
+  content: "\e91f";
+}
+.flaticon-building:before {
+  content: "\e920";
+}
+.flaticon-kitchen:before {
+  content: "\e921";
+}
+.flaticon-foundation:before {
+  content: "\e922";
+}
+.flaticon-concrete-mixer:before {
+  content: "\e923";
+}
+.flaticon-measuring-tape:before {
+  content: "\e924";
+}
+.flaticon-house-plan:before {
+  content: "\e925";
+}
+.flaticon-saw-machine:before {
+  content: "\e926";
+}
+.flaticon-measurement1:before {
+  content: "\e927";
+}
+.flaticon-map:before {
+  content: "\e928";
+}
+.flaticon-blueprint:before {
+  content: "\e929";
+}
+.flaticon-theodolite:before {
+  content: "\e92a";
+}
+.flaticon-shovel:before {
+  content: "\e92b";
+}
+.flaticon-computer:before {
+  content: "\e92c";
+}
+.flaticon-house1:before {
+  content: "\e92d";
+}
+.flaticon-worker:before {
+  content: "\e92e";
+}
+.flaticon-drill:before {
+  content: "\e92f";
+}
+.flaticon-building1:before {
+  content: "\e930";
+}
+.flaticon-plug:before {
+  content: "\e931";
+}
+.flaticon-measure2:before {
+  content: "\e932";
+}
+.flaticon-helmet:before {
+  content: "\e933";
+}
+.flaticon-bedroom:before {
+  content: "\e934";
+}
+.flaticon-plan1:before {
+  content: "\e935";
+}
+.flaticon-certificate:before {
+  content: "\e936";
+}
+.flaticon-paint-brush:before {
+  content: "\e937";
+}
+.flaticon-fence:before {
+  content: "\e938";
+}
+.flaticon-house2:before {
+  content: "\e939";
+}
+.flaticon-add:before {
+  content: "\e900";
+}
+.flaticon-address:before {
+  content: "\e901";
+}
+.flaticon-dribbble:before {
+  content: "\e902";
+}
+.flaticon-email:before {
+  content: "\e903";
+}
+.flaticon-loupe:before {
+  content: "\e904";
+}
+.flaticon-pdf-file:before {
+  content: "\e905";
+}
+.flaticon-quotation-mark:before {
+  content: "\e906";
+}
+.flaticon-smartphone:before {
+  content: "\e907";
+}
