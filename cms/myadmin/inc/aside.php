@@ -24,6 +24,15 @@
                     <li><a href="page_list.php">مدیریت صفحه</a></li>
                 </ul>
             </li>
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-paperclip"></i>
+                    <span class="nav-text">مدیریت سایت</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="setting.php">تنظیمات عمومی سایت</a></li>
+                </ul>
+            </li>
             <hr>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
