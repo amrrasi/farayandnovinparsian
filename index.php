@@ -6,7 +6,7 @@ require_once "cms/myadmin/inc/config.php"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title> <?= $global_setting_array['name'] ?> </title>
 
 
     <link rel="stylesheet" href="assets/css/animate.min.css">
