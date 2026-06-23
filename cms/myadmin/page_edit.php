@@ -469,10 +469,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                             name="seo_description"
                                                             rows="4"
                                                             maxlength="160"
-                                                            class="form-control"
-                                                            <?= htmlspecialchars($seoDescription) ?>
-
-                                                    ></textarea>
+                                                            class="form-control"><?= htmlspecialchars($seoDescription) ?></textarea>
 
                                                     <small id="seoDescCount">
                                                         0 / 160
@@ -751,6 +748,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     });
 
+    $(function(){
+
+        $('#googleTitle').text($('#seo_title').val());
+
+        $('#googleSlug').text($('#seo_slug').val());
+
+        $('#googleDesc').text($('#seo_description').val());
+
+        $('#seoTitleCount').text(
+            $('#seo_title').val().length + ' / 70'
+        );
+
+        $('#seoDescCount').text(
+            $('#seo_description').val().length + ' / 160'
+        );
+
+    });
 </script>
 
 </body>
