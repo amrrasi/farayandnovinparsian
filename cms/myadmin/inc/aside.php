@@ -26,7 +26,7 @@
             </li>
 
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-paperclip"></i>
+                    <i class="flaticon-381-settings-8"></i>
                     <span class="nav-text">مدیریت سایت</span>
                 </a>
                 <ul aria-expanded="false">
