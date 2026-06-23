@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+
+    /* ── Brand colours ── */
+    --clr-bg:          #050816;
+    --clr-bg-2:        #080d1f;        /* slightly lighter surface */
+    --clr-surface:     rgba(255,255,255,.05);
+    --clr-border:      rgba(255,255,255,.09);
+
+    --clr-blue:        #00C6FF;
+    --clr-blue-dark:   #1B7FFF;
+    --clr-purple:      #7C3AED;
+    --clr-purple-dark: #5B21B6;
+
+    /* Gradient helpers */
+    --grad-brand:       linear-gradient(135deg, var(--clr-blue), var(--clr-purple));
+    --grad-brand-text:  linear-gradient(120deg, var(--clr-blue), var(--clr-purple));
+
+    /* ── Text ── */
+    --clr-text:        #ffffff;
+    --clr-text-muted:  #B9C1D9;
+    --clr-text-faint:  rgba(255,255,255,.35);
+
+    /* ── Status ── */
+    --clr-success:     #22d3ee;
+    --clr-warning:     #f59e0b;
+    --clr-danger:      #ef4444;
+
+    /* ── Radii ── */
+    --radius-sm:   8px;
+    --radius-md:   12px;
+    --radius-lg:   16px;
+    --radius-xl:   24px;
+    --radius-pill: 9999px;
+
+    /* ── Spacing scale ── */
+    --sp-1:  4px;
+    --sp-2:  8px;
+    --sp-3:  12px;
+    --sp-4:  16px;
+    --sp-5:  24px;
+    --sp-6:  32px;
+    --sp-7:  48px;
+    --sp-8:  64px;
+    --sp-9:  96px;
+    --sp-10: 128px;
+
+    /* ── Typography ── */
+    --font-base:   'Vazirmatn', system-ui, sans-serif;
+    --font-size:   16px;
+    --line-height: 1.75;
+    --fw-light:    300;
+    --fw-regular:  400;
+    --fw-medium:   500;
+    --fw-semibold: 600;
+    --fw-bold:     700;
+    --fw-black:    900;
+
+    /* ── Transitions ── */
+    --tr-fast:   .18s ease;
+    --tr-normal: .28s ease;
+    --tr-slow:   .45s ease;
+
+    /* ── Shadows (subtle glow, not harsh drop shadows) ── */
+    --shadow-blue:   0 8px 32px rgba(0,198,255,.18);
+    --shadow-purple: 0 8px 32px rgba(124,58,237,.18);
+    --shadow-card:   0 0 60px rgba(0,198,255,.07),
+    0 0 100px rgba(124,58,237,.08);
+
+    /* ── Z-index ladder ── */
+    --z-base:    1;
+    --z-card:    10;
+    --z-sticky:  100;
+    --z-drawer:  9998;
+    --z-nav:     9999;
+    --z-toast:   10000;
+}
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-base);
+    font-size: var(--font-size);
+    font-weight: var(--fw-regular);
+    line-height: var(--line-height);
+    color: var(--clr-text);
+    background-color: var(--clr-bg);
+    direction: rtl;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+img, video, svg {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--tr-fast), opacity var(--tr-fast);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+ul, ol { list-style: none }
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: var(--fw-bold);
+    line-height: 1.2;
+    color: var(--clr-text);
+}
+
+/* Focus ring — accessible but not ugly */
+:focus-visible {
+    outline: 2px solid var(--clr-blue);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+:focus:not(:focus-visible) { outline: none }
+
+/* Scrollbar — styled for dark bg */
+::-webkit-scrollbar        { width: 6px; height: 6px }
+::-webkit-scrollbar-track  { background: var(--clr-bg-2) }
+::-webkit-scrollbar-thumb  {
+    background: rgba(255,255,255,.15);
+    border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.28) }
+
+/* Text selection */
+::selection {
+    background: rgba(0,198,255,.25);
+    color: #fff;
+}
+
+/* ─────────────────────────────────────────
+   4. TYPOGRAPHY HELPERS
+   ───────────────────────────────────────── */
+.text-gradient {
+    background: var(--grad-brand-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-muted  { color: var(--clr-text-muted) }
+.text-faint  { color: var(--clr-text-faint) }
+.text-center { text-align: center }
+.text-right  { text-align: right }
+.text-left   { text-align: left }
+
+/* ─────────────────────────────────────────
+   5. LAYOUT HELPERS
+   ───────────────────────────────────────── */
+.container-site {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+.section {
+    padding: var(--sp-9) 28px;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ─────────────────────────────────────────
+   6. GLASS / SURFACE UTILITIES
+   ───────────────────────────────────────── */
+.glass {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.card-glass {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-card);
+}
+
+/* ─────────────────────────────────────────
+   7. BUTTON DEFAULTS
+   ───────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-base);
+    font-size: .92rem;
+    font-weight: var(--fw-bold);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform var(--tr-normal), box-shadow var(--tr-normal), background var(--tr-fast);
+    will-change: transform;
+    text-decoration: none;
+}
+.btn:hover { transform: translateY(-3px) }
+.btn:active { transform: translateY(-1px) }
+
+.btn-primary {
+    background: var(--grad-brand);
+    color: #fff;
+    box-shadow: var(--shadow-blue);
+}
+.btn-primary:hover { box-shadow: 0 14px 40px rgba(0,198,255,.32); color:#fff }
+
+.btn-outline {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    color: #fff;
+}
+.btn-outline:hover { background: rgba(255,255,255,.1); color:#fff }
+
+/* ─────────────────────────────────────────
+   8. BADGE / TAG
+   ───────────────────────────────────────── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    font-size: .75rem;
+    font-weight: var(--fw-medium);
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    color: var(--clr-text-muted);
+}
+
+/* ─────────────────────────────────────────
+   9. SECTION HEADING PATTERN
+   ───────────────────────────────────────── */
+.section-tag {
+    font-size: .78rem;
+    font-weight: var(--fw-medium);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    background: var(--grad-brand-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--sp-3);
+}
+.section-title {
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    font-weight: var(--fw-black);
+    line-height: 1.15;
+    margin-bottom: var(--sp-4);
+}
+.section-sub {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--clr-text-muted);
+    max-width: 560px;
+}
+
+/* ─────────────────────────────────────────
+   10. DIVIDER
+   ───────────────────────────────────────── */
+.divider {
+    height: 1px;
+    background: var(--clr-border);
+    margin: var(--sp-6) 0;
+}
+
+/* ─────────────────────────────────────────
+   11. LOADING SKELETON  (use on img placeholders)
+   ───────────────────────────────────────── */
+.skeleton {
+    background: linear-gradient(90deg,
+    rgba(255,255,255,.05) 25%,
+    rgba(255,255,255,.1)  50%,
+    rgba(255,255,255,.05) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-sweep 1.6s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+@keyframes skeleton-sweep {
+    0%   { background-position: 200% 0 }
+    100% { background-position: -200% 0 }
+}
+
+/* ─────────────────────────────────────────
+   12. SCROLL REVEAL  (add .reveal to any element;
+       JS below adds .revealed when in viewport)
+   ───────────────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* Stagger children with delay helpers */
+.reveal-delay-1 { transition-delay: .1s }
+.reveal-delay-2 { transition-delay: .2s }
+.reveal-delay-3 { transition-delay: .3s }
+.reveal-delay-4 { transition-delay: .4s }
+
+
+/* ─────────────────────────────────────────
+   14. RESPONSIVE HELPERS
+   ───────────────────────────────────────── */
+@media (max-width: 960px) {
+    .hide-mobile { display: none !important }
+    .section { padding: var(--sp-8) 20px }
+    .container-site { padding: 0 20px }
+}
+@media (min-width: 961px) {
+    .hide-desktop { display: none !important }
+}
+@media (max-width: 600px) {
+    .section { padding: var(--sp-7) 16px }
+    .container-site { padding: 0 16px }
+    .btn { width: 100%; justify-content: center }
+}
