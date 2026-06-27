@@ -31,7 +31,6 @@ require_once "cms/myadmin/inc/config.php"
 
     <div class="hp-hero-inner">
 
-        <!-- Copy -->
         <div>
             <div class="hp-badge">
                 <span class="hp-dot" aria-hidden="true"></span>
@@ -51,7 +50,6 @@ require_once "cms/myadmin/inc/config.php"
             </div>
         </div>
 
-        <!-- Dashboard card -->
         <div class="hp-dash">
             <div class="hp-card">
                 <div class="hp-card-hd">
@@ -97,7 +95,6 @@ require_once "cms/myadmin/inc/config.php"
                 </div>
             </div>
 
-            <!-- Floating chips (desktop only) -->
             <div class="hp-chip hp-chip-1" aria-hidden="true">
                 <div class="hp-chi"><i class="fas fa-bolt"></i></div>
                 <div><div class="hp-cv">1.2ms</div><div class="hp-cl">تأخیر I/O</div></div>
@@ -113,6 +110,243 @@ require_once "cms/myadmin/inc/config.php"
         </div>
 
     </div>
+</section>
+
+<section class="services-section">
+     <div class="container">
+
+            <div class="services-heading">
+
+            <span class="section-badge">
+                خدمات تخصصی
+            </span>
+
+                <h2>
+                    راهکارهای تخصصی ذخیره‌سازی
+                </h2>
+
+                <p>
+                    شرکت <?= $global_setting_array['name'] ?> با ارائه خدمات تخصصی در حوزه تجهیزات ذخیره‌سازی،
+                    از مرحله انتخاب تا نصب، راه‌اندازی و پشتیبانی، همراه کسب‌وکار شما خواهد بود.
+                </p>
+
+            </div>
+
+            <div class="services-grid">
+
+                <article class="service-card">
+
+                    <div class="service-icon">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+
+                    <h3>مشاوره رایگان قبل از خرید</h3>
+
+                    <p>
+                        انتخاب بهترین استوریج متناسب با نیاز سازمان شما با کمک کارشناسان متخصص.
+                    </p>
+
+                    <a href="#">
+                        بیشتر بدانید
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <div class="service-icon">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+
+                    <h3>راهکارهای ذخیره‌سازی</h3>
+
+                    <p>
+                        طراحی و ارائه زیرساخت‌های ذخیره‌سازی امن، مقیاس‌پذیر و متناسب با نیاز سازمان.
+                    </p>
+
+                    <a href="#">
+                        بیشتر بدانید
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <div class="service-icon">
+                        <i class="fa-solid fa-gears"></i>
+                    </div>
+
+                    <h3>مشاوره فنی</h3>
+
+                    <p>
+                        ارائه خدمات تخصصی در طراحی، نصب، پیکربندی و بهینه‌سازی تجهیزات ذخیره‌سازی.
+                    </p>
+
+                    <a href="#">
+                        بیشتر بدانید
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                    </a>
+
+                </article>
+
+                <article class="service-card">
+
+                    <div class="service-icon">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+
+                    <h3>پشتیبانی تجهیزات</h3>
+
+                    <p>
+                        پشتیبانی تخصصی، رفع مشکلات و نگهداری مستمر تجهیزات Storage و EMC.
+                    </p>
+
+                    <a href="#">
+                        بیشتر بدانید
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                    </a>
+
+                </article>
+            </div>
+     </div>
+
+</section>
+
+<section class="order-process py-5">
+
+    <div class="container">
+
+        <div class="services-heading">
+
+            <span class="section-badge">
+                روند ثبت سفارش
+            </span>
+
+            <h2>
+                مراحل ثبت سفارش و دریافت خدمات
+            </h2>
+
+            <p>
+                برای ثبت سفارش می‌توانید به‌صورت آنلاین از طریق سایت اقدام کنید یا مستقیماً با کارشناسان فروش ما تماس بگیرید.
+                در هر دو روش، تیم فرآیند نوین اطلاعات پارسیان تا زمان تحویل نهایی همراه شما خواهد بود.
+            </p>
+
+        </div>
+
+        <div class="process-wrapper">
+
+            <div class="process-line"></div>
+
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-lg col-md-6">
+
+                    <div class="process-item">
+
+                        <div class="process-icon">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+
+                        <span class="step">01</span>
+
+                        <h5>ثبت‌نام یا ورود</h5>
+
+                        <p class="processP">
+                            ابتدا وارد حساب کاربری خود شوید یا در کمتر از یک دقیقه ثبت‌نام کنید تا امکان ثبت سفارش و پیگیری آن برای شما فراهم شود.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg col-md-6">
+
+                    <div class="process-item">
+
+                        <div class="process-icon">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+
+                        <span class="step">02</span>
+
+                        <h5>انتخاب محصول</h5>
+
+                        <p class="processP">
+                            محصول موردنظر خود را بررسی کرده، به سبد خرید اضافه کنید و سفارش خود را ثبت نمایید. همچنین می‌توانید جهت دریافت مشاوره با ما تماس بگیرید.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg col-md-6">
+
+                    <div class="process-item">
+
+                        <div class="process-icon">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+
+                        <span class="step">03</span>
+
+                        <h5>پرداخت یا درخواست پیش‌فاکتور</h5>
+
+                        <p class="processP">
+                            سفارش‌های آنلاین به‌صورت اینترنتی پرداخت می‌شوند و برای خریدهای سازمانی نیز امکان دریافت پیش‌فاکتور و هماهنگی مالی وجود دارد.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg col-md-6">
+
+                    <div class="process-item">
+
+                        <div class="process-icon">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+
+                        <span class="step">04</span>
+
+                        <h5>هماهنگی توسط کارشناسان</h5>
+
+                        <p class="processP">
+                            پس از ثبت سفارش، کارشناسان فروش جهت تأیید سفارش، بررسی موجودی، هماهنگی زمان ارسال و پاسخ به سوالات احتمالی با شما تماس خواهند گرفت.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg col-md-6">
+
+                    <div class="process-item">
+
+                        <div class="process-icon">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+
+                        <span class="step">05</span>
+
+                        <h5>ارسال و تحویل سفارش</h5>
+
+                        <p class="processP">
+                            پس از تأیید نهایی، سفارش آماده‌سازی شده و در سریع‌ترین زمان ممکن ارسال یا خدمات موردنظر توسط کارشناسان اجرا خواهد شد.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 
