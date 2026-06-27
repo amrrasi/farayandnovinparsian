@@ -25,6 +25,7 @@ require_once "cms/myadmin/inc/config.php"
 
 <?php require_once "inc/header.php"?>
 
+<!-- Hero Section -->
 <section class="hp-hero">
 
     <div class="hp-grid" aria-hidden="true"></div>
@@ -112,6 +113,7 @@ require_once "cms/myadmin/inc/config.php"
     </div>
 </section>
 
+<!-- Our Services -->
 <section class="services-section">
      <div class="container">
 
@@ -214,6 +216,7 @@ require_once "cms/myadmin/inc/config.php"
 
 </section>
 
+<!-- Buying Procedure -->
 <section class="order-process py-5">
 
     <div class="container">

@@ -642,7 +642,7 @@ details[open] .hp-drawer-arrow {
 
 .hp-sup {
     font-size: .7rem;
-    color: rgba(255, 255, 255, .35)
+    color: var(--i);
 }
 
 /* Floating chips */
