@@ -122,3 +122,47 @@ btn.addEventListener("click",()=>{
         animateBars();
     }
 })();
+
+/*=====================================
+    Order Process Animation
+=====================================*/
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    const section=document.querySelector(".order-process");
+
+    if(!section) return;
+
+    const items=section.querySelectorAll(".process-col");
+
+    const observer=new IntersectionObserver(function(entries){
+
+        entries.forEach(function(entry){
+
+            if(!entry.isIntersecting) return;
+
+            section.classList.add("active");
+
+            items.forEach(function(item,index){
+
+                setTimeout(function(){
+
+                    item.classList.add("show");
+
+                },index*180);
+
+            });
+
+            observer.disconnect();
+
+        });
+
+    },{
+
+        threshold:.25
+
+    });
+
+    observer.observe(section);
+
+});

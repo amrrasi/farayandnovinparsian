@@ -1,5 +1,23 @@
 <?php
 
+$productMenus = [];
+
+$result = $mysqli->query("
+    SELECT
+        id,
+        name
+    FROM product_menu
+    WHERE active='1'
+    AND deleted='0'
+    ORDER BY myorder ASC
+");
+
+while($row = $result->fetch_assoc()){
+
+    $productMenus[] = $row;
+
+}
+
 ?>
 <nav class="hp-nav">
     <div class="hp-nav-inner">
@@ -16,35 +34,54 @@
             <li><a href="./"><span class="fa fa-house"></span> خانه</a></li>
 
             <li class="hp-has-drop">
-                <a href="#">راهکارها <span class="hp-caret">▼</span></a>
+
+                <a href="/products">
+
+                    محصولات
+
+                    <span class="hp-caret">▼</span>
+
+                </a>
+
                 <ul class="hp-drop">
-                    <li><a href="#"><span class="hp-drop-icon">🏢</span>سازمانی</a></li>
-                    <li><a href="#"><span class="hp-drop-icon">🚀</span>استارتاپی</a></li>
-                    <li><a href="#"><span class="hp-drop-icon">💳</span>فین‌تک</a></li>
+
+                    <?php foreach($productMenus as $menu): ?>
+
+                        <li>
+
+                            <a href="/products/<?= urlencode($menu['name']) ?>">
+
+                    <span class="hp-drop-icon">
+
+                        <i class="fa-solid fa-server"></i>
+
+                    </span>
+
+                                <?= htmlspecialchars($menu['name']) ?>
+
+                            </a>
+
+                        </li>
+
+                    <?php endforeach; ?>
+
+
                 </ul>
+
             </li>
 
-            <li class="hp-has-drop">
-                <a href="#">محصولات <span class="hp-caret">▼</span></a>
-                <ul class="hp-drop">
-                    <li><a href="#"><span class="hp-drop-icon">🖥️</span>Dell EMC PowerStore</a></li>
-                    <li><a href="#"><span class="hp-drop-icon">💾</span>Unity XT</a></li>
-                    <li><a href="#"><span class="hp-drop-icon">⚡</span>PowerMax</a></li>
-                    <li><a href="#"><span class="hp-drop-icon">☁️</span>Isilon NAS</a></li>
-                </ul>
-            </li>
-
-            <li><a href="#">خدمات</a></li>
+            <li><a href="#">تیم ما</a></li>
             <li><a href="#">پشتیبانی</a></li>
+            <li><a href="#">ارتباط با ما</a></li>
             <li><a href="#">درباره ما</a></li>
         </ul>
 
         <!-- Right-side actions -->
         <div class="hp-actions">
-            <a href="#" class="hp-icon-btn" title="سبد خرید">
+            <a href="cart/" class="hp-icon-btn" title="سبد خرید">
                 <i class="fas fa-shopping-cart"></i>
             </a>
-            <a href="#" class="hp-icon-btn" title="پروفایل کاربری">
+            <a href="account/" class="hp-icon-btn" title="حساب کاربری">
                 <i class="fas fa-user"></i>
             </a>
             <a href="" class="hp-btn-cta">ثبت درخواست سفارش</a>
@@ -65,28 +102,45 @@
 <div class="hp-drawer" id="hpDrawer">
 
     <a href="./" class="hp-drawer-link">خانه</a>
-
     <details>
-        <summary class="hp-drawer-summary">راهکارها <span class="hp-drawer-arrow">▼</span></summary>
+
+        <summary class="hp-drawer-summary">
+
+            محصولات
+
+            <span class="hp-drawer-arrow">▼</span>
+
+        </summary>
+
         <div class="hp-drawer-sub">
-            <a href="#">🏢 سازمانی</a>
-            <a href="#">🚀 استارتاپی</a>
-            <a href="#">💳 فین‌تک</a>
+
+            <?php foreach($productMenus as $menu): ?>
+
+                <a href="/products/<?= urlencode($menu['name']) ?>">
+
+                    <i class="fa-solid fa-server me-2"></i>
+
+                    <?= htmlspecialchars($menu['name']) ?>
+
+                </a>
+
+            <?php endforeach; ?>
+
+            <a class="drawer-all" href="/products">
+
+                <i class="fa-solid fa-grid-2 me-2"></i>
+
+                مشاهده همه محصولات
+
+            </a>
+
         </div>
+
     </details>
 
-    <details>
-        <summary class="hp-drawer-summary">محصولات <span class="hp-drawer-arrow">▼</span></summary>
-        <div class="hp-drawer-sub">
-            <a href="#">🖥️ Dell EMC PowerStore</a>
-            <a href="#">💾 Unity XT</a>
-            <a href="#">⚡ PowerMax</a>
-            <a href="#">☁️ Isilon NAS</a>
-        </div>
-    </details>
-
-    <a href="#" class="hp-drawer-link">خدمات</a>
+    <a href="#" class="hp-drawer-link">تیم ما</a>
     <a href="#" class="hp-drawer-link">پشتیبانی</a>
+    <a href="#" class="hp-drawer-link">ارتباط با ما</a>
     <a href="#" class="hp-drawer-link">درباره ما</a>
 
     <div class="hp-drawer-divider"></div>

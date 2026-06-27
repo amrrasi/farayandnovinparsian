@@ -140,6 +140,140 @@ require_once "cms/myadmin/inc/config.php"
     </div>
 </section>
 
+
+<!-- Our Customers -->
+<section class="clients-section">
+
+    <div class="container">
+
+        <div class="services-heading">
+
+            <span class="section-badge">
+
+                مشتریان ما
+
+            </span>
+
+            <h2>
+
+                سازمان‌هایی که به ما اعتماد کرده‌اند
+
+            </h2>
+
+            <p>
+
+                همکاری با سازمان‌ها و مجموعه‌های بزرگ کشور، نتیجه سال‌ها تجربه، ارائه راهکارهای تخصصی و پشتیبانی حرفه‌ای
+                در حوزه تجهیزات ذخیره‌سازی، سرور و زیرساخت فناوری اطلاعات است.
+
+            </p>
+
+        </div>
+
+        <div class="clients-slider ">
+
+            <!-- National Gas -->
+
+            <div class="item">
+
+                <article class="client-card">
+
+                    <div class="client-badge">
+
+                        مشتری سازمانی
+
+                    </div>
+
+                    <div class="client-logo">
+
+                        <img src="assets/images/sherkat-gaz.png" alt="شرکت ملی گاز ایران">
+
+                    </div>
+
+                    <h3>
+
+                        شرکت ملی گاز ایران
+
+                    </h3>
+
+                    <p>
+
+                        همکاری در تأمین تجهیزات ذخیره‌سازی اطلاعات، زیرساخت و ارائه خدمات تخصصی فناوری اطلاعات.
+
+                    </p>
+
+                </article>
+
+            </div>
+
+            <!-- Tehran Municipality -->
+
+            <div class="item">
+
+                <article class="client-card">
+
+                    <div class="client-badge">
+
+                        مشتری سازمانی
+
+                    </div>
+
+                    <div class="client-logo">
+
+                        <img src="assets/images/tehran-shahrdari.png" alt="شهرداری تهران">
+
+                    </div>
+
+                    <h3>
+
+                        شهرداری تهران
+
+                    </h3>
+
+                    <p>
+
+                        همکاری در اجرای پروژه‌های زیرساخت، تأمین تجهیزات و ارائه خدمات تخصصی حوزه فناوری اطلاعات.
+
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+        <div class="clients-footer">
+
+            <div class="clients-text">
+
+                <strong>
+
+                    اعتماد سازمان‌های بزرگ، بزرگ‌ترین سرمایه ماست.
+
+                </strong>
+
+                <span>
+
+                    ما تلاش می‌کنیم با ارائه خدمات تخصصی، این اعتماد را هر روز مستحکم‌تر کنیم.
+
+                </span>
+
+            </div>
+
+            <a href="contact-us/" class="clients-btn">
+
+                همکاری با ما
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <!-- Our Services -->
 <section class="services-section">
     <div class="container">
@@ -243,8 +377,9 @@ require_once "cms/myadmin/inc/config.php"
 
 </section>
 
+
 <!-- Buying Procedure -->
-<section class="order-process py-5">
+<section class="order-process" id="orderProcess">
 
     <div class="container">
 
@@ -259,121 +394,211 @@ require_once "cms/myadmin/inc/config.php"
             </h2>
 
             <p>
-                برای ثبت سفارش می‌توانید به‌صورت آنلاین از طریق سایت اقدام کنید یا مستقیماً با کارشناسان فروش ما تماس
+                برای ثبت سفارش می‌توانید به صورت آنلاین از طریق سایت اقدام کنید یا مستقیماً با کارشناسان فروش ما تماس
                 بگیرید.
                 در هر دو روش، تیم فرآیند نوین اطلاعات پارسیان تا زمان تحویل نهایی همراه شما خواهد بود.
             </p>
 
         </div>
 
-        <div class="process-wrapper">
+        <div class="process-timeline">
 
-            <div class="process-line"></div>
+            <span class="timeline-progress"></span>
 
-            <div class="row g-4 justify-content-center">
+        </div>
 
-                <div class="col-lg col-md-6">
+        <div class="row process-slider">
 
-                    <div class="process-item">
+            <!-- Step 1 -->
 
-                        <div class="process-icon">
-                            <i class="fa-regular fa-user"></i>
+            <div class="col-lg process-col">
+
+                <div class="process-item">
+
+                    <div class="process-top">
+
+                        <div class="process-number">
+
+                            <span>01</span>
+
                         </div>
 
-                        <span class="step">01</span>
+                    </div>
 
-                        <h5>ثبت‌نام یا ورود</h5>
+                    <div class="process-icon">
 
-                        <p class="processP">
-                            ابتدا وارد حساب کاربری خود شوید یا در کمتر از یک دقیقه ثبت‌نام کنید تا امکان ثبت سفارش و
-                            پیگیری آن برای شما فراهم شود.
-                        </p>
+                        <i class="fa-regular fa-user"></i>
 
                     </div>
+
+                    <h4>
+
+                        ثبت‌نام یا ورود
+
+                    </h4>
+
+                    <p>
+
+                        ابتدا وارد حساب کاربری خود شوید یا در کمتر از یک دقیقه ثبت‌نام کنید تا امکان ثبت سفارش، مشاهده
+                        سوابق خرید و پیگیری سفارشات برای شما فراهم شود.
+
+                    </p>
 
                 </div>
 
-                <div class="col-lg col-md-6">
+            </div>
 
-                    <div class="process-item">
+            <!-- Step 2 -->
 
-                        <div class="process-icon">
-                            <i class="fa-solid fa-cart-shopping"></i>
+            <div class="col-lg process-col">
+
+                <div class="process-item">
+
+                    <div class="process-top">
+
+                        <div class="process-number">
+
+                            <span>02</span>
+
                         </div>
 
-                        <span class="step">02</span>
+                    </div>
 
-                        <h5>انتخاب محصول</h5>
+                    <div class="process-icon">
 
-                        <p class="processP">
-                            محصول موردنظر خود را بررسی کرده، به سبد خرید اضافه کنید و سفارش خود را ثبت نمایید. همچنین
-                            می‌توانید جهت دریافت مشاوره با ما تماس بگیرید.
-                        </p>
+                        <i class="fa-solid fa-cart-shopping"></i>
 
                     </div>
+
+                    <h4>
+
+                        انتخاب محصولات
+
+                    </h4>
+
+                    <p>
+
+                        محصولات موردنظر خود را بررسی کرده و به سبد خرید اضافه کنید. در صورت نیاز نیز کارشناسان ما آماده
+                        ارائه مشاوره رایگان قبل از خرید هستند.
+
+                    </p>
 
                 </div>
 
-                <div class="col-lg col-md-6">
+            </div>
 
-                    <div class="process-item">
+            <!-- Step 3 -->
 
-                        <div class="process-icon">
-                            <i class="fa-solid fa-credit-card"></i>
+            <div class="col-lg process-col">
+
+                <div class="process-item">
+
+                    <div class="process-top">
+
+                        <div class="process-number">
+
+                            <span>03</span>
+
                         </div>
 
-                        <span class="step">03</span>
+                    </div>
 
-                        <h5>پرداخت یا درخواست پیش‌فاکتور</h5>
+                    <div class="process-icon">
 
-                        <p class="processP">
-                            سفارش‌های آنلاین به‌صورت اینترنتی پرداخت می‌شوند و برای خریدهای سازمانی نیز امکان دریافت
-                            پیش‌فاکتور و هماهنگی مالی وجود دارد.
-                        </p>
+                        <i class="fa-solid fa-file-invoice"></i>
 
                     </div>
+
+                    <h4>
+
+                        ثبت سفارش
+
+                    </h4>
+
+                    <p>
+
+                        سفارش خود را نهایی کنید. در خریدهای سازمانی امکان دریافت پیش‌فاکتور، هماهنگی مالی و ثبت سفارش
+                        تلفنی نیز وجود دارد.
+
+                    </p>
 
                 </div>
 
-                <div class="col-lg col-md-6">
+            </div>
 
-                    <div class="process-item">
+            <!-- Step 4 -->
 
-                        <div class="process-icon">
-                            <i class="fa-solid fa-phone-volume"></i>
+            <div class="col-lg process-col">
+
+                <div class="process-item">
+
+                    <div class="process-top">
+
+                        <div class="process-number">
+
+                            <span>04</span>
+
                         </div>
 
-                        <span class="step">04</span>
+                    </div>
 
-                        <h5>هماهنگی توسط کارشناسان</h5>
+                    <div class="process-icon">
 
-                        <p class="processP">
-                            پس از ثبت سفارش، کارشناسان فروش جهت تأیید سفارش، بررسی موجودی، هماهنگی زمان ارسال و پاسخ به
-                            سوالات احتمالی با شما تماس خواهند گرفت.
-                        </p>
+                        <i class="fa-solid fa-headset"></i>
 
                     </div>
+
+                    <h4>
+
+                        بررسی و هماهنگی
+
+                    </h4>
+
+                    <p>
+
+                        پس از ثبت سفارش، کارشناسان فروش موجودی کالا، شرایط ارسال، زمان تحویل و سایر جزئیات را با شما
+                        هماهنگ خواهند کرد.
+
+                    </p>
 
                 </div>
 
-                <div class="col-lg col-md-6">
+            </div>
 
-                    <div class="process-item">
+            <!-- Step 5 -->
 
-                        <div class="process-icon">
-                            <i class="fa-solid fa-truck-fast"></i>
+            <div class="col-lg process-col">
+
+                <div class="process-item">
+
+                    <div class="process-top">
+
+                        <div class="process-number">
+
+                            <span>05</span>
+
                         </div>
 
-                        <span class="step">05</span>
+                    </div>
 
-                        <h5>ارسال و تحویل سفارش</h5>
+                    <div class="process-icon">
 
-                        <p class="processP">
-                            پس از تأیید نهایی، سفارش آماده‌سازی شده و در سریع‌ترین زمان ممکن ارسال یا خدمات موردنظر توسط
-                            کارشناسان اجرا خواهد شد.
-                        </p>
+                        <i class="fa-solid fa-truck-fast"></i>
 
                     </div>
+
+                    <h4>
+
+                        ارسال و تحویل
+
+                    </h4>
+
+                    <p>
+
+                        سفارش شما در کوتاه‌ترین زمان ممکن ارسال شده یا خدمات تخصصی خریداری‌شده توسط کارشناسان شرکت اجرا
+                        و تحویل خواهد شد.
+
+                    </p>
 
                 </div>
 
@@ -384,6 +609,7 @@ require_once "cms/myadmin/inc/config.php"
     </div>
 
 </section>
+
 
 <!-- Products -->
 <?php
@@ -518,6 +744,89 @@ while ($row = $result->fetch_assoc()) {
     </div>
 </section>
 
+
+<!-- About Us -->
+<section class="about-banner">
+
+    <div class="about-overlay"></div>
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-8 col-lg-10 text-center">
+
+                <span class="section-badge">
+
+                    درباره شرکت
+
+                </span>
+
+                <h2>
+
+                    <?= setting('name') ?>
+
+                </h2>
+
+                <p>
+                    چشم‌انداز ما در فرآیند نوین اطلاعات پارسیان، تبدیل شدن به برترین ارائه‌دهنده راهکارهای ذخیره‌سازی
+                    EMC و HPE در ایران است. با ارائه قطعات و خدمات تخصصی، به دنبال ایجاد ارزش افزوده برای مشتریان و
+                    پیشرویی در صنعت ذخیره‌سازی داده‌ها هستیم.
+                </p>
+
+                <div class="about-features">
+
+                    <span>
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        بیش از ۱۵ سال تجربه
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        مشاوره تخصصی رایگان
+
+                    </span>
+
+                    <span>
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        پشتیبانی فنی تجهیزات
+
+                    </span>
+
+                </div>
+
+                <div class="about-buttons">
+
+                    <a href="" class="btn-primary-custom">
+
+                        درباره ما
+
+                    </a>
+
+                    <a href="" class="btn-outline-custom">
+
+                        تماس با کارشناسان
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <!-- Blog -->
 <?php
 
@@ -539,13 +848,13 @@ $result = $mysqli->query("
     LIMIT 4
 ");
 
-while($row = $result->fetch_assoc()){
+while ($row = $result->fetch_assoc()) {
 
     $blogs[] = $row;
 
 }
 
-if(count($blogs) > 0):
+if (count($blogs) > 0):
 
     $featured = array_shift($blogs);
 
@@ -597,7 +906,7 @@ if(count($blogs) > 0):
 
                             <i class="fa-regular fa-calendar"></i>
 
-                            <?= jdate('Y/m/d',strtotime($featured['created_at'])) ?>
+                            <?= jdate('Y/m/d', strtotime($featured['created_at'])) ?>
 
                         </span>
 
@@ -613,7 +922,7 @@ if(count($blogs) > 0):
 
                             <p>
 
-                                <?= mb_strimwidth(strip_tags($featured['abstract']),0,220,'...') ?>
+                                <?= mb_strimwidth(strip_tags($featured['abstract']), 0, 220, '...') ?>
 
                             </p>
 
@@ -637,7 +946,7 @@ if(count($blogs) > 0):
 
                     <div class="row g-4">
 
-                        <?php foreach($blogs as $blog): ?>
+                        <?php foreach ($blogs as $blog): ?>
 
                             <div class="col-12">
 
@@ -659,7 +968,7 @@ if(count($blogs) > 0):
 
                                     <span>
 
-                                        <?= jdate('Y/m/d',strtotime($blog['created_at'])) ?>
+                                        <?= jdate('Y/m/d', strtotime($blog['created_at'])) ?>
 
                                     </span>
 
@@ -712,16 +1021,6 @@ if(count($blogs) > 0):
     </section>
 
 <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
 
 
 <script src="assets/js/jquery.js"></script>

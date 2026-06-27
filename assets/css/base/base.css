@@ -128,7 +128,7 @@ html[data-theme="dark"]{
     --hp-muted:var(--clr-text-muted);
     --hp-surf:rgba(255,255,255,.06);
     --hp-bdr:rgba(255,255,255,.09);
-    --back-default: rgb(5, 8, 22, .82);
+    --back-default: rgb(5, 8, 22, 1);
     --hp-drop-back: rgba(7, 11, 30, .97);
     --hp-chip: rgba(8, 12, 38, .9);
     --icon-color: #ffffff;
