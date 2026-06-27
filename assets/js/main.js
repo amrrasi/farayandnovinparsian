@@ -1,3 +1,53 @@
+(() => {
+
+    const html = document.documentElement;
+
+    const saved = localStorage.getItem("theme");
+
+    if(saved){
+
+        html.dataset.theme = saved;
+
+    }else if(window.matchMedia("(prefers-color-scheme: dark)").matches){
+
+        html.dataset.theme = "dark";
+
+    }else{
+
+        html.dataset.theme = "light";
+
+    }
+
+})();
+
+const btn = document.getElementById("theme-toggle");
+const icon = btn.querySelector("i");
+
+function setTheme(theme){
+
+    document.documentElement.dataset.theme = theme;
+
+    localStorage.setItem("theme",theme);
+
+    icon.className =
+        theme==="dark"
+            ? "fas fa-sun"
+            : "fas fa-moon";
+
+}
+
+setTheme(document.documentElement.dataset.theme);
+
+btn.addEventListener("click",()=>{
+
+    setTheme(
+        document.documentElement.dataset.theme==="dark"
+            ? "light"
+            : "dark"
+    );
+
+});
+
 (function(){
   if(!('IntersectionObserver' in window)) return;
   var obs = new IntersectionObserver(function(entries){

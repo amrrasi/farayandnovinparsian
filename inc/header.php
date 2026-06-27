@@ -47,7 +47,10 @@
             <a href="#" class="hp-icon-btn" title="پروفایل کاربری">
                 <i class="fas fa-user"></i>
             </a>
-            <a href="#" class="hp-btn-cta">ثبت سفارش</a>
+            <a href="" class="hp-btn-cta">ثبت درخواست سفارش</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="تغییر تم">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
 
         <!-- Hamburger (mobile only) -->
@@ -90,6 +93,6 @@
     <a href="#" class="hp-icon-btn" style="width:100%;border-radius:12px;gap:10px;padding:12px;justify-content:center">
         <i class="fas fa-shopping-cart"></i> سبد خرید
     </a>
-    <a href="#" class="hp-drawer-cta">ثبت سفارش</a>
+    <a href="#" class="hp-drawer-cta">درخواست پشتیبانی</a>
 
 </div>
