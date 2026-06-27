@@ -4,6 +4,20 @@ declare(strict_types=1);
 
 date_default_timezone_set('Asia/Tehran');
 
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+
+error_reporting(E_ALL);
+
+ini_set('log_errors', '1');
+ini_set('error_log', __DIR__.'/../logs/php-error.log');
+
+ini_set('upload_max_filesize', '50M');
+ini_set('post_max_size', '50M');
+ini_set('memory_limit', '256M');
+ini_set('max_execution_time', '300');
+
+
 header('X-Frame-Options: SAMEORIGIN');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin-when-cross-origin');
@@ -18,49 +32,38 @@ session_set_cookie_params([
     'samesite' => 'Strict'
 ]);
 
-if (session_status() === PHP_SESSION_NONE) {
+if(session_status() === PHP_SESSION_NONE){
+
     session_start();
+
 }
 
-if (!isset($_SESSION['created'])) {
+if(
+    !isset($_SESSION['created']) ||
+    (time() - $_SESSION['created']) > 1800
+){
 
     session_regenerate_id(true);
 
     $_SESSION['created'] = time();
+
 }
 
-if (isset($_SESSION['created']) && (time() - $_SESSION['created']) > 1800) {
-
-    session_regenerate_id(true);
-
-    $_SESSION['created'] = time();
-}
-
-ini_set('display_errors', '0');
-ini_set('display_startup_errors', '0');
-
-error_reporting(E_ALL);
-
-ini_set('log_errors', '1');
-ini_set('error_log', __DIR__ . '/../logs/php-error.log');
-
-ini_set('upload_max_filesize', '50M');
-ini_set('post_max_size', '50M');
-ini_set('max_execution_time', '300');
-ini_set('memory_limit', '256M');
-
-require_once __DIR__ . '/jdf.php';
-require_once __DIR__ . '/slug.php';
-require_once __DIR__ . '/functions.php';
+require_once __DIR__.'/functions.php';
+require_once __DIR__.'/slug.php';
+require_once __DIR__.'/jdf.php';
 
 $dbhost = 'localhost';
 $dbname = 'farayand_novin';
 $dbuser = 'amir';
 $dbpass = 'amirdbpass83';
 
+define('BASE_URL','http://farayan_movin.local/');
+
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-try {
+
+try{
 
     $mysqli = new mysqli(
         $dbhost,
@@ -71,66 +74,75 @@ try {
 
     $mysqli->set_charset('utf8mb4');
 
-} catch (Exception $e) {
+}catch(Exception $e){
 
     error_log($e->getMessage());
 
-    die('خطا در اتصال به پایگاه داده');
+    exit('خطا در اتصال به پایگاه داده');
+
 }
 
-try {
+try{
 
     $pdo = new PDO(
+
         "mysql:host={$dbhost};dbname={$dbname};charset=utf8mb4",
+
         $dbuser,
+
         $dbpass,
+
         [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false
+
+            PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+
+            PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+
+            PDO::ATTR_EMULATE_PREPARES=>false
+
         ]
+
     );
 
-} catch (PDOException $e) {
+}catch(PDOException $e){
 
     error_log($e->getMessage());
 
-    die('خطا در اتصال به پایگاه داده');
+    exit('خطا در اتصال به پایگاه داده');
+
 }
 
-$global_setting_array = [];
+$settings = [];
 
-try {
+try{
 
     $result = $mysqli->query("
-        SELECT setting_name, setting_value
+        SELECT
+            setting_name,
+            setting_value
         FROM setting
     ");
 
-    while ($row = $result->fetch_assoc()) {
+    while($row = $result->fetch_assoc()){
 
-        $global_setting_array[
-        $row['setting_name']
-        ] = $row['setting_value'];
+        $settings[$row['setting_name']] = $row['setting_value'];
+
     }
 
-} catch (Exception $e) {
+}catch(Exception $e){
 
     error_log($e->getMessage());
+
 }
 
-$global_base_address_per =
-    '<base href="http://farayan_movin.local/" />';
+function setting(string $key,$default=null)
+{
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-$cartCount = 0;
+    global $settings;
 
-if (
-    isset($_SESSION['cart']) &&
-    is_array($_SESSION['cart'])
-) {
-    $cartCount = count($_SESSION['cart']);
+    return $settings[$key] ?? $default;
+
 }
+
+$cartCount = count($_SESSION['cart'] ?? []);
 ?>

@@ -9,7 +9,7 @@ require_once "inc/check.php";
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title><?= $global_setting_array['name'] ?></title>
+	<title><?= setting('site_name') ?></title>
 	<!-- Favicon icon -->
 	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
 	<link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
@@ -57,7 +57,7 @@ require_once "inc/check.php";
 			<!-- row -->
 			<div class="container-fluid">
 				<div class="form-head mb-4">
-					<h2 class="text-black font-w600 mb-0">داشبورد وبسایت <?= $global_setting_array['name'] ?></h2>
+					<h2 class="text-black font-w600 mb-0">داشبورد وبسایت <?= setting('site_name') ?></h2>
 				</div>
 				<div class="row">
 					<div class="col-xl-6">

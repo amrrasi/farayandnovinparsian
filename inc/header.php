@@ -7,7 +7,7 @@
         <!-- Logo -->
         <a class="hp-logo" href="./">
             <img src="assets/images/logo.png"
-                 alt="<?= htmlspecialchars($global_setting_array['name'] ?? 'ParsEMC') ?>"
+                 alt="<?= htmlspecialchars(setting('site_name') ?? 'ParsEMC') ?>"
                  height="52" loading="eager">
         </a>
 
