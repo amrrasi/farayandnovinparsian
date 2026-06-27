@@ -166,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Text selection */
 ::selection {
     background: rgba(0, 198, 255, .25);
-    color: #fff;
+    color: var(--clr-text);
 }
 
 /* ─────────────────────────────────────────
@@ -268,24 +268,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-primary {
     background: var(--grad-brand);
-    color: #fff;
+    color: var(--clr-text);
     box-shadow: var(--shadow-blue);
 }
 
 .btn-primary:hover {
     box-shadow: 0 14px 40px rgba(0, 198, 255, .32);
-    color: #fff
+    color: var(--clr-text)
 }
 
 .btn-outline {
     background: var(--clr-surface);
     border: 1px solid var(--clr-border);
-    color: #fff;
+    color: var(--clr-text);
 }
 
 .btn-outline:hover {
     background: rgba(255, 255, 255, .1);
-    color: #fff
+    color: var(--clr-text)
 }
 
 /* ─────────────────────────────────────────

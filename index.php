@@ -17,8 +17,8 @@ require_once "cms/myadmin/inc/config.php"
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/Vazirmatn-RD-FD-font-face.css">
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.css">
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 <body>
