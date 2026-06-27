@@ -519,6 +519,210 @@ while ($row = $result->fetch_assoc()) {
 </section>
 
 <!-- Blog -->
+<?php
+
+$blogs = [];
+
+$result = $mysqli->query("
+    SELECT
+        id,
+        namefull,
+        seo_slug,
+        thumb,
+        abstract,
+        created_at
+    FROM page
+    WHERE parent_id='1'
+    AND active='1'
+    AND deleted='0'
+    ORDER BY myorder ASC,id DESC
+    LIMIT 4
+");
+
+while($row = $result->fetch_assoc()){
+
+    $blogs[] = $row;
+
+}
+
+if(count($blogs) > 0):
+
+    $featured = array_shift($blogs);
+
+    ?>
+
+    <section class="home-blog">
+
+        <div class="container">
+
+            <div class="services-heading">
+
+            <span class="section-badge">
+                مقالات آموزشی
+            </span>
+
+                <h2>
+                    آخرین مطالب بلاگ
+                </h2>
+
+                <p>
+                    جدیدترین مقالات آموزشی، اخبار فناوری و مطالب تخصصی حوزه تجهیزات ذخیره‌سازی و زیرساخت را مطالعه کنید.
+                </p>
+
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Featured -->
+
+                <div class="col-lg-6">
+
+                    <article class="blog-featured">
+
+                        <a href="/blog/<?= $featured['seo_slug'] ?>">
+
+                            <div class="blog-image">
+
+                                <img
+                                        src="cms/<?= $featured['thumb'] ?>"
+                                        alt="<?= htmlspecialchars($featured['namefull']) ?>">
+
+                            </div>
+
+                        </a>
+
+                        <div class="blog-content">
+
+                        <span class="blog-date">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            <?= jdate('Y/m/d',strtotime($featured['created_at'])) ?>
+
+                        </span>
+
+                            <h3>
+
+                                <a href="/blog/<?= $featured['seo_slug'] ?>">
+
+                                    <?= htmlspecialchars($featured['namefull']) ?>
+
+                                </a>
+
+                            </h3>
+
+                            <p>
+
+                                <?= mb_strimwidth(strip_tags($featured['abstract']),0,220,'...') ?>
+
+                            </p>
+
+                            <a class="blog-more" href="/blog/<?= $featured['seo_slug'] ?>">
+
+                                مطالعه مقاله
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <!-- Other Articles -->
+
+                <div class="col-lg-6">
+
+                    <div class="row g-4">
+
+                        <?php foreach($blogs as $blog): ?>
+
+                            <div class="col-12">
+
+                                <article class="blog-mini">
+
+                                    <a href="/blog/<?= $blog['seo_slug'] ?>">
+
+                                        <div class="blog-mini-image">
+
+                                            <img
+                                                    src="cms/<?= $blog['thumb'] ?>"
+                                                    alt="<?= htmlspecialchars($blog['namefull']) ?>">
+
+                                        </div>
+
+                                    </a>
+
+                                    <div class="blog-mini-content">
+
+                                    <span>
+
+                                        <?= jdate('Y/m/d',strtotime($blog['created_at'])) ?>
+
+                                    </span>
+
+                                        <h4>
+
+                                            <a href="/blog/<?= $blog['seo_slug'] ?>">
+
+                                                <?= htmlspecialchars($blog['namefull']) ?>
+
+                                            </a>
+
+                                        </h4>
+
+                                        <a href="/blog/<?= $blog['seo_slug'] ?>">
+
+                                            ادامه مطلب
+
+                                            <i class="fa-solid fa-arrow-left"></i>
+
+                                        </a>
+
+                                    </div>
+
+                                </article>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                    <div class="watchAllBlogs">
+
+                        <a href="/blog">
+
+                            <span>مشاهده تمامی مقالات</span>
+
+                            <i class="fa-solid fa-arrow-left"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
 
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/jquery.nice-select.min.js"></script>
