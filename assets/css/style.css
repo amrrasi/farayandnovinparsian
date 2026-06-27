@@ -1,7 +1,3 @@
-/* ==========================
-   DEFAULT (LIGHT)
-========================== */
-
 :root{
 
     color-scheme: light;
@@ -94,7 +90,7 @@
 /* ==========================
    DARK
 ========================== */
-
+cd 
 html[data-theme="dark"]{
 
     color-scheme:dark;
@@ -132,7 +128,7 @@ html[data-theme="dark"]{
     --hp-muted:var(--clr-text-muted);
     --hp-surf:rgba(255,255,255,.06);
     --hp-bdr:rgba(255,255,255,.09);
-    --back-default: rgb(5, 8, 22, .82);
+        --back-default: rgb(5, 8, 22, .82);
     --hp-drop-back: rgba(7, 11, 30, .97);
     --hp-chip: rgba(8, 12, 38, .9);
     --icon-color: #ffffff;
@@ -162,7 +158,7 @@ html {
 }
 
 body {
-    font-family: var(--font-base);
+    font-family: IRANSansfanum;
     font-size: var(--font-size);
     font-weight: var(--fw-regular);
     line-height: var(--line-height);
@@ -507,25 +503,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .theme-toggle{
 
-    width:46px;
-    height:46px;
-
-    border:none;
-
+    width:40px;
+    height:40px;
     border-radius:50%;
-
     cursor:pointer;
-
     background:var(--clr-surface);
-
     color:var(--clr-text);
-
     border:1px solid var(--clr-border);
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     transition:.35s;
 }
 

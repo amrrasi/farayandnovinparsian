@@ -15,7 +15,7 @@ require_once "cms/myadmin/inc/config.php"
     <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
     <link rel="stylesheet" href="assets/css/nice-select.css">
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/Vazirmatn-RD-FD-font-face.css">
+    <link rel="stylesheet" href="assets/fonts/font.css">
     <link rel="stylesheet" href="assets/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -42,7 +42,7 @@ require_once "cms/myadmin/inc/config.php"
                 برای کسب‌وکار شما
             </h1>
             <p class="hp-p">
-                فرآیند نوین اطلاعات پارسیان، ارائه‌دهنده تخصصی استوریج‌های Dell EMC.
+                <?= $global_setting_array['name'] ?>، ارائه‌دهنده تخصصی استوریج‌های Dell EMC.
                 راهکارهای SAN، NAS و بکاپ برای سازمان‌های بزرگ و استارتاپ‌های پیشرو.
             </p>
             <div class="hp-btns">
