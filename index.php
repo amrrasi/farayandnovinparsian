@@ -9,16 +9,19 @@ require_once "cms/myadmin/inc/config.php"
     <title> <?= $global_setting_array['name'] ?> </title>
 
 
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/flaticon.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/base/animate.min.css">
+    <link rel="stylesheet" href="assets/css/base/flaticon.css">
+    <link rel="stylesheet" href="assets/css/base/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/base/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/css/base/nice-select.css">
+    <link rel="stylesheet" href="assets/css/base/owl.carousel.min.css">
+
     <link rel="stylesheet" href="assets/fonts/font.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.rtl.css">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="assets/css/base/bootstrap.rtl.css">
+    <link rel="stylesheet" href="assets/css/base/base.css">
+    <link rel="stylesheet" href="assets/css/layout/header.css">
+    <link rel="stylesheet" href="assets/css/pages/style.css">
 
 </head>
 <body>
