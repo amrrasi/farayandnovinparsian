@@ -907,7 +907,7 @@ if (count($blogs) > 0):
 
                             <i class="fa-regular fa-calendar"></i>
 
-                            <?= jdate('Y/m/d', strtotime($featured['created_at'])) ?>
+                            <?= jdate('d F Y', strtotime($featured['created_at'])) ?>
 
                         </span>
 
@@ -969,7 +969,7 @@ if (count($blogs) > 0):
 
                                     <span>
 
-                                        <?= jdate('Y/m/d', strtotime($blog['created_at'])) ?>
+                                        <?= jdate('d F Y', strtotime($blog['created_at'])) ?>
 
                                     </span>
 
@@ -1003,7 +1003,7 @@ if (count($blogs) > 0):
 
                     <div class="watchAllBlogs">
 
-                        <a href="/blog">
+                        <a href="/blogs">
 
                             <span>مشاهده تمامی مقالات</span>
 

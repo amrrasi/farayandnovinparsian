@@ -1,0 +1,788 @@
+
+/*==================================================
+CONTACT FORM
+==================================================*/
+
+.contact-form-container{
+
+    position: relative;
+    z-index: 10;
+
+}
+
+.contact-form-card{
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 45px;
+
+    border-radius: 28px;
+
+    background: rgba(255,255,255,.78);
+
+    backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255,255,255,.18);
+
+    box-shadow:
+            0 30px 70px rgba(0,0,0,.08),
+            0 10px 25px rgba(14,165,233,.05);
+
+    transition: .4s;
+
+}
+
+html[data-theme="dark"] .contact-form-card{
+
+    background: rgba(15,23,42,.88);
+
+    border-color: rgba(255,255,255,.08);
+
+}
+
+.contact-form-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+
+    height:240px;
+
+    border-radius:50%;
+
+    top:-120px;
+
+    left:-120px;
+
+    background:rgba(14,165,233,.08);
+
+    filter:blur(35px);
+
+}
+
+.contact-form-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    bottom:-120px;
+
+    right:-120px;
+
+    background:rgba(37,99,235,.08);
+
+    filter:blur(35px);
+
+}
+
+/*==================================================
+FORM HEADER
+==================================================*/
+
+.form-top{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:40px;
+
+}
+
+.form-title{
+
+    margin-bottom:30px;
+
+}
+
+.form-title h2{
+
+    font-size:34px;
+
+    font-weight:900;
+
+    margin:18px 0 12px;
+
+    line-height:1.5;
+
+}
+
+.form-title p{
+
+    color:var(--clr-text-muted);
+
+    line-height:2;
+
+    margin:0;
+
+}
+
+.mini-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 18px;
+
+    border-radius:100px;
+
+    background:rgba(14,165,233,.1);
+
+    color:var(--clr-blue);
+
+    font-size:14px;
+
+    font-weight:700;
+
+}
+
+.mini-badge i{
+
+    font-size:15px;
+
+}
+
+/*==================================================
+PROGRESS
+==================================================*/
+
+.form-progress{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.progress-line{
+
+    position:relative;
+
+    flex:1;
+
+    height:7px;
+
+    background:#edf2f7;
+
+    border-radius:100px;
+
+    overflow:hidden;
+
+}
+
+html[data-theme="dark"] .progress-line{
+
+    background:#1e293b;
+
+}
+
+.progress-fill{
+
+    width:0;
+
+    height:100%;
+
+    border-radius:100px;
+
+    background:linear-gradient(90deg,#0ea5e9,#2563eb);
+
+    transition:.35s;
+
+}
+
+.progress-text{
+
+    white-space:nowrap;
+
+    font-size:14px;
+
+    color:var(--clr-text-muted);
+
+}
+
+.progress-text strong{
+
+    color:var(--clr-blue);
+
+    font-size:16px;
+
+    margin-right:5px;
+
+}
+
+/*==================================================
+FORM ALERT
+==================================================*/
+
+#formAlert{
+
+    display:none;
+
+    margin-bottom:30px;
+
+    padding:16px 20px;
+
+    border-radius:16px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+#formAlert.success{
+
+    display:block;
+
+    color:#0f5132;
+
+    background:#d1fae5;
+
+    border:1px solid #10b981;
+
+}
+
+#formAlert.error{
+
+    display:block;
+
+    color:#842029;
+
+    background:#fee2e2;
+
+    border:1px solid #ef4444;
+
+}
+
+/*==================================================
+ROW
+==================================================*/
+
+.contact-form-card .row{
+
+    position:relative;
+
+    z-index:3;
+
+}
+/*==================================================
+FLOATING INPUT
+==================================================*/
+
+.floating-input,
+.floating-select,
+.floating-textarea{
+
+    position: relative;
+
+}
+
+.floating-input input,
+.floating-select select,
+.floating-textarea textarea{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:#fff;
+
+    border:1.5px solid #e6edf5;
+
+    border-radius:18px;
+
+    transition:.35s;
+
+    font-size:15px;
+
+    color:#1e293b;
+
+}
+
+html[data-theme="dark"] .floating-input input,
+html[data-theme="dark"] .floating-select select,
+html[data-theme="dark"] .floating-textarea textarea{
+
+    background:#0f172a;
+
+    color:#fff;
+
+    border-color:#25324a;
+
+}
+
+
+/*==================================================
+INPUT
+==================================================*/
+
+.floating-input input,
+.floating-select select{
+
+    height:64px;
+
+    padding:
+
+            20px 55px 0 18px;
+
+}
+
+.floating-textarea textarea{
+
+    min-height:180px;
+
+    resize:none;
+
+    padding:
+
+            28px 18px 18px 18px;
+
+}
+
+
+/*==================================================
+LABEL
+==================================================*/
+
+.floating-input label{
+
+    position:absolute;
+
+    right:55px;
+
+    top:20px;
+
+    color:#94a3b8;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+    font-size:15px;
+
+}
+
+.floating-textarea label{
+
+    position:absolute;
+
+    top:18px;
+
+    right:18px;
+
+    color:#94a3b8;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+}
+
+
+/*==================================================
+FLOAT EFFECT
+==================================================*/
+
+.floating-input input:focus+label,
+.floating-input input:not(:placeholder-shown)+label,
+.floating-input.active label{
+
+    top:10px;
+
+    font-size:12px;
+
+    color:var(--clr-blue);
+
+}
+
+.floating-textarea textarea:focus+label,
+.floating-textarea textarea.valid+label{
+
+    top:8px;
+
+    font-size:12px;
+
+    color:var(--clr-blue);
+
+}
+
+
+/*==================================================
+FOCUS
+==================================================*/
+
+.floating-input input:focus,
+.floating-select select:focus,
+.floating-textarea textarea:focus{
+
+    border-color:#0ea5e9;
+
+    box-shadow:
+
+            0 0 0 6px rgba(14,165,233,.10);
+
+}
+
+
+/*==================================================
+ICONS
+==================================================*/
+
+.input-icon{
+
+    position:absolute;
+
+    right:20px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#94a3b8;
+
+    transition:.3s;
+
+    font-size:18px;
+
+}
+
+/* FIXED: pushed left so it does not overlap input text */.validation-icon{
+
+                                                              position:absolute;
+
+                                                              left:18px;
+
+                                                              top:50%;
+
+                                                              transform:translateY(-50%);
+
+                                                              opacity:0;
+
+                                                              color:#22c55e;
+
+                                                              transition:.25s;
+
+                                                              font-size:18px;
+
+                                                          }
+
+.floating-input input:focus~.input-icon{
+
+    color:#0ea5e9;
+
+}
+
+
+/*==================================================
+VALID
+==================================================*/
+
+.floating-input.success input{
+
+    border-color:#22c55e;
+
+    padding-left:44px;
+
+}
+
+.floating-input.success /* FIXED: pushed left so it does not overlap input text */.validation-icon{
+
+    opacity:1;
+
+}
+
+.floating-input.success .input-icon{
+
+    color:#22c55e;
+
+}
+
+
+/*==================================================
+ERROR
+==================================================*/
+
+.floating-input.error input{
+
+    border-color:#ef4444;
+
+    animation:shake .35s;
+
+}
+
+.floating-input.error .input-icon{
+
+    color:#ef4444;
+
+}
+
+.error-text{
+
+    display:block;
+
+    color:#ef4444;
+
+    font-size:13px;
+
+    margin-top:8px;
+
+    padding-right:10px;
+
+    min-height:20px;
+
+}
+
+
+/*==================================================
+SHAKE
+==================================================*/
+
+@keyframes shake{
+
+    20%{
+
+        transform:translateX(6px);
+
+    }
+
+    40%{
+
+        transform:translateX(-6px);
+
+    }
+
+    60%{
+
+        transform:translateX(5px);
+
+    }
+
+    80%{
+
+        transform:translateX(-5px);
+
+    }
+
+}
+
+
+/*==================================================
+TEXTAREA
+==================================================*/
+
+.textarea-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:10px;
+
+}
+
+.textarea-bottom small{
+
+    color:#94a3b8;
+
+}
+
+#charCounter{
+
+    color:var(--clr-blue);
+
+    font-weight:700;
+
+}
+
+
+/*==================================================
+UPLOAD
+==================================================*/
+
+.upload-box{
+
+    position:relative;
+
+}
+
+.upload-box label{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:35px;
+
+    border:2px dashed #cbd5e1;
+
+    border-radius:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.upload-box label:hover{
+
+    border-color:#0ea5e9;
+
+    background:rgba(14,165,233,.04);
+
+}
+
+.upload-box i{
+
+    font-size:36px;
+
+    color:#0ea5e9;
+
+}
+
+.upload-box span{
+
+    font-weight:700;
+
+}
+
+.upload-box small{
+
+    color:#94a3b8;
+
+}
+
+
+/*==================================================
+CHECKBOX
+==================================================*/
+
+.privacy-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.privacy-box input{
+
+    width:20px;
+
+    height:20px;
+
+    accent-color:#0ea5e9;
+
+}
+
+.privacy-box label{
+
+    cursor:pointer;
+
+    color:#64748b;
+
+}
+
+
+/*==================================================
+BUTTON
+==================================================*/
+
+.submit-btn{
+
+    position:relative;
+
+    width:100%;
+
+    height:64px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#0ea5e9,#2563eb);
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+}
+
+.submit-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+            0 20px 35px rgba(37,99,235,.25);
+
+}
+
+.submit-btn:disabled{
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+.btn-loader{
+
+    display:none;
+
+    margin-left:10px;
+
+}
+
+.submit-btn.loading .btn-loader{
+
+    display:inline-block;
+
+}
+
+.submit-btn.loading .btn-icon{
+
+    display:none;
+
+}

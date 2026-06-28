@@ -474,7 +474,7 @@ GOOGLE MAP
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/about-us.js"></script>
+<script src="assets/js/pages/about-us.js"></script>
 
 </body>
 </html>
