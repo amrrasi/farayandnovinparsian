@@ -141,7 +141,7 @@ while($row = $result->fetch_assoc()){
     <a href="#" class="hp-drawer-link">تیم ما</a>
     <a href="#" class="hp-drawer-link">پشتیبانی</a>
     <a href="#" class="hp-drawer-link">ارتباط با ما</a>
-    <a href="#" class="hp-drawer-link">درباره ما</a>
+    <a href="about-us/" class="hp-drawer-link">درباره ما</a>
 
     <div class="hp-drawer-divider"></div>
 

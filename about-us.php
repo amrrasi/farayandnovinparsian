@@ -6,7 +6,7 @@ require_once "cms/myadmin/inc/config.php"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> <?= setting('name') ?> | About Us</title>
+    <title> <?= setting('name') ?> | درباره ما</title>
     <?= $global_base_address ?>
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">
@@ -22,97 +22,14 @@ require_once "cms/myadmin/inc/config.php"
     <link rel="stylesheet" href="assets/css/base/base.css">
     <link rel="stylesheet" href="assets/css/layout/header.css">
     <link rel="stylesheet" href="assets/css/layout/footer.css">
+    <!--    <link rel="stylesheet" href="assets/css/pages/style.css">-->
+
     <link rel="stylesheet"
           href="assets/css/pages/about-us.css?v=<?php echo filemtime('assets/css/pages/about-us.css'); ?>">
 <body>
+
 <!-- header -->
 <?php require_once "inc/header.php" ?>
-
-<!-- ===========================================================
-ABOUT HERO
-=========================================================== -->
-
-<section class="about-hero">
-
-    <div class="about-overlay"></div>
-
-    <div class="container">
-
-        <div class="row align-items-center min-vh-100 g-5">
-
-            <div class="col-lg-7">
-
-                <div class="about-content">
-
-                    <span class="section-badge">
-
-                        درباره فرآیند نوین اطلاعات پارسیان
-
-                    </span>
-
-                    <h1>
-
-                        ارائه راهکارهای تخصصی ذخیره‌سازی اطلاعات، سرور و زیرساخت سازمانی
-
-                    </h1>
-
-                    <p>
-
-                        فرآیند نوین اطلاعات پارسیان با تکیه بر دانش فنی، تجربه اجرایی و همکاری با معتبرترین برندهای حوزه
-                        تجهیزات ذخیره‌سازی، سرور و شبکه، راهکارهای تخصصی مورد نیاز سازمان‌ها، بانک‌ها، شرکت‌های خصوصی و
-                        مراکز داده را ارائه می‌دهد.
-
-                    </p>
-
-                    <div class="about-buttons">
-
-                        <a href="contact-us/" class="btn btn-primary">
-
-                            دریافت مشاوره رایگان
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-5">
-
-                <div class="about-image">
-
-                    <div class="experience-card">
-
-                        <span>
-
-                            +15
-
-                        </span>
-
-                        <strong>
-
-                            سال تجربه تخصصی
-
-                        </strong>
-
-                        <p>
-
-                            در زمینه تجهیزات ذخیره‌سازی اطلاعات و زیرساخت
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
 
 <!-- ===========================================================
 ABOUT COMPANY
@@ -122,19 +39,7 @@ ABOUT COMPANY
 
     <div class="container">
 
-        <div class="row align-items-center g-5">
-
-            <div class="col-lg-6">
-
-                <div class="company-image">
-
-                    <img src="assets/images/about/company-office.jpg"
-                         class="img-fluid"
-                         alt="شرکت فرآیند نوین">
-
-                </div>
-
-            </div>
+        <div class="row align-items-start">
 
             <div class="col-lg-6">
 
@@ -154,57 +59,82 @@ ABOUT COMPANY
 
                     <p>
 
-                        این قسمت از طریق دیتابیس تکمیل خواهد شد.
-                        معرفی کامل شرکت، سابقه فعالیت، اهداف، چشم‌انداز و مأموریت مجموعه در این بخش قرار می‌گیرد.
+                        <?= setting('name') ?>، تامین‌کننده تخصصی استوریج‌های EMC در ایران. ارائه راهکارهای
+                        ذخیره‌سازی پیشرفته برای کسب‌وکارهای مدرن. با تکیه بر دانش فنی و تجربه، بهترین انتخاب را برای
+                        مدیریت داده‌های حیاتی شما فراهم می‌کنیم.
 
                     </p>
 
-                    <p>
+<!--                    <div class="row mt-5">-->
+<!--                        <div class="col-md-6 col-sm-12">-->
+<!--                            <div class="company-mini-card">-->
+<!--                                <i class="fas fa-server"></i>-->
+<!--                                <h5>-->
+<!--                                    تجهیزات اورجینال-->
+<!--                                </h5>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6 col-sm-12">-->
+<!--                            <div class="company-mini-card">-->
+<!--                                <i class="fas fa-headset"></i>-->
+<!--                                <h5>-->
+<!--                                    پشتیبانی تخصصی-->
+<!--                                </h5>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
 
-                        این متن می‌تواند شامل معرفی خدمات، ارزش‌های سازمانی، کیفیت اجرای پروژه‌ها، تیم متخصص و
-                        همکاری‌های انجام شده باشد.
+            <div class="col-lg-6">
 
-                    </p>
-
-                    <div class="row mt-5">
-
-                        <div class="col-6">
-
-                            <div class="company-mini-card">
-
-                                <i class="fas fa-server"></i>
-
-                                <h5>
-
-                                    تجهیزات اورجینال
-
-                                </h5>
-
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 mt-5">
+                        <div class="info-card card-glass reveal">
+                            <div class="icon-box">
+                                <i class="fas fa-envelope"></i>
                             </div>
-
-                        </div>
-
-                        <div class="col-6">
-
-                            <div class="company-mini-card">
-
-                                <i class="fas fa-headset"></i>
-
-                                <h5>
-
-                                    پشتیبانی تخصصی
-
-                                </h5>
-
-                            </div>
-
+                            <h3>ایمیل</h3>
+                            <p>
+                                <a href="mailto:<?= setting('email') ?>"><?= setting('email') ?></a></p>
                         </div>
 
                     </div>
+                    <div class="col-md-6 col-sm-12 mt-5">
+                        <div class="info-card card-glass reveal reveal-delay-1">
+                            <div class="icon-box">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3>شماره تماس</h3>
+                            <p>
+                                <a href="tel:<?= setting('phone') ?>"><?= setting('phone') ?> </a>
+                            </p>
+                        </div>
 
+                    </div>
+                    <div class="col-md-6 col-sm-12 mt-5">
+                        <div class="info-card card-glass reveal reveal-delay-2">
+                            <div class="icon-box">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>آدرس</h3>
+                            <p> <?= setting('address') ?> </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 mt-5">
+                        <div class="info-card card-glass reveal reveal-delay-3">
+                            <div class="icon-box">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>ساعت کاری</h3>
+                            <p><?= setting('workTime') ?></p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
+
+
 
         </div>
 
@@ -212,101 +142,6 @@ ABOUT COMPANY
 
 </section>
 
-<!-- ===========================================================
-STATISTICS
-=========================================================== -->
-
-<section class="about-statistics">
-
-    <div class="container">
-
-        <div class="row g-4">
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="stat-card">
-
-                    <h2 class="counter" data-count="15">
-
-                        0
-
-                    </h2>
-
-                    <span>
-
-                        سال تجربه
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="stat-card">
-
-                    <h2 class="counter" data-count="500">
-
-                        0
-
-                    </h2>
-
-                    <span>
-
-                        پروژه موفق
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="stat-card">
-
-                    <h2 class="counter" data-count="98">
-
-                        0
-
-                    </h2>
-
-                    <span>
-
-                        درصد رضایت مشتریان
-
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="stat-card">
-
-                    <h2>
-
-                        24/7
-
-                    </h2>
-
-                    <span>
-
-                        پشتیبانی
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
 
 <!-- ===========================================================
 WHY US
@@ -320,13 +155,13 @@ WHY US
 
             <span class="section-badge">
 
-                مزیت همکاری
+                مزیت همکاری با ما
 
             </span>
 
-            <h2>
+            <h2 class="mt-5">
 
-                چرا فرآیند نوین اطلاعات پارسیان؟
+                چرا <?= setting('name') ?>؟
 
             </h2>
 
@@ -339,7 +174,7 @@ WHY US
 
         </div>
 
-        <div class="row g-4">
+        <div class="row g-4 mt-2">
 
             <div class="col-lg-4">
 
@@ -439,11 +274,11 @@ COMPANY TIMELINE
                 مسیر رشد ما
             </span>
 
-            <h2>
+            <h2 class="mt-3">
                 همراهی با سازمان‌های بزرگ در مسیر توسعه
             </h2>
 
-            <p>
+            <p class="mt-1">
                 طی سال‌های فعالیت، فرآیند نوین اطلاعات پارسیان همواره در مسیر توسعه زیرساخت فناوری اطلاعات کشور گام
                 برداشته است.
             </p>
@@ -633,13 +468,14 @@ GOOGLE MAP
 <?php require_once "inc/footer.php" ?>
 
 
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/jquery.nice-select.min.js"></script>
 <script src="assets/js/owl.carousel.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/bootstrap.bundle.js"></script>
-<script src="assets/js/about-us.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/about-us.js"></script>
 
 </body>
 </html>
