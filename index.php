@@ -276,7 +276,7 @@ require_once "cms/myadmin/inc/config.php"
 
 
 <!-- Our Services -->
-<section class="services-section">
+<section id="our-services" class="services-section">
     <div class="container">
 
         <div class="services-heading">

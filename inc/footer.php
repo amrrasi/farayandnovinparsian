@@ -1,7 +1,3 @@
-<!-- ==========================
-        CTA
-========================== -->
-
 <section class="footer-cta">
 
     <div class="container">
@@ -62,17 +58,12 @@
 </section>
 
 
-<!-- ==========================
-        Footer
-========================== -->
-
 <footer class="footer">
 
     <div class="container">
 
         <div class="row gy-5">
 
-            <!-- Company -->
 
             <div class="col-lg-4">
 
@@ -89,19 +80,18 @@
 
                 <div class="footer-social">
 
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="<?= setting('instagram') ?>"><i class="fab fa-instagram"></i></a>
 
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="<?= setting('linkedin') ?>"><i class="fab fa-linkedin"></i></a>
 
-                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="<?= setting('telegram') ?>"><i class="fab fa-telegram"></i></a>
 
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="<?= setting('whatsapp') ?>"><i class="fab fa-whatsapp"></i></a>
 
                 </div>
 
             </div>
 
-            <!-- Products -->
 
             <div class="col-lg-2 col-md-4">
 
@@ -127,7 +117,6 @@
 
             </div>
 
-            <!-- Links -->
 
             <div class="col-lg-2 col-md-4">
 
@@ -139,21 +128,20 @@
 
                 <ul>
 
-                    <li><a href="">درباره ما</a></li>
+                    <li><a href="about-us/">درباره ما</a></li>
 
-                    <li><a href="">خدمات</a></li>
+                    <li><a href="#our-services">خدمات</a></li>
 
-                    <li><a href="">مقالات</a></li>
+                    <li><a href="blogs/">مقالات</a></li>
 
-                    <li><a href="">تماس با ما</a></li>
+                    <li><a href="contact-us/">تماس با ما</a></li>
 
-                    <li><a href="">سوالات متداول</a></li>
+                    <li><a href="team/">تیم ما</a></li>
 
                 </ul>
 
             </div>
 
-            <!-- Contact -->
 
             <div class="col-lg-4 col-md-4">
 
@@ -169,7 +157,7 @@
 
                         <i class="fas fa-location-dot"></i>
 
-                        تهران، ...
+                        <?= setting('address') ?>
 
                     </div>
 
@@ -177,7 +165,7 @@
 
                         <i class="fas fa-phone"></i>
 
-                        021-xxxxxxx
+                        <a href="tel:<?= setting('phone') ?>"><?= setting('phone') ?></a>
 
                     </div>
 
@@ -185,7 +173,7 @@
 
                         <i class="fas fa-envelope"></i>
 
-                        info@parsemc.ir
+                        <a href="tel:<?= setting('email') ?>"><?= setting('email') ?></a>
 
                     </div>
 
@@ -193,8 +181,7 @@
 
                         <i class="fas fa-clock"></i>
 
-                        شنبه تا چهارشنبه
-                        ۸ الی ۱۷
+                        <?= setting('workTime') ?>
 
                     </div>
 
