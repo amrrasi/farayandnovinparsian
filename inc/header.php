@@ -73,7 +73,7 @@ while($row = $result->fetch_assoc()){
             <li><a href="#">تیم ما</a></li>
             <li><a href="#">پشتیبانی</a></li>
             <li><a href="#">ارتباط با ما</a></li>
-            <li><a href="#">درباره ما</a></li>
+            <li><a href="about-us/">درباره ما</a></li>
         </ul>
 
         <!-- Right-side actions -->

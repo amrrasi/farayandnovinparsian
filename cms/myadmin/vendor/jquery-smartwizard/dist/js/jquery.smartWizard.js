@@ -863,7 +863,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
           e.preventDefault();
         } else {
-          return; // exit this handler for other keys
+           // exit this handler for other keys
         }
       }
     }, {

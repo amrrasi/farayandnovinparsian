@@ -145,4 +145,6 @@ function setting(string $key,$default=null)
 }
 
 $cartCount = count($_SESSION['cart'] ?? []);
+$global_base_address =
+    '<base href="http://farayand_novin.local/" />';
 ?>

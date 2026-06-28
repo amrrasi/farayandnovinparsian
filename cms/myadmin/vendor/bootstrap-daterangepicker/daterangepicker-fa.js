@@ -3456,7 +3456,7 @@
 	g = (b <= 186) ? Math.ceil(b / 31) : Math.ceil((b - 6) / 30);
 	i = (j - persian_to_jd(h, g, 1)) + 1;
 	return new Array(h, g, i)
-  };
+  }
   // Arabic support for jQuery UI Datepicker 1.8.14 with custom calendar support
   jQuery(function(a) {
 	a.datepicker.regional.ar = {
@@ -3579,7 +3579,7 @@
 	this.setMilliseconds = function(g) {
 	  d.setMilliseconds(g)
 	}
-  };
+  }
   // Farsi(Persian) support for jQuery UI Datepicker 1.8.14 with custom calendar support
   jQuery(function(a) {
 	a.datepicker.regional.fa = {
@@ -3707,7 +3707,7 @@
 	this.setMilliseconds = function(g) {
 	  d.setMilliseconds(g)
 	}
-  };
+  }
   $('#datepicker1').datepicker({
 	showWeek: true
 });

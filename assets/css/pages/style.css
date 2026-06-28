@@ -439,33 +439,6 @@
     }
 }
 
-.theme-toggle {
-
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    background: var(--clr-surface);
-    color: var(--clr-text);
-    border: 1px solid var(--clr-border);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .35s;
-}
-
-.theme-toggle:hover {
-    transform: translateY(-2px);
-    background: var(--grad-brand);
-    color: #fff;
-    box-shadow: var(--shadow-blue);
-}
-
-.theme-toggle i {
-    font-size: 18px;
-    transition: .35s;
-}
-
 .services-section {
 
     padding: 50px 0;

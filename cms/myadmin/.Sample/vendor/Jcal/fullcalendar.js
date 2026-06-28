@@ -16,7 +16,7 @@
 	}
 })(function($, moment) {
 
-;;
+
 
 var FC = $.fullCalendar = {
 	version: "2.6.1",
@@ -177,7 +177,7 @@ function massageOverrides(input) {
 	return overrides;
 }
 
-;;
+
 
 // exports
 FC.intersectRanges = intersectRanges;
@@ -1033,7 +1033,7 @@ function debounce(func, wait) {
 	};
 }
 
-;;
+
 
 var ambigDateOfMonthRegex = /^\s*\d{4}-\d\d$/;
 var ambigTimeOrZoneRegex =
@@ -1547,7 +1547,7 @@ setLocalValues = allowValueOptimization ? function(mom, a) {
 	moment.updateOffset(mom, false); // keepTime=false
 } : setMomentValues;
 
-;;
+
 
 // Single Date Formatting
 // -------------------------------------------------------------------------------------------------
@@ -1813,7 +1813,7 @@ function chunkFormatString(formatStr) {
 	return chunks;
 }
 
-;;
+
 
 FC.Class = Class; // export
 
@@ -1876,7 +1876,7 @@ function extendClass(superClass, members) {
 function mixIntoClass(theClass, members) {
 	copyOwnProps(members.prototype || members, theClass.prototype); // TODO: copyNativeMethods?
 }
-;;
+
 
 var Emitter = FC.Emitter = Class.extend({
 
@@ -1929,7 +1929,7 @@ var Emitter = FC.Emitter = Class.extend({
 	}
 
 });
-;;
+
 
 /* A rectangular panel that is absolutely positioned over other content
 ------------------------------------------------------------------------------------------------------------------------
@@ -2098,7 +2098,7 @@ var Popover = Class.extend({
 
 });
 
-;;
+
 
 /*
 A cache for the left/right/top/bottom/width/height values for one or more elements.
@@ -2334,7 +2334,7 @@ var CoordCache = FC.CoordCache = Class.extend({
 
 });
 
-;;
+
 
 /* Tracks a drag's mouse movement, firing various handlers
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -2723,7 +2723,7 @@ var DragListener = FC.DragListener = Class.extend({
 
 });
 
-;;
+
 
 /* Tracks mouse movements over a component and raises events about which hit the mouse is over.
 ------------------------------------------------------------------------------------------------------------------------
@@ -2936,7 +2936,7 @@ function isHitPropsWithin(subHit, superHit) {
 	return true;
 }
 
-;;
+
 
 /* Creates a clone of an element and lets it track the mouse as it moves
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -3123,7 +3123,7 @@ var MouseFollower = Class.extend({
 
 });
 
-;;
+
 
 /* An abstract class comprised of a "grid" of areas that each represent a specific datetime
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -3690,7 +3690,7 @@ var Grid = FC.Grid = Class.extend({
 
 });
 
-;;
+
 
 /* Event-rendering and event-interaction methods for the abstract Grid class
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -4737,7 +4737,7 @@ function getDraggedElMeta(el) {
 }
 
 
-;;
+
 
 /*
 A set of rendering and date-related methods for a visual component comprised of one or more rows of day columns.
@@ -5134,7 +5134,7 @@ var DayTableMixin = FC.DayTableMixin = {
 
 };
 
-;;
+
 
 /* A component that renders a grid of whole-days that runs horizontally. There can be multiple rows, one per week.
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -5556,7 +5556,7 @@ var DayGrid = FC.DayGrid = Grid.extend(DayTableMixin, {
 
 });
 
-;;
+
 
 /* Event-rendering methods for the DayGrid class
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -5874,7 +5874,7 @@ function compareDaySegCols(a, b) {
 	return a.leftCol - b.leftCol;
 }
 
-;;
+
 
 /* Methods relate to limiting the number events for a given day on a DayGrid
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -6247,7 +6247,7 @@ DayGrid.mixin({
 
 });
 
-;;
+
 
 /* A component that renders one or more columns of vertical time slots
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -6763,7 +6763,7 @@ var TimeGrid = FC.TimeGrid = Grid.extend(DayTableMixin, {
 
 });
 
-;;
+
 
 /* Methods for rendering SEGMENTS, pieces of content that live on the view
  ( this file is no longer just for events )
@@ -7373,7 +7373,7 @@ function isSlotSegCollision(seg1, seg2) {
 	return seg1.bottom > seg2.top && seg1.top < seg2.bottom;
 }
 
-;;
+
 
 /* An abstract class from which other views inherit from
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -8459,7 +8459,7 @@ var View = FC.View = Class.extend({
 
 });
 
-;;
+
 
 var Calendar = FC.Calendar = Class.extend({
 
@@ -9387,7 +9387,7 @@ function Calendar_constructor(element, overrides) {
 	t.initialize();
 }
 
-;;
+
 
 Calendar.defaults = {
 
@@ -9508,7 +9508,7 @@ Calendar.rtlDefaults = { // right-to-left defaults
 	}
 };
 
-;;
+
 
 var langOptionHash = FC.langs = {}; // initialize and expose
 
@@ -9710,7 +9710,7 @@ function getMomentLocaleData(langCode) {
 // Also, sets it as the default.
 FC.lang('en', Calendar.englishDefaults);
 
-;;
+
 
 /* Top toolbar area with buttons and title
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -9957,7 +9957,7 @@ function Header(calendar, options) {
 
 }
 
-;;
+
 
 FC.sourceNormalizers = [];
 FC.sourceFetchers = [];
@@ -11037,7 +11037,7 @@ function backupEventDates(event) {
 	event._end = event.end ? event.end.clone() : null;
 }
 
-;;
+
 
 /* An abstract class for the "basic" views, as well as month view. Renders one or more rows of day cells.
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -11398,7 +11398,7 @@ var basicDayGridMethods = {
 
 };
 
-;;
+
 
 /* A month view with day cells running in rows (one-per-week) and columns
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -11445,7 +11445,7 @@ var MonthView = FC.MonthView = BasicView.extend({
 
 });
 
-;;
+
 
 fcViews.basic = {
 	'class': BasicView
@@ -11468,7 +11468,7 @@ fcViews.month = {
 		fixedWeekCount: true
 	}
 };
-;;
+
 
 /* An abstract class for all agenda-related views. Displays one more columns with time slots running vertically.
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -11966,7 +11966,7 @@ var agendaDayGridMethods = {
 
 };
 
-;;
+
 
 var AGENDA_ALL_DAY_EVENT_LIMIT = 5;
 
@@ -12001,7 +12001,7 @@ fcViews.agendaWeek = {
 	type: 'agenda',
 	duration: { weeks: 1 }
 };
-;;
+
 
 return FC; // export for Node/CommonJS
 });
