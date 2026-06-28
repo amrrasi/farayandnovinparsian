@@ -70,9 +70,9 @@ while($row = $result->fetch_assoc()){
 
             </li>
 
-            <li><a href="#">تیم ما</a></li>
-            <li><a href="#">پشتیبانی</a></li>
-            <li><a href="#">ارتباط با ما</a></li>
+            <li><a href="team/">تیم ما</a></li>
+            <li><a href="blogs/">وبلاگ</a></li>
+            <li><a href="contact-us/">ارتباط با ما</a></li>
             <li><a href="about-us/">درباره ما</a></li>
         </ul>
 
@@ -84,7 +84,7 @@ while($row = $result->fetch_assoc()){
             <a href="account/" class="hp-icon-btn" title="حساب کاربری">
                 <i class="fas fa-user"></i>
             </a>
-            <a href="" class="hp-btn-cta">ثبت درخواست سفارش</a>
+            <a href="contact-us/" class="hp-btn-cta">ثبت درخواست پشتیبانی</a>
 
             <button id="theme-toggle" class="theme-toggle" aria-label="تغییر تم">
                 <i class="fas fa-moon"></i>
@@ -138,16 +138,16 @@ while($row = $result->fetch_assoc()){
 
     </details>
 
-    <a href="#" class="hp-drawer-link">تیم ما</a>
-    <a href="#" class="hp-drawer-link">پشتیبانی</a>
-    <a href="#" class="hp-drawer-link">ارتباط با ما</a>
+    <a href="team/" class="hp-drawer-link">تیم ما</a>
+    <a href="blogs/" class="hp-drawer-link">وبلاگ</a>
+    <a href="contact-us/" class="hp-drawer-link">ارتباط با ما</a>
     <a href="about-us/" class="hp-drawer-link">درباره ما</a>
 
     <div class="hp-drawer-divider"></div>
 
-    <a href="#" class="hp-icon-btn" style="width:100%;border-radius:12px;gap:10px;padding:12px;justify-content:center">
+    <a href="cart/" class="hp-icon-btn" style="width:100%;border-radius:12px;gap:10px;padding:12px;justify-content:center">
         <i class="fas fa-shopping-cart"></i> سبد خرید
     </a>
-    <a href="#" class="hp-drawer-cta">درخواست پشتیبانی</a>
+    <a href="contact-us/" class="hp-drawer-cta">درخواست پشتیبانی</a>
 
 </div>
