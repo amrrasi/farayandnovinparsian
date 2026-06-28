@@ -1,13 +1,6 @@
-/*==================================================
-ABOUT PAGE
-Part 1
-==================================================*/
-
 document.addEventListener("DOMContentLoaded", () => {
 
     initReveal();
-
-    initCounter();
 
     initTimeline();
 
@@ -42,70 +35,6 @@ function initReveal(){
     });
 
     elements.forEach(el=>observer.observe(el));
-
-}
-
-/*==================================================
-Counter
-==================================================*/
-
-function initCounter(){
-
-    const counters=document.querySelectorAll(".counter");
-
-    const observer=new IntersectionObserver(entries=>{
-
-        entries.forEach(entry=>{
-
-            if(!entry.isIntersecting) return;
-
-            animateCounter(entry.target);
-
-            observer.unobserve(entry.target);
-
-        });
-
-    },{
-
-        threshold:.5
-
-    });
-
-    counters.forEach(counter=>observer.observe(counter));
-
-}
-
-function animateCounter(el){
-
-    const target=parseInt(el.dataset.count);
-
-    const duration=1800;
-
-    const step=Math.max(1,Math.ceil(target/(duration/16)));
-
-    let current=0;
-
-    function update(){
-
-        current+=step;
-
-        if(current>=target){
-
-            current=target;
-
-            el.textContent=target.toLocaleString("fa-IR");
-
-            return;
-
-        }
-
-        el.textContent=current.toLocaleString("fa-IR");
-
-        requestAnimationFrame(update);
-
-    }
-
-    update();
 
 }
 
@@ -170,73 +99,6 @@ function updateTimeline(cards,fill){
     }
 
 }
-/*==================================================
-PART 2
-==================================================*/
-
-document.addEventListener("DOMContentLoaded",function(){
-
-    initClientsSlider();
-
-    initTimelineMobile();
-
-    initHeroParallax();
-
-    initFloatingCard();
-
-});
-
-/*==================================================
-CLIENTS SLIDER
-==================================================*/
-
-function initClientsSlider(){
-
-    if(typeof $.fn.owlCarousel==="undefined") return;
-
-    $(".clients-slider").owlCarousel({
-
-        rtl:true,
-
-        loop:true,
-
-        margin:24,
-
-        autoplay:true,
-
-        autoplayTimeout:2500,
-
-        autoplayHoverPause:true,
-
-        smartSpeed:700,
-
-        nav:false,
-
-        dots:false,
-
-        responsive:{
-
-            0:{
-                items:2
-            },
-
-            576:{
-                items:3
-            },
-
-            768:{
-                items:4
-            },
-
-            1200:{
-                items:5
-            }
-
-        }
-
-    });
-
-}
 
 /*==================================================
 TIMELINE MOBILE
@@ -277,26 +139,6 @@ function initTimelineMobile(){
             '<i class="fas fa-chevron-left"></i>'
 
         ]
-
-    });
-
-}
-
-/*==================================================
-HERO PARALLAX
-==================================================*/
-
-function initHeroParallax(){
-
-    const hero=document.querySelector(".about-hero");
-
-    if(!hero) return;
-
-    window.addEventListener("scroll",()=>{
-
-        const y=window.pageYOffset;
-
-        hero.style.backgroundPositionY=(y*.35)+"px";
 
     });
 
