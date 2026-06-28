@@ -33,15 +33,15 @@
 
                     <div class="footer-cta-buttons">
 
-                        <a href="" class="btn-main">
+                        <a href="about-us/" class="btn-main">
 
-                            ثبت درخواست
+                           تماس با ما
 
                         </a>
 
-                        <a href="" class="btn-second">
+                        <a href="contact-us/" class="btn-second">
 
-                            تماس با کارشناسان
+                            دریافت مشاوره
 
                         </a>
 
