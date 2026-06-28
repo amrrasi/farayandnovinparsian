@@ -173,7 +173,7 @@
 
                         <i class="fas fa-envelope"></i>
 
-                        <a href="tel:<?= setting('email') ?>"><?= setting('email') ?></a>
+                        <a href="mailto:<?= setting('email') ?>"><?= setting('email') ?></a>
 
                     </div>
 
