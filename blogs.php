@@ -120,47 +120,7 @@ function getBadge(array $row): array {
             </div>
         </div>
     </section>
-
-    <!-- ══════════════════════════════════
-         STATS
-    ══════════════════════════════════ -->
-    <section class="knowledge-stats">
-        <div class="container">
-            <div class="row g-3">
-
-                <div class="col-lg-3 col-6">
-                    <div class="stat-card">
-                        <span><?= number_format($totalBlogs) ?></span>
-                        <small>مقاله منتشر شده</small>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-                    <div class="stat-card">
-                        <span><?= number_format($totalVisits) ?></span>
-                        <small>بازدید ثبت شده</small>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-                    <div class="stat-card">
-                        <span><?= number_format($todayBlogs) ?></span>
-                        <small>مطالب جدید امروز</small>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-                    <div class="stat-card">
-                        <span><?= number_format($featured['visit'] ?? 0) ?></span>
-                        <small>محبوب‌ترین مقاله</small>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
+    
     <!-- ══════════════════════════════════
          SEARCH + SORT
     ══════════════════════════════════ -->
