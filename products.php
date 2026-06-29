@@ -211,13 +211,14 @@ $pageTitle = $activeMenu
                     <div class="orbit-ring orbit-ring-1"></div>
                     <div class="orbit-ring orbit-ring-2"></div>
                     <div class="orbit-ring orbit-ring-3"></div>
+                    <div class="orbit-ring orbit-ring-4"></div>
+                    <div class="orbit-ring orbit-ring-5"></div>
 
                     <!-- Core -->
                     <div class="orbit-core">
                         <i class="fa-solid fa-server"></i>
                     </div>
 
-                    <!-- Orbit chips are injected by JS from menuData below -->
                 </div>
             </div>
 

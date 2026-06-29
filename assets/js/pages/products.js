@@ -2,6 +2,8 @@ const ORBIT_RINGS = [
     { r: 85,  duration: 16, items: [] },
     { r: 140, duration: 26, items: [] },
     { r: 195, duration: 38, items: [] },
+    { r: 260, duration: 48, items: [] },
+    { r: 315, duration: 60, items: [] },
 ];
 
 function buildOrbit() {
@@ -39,7 +41,7 @@ function buildOrbit() {
             const chip = document.createElement('a');
             chip.className = 'chip';
             chip.textContent = menu.name;
-            chip.href  = `products/${menu.slug}`;
+            // chip.href  = `products/${menu.slug}`;
             chip.title = menu.name;
 
             // Highlight the active category
