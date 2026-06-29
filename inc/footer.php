@@ -103,15 +103,36 @@
 
                 <ul>
 
-                    <li><a href="">PowerStore</a></li>
+                    <?php
 
-                    <li><a href="">Unity XT</a></li>
+                    $stmt = $pdo->prepare("
+                                SELECT name, seo_slug
+                                FROM product
+                                WHERE active = 1
+                                  AND deleted = 0
+                                ORDER BY myorder ASC, id DESC
+                                LIMIT 5
+                            ");
 
-                    <li><a href="">PowerMax</a></li>
+                    $stmt->execute();
 
-                    <li><a href="">Data Domain</a></li>
+                    $productsFooter = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    <li><a href="">Backup</a></li>
+                    foreach ($productsFooter as $product):
+
+                        ?>
+
+                        <li>
+
+                            <a href="product/<?= htmlspecialchars($product['seo_slug']) ?>">
+
+                                <?= htmlspecialchars($product['name']) ?>
+
+                            </a>
+
+                        </li>
+
+                    <?php endforeach; ?>
 
                 </ul>
 

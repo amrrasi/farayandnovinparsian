@@ -120,7 +120,7 @@ function getBadge(array $row): array {
             </div>
         </div>
     </section>
-    
+
     <!-- ══════════════════════════════════
          SEARCH + SORT
     ══════════════════════════════════ -->
