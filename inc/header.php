@@ -35,7 +35,7 @@ while($row = $result->fetch_assoc()){
 
             <li class="hp-has-drop">
 
-                <a href="/products">
+                <a href="/products/all-product">
 
                     محصولات
 
@@ -49,7 +49,7 @@ while($row = $result->fetch_assoc()){
 
                         <li>
 
-                            <a href="/products/<?= urlencode($menu['name']) ?>">
+                            <a href="/products/<?= url_slug($menu['name']) ?>">
 
                     <span class="hp-drop-icon">
 
@@ -116,7 +116,7 @@ while($row = $result->fetch_assoc()){
 
             <?php foreach($productMenus as $menu): ?>
 
-                <a href="/products/<?= urlencode($menu['name']) ?>">
+                <a href="/products/<?=  url_slug($menu['name'])  ?>">
 
                     <i class="fa-solid fa-server me-2"></i>
 
@@ -126,7 +126,7 @@ while($row = $result->fetch_assoc()){
 
             <?php endforeach; ?>
 
-            <a class="drawer-all" href="/products">
+            <a class="drawer-all" href="/products/all-product">
 
                 <i class="fa-solid fa-grid-2 me-2"></i>
 
