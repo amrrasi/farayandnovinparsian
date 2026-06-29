@@ -29,7 +29,7 @@ RewriteRule ^products/?$ products.php [END]
 
 RewriteRule ^products/([^/]+)/?$ products.php?category=$1 [END,QSA]
 
-RewriteRule ^products/([^/]+)/([^/]+)/?$ product.php?category=$1&slug=$2 [END,QSA]
+RewriteRule ^product/([^/]+)/?$ product.php?category=$1 [END,QSA]
 
 RewriteRule ^blog/([^/]+)/?$ blog.php?slug=$1 [END,QSA]
 

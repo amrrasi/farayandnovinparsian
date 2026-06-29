@@ -335,7 +335,7 @@ $pageTitle = $activeMenu
                             ? make_slug($activeMenu['name'])
                             : (isset($product['menu_name']) ? make_slug($product['menu_name']) : 'all-product');
 
-                    $productUrl = "products/{$menuSlugForUrl}/{$slug}";
+                    $productUrl = "product/{$slug}";
 
                     // Category label for the card
                     $cardCategory = $product['menu_name'] ?? ($activeMenu ? $activeMenu['name'] : 'محصولات سازمانی');

@@ -366,43 +366,14 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
 </main><!-- /single-blog-page -->
 
 
-<!-- ══════════════════════════════════════════
-     FLOATING ACTION CARD
-══════════════════════════════════════════ -->
-<aside class="floating-card" id="floatingCard" aria-label="ابزارهای مقاله">
 
-    <div class="fac-item fac-time" title="زمان مطالعه">
-        <i class="fa-regular fa-clock"></i>
-        <span><?= $minutes ?> دقیقه</span>
-    </div>
 
-    <div class="fac-divider"></div>
+<?php
+require_once "inc/aside.php";
 
-    <div class="fac-item fac-views" title="تعداد بازدید">
-        <i class="fa-regular fa-eye"></i>
-        <span id="facViews"><?= number_format($blog['visit']) ?></span>
-    </div>
+require_once "inc/footer.php"
 
-    <div class="fac-divider"></div>
-
-    <button class="fac-item fac-share" id="facShare" title="کپی لینک مقاله">
-        <i class="fa-solid fa-link"></i>
-        <span>اشتراک</span>
-    </button>
-
-    <div class="fac-divider"></div>
-
-    <button class="fac-item fac-top" id="facTop" title="بازگشت به بالا">
-        <i class="fa-solid fa-arrow-up"></i>
-        <span>بالا</span>
-    </button>
-
-    <!-- Copy toast -->
-    <div class="fac-toast" id="facToast">لینک کپی شد!</div>
-
-</aside>
-
-<?php require_once "inc/footer.php" ?>
+?>
 
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/jquery.nice-select.min.js"></script>
