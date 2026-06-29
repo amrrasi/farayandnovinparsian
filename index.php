@@ -21,8 +21,10 @@ require_once "cms/myadmin/inc/config.php"
     <link rel="stylesheet" href="assets/css/base/bootstrap.rtl.css">
     <link rel="stylesheet" href="assets/css/base/base.css">
     <link rel="stylesheet" href="assets/css/layout/header.css">
-    <link rel="stylesheet" href="assets/css/layout/footer.css">f
-    <link rel="stylesheet" href="assets/css/pages/style.css">
+    <link rel="stylesheet" href="assets/css/layout/footer.css">
+
+    <link rel="stylesheet"
+          href="assets/css/pages/style.css?v=<?php echo filemtime('assets/css/pages/style.css'); ?>">
 
 </head>
 <body>

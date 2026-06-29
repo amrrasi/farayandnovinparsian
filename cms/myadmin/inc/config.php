@@ -148,4 +148,8 @@ $cartCount = count($_SESSION['cart'] ?? []);
 $global_base_address =
     '<base href="http://farayand_novin.local/" />';
 $baseAddress = 'http://farayand_novin.local/';
+
+//$global_base_address =
+//    '<base href="http://192.168.1.106:8000/" />';
+//$baseAddress = 'http://192.168.1.106:8000/';
 ?>
