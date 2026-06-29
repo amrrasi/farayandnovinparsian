@@ -744,6 +744,17 @@ while ($row = $result->fetch_assoc()) {
 
             ?>
         </div>
+        <div class="watchAllBlogs">
+
+            <a href="products/all-product">
+
+                <span>مشاهده تمامی محصولات</span>
+
+                <i class="fa-solid fa-chevron-circle-left"></i>
+
+            </a>
+
+        </div>
     </div>
 </section>
 
