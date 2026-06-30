@@ -1,4 +1,63 @@
 <!--==========================================
+STICKY PRODUCT INFO
+===========================================-->
+
+<?php if (!empty($product)): ?>
+    <aside class="sticky-info">
+
+        <div class="mini-card">
+
+            <span>دسته‌بندی</span>
+
+            <strong><?= htmlspecialchars($product['category_name'] ?? '—') ?></strong>
+
+        </div>
+
+        <div class="mini-card">
+
+            <span>بازدید</span>
+
+            <strong><?= number_format($product['visit']) ?></strong>
+
+        </div>
+
+        <div class="mini-card">
+
+            <span>وضعیت</span>
+
+            <strong class="text-success">موجود</strong>
+
+        </div>
+
+        <div class="mini-card">
+
+            <span>آخرین بروزرسانی</span>
+
+            <strong>
+                <?= $product['updated_at']
+                        ? date('Y/m/d', strtotime($product['updated_at']))
+                        : '—' ?>
+            </strong>
+
+        </div>
+
+        <?php if ($product['price'] > 0): ?>
+            <div class="mini-card">
+
+                <span>قیمت</span>
+
+                <strong class="price-highlight">
+                    <?= number_format($product['price']) ?> تومان
+                </strong>
+
+            </div>
+        <?php endif; ?>
+
+    </aside>
+<?php endif; ?>
+
+
+<!--==========================================
 FLOAT CART
 ===========================================-->
 
@@ -33,135 +92,3 @@ FLOAT CART
     </div>
 
 </div>
-<section class="product-highlights">
-
-    <div class="container">
-
-        <div class="highlight-card">
-
-            <div>
-
-                <small>
-
-                    PERFORMANCE
-
-                </small>
-
-                <strong>
-
-                    Enterprise Grade
-
-                </strong>
-
-            </div>
-
-            <div class="progress">
-
-                <span style="width:95%"></span>
-
-            </div>
-
-        </div>
-
-        <div class="highlight-card">
-
-            <div>
-
-                <small>
-
-                    SECURITY
-
-                </small>
-
-                <strong>
-
-                    High
-
-                </strong>
-
-            </div>
-
-            <div class="progress">
-
-                <span style="width:90%"></span>
-
-            </div>
-
-        </div>
-
-        <div class="highlight-card">
-
-            <div>
-
-                <small>
-
-                    SCALABILITY
-
-                </small>
-
-                <strong>
-
-                    Unlimited
-
-                </strong>
-
-            </div>
-
-            <div class="progress">
-
-                <span style="width:98%"></span>
-
-            </div>
-
-        </div>
-
-        <div class="highlight-card">
-
-            <div>
-
-                <small>
-
-                    CLOUD READY
-
-                </small>
-
-                <strong>
-
-                    100%
-
-                </strong>
-
-            </div>
-
-            <div class="progress">
-
-                <span style="width:100%"></span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-<section class="recent-products">
-
-    <div class="container">
-
-        <div class="section-head">
-
-            <h2>
-
-                اخیراً مشاهده کرده‌اید
-
-            </h2>
-
-        </div>
-
-        <div id="recentProducts">
-
-        </div>
-
-    </div>
-
-</section>

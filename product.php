@@ -10,10 +10,10 @@ if (empty($slug)) {
 // ── 2. FETCH PRODUCT ───────────────────────────────────────
 $stmt = $pdo->prepare("
     SELECT p.*,
-           pm.name        AS category_name,
-           pm.url_slug    AS category_slug
+           pm.name        AS category_name
     FROM   product p
-    LEFT JOIN product_menu pm ON pm.id = p.product_menu_id
+    LEFT JOIN product_menu pm  ON pm.id  = p.product_menu_id
+    LEFT JOIN product_menu pmp ON pmp.id = pm.parent_id
     WHERE  p.seo_slug = :slug
       AND  p.active   = 1
       AND  p.deleted  = 0
@@ -21,9 +21,9 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute([':slug' => $slug]);
 $product = $stmt->fetch(PDO::FETCH_ASSOC);
+$product['category_slug'] = url_slug($product['category_name']);
 
 if (!$product) {
-    http_response_code(404);
     header('Location: ' . $baseAddress . '404');
     exit;
 }
@@ -100,6 +100,8 @@ $pageTitle = htmlspecialchars($product['seo_title'] ?: $product['name']);
 $pageDesc  = htmlspecialchars($product['seo_description'] ?? '');
 $pageRobots = htmlspecialchars($product['meta_robots'] ?? 'index,follow');
 $canonical  = $product['canonical_url'] ? htmlspecialchars($product['canonical_url']) : $pageUrl;
+
+$categorySlug = url_slug($product['name'])
 ?>
 <!doctype html>
 <html lang="fa" dir="rtl">
@@ -168,7 +170,7 @@ $canonical  = $product['canonical_url'] ? htmlspecialchars($product['canonical_u
 <!--==========================================
 PRODUCT HERO
 ===========================================-->
-<section class="product-single">
+<section class="product-single mt-5">
     <div class="container">
 
         <!-- Breadcrumb -->
@@ -194,14 +196,14 @@ PRODUCT HERO
                     <div class="gallery-main">
                         <img
                                 id="mainProductImage"
-                                src="<?= htmlspecialchars($product['thumbnail']) ?>"
+                                src="cms/<?= htmlspecialchars($product['thumbnail']) ?>"
                                 alt="<?= htmlspecialchars($product['name']) ?>"
                                 loading="eager">
                     </div>
                     <!-- Thumbs: currently only one image in DB; add more columns later -->
                     <div class="gallery-thumbs">
                         <button class="active" aria-label="تصویر اصلی">
-                            <img src="<?= htmlspecialchars($product['thumbnail']) ?>" alt="">
+                            <img src="cms/<?= htmlspecialchars($product['thumbnail']) ?>" alt="">
                         </button>
                     </div>
                 </div>
@@ -228,10 +230,6 @@ PRODUCT HERO
                     <!-- Meta grid -->
                     <div class="product-meta">
                         <div>
-                            <span>بازدید</span>
-                            <strong><?= number_format($product['visit']) ?></strong>
-                        </div>
-                        <div>
                             <span>دسته‌بندی</span>
                             <strong><?= htmlspecialchars($product['category_name'] ?? '—') ?></strong>
                         </div>
@@ -241,7 +239,7 @@ PRODUCT HERO
                         </div>
                         <div>
                             <span>بروزرسانی</span>
-                            <strong><?= $product['updated_at'] ? date('Y/m/d', strtotime($product['updated_at'])) : '—' ?></strong>
+                            <strong><?= $product['updated_at'] ? jdate('d F Y', strtotime($product['updated_at'])) : '—' ?></strong>
                         </div>
                     </div>
 
@@ -274,14 +272,6 @@ PRODUCT HERO
                     <!-- Tools -->
                     <div class="aside-tools">
                         <button>
-                            <i class="fa-regular fa-heart"></i>
-                            علاقه‌مندی
-                        </button>
-                        <button>
-                            <i class="fa-solid fa-code-compare"></i>
-                            مقایسه
-                        </button>
-                        <button>
                             <i class="fa-solid fa-share-nodes"></i>
                             اشتراک‌گذاری
                         </button>
@@ -306,8 +296,8 @@ PRODUCT HERO
                 </aside>
             </div>
 
-        </div><!-- /row -->
-    </div><!-- /container -->
+        </div>
+    </div>
 </section>
 
 
@@ -319,7 +309,7 @@ PRODUCT CONTENT  (tabs + sticky sidebar)
         <div class="row g-5">
 
             <!-- ── TABS COLUMN ── -->
-            <div class="col-lg-8">
+            <div class="col-lg-12">
 
                 <div class="product-tabs" role="tablist">
                     <button class="active" data-tab="overview"  role="tab" aria-selected="true">معرفی محصول</button>
@@ -327,7 +317,7 @@ PRODUCT CONTENT  (tabs + sticky sidebar)
                         <button data-tab="features" role="tab" aria-selected="false">ویژگی‌ها</button>
                         <button data-tab="specs"    role="tab" aria-selected="false">مشخصات فنی</button>
                     <?php endif; ?>
-                    <button data-tab="downloads" role="tab" aria-selected="false">دانلودها</button>
+<!--                    <button data-tab="downloads" role="tab" aria-selected="false">دانلودها</button>-->
                 </div>
 
                 <!-- Overview -->
@@ -406,40 +396,6 @@ PRODUCT CONTENT  (tabs + sticky sidebar)
 
             </div><!-- /col -->
 
-            <!-- ── STICKY SIDEBAR ── -->
-            <div class="col-lg-4">
-                <div class="sticky-info">
-                    <div class="mini-card">
-                        <span>دسته‌بندی</span>
-                        <strong><?= htmlspecialchars($product['category_name'] ?? '—') ?></strong>
-                    </div>
-                    <div class="mini-card">
-                        <span>بازدید</span>
-                        <strong><?= number_format($product['visit']) ?></strong>
-                    </div>
-                    <div class="mini-card">
-                        <span>وضعیت</span>
-                        <strong class="text-success">موجود</strong>
-                    </div>
-                    <div class="mini-card">
-                        <span>آخرین بروزرسانی</span>
-                        <strong>
-                            <?= $product['updated_at']
-                                    ? date('Y/m/d', strtotime($product['updated_at']))
-                                    : '—' ?>
-                        </strong>
-                    </div>
-                    <?php if ($product['price'] > 0): ?>
-                        <div class="mini-card">
-                            <span>قیمت</span>
-                            <strong class="price-highlight">
-                                <?= number_format($product['price']) ?> تومان
-                            </strong>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-
         </div><!-- /row -->
     </div><!-- /container -->
 </section>
@@ -469,17 +425,17 @@ RELATED PRODUCTS
                 <?php foreach ($related as $rel): ?>
                     <div class="col-lg-3 col-md-6">
                         <article class="related-card">
-                            <a href="<?= $baseAddress ?>products/<?= htmlspecialchars($product['category_slug'] ?? '') ?>/<?= htmlspecialchars($rel['seo_slug']) ?>"
+                            <a href="<?= $baseAddress ?>product/<?= htmlspecialchars($rel['seo_slug']) ?>"
                                class="image">
                                 <img
-                                        src="<?= htmlspecialchars($rel['thumbnail']) ?>"
+                                        src="cms/<?= htmlspecialchars($rel['thumbnail']) ?>"
                                         alt="<?= htmlspecialchars($rel['name']) ?>"
                                         loading="lazy">
                             </a>
                             <div class="content">
                                 <small><?= htmlspecialchars($product['category_name'] ?? '') ?></small>
                                 <h3>
-                                    <a href="<?= $baseAddress ?>products/<?= htmlspecialchars($product['category_slug'] ?? '') ?>/<?= htmlspecialchars($rel['seo_slug']) ?>">
+                                    <a href="<?= $baseAddress ?>product/<?= htmlspecialchars($rel['seo_slug']) ?>">
                                         <?= htmlspecialchars($rel['name']) ?>
                                     </a>
                                 </h3>
@@ -509,7 +465,7 @@ PREV / NEXT NAVIGATION
 
                 <div>
                     <?php if ($prevProduct): ?>
-                        <a href="<?= $baseAddress ?>products/<?= htmlspecialchars($product['category_slug'] ?? '') ?>/<?= htmlspecialchars($prevProduct['seo_slug']) ?>">
+                        <a href="<?= $baseAddress ?>product/<?= htmlspecialchars($prevProduct['seo_slug']) ?>">
                             <small>محصول قبلی</small>
                             <span><?= htmlspecialchars($prevProduct['name']) ?></span>
                         </a>
@@ -520,7 +476,7 @@ PREV / NEXT NAVIGATION
 
                 <div>
                     <?php if ($nextProduct): ?>
-                        <a href="<?= $baseAddress ?>products/<?= htmlspecialchars($product['category_slug'] ?? '') ?>/<?= htmlspecialchars($nextProduct['seo_slug']) ?>">
+                        <a href="<?= $baseAddress ?>product/<?= htmlspecialchars($nextProduct['seo_slug']) ?>">
                             <small>محصول بعدی</small>
                             <span><?= htmlspecialchars($nextProduct['name']) ?></span>
                         </a>
