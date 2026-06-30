@@ -314,3 +314,46 @@
     }
 
 }());
+
+const progress = $("#readingProgress");
+const percent = $("#readingPercent");
+
+function updateReadingProgress(){
+
+    const scroll = $(window).scrollTop();
+
+    const maxScroll = $(document).height() - $(window).height();
+
+    let p = (scroll / maxScroll) * 100;
+
+    p = Math.max(0, Math.min(100, p));
+
+    if(window.innerWidth <= 768){
+
+        progress.css({
+            width: p + "%",
+            height: "100%"
+        });
+
+    }else{
+
+        progress.css({
+            height: p + "%",
+            width: "100%"
+        });
+
+    }
+
+    // قرمز ➜ سبز
+    progress.css(
+        "background",
+        `hsl(${p * 1.2}, 85%, 50%)`
+    );
+
+    percent.text(Math.round(p) + "%");
+
+}
+
+$(window).on("scroll resize", updateReadingProgress);
+
+updateReadingProgress();

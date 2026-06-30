@@ -28,7 +28,19 @@
         <i class="fa-solid fa-arrow-up"></i>
         <span>بالا</span>
     </button>
+    <div class="fac-divider"></div>
 
+    <div class="fac-progress">
+
+        <div class="progress-track">
+
+            <span id="readingProgress" class="progress-fill"></span>
+
+        </div>
+
+        <small id="readingPercent">0%</small>
+
+    </div>
     <!-- Copy toast -->
     <div class="fac-toast" id="facToast">لینک کپی شد!</div>
 

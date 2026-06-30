@@ -150,6 +150,6 @@ $global_base_address =
 $baseAddress = 'http://farayand_novin.local/';
 
 //$global_base_address =
-//    '<base href="http://192.168.1.106:8000/" />';
-//$baseAddress = 'http://192.168.1.106:8000/';
+//    '<base href="http://192.168.1.106/" />';
+//$baseAddress = 'http://192.168.1.106/';
 ?>

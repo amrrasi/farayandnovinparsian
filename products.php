@@ -1,37 +1,13 @@
 <?php
 require_once "cms/myadmin/inc/config.php";
 
-/* ------------------------------------------------------------------ */
-/* Helper: generate a URL-safe slug from any UTF-8 string             */
-/* ------------------------------------------------------------------ */
-function make_slug(string $str): string {
-    // Transliterate common Farsi/Arabic chars to latin equivalents,
-    // then strip the rest and lowercase.
-    $str = mb_strtolower(trim($str));
-    // Replace spaces / underscores with hyphens
-    $str = preg_replace('/[\s_]+/', '-', $str);
-    // Keep only latin letters, digits, hyphens — remove anything else
-    $str = preg_replace('/[^\p{L}\p{N}\-]+/u', '', $str);
-    $str = preg_replace('/-+/', '-', $str);
-    return trim($str, '-');
-}
-
-/* ------------------------------------------------------------------ */
-/* Resolve current category from URL                                   */
-/* ------------------------------------------------------------------ */
-// Your router should put the slug segment into $categorySlug.
-// Fallback: parse from REQUEST_URI if not set.
 if (!isset($categorySlug)) {
     $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $segs = array_filter(explode('/', trim($uri, '/')));
     $segs = array_values($segs);
-    // Expect /products/{slug}
     $categorySlug = isset($segs[1]) ? $segs[1] : 'all-product';
 }
 
-/* ------------------------------------------------------------------ */
-/* Load ALL active top-level menu items (parent_id = 0)               */
-/* ------------------------------------------------------------------ */
 $menuStmt = $pdo->query("
     SELECT id, name
     FROM   product_menu
@@ -42,23 +18,17 @@ $menuStmt = $pdo->query("
 ");
 $menuItems = $menuStmt->fetchAll(PDO::FETCH_ASSOC);
 
-/* ------------------------------------------------------------------ */
-/* Resolve which menu item is currently active                         */
-/* ------------------------------------------------------------------ */
-$activeMenu = null;   // product_menu row for the current category
+$activeMenu = null;
 
 if ($categorySlug !== 'all-product') {
     foreach ($menuItems as $m) {
-        if (make_slug($m['name']) === $categorySlug) {
+        if (url_slug($m['name']) === $categorySlug) {
             $activeMenu = $m;
             break;
         }
     }
 }
 
-/* ------------------------------------------------------------------ */
-/* Load products                                                        */
-/* ------------------------------------------------------------------ */
 if ($categorySlug === 'all-product' || $activeMenu === null) {
     // Show everything
     $prodStmt = $pdo->query("
@@ -70,7 +40,6 @@ if ($categorySlug === 'all-product' || $activeMenu === null) {
         ORDER  BY p.myorder, p.id
     ");
 } else {
-    // Show only products in this menu (and its children)
     $menuId   = (int) $activeMenu['id'];
     $childIds = [$menuId];
 
@@ -99,10 +68,6 @@ if ($categorySlug === 'all-product' || $activeMenu === null) {
 
 $products = $prodStmt->fetchAll(PDO::FETCH_ASSOC);
 
-/* ------------------------------------------------------------------ */
-/* Product DNA — hardcoded per seo_slug keyword                        */
-/* Add your own product slugs here to get custom bar values.           */
-/* ------------------------------------------------------------------ */
 $dna_map = [
         'powerstore'  => ['performance'=>100,'security'=>100,'scalability'=>100,'cloud'=>100],
         'powermax'    => ['performance'=>100,'security'=>100,'scalability'=>100,'cloud'=>100],
@@ -127,9 +92,6 @@ function get_dna(string $slug, array $map): array {
     return $map['default'];
 }
 
-/* ------------------------------------------------------------------ */
-/* Page title                                                           */
-/* ------------------------------------------------------------------ */
 $pageTitle = $activeMenu
         ? htmlspecialchars($activeMenu['name'])
         : 'محصولات سازمانی';
@@ -159,12 +121,8 @@ $pageTitle = $activeMenu
 
 <?php require_once "inc/header.php" ?>
 
-<!-- Background canvas (data-center grid) -->
 <canvas id="bg-canvas"></canvas>
 
-<!-- ================================================================
-     HERO — Orbit chips come from product_menu
-     ================================================================ -->
 <section class="products-hero">
     <div class="container">
 
@@ -181,7 +139,6 @@ $pageTitle = $activeMenu
 
         <div class="row align-items-center g-5">
 
-            <!-- LEFT: copy -->
             <div class="col-lg-6">
                 <div class="hero-eyebrow"> <?= setting('name') ?> </div>
                 <h1 class="hero-title">
@@ -203,18 +160,15 @@ $pageTitle = $activeMenu
                 </div>
             </div>
 
-            <!-- RIGHT: Orbit — chips = product_menu items -->
             <div class="col-lg-6 d-flex justify-content-center">
                 <div class="orbit-stage" id="orbitStage">
 
-                    <!-- Ring guides (CSS-animated) -->
                     <div class="orbit-ring orbit-ring-1"></div>
                     <div class="orbit-ring orbit-ring-2"></div>
                     <div class="orbit-ring orbit-ring-3"></div>
                     <div class="orbit-ring orbit-ring-4"></div>
                     <div class="orbit-ring orbit-ring-5"></div>
 
-                    <!-- Core -->
                     <div class="orbit-core">
                         <i class="fa-solid fa-server"></i>
                     </div>
@@ -332,8 +286,8 @@ $pageTitle = $activeMenu
                     // Build product page URL:
                     // /products/{menu-slug}/{product-slug}
                     $menuSlugForUrl = $activeMenu
-                            ? make_slug($activeMenu['name'])
-                            : (isset($product['menu_name']) ? make_slug($product['menu_name']) : 'all-product');
+                            ? url_slug($activeMenu['name'])
+                            : (isset($product['menu_name']) ? url_slug($product['menu_name']) : 'all-product');
 
                     $productUrl = "product/{$slug}";
 
@@ -501,7 +455,7 @@ $pageTitle = $activeMenu
         return [
                 'id'   => $m['id'],
                 'name' => $m['name'],
-                'slug' => make_slug($m['name']),
+                'slug' => url_slug($m['name']),
         ];
     }, $menuItems), JSON_UNESCAPED_UNICODE) ?>;
 
