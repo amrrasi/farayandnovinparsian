@@ -172,59 +172,59 @@ function initStickyCart(){
 SCROLL SPY
 ======================================*/
 
-function initScrollSpy(){
-
-    const sections=[
-        "#overview",
-        "#features",
-        "#specs",
-        "#downloads"
-    ];
-
-    $(window).on("scroll",function(){
-
-        let scroll=$(window).scrollTop()+180;
-
-        sections.forEach(function(id){
-
-            if($(id).length){
-
-                let top=$(id).offset().top;
-                let bottom=top+$(id).outerHeight();
-
-                if(scroll>=top && scroll<bottom){
-
-                    $(".product-tabs button").removeClass("active");
-
-                    $('.product-tabs button[data-tab="'+id.replace("#","")+'"]')
-                        .addClass("active");
-
-                }
-
-            }
-
-        });
-
-    });
-
-}
+// function initScrollSpy(){
+//
+//     const sections=[
+//         "#overview",
+//         "#features",
+//         "#specs",
+//         "#downloads"
+//     ];
+//
+//     $(window).on("scroll",function(){
+//
+//         let scroll=$(window).scrollTop()+180;
+//
+//         sections.forEach(function(id){
+//
+//             if($(id).length){
+//
+//                 let top=$(id).offset().top;
+//                 let bottom=top+$(id).outerHeight();
+//
+//                 if(scroll>=top && scroll<bottom){
+//
+//                     $(".product-tabs button").removeClass("active");
+//
+//                     $('.product-tabs button[data-tab="'+id.replace("#","")+'"]')
+//                         .addClass("active");
+//
+//                 }
+//
+//             }
+//
+//         });
+//
+//     });
+//
+// }
 
 
 /*======================================
 SMOOTH TAB SCROLL
 ======================================*/
 
-$(".product-tabs button").on("click",function(){
-
-    let id=$(this).data("tab");
-
-    $("html,body").animate({
-
-        scrollTop:$("#"+id).offset().top-120
-
-    },500);
-
-});
+// $(".product-tabs button").on("click",function(){
+//
+//     let id=$(this).data("tab");
+//
+//     $("html,body").animate({
+//
+//         scrollTop:$("#"+id).offset().top-120
+//
+//     },500);
+//
+// });
 
 
 /*======================================

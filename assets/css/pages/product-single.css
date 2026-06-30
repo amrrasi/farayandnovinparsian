@@ -1726,6 +1726,7 @@ BUY BUTTONS  (used in .product-aside)
 .price-on-request{
 
     color:var(--clr-warning) !important;
+    font-size: 20px!important;
 
 }
 

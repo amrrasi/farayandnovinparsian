@@ -7,7 +7,6 @@ if (empty($slug)) {
     exit;
 }
 
-// ── 2. FETCH PRODUCT ───────────────────────────────────────
 $stmt = $pdo->prepare("
     SELECT p.*,
            pm.name        AS category_name
@@ -28,13 +27,10 @@ if (!$product) {
     exit;
 }
 
-// ── 3. INCREMENT VISIT ─────────────────────────────────────
 $pdo->prepare("UPDATE product SET visit = visit + 1 WHERE id = :id")
         ->execute([':id' => $product['id']]);
 $product['visit']++;
 
-// ── 4. PARSE ATTRIBUTES (JSON array) ──────────────────────
-// attribute column stores: ["ظرفیت: 1.8TB","رابط: SAS 12Gb/s", ...]
 $attributes = [];
 if (!empty($product['attribute'])) {
     $decoded = json_decode($product['attribute'], true);
@@ -52,7 +48,6 @@ if (!empty($product['attribute'])) {
     }
 }
 
-// ── 5. RELATED PRODUCTS ────────────────────────────────────
 $relatedStmt = $pdo->prepare("
     SELECT id, name, seo_slug, thumbnail, price
     FROM   product
@@ -65,11 +60,10 @@ $relatedStmt = $pdo->prepare("
 ");
 $relatedStmt->execute([
         ':mid' => $product['product_menu_id'],
-        ':id'  => $product['id'],
+        ':id' => $product['id'],
 ]);
 $related = $relatedStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ── 6. PREV / NEXT ─────────────────────────────────────────
 $prev = $pdo->prepare("
     SELECT id, name, seo_slug
     FROM   product
@@ -94,12 +88,11 @@ $next = $pdo->prepare("
 $next->execute([':id' => $product['id'], ':mid' => $product['product_menu_id']]);
 $nextProduct = $next->fetch(PDO::FETCH_ASSOC);
 
-// ── 7. SEO VARS ────────────────────────────────────────────
-$pageUrl   = $baseAddress . 'product/' . htmlspecialchars($product['seo_slug']);
+$pageUrl = $baseAddress . 'product/' . htmlspecialchars($product['seo_slug']);
 $pageTitle = htmlspecialchars($product['seo_title'] ?: $product['name']);
-$pageDesc  = htmlspecialchars($product['seo_description'] ?? '');
+$pageDesc = htmlspecialchars($product['seo_description'] ?? '');
 $pageRobots = htmlspecialchars($product['meta_robots'] ?? 'index,follow');
-$canonical  = $product['canonical_url'] ? htmlspecialchars($product['canonical_url']) : $pageUrl;
+$canonical = $product['canonical_url'] ? htmlspecialchars($product['canonical_url']) : $pageUrl;
 
 $categorySlug = url_slug($product['name'])
 ?>
@@ -110,27 +103,24 @@ $categorySlug = url_slug($product['name'])
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><?= $pageTitle ?> | <?= htmlspecialchars(setting('name')) ?></title>
-    <meta name="description"  content="<?= $pageDesc ?>">
-    <meta name="robots"       content="<?= $pageRobots ?>">
-    <link rel="canonical"     href="<?= $canonical ?>">
+    <meta name="description" content="<?= $pageDesc ?>">
+    <meta name="robots" content="<?= $pageRobots ?>">
+    <link rel="canonical" href="<?= $canonical ?>">
     <?php if (!empty($product['seo_keywords'])): ?>
         <meta name="keywords" content="<?= htmlspecialchars($product['seo_keywords']) ?>">
     <?php endif; ?>
 
-    <!-- Open Graph -->
-    <meta property="og:type"        content="product">
-    <meta property="og:title"       content="<?= $pageTitle ?>">
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="<?= $pageTitle ?>">
     <meta property="og:description" content="<?= $pageDesc ?>">
-    <meta property="og:url"         content="<?= $pageUrl ?>">
-    <meta property="og:image"       content="<?= htmlspecialchars($product['thumbnail']) ?>">
+    <meta property="og:url" content="<?= $pageUrl ?>">
+    <meta property="og:image" content="<?= htmlspecialchars($product['thumbnail']) ?>">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:title"       content="<?= $pageTitle ?>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= $pageTitle ?>">
     <meta name="twitter:description" content="<?= $pageDesc ?>">
-    <meta name="twitter:image"       content="<?= htmlspecialchars($product['thumbnail']) ?>">
+    <meta name="twitter:image" content="<?= htmlspecialchars($product['thumbnail']) ?>">
 
-    <!-- Product Schema -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -161,7 +151,8 @@ $categorySlug = url_slug($product['name'])
     <link rel="stylesheet" href="assets/css/base/base.css">
     <link rel="stylesheet" href="assets/css/layout/header.css">
     <link rel="stylesheet" href="assets/css/layout/footer.css">
-    <link rel="stylesheet" href="assets/css/pages/product-single.css?v=<?= filemtime('assets/css/pages/product-single.css') ?>">
+    <link rel="stylesheet"
+          href="assets/css/pages/product-single.css?v=<?= filemtime('assets/css/pages/product-single.css') ?>">
 </head>
 <body>
 
@@ -173,7 +164,6 @@ PRODUCT HERO
 <section class="product-single mt-5">
     <div class="container">
 
-        <!-- Breadcrumb -->
         <nav class="breadcrumb" aria-label="مسیر">
             <a href="<?= $baseAddress ?>">خانه</a>
             <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
@@ -190,7 +180,6 @@ PRODUCT HERO
 
         <div class="row gy-5">
 
-            <!-- ── GALLERY ── -->
             <div class="col-lg-7">
                 <div class="product-gallery">
                     <div class="gallery-main">
@@ -200,16 +189,14 @@ PRODUCT HERO
                                 alt="<?= htmlspecialchars($product['name']) ?>"
                                 loading="eager">
                     </div>
-                    <!-- Thumbs: currently only one image in DB; add more columns later -->
                     <div class="gallery-thumbs">
                         <button class="active" aria-label="تصویر اصلی">
-                            <img src="cms/<?= htmlspecialchars($product['thumbnail']) ?>" alt="">
+                            <img src="cms/<?= htmlspecialchars($product['thumbnail']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- ── ASIDE ── -->
             <div class="col-lg-5">
                 <aside class="product-aside">
 
@@ -227,7 +214,6 @@ PRODUCT HERO
                         </p>
                     <?php endif; ?>
 
-                    <!-- Meta grid -->
                     <div class="product-meta">
                         <div>
                             <span>دسته‌بندی</span>
@@ -237,30 +223,24 @@ PRODUCT HERO
                             <span>وضعیت</span>
                             <strong class="text-success">موجود</strong>
                         </div>
-                        <div>
-                            <span>بروزرسانی</span>
-                            <strong><?= $product['updated_at'] ? jdate('d F Y', strtotime($product['updated_at'])) : '—' ?></strong>
-                        </div>
                     </div>
 
-                    <!-- Price -->
                     <div class="price-box">
                         <small>قیمت محصول</small>
                         <?php if ($product['price'] > 0): ?>
                             <strong><?= number_format($product['price']) ?> تومان</strong>
                         <?php else: ?>
-                            <strong class="price-on-request">تماس بگیرید</strong>
+                            <strong class="price-on-request">جهت استعلام قیمت تماس بگیرید <br> <a style="font-size: 16px; color: var(--clr-text)"
+                                        href="tel:<?= setting('phone') ?>"><?= setting('phone') ?></a> </strong>
                         <?php endif; ?>
                     </div>
 
-                    <!-- Quantity -->
                     <div class="qty-box">
                         <button class="minus" aria-label="کاهش تعداد">−</button>
                         <input type="number" id="qty" min="1" value="1" aria-label="تعداد">
                         <button class="plus" aria-label="افزایش تعداد">+</button>
                     </div>
 
-                    <!-- Buttons -->
                     <div class="buy-buttons">
                         <button class="btn-main add-cart" data-id="<?= $product['id'] ?>">
                             <i class="fa-solid fa-cart-plus"></i>
@@ -269,7 +249,6 @@ PRODUCT HERO
                         <button class="btn-border">خرید سریع</button>
                     </div>
 
-                    <!-- Tools -->
                     <div class="aside-tools">
                         <button>
                             <i class="fa-solid fa-share-nodes"></i>
@@ -277,7 +256,6 @@ PRODUCT HERO
                         </button>
                     </div>
 
-                    <!-- Guarantee -->
                     <div class="guarantee-box">
                         <div>
                             <i class="fa-solid fa-shield"></i>
@@ -300,27 +278,21 @@ PRODUCT HERO
     </div>
 </section>
 
-
-<!--==========================================
-PRODUCT CONTENT  (tabs + sticky sidebar)
-===========================================-->
 <section class="product-content-section">
     <div class="container">
-        <div class="row g-5">
+        <div class="row">
 
-            <!-- ── TABS COLUMN ── -->
             <div class="col-lg-12">
 
                 <div class="product-tabs" role="tablist">
-                    <button class="active" data-tab="overview"  role="tab" aria-selected="true">معرفی محصول</button>
+                    <button class="active" data-tab="overview" role="tab" aria-selected="true">معرفی محصول</button>
                     <?php if (!empty($attributes)): ?>
                         <button data-tab="features" role="tab" aria-selected="false">ویژگی‌ها</button>
-                        <button data-tab="specs"    role="tab" aria-selected="false">مشخصات فنی</button>
+                        <button data-tab="specs" role="tab" aria-selected="false">مشخصات فنی</button>
                     <?php endif; ?>
-<!--                    <button data-tab="downloads" role="tab" aria-selected="false">دانلودها</button>-->
+                    <!--                    <button data-tab="downloads" role="tab" aria-selected="false">دانلودها</button>-->
                 </div>
 
-                <!-- Overview -->
                 <div class="tab-content active" id="overview" role="tabpanel">
                     <div class="content-card">
                         <h2><?= htmlspecialchars($product['name']) ?></h2>
@@ -332,7 +304,6 @@ PRODUCT CONTENT  (tabs + sticky sidebar)
 
                 <?php if (!empty($attributes)): ?>
 
-                    <!-- Features -->
                     <div class="tab-content" id="features" role="tabpanel">
                         <div class="content-card">
                             <h2>ویژگی‌های کلیدی</h2>
@@ -347,7 +318,6 @@ PRODUCT CONTENT  (tabs + sticky sidebar)
                         </div>
                     </div>
 
-                    <!-- Specs -->
                     <div class="tab-content" id="specs" role="tabpanel">
                         <div class="content-card">
                             <h2>مشخصات فنی</h2>
@@ -374,30 +344,30 @@ PRODUCT CONTENT  (tabs + sticky sidebar)
                 <?php endif; ?>
 
                 <!-- Downloads -->
-                <div class="tab-content" id="downloads" role="tabpanel">
-                    <div class="content-card">
-                        <h2>فایل‌های محصول</h2>
-                        <div class="download-list">
-                            <a href="#">
-                                <i class="fa-solid fa-file-pdf"></i>
-                                دیتاشیت محصول
-                            </a>
-                            <a href="#">
-                                <i class="fa-solid fa-book"></i>
-                                راهنمای نصب
-                            </a>
-                            <a href="#">
-                                <i class="fa-solid fa-download"></i>
-                                آخرین Firmware
-                            </a>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="tab-content" id="downloads" role="tabpanel">-->
+<!--                    <div class="content-card">-->
+<!--                        <h2>فایل‌های محصول</h2>-->
+<!--                        <div class="download-list">-->
+<!--                            <a href="#">-->
+<!--                                <i class="fa-solid fa-file-pdf"></i>-->
+<!--                                دیتاشیت محصول-->
+<!--                            </a>-->
+<!--                            <a href="#">-->
+<!--                                <i class="fa-solid fa-book"></i>-->
+<!--                                راهنمای نصب-->
+<!--                            </a>-->
+<!--                            <a href="#">-->
+<!--                                <i class="fa-solid fa-download"></i>-->
+<!--                                آخرین Firmware-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-            </div><!-- /col -->
+            </div>
 
-        </div><!-- /row -->
-    </div><!-- /container -->
+        </div>
+    </div>
 </section>
 
 
@@ -410,7 +380,7 @@ RELATED PRODUCTS
 
             <div class="section-head">
                 <div>
-                    <small>YOU MAY ALSO LIKE</small>
+                    <small>ممکن است نیازتان باشد !</small>
                     <h2>محصولات مرتبط</h2>
                 </div>
                 <?php if (!empty($product['category_slug'])): ?>
@@ -455,9 +425,6 @@ RELATED PRODUCTS
 <?php endif; ?>
 
 
-<!--==========================================
-PREV / NEXT NAVIGATION
-===========================================-->
 <?php if ($prevProduct || $nextProduct): ?>
     <section class="product-navigation">
         <div class="container">
