@@ -309,6 +309,30 @@ $pageTitle = $activeMenu
                                     <span class="card-brand-chip">
                                 <?= htmlspecialchars($cardCategory) ?>
                             </span>
+                                    <div class="card-hover-overlay">
+                                        <div class="hover-product-name"><?= htmlspecialchars($product['name']) ?></div>
+                                        <div class="hover-divider"></div>
+                                        <a href="<?= $productUrl ?>"
+                                           class="hover-btn hover-btn-primary">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                            مشاهده محصول
+                                        </a>
+                                        <a
+                                                class="hover-btn hover-btn-ghost">
+                                            <i class="fa-solid fa-dollar"></i>
+                                            <?= $product['price'] ?> تومان
+                                        </a>
+                                        <!--                                <a href="--><?php //= $productUrl ?><!--?action=download"-->
+                                        <!--                                   class="hover-btn hover-btn-ghost">-->
+                                        <!--                                    <i class="fa-solid fa-download"></i>-->
+                                        <!--                                    دانلود بروشور-->
+                                        <!--                                </a>-->
+                                        <!--                                <a href="contact-us/"-->
+                                        <!--                                   class="hover-btn hover-btn-ghost">-->
+                                        <!--                                    <i class="fa-solid fa-comments"></i>-->
+                                        <!--                                    درخواست مشاوره-->
+                                        <!--                                </a>-->
+                                    </div>
                                 </div>
                             <?php endif; ?>
 
@@ -365,30 +389,7 @@ $pageTitle = $activeMenu
                             </div><!-- /card-body -->
 
                             <!-- Professional hover overlay -->
-                            <div class="card-hover-overlay">
-                                <div class="hover-product-name"><?= htmlspecialchars($product['name']) ?></div>
-                                <div class="hover-divider"></div>
-                                <a href="<?= $productUrl ?>"
-                                   class="hover-btn hover-btn-primary">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    مشاهده محصول
-                                </a>
-                                <a
-                                   class="hover-btn hover-btn-ghost">
-                                    <i class="fa-solid fa-dollar"></i>
-                                    <?= $product['price'] ?> تومان
-                                </a>
-                                <!--                                <a href="--><?php //= $productUrl ?><!--?action=download"-->
-<!--                                   class="hover-btn hover-btn-ghost">-->
-<!--                                    <i class="fa-solid fa-download"></i>-->
-<!--                                    دانلود بروشور-->
-<!--                                </a>-->
-<!--                                <a href="contact-us/"-->
-<!--                                   class="hover-btn hover-btn-ghost">-->
-<!--                                    <i class="fa-solid fa-comments"></i>-->
-<!--                                    درخواست مشاوره-->
-<!--                                </a>-->
-                            </div>
+
 
                         </article>
                     </div><!-- /card-wrap -->

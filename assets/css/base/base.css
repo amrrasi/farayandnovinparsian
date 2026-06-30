@@ -100,7 +100,7 @@ html[data-theme="dark"]{
     --clr-surface:rgba(255,255,255,.05);
     --clr-border:rgba(255,255,255,.09);
 
-    --clr-blue:#00C6FF;
+    --clr-blue: #000000;
     --clr-blue-dark:#1B7FFF;
 
     --clr-purple:#7C3AED;
