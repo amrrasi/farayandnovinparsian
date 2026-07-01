@@ -210,7 +210,9 @@ require_once "inc/check.php";
                                             </span> <br>
                                             <p class="fs-14 mb-1">تعداد پیش فاکتورهای بررسی نشده :</p>
                                             <span class="fs-24 text-black font-w600">
-                                                    ۱۲۳۳۲۳۴۲
+                                                    <?php
+                                                        
+                                                    ?>
                                             </span>
 										</div>
 
