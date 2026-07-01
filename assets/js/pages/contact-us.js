@@ -270,7 +270,7 @@ $(function () {
                         $(".contact-form-card").removeClass("success");
                     }, 1500);
 
-                    /* Reset form */
+
                     form[0].reset();
                     attachment.val("");
                     uploadBox.removeClass("has-file");

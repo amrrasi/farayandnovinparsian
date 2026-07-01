@@ -103,7 +103,9 @@ Contact Form
 
                 method="post"
 
-                action="ticket-submit.php"
+                action="contact_process.php"
+
+                enctype="multipart/form-data"
 
                 autocomplete="off"
 
@@ -381,6 +383,8 @@ Contact Form
 
                                 id="privacy"
 
+                                name="privacy"
+
                                 required>
 
                         <label for="privacy">
@@ -453,7 +457,7 @@ Contact Form
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/pages/contact-us.js"></script>
+<script src="assets/js/contact_submit.js"></script>
 
 </body>
 </html>
-
