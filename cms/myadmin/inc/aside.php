@@ -30,6 +30,9 @@
                     <span class="nav-text">مدیریت سایت</span>
                 </a>
                 <ul aria-expanded="false">
+                    <li><a href="messagesList.php">پیام‌های ثبت شده در سایت </a></li>
+                </ul>
+                <ul aria-expanded="false">
                     <li><a href="setting.php">تنظیمات عمومی سایت</a></li>
                 </ul>
             </li>

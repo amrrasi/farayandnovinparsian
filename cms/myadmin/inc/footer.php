@@ -3,7 +3,7 @@
 ***********************************-->
 <div class="footer">
     <div class="copyright">
-        <p>کپی رایت © ارائه توسط <?php echo setting('site_name')?> <?php echo jdate('Y') ?></p>
+        <p>کپی رایت © ارائه توسط <?php echo setting('name')?> <?php echo jdate('Y') ?></p>
     </div>
 </div>
 <!--**********************************
