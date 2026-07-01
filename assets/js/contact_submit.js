@@ -101,10 +101,10 @@
         $submitBtn.prop("disabled", true);
 
         $.ajax({
-            url: "ajax/contact_process.php",
+            url: "contact_process.php",
             type: "POST",
             data: formData,
-            cd Data: false,
+            processData: false,
             contentType: false,
             dataType: "json"
         })
