@@ -1,7 +1,6 @@
 <?php
 require_once "cms/myadmin/inc/config.php";
 
-// Featured: most-visited active, non-deleted article
 $featuredStmt = $pdo->prepare("
     SELECT *
     FROM page
@@ -12,7 +11,6 @@ $featuredStmt = $pdo->prepare("
 $featuredStmt->execute();
 $featured = $featuredStmt->fetch(PDO::FETCH_ASSOC);
 
-// All active blogs (excluding the featured one), ordered by myorder then date
 $blogsStmt = $pdo->prepare("
     SELECT *
     FROM page
@@ -24,14 +22,10 @@ $blogsStmt = $pdo->prepare("
 $blogsStmt->execute([':fid' => $featured['id'] ?? 0]);
 $blogs = $blogsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Stats
 $totalBlogs  = $pdo->query("SELECT COUNT(*) FROM page WHERE active=1 AND deleted=0")->fetchColumn();
 $totalVisits = $pdo->query("SELECT COALESCE(SUM(visit),0) FROM page WHERE active=1 AND deleted=0")->fetchColumn();
 $todayBlogs  = $pdo->query("SELECT COUNT(*) FROM page WHERE active=1 AND deleted=0 AND DATE(created_at)=CURDATE()")->fetchColumn();
 
-// ─────────────────────────────────────────
-//  BADGE / LEVEL HELPER
-// ─────────────────────────────────────────
 function wordCountFa($text)
 {
     $text = strip_tags($text);
