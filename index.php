@@ -48,94 +48,39 @@ require_once "cms/myadmin/inc/config.php"
                 برای کسب‌وکار شما
             </h1>
             <p class="hp-p">
-                <?= setting('site_name') ?>، ارائه‌دهنده تخصصی استوریج‌های Dell EMC.
-                راهکارهای SAN، NAS و بکاپ برای سازمان‌های بزرگ و استارتاپ‌های پیشرو.
+                <?= setting('name') ?>، ارائه‌دهنده تخصصی استوریج‌های Dell EMC.
+                دارای بهترین خدمات و تضمین کیفیت محصولات
             </p>
             <div class="hp-btns">
-                <a href="#" class="hp-btn-primary">ثبت سفارش</a>
+                <a href="about-us/" class="hp-btn-primary">درباره ما</a>
                 <a href="#prducts" class="hp-btn-ghost">مشاهده محصولات</a>
             </div>
         </div>
 
         <div class="hp-dash">
             <div class="hp-card">
-                <div class="hp-card-hd">
-                    <div class="hp-card-ico"><i class="fas fa-server"></i></div>
-                    <div>
-                        <div class="hp-card-t">پنل مدیریت استوریج</div>
-                        <div class="hp-card-s">Dell EMC PowerStore — Live</div>
-                    </div>
-                </div>
-
-                <div class="hp-stats">
-                    <div class="hp-stat">
-                        <div class="hp-sv">99.9٪</div>
-                        <div class="hp-sl">آپتایم</div>
-                    </div>
-                    <div class="hp-stat">
-                        <div class="hp-sv">420+</div>
-                        <div class="hp-sl">مشتری</div>
-                    </div>
-                    <div class="hp-stat">
-                        <div class="hp-sv">15PB</div>
-                        <div class="hp-sl">ظرفیت</div>
-                    </div>
-                </div>
-
-                <div class="hp-chart-lbl">
-                    <span>مصرف ظرفیت فضا</span><span>امروز</span>
-                </div>
-                <div class="hp-bars">
-                    <div class="hp-bar-row">
-                        <span class="hp-bar-n">SAN</span>
-                        <div class="hp-track">
-                            <div class="hp-fill" data-w="0.82"></div>
-                        </div>
-                        <span class="hp-bar-pct">82٪</span>
-                    </div>
-                    <div class="hp-bar-row">
-                        <span class="hp-bar-n">NAS</span>
-                        <div class="hp-track">
-                            <div class="hp-fill" data-w="0.61"></div>
-                        </div>
-                        <span class="hp-bar-pct">61٪</span>
-                    </div>
-                    <div class="hp-bar-row">
-                        <span class="hp-bar-n">Backup</span>
-                        <div class="hp-track">
-                            <div class="hp-fill" data-w="0.45"></div>
-                        </div>
-                        <span class="hp-bar-pct">45٪</span>
-                    </div>
-                </div>
-
-                <div class="hp-status">
-                    <span class="hp-stxt">
-                        <span class="hp-sdot" aria-hidden="true"></span>تمام سیستم‌ها فعال
-                    </span>
-                    <span class="hp-sup">بروزرسانی: همین الان</span>
-                </div>
+                <img src="assets/images/banner1.png" alt="<?= setting('name') ?>">
             </div>
 
             <div class="hp-chip hp-chip-1" aria-hidden="true">
-                <div class="hp-chi"><i class="fas fa-bolt"></i></div>
+                <div class="hp-chi"><i class="fas fa-server"></i></div>
                 <div>
-                    <div class="hp-cv">1.2ms</div>
-                    <div class="hp-cl">تأخیر I/O</div>
+                    <div class="hp-cv">dell EMC</div>
+                    <div class="hp-cl"></div>
                 </div>
             </div>
             <div class="hp-chip hp-chip-2" aria-hidden="true">
-                <div class="hp-chi"><i class="fas fa-lock"></i></div>
+                <div class="hp-chi"><i class="fab fa-internet-explorer"></i></div>
                 <div>
-                    <div class="hp-cv">AES-256</div>
-                    <div class="hp-cl">رمزنگاری</div>
+                    <div class="hp-cv">طراحی وبسایت</div>
+                    <div class="hp-cl"></div>
                 </div>
             </div>
             <div class="hp-chip hp-chip-3" aria-hidden="true">
-                <div class="hp-chi"><i class="fas fa-chart-bar"></i></div>
+                <div class="hp-chi"><i class="fa fa-memory"></i></div>
                 <div>
-                    <div class="hp-cv">99.99٪</div>
-                    <div class="hp-cl">دسترس‌پذیری</div>
+                    <div class="hp-cv">هارد سرور</div>
+                    <div class="hp-cl"></div>
                 </div>
             </div>
         </div>

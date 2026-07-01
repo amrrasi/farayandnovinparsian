@@ -283,8 +283,7 @@ $pageTitle = $activeMenu
                     $slug = $product['seo_slug'] ?? '';
                     $dna  = get_dna($slug, $dna_map);
 
-                    // Build product page URL:
-                    // /products/{menu-slug}/{product-slug}
+
                     $menuSlugForUrl = $activeMenu
                             ? url_slug($activeMenu['name'])
                             : (isset($product['menu_name']) ? url_slug($product['menu_name']) : 'all-product');
@@ -317,11 +316,7 @@ $pageTitle = $activeMenu
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                             مشاهده محصول
                                         </a>
-                                        <a
-                                                class="hover-btn hover-btn-ghost">
-                                            <i class="fa-solid fa-dollar"></i>
-                                            <?= $product['price'] ?> تومان
-                                        </a>
+                                        
                                         <!--                                <a href="--><?php //= $productUrl ?><!--?action=download"-->
                                         <!--                                   class="hover-btn hover-btn-ghost">-->
                                         <!--                                    <i class="fa-solid fa-download"></i>-->
@@ -354,45 +349,10 @@ $pageTitle = $activeMenu
                                     </p>
                                 <?php endif; ?>
 
-                                <!-- Product DNA bars -->
-                                <div class="product-dna">
-                                    <div class="dna-row">
-                                        <span class="dna-label">Performance</span>
-                                        <div class="dna-track">
-                                            <div class="dna-fill" style="--dna-w:<?= $dna['performance'] ?>%"></div>
-                                        </div>
-                                        <span class="dna-val"><?= $dna['performance'] ?></span>
-                                    </div>
-                                    <div class="dna-row">
-                                        <span class="dna-label">Security</span>
-                                        <div class="dna-track">
-                                            <div class="dna-fill" style="--dna-w:<?= $dna['security'] ?>%"></div>
-                                        </div>
-                                        <span class="dna-val"><?= $dna['security'] ?></span>
-                                    </div>
-                                    <div class="dna-row">
-                                        <span class="dna-label">Scalability</span>
-                                        <div class="dna-track">
-                                            <div class="dna-fill" style="--dna-w:<?= $dna['scalability'] ?>%"></div>
-                                        </div>
-                                        <span class="dna-val"><?= $dna['scalability'] ?></span>
-                                    </div>
-                                    <div class="dna-row">
-                                        <span class="dna-label">Cloud Ready</span>
-                                        <div class="dna-track">
-                                            <div class="dna-fill" style="--dna-w:<?= $dna['cloud'] ?>%"></div>
-                                        </div>
-                                        <span class="dna-val"><?= $dna['cloud'] ?></span>
-                                    </div>
-                                </div>
 
-                            </div><!-- /card-body -->
-
-                            <!-- Professional hover overlay -->
-
-
+                            </div>
                         </article>
-                    </div><!-- /card-wrap -->
+                    </div>
 
                 <?php endforeach; ?>
 
