@@ -188,8 +188,30 @@ require_once "inc/check.php";
 								<div class="card">
 									<div class="card-header flex-wrap border-0 pb-0">
 										<div class="mr-3 mb-2">
-											<p class="fs-14 mb-1">فروش کل وبسایت در ماه جاری :</p>
-											<span class="fs-24 text-black font-w600">24,551 تومان</span>
+											<p class="fs-14 mb-1">تعداد پیام های بررسی نشده (تیکت) :</p>
+											<span class="fs-24 text-black font-w600">
+                                                <?php
+
+                                                $notifCountDash = $mysqli->prepare("SELECT COUNT(*) AS unreaded
+                                                    FROM contact_messages
+                                                    WHERE seen = 0
+                                                      AND deleted = 0;
+                                                ");
+
+                                                $notifCountDash->execute();
+                                                $answer = $notifCountDash->get_result();
+                                                $notifCountDashResult = $answer->fetch_assoc();
+
+                                                $notifAll = $notifCountDashResult['unreaded'];
+
+                                                echo $notifAll;
+                                                ?>
+
+                                            </span> <br>
+                                            <p class="fs-14 mb-1">تعداد پیش فاکتورهای بررسی نشده :</p>
+                                            <span class="fs-24 text-black font-w600">
+                                                    ۱۲۳۳۲۳۴۲
+                                            </span>
 										</div>
 
 									</div>

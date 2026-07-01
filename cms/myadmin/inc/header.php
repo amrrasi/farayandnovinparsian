@@ -621,87 +621,98 @@
                 </div>
                 <ul class="navbar-nav header-right">
 
+                    <?php
+
+                    $notif_items = [];
+
+                    $msgStmt = $mysqli->prepare("
+    SELECT `id`, `fullname`, `subject`, `created_at`
+    FROM `contact_messages`
+    WHERE `seen` = 0 AND `deleted` = 0
+    ORDER BY `created_at` DESC
+    LIMIT 8
+");
+                    $msgStmt->execute();
+                    $msgResult = $msgStmt->get_result();
+
+                    while ($row = $msgResult->fetch_assoc()) {
+                        $notif_items[] = [
+                                'type'  => 'message',
+                                'icon'  => 'fa-envelope',
+                                'class' => 'media-primary',
+                                'title' => 'پیام جدید از ' . $row['fullname'] . ' — ' . $row['subject'],
+                                'time'  => $row['created_at'],
+                                'link'  => 'messages.php?id=' . (int)$row['id'],
+                        ];
+                    }
+
+                    /*
+                     * --- future: orders --------------------------------------------------
+                     * $orderStmt = $mysqli->prepare("SELECT id, customer_name, created_at FROM orders WHERE seen = 0 ORDER BY created_at DESC LIMIT 8");
+                     * $orderStmt->execute();
+                     * $orderResult = $orderStmt->get_result();
+                     * while ($row = $orderResult->fetch_assoc()) {
+                     *     $notif_items[] = [
+                     *         'type'  => 'order',
+                     *         'icon'  => 'fa-shopping-cart',
+                     *         'class' => 'media-success',
+                     *         'title' => 'سفارش جدید از ' . $row['customer_name'],
+                     *         'time'  => $row['created_at'],
+                     *         'link'  => 'order-view.php?id=' . (int)$row['id'],
+                     *     ];
+                     * }
+                     *
+                     * usort($notif_items, function ($a, $b) {
+                     *     return strtotime($b['time']) <=> strtotime($a['time']);
+                     * });
+                     * $notif_items = array_slice($notif_items, 0, 8);
+                     */
+
+                    $notif_count = count($notif_items);
+                    ?>
+
                     <li class="nav-item dropdown notification_dropdown">
-                        <a class="nav-link  ai-icon" href="#" role="button" data-toggle="dropdown">
+                        <a class="nav-link ai-icon" href="#" role="button" data-toggle="dropdown">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                       d="M12.6001 4.3008V1.4C12.6001 0.627199 13.2273 0 14.0001 0C14.7715 0 15.4001 0.627199 15.4001 1.4V4.3008C17.4805 4.6004 19.4251 5.56639 20.9287 7.06999C22.7669 8.90819 23.8001 11.4016 23.8001 14V19.2696L24.9327 21.5348C25.4745 22.6198 25.4171 23.9078 24.7787 24.9396C24.1417 25.9714 23.0147 26.6 21.8023 26.6H15.4001C15.4001 27.3728 14.7715 28 14.0001 28C13.2273 28 12.6001 27.3728 12.6001 26.6H6.19791C4.98411 26.6 3.85714 25.9714 3.22014 24.9396C2.58174 23.9078 2.52433 22.6198 3.06753 21.5348L4.20011 19.2696V14C4.20011 11.4016 5.23194 8.90819 7.07013 7.06999C8.57513 5.56639 10.5183 4.6004 12.6001 4.3008ZM14.0001 6.99998C12.1423 6.99998 10.3629 7.73779 9.04973 9.05099C7.73653 10.3628 7.00011 12.1436 7.00011 14V19.6C7.00011 19.817 6.94833 20.0312 6.85173 20.2258C6.85173 20.2258 6.22871 21.4718 5.57072 22.7864C5.46292 23.0034 5.47412 23.2624 5.60152 23.4682C5.72892 23.674 5.95431 23.8 6.19791 23.8H21.8023C22.0445 23.8 22.2699 23.674 22.3973 23.4682C22.5247 23.2624 22.5359 23.0034 22.4281 22.7864C21.7701 21.4718 21.1471 20.2258 21.1471 20.2258C21.0505 20.0312 21.0001 19.817 21.0001 19.6V14C21.0001 12.1436 20.2623 10.3628 18.9491 9.05099C17.6359 7.73779 15.8565 6.99998 14.0001 6.99998Z"
                                       fill="#3E4954" />
                             </svg>
-                            <span class="badge light text-white bg-primary rounded-circle">12</span>
+                            <?php if ($notif_count > 0): ?>
+                                <span class="badge light text-white bg-primary rounded-circle"><?= $notif_count ?></span>
+                            <?php endif; ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3 height380">
                                 <ul class="timeline">
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media ml-2">
-                                                <img alt="image" width="50" src="images/avatar/1.jpg">
+                                    <?php if ($notif_count > 0): ?>
+                                        <?php foreach ($notif_items as $item): ?>
+                                            <li>
+                                                <a href="<?= htmlspecialchars($item['link']) ?>" style="text-decoration:none; color:inherit;">
+                                                    <div class="timeline-panel">
+                                                        <div class="media ml-2 <?= htmlspecialchars($item['class']) ?>">
+                                                            <i class="fa <?= htmlspecialchars($item['icon']) ?>"></i>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h6 class="mb-1"><?= htmlspecialchars($item['title']) ?></h6>
+                                                            <small class="d-block"><?= jdate("d F Y H:i", strtotime($item['time'])) ?></small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <li>
+                                            <div class="timeline-panel" style="justify-content:center;">
+                                                <div class="media-body text-center">
+                                                    <small class="d-block text-muted">اطلاعیه جدیدی وجود ندارد</small>
+                                                </div>
                                             </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">دکتر سالتند تصویر ارسال کرد</h6>
-                                                <small class="d-block">29 آذر 1399- 02:26 بعدازظهر</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media ml-2 media-info">
-                                                ک
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">گزارش با موفقیت ایجاد شد</h6>
-                                                <small class="d-block">29 آذر 1399- 02:26 بعدازظهر</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media ml-2 media-success">
-                                                <i class="fa fa-home"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">یادآوری! وقت دارو.</h6>
-                                                <small class="d-block">29 آذر 1399- 02:26 بعدازظهر</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media ml-2">
-                                                <img alt="image" width="50" src="images/avatar/1.jpg">
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">دکتر سالتند تصویر ارسال کرد</h6>
-                                                <small class="d-block">29 آذر 1399- 02:26 بعدازظهر</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media ml-2 media-danger">
-                                                ک
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">گزارش با موفقیت ایجاد شد</h6>
-                                                <small class="d-block">29 آذر 1399- 02:26 بعدازظهر</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media ml-2 media-primary">
-                                                <i class="fa fa-home"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">یادآوری! وقت دارو.</h6>
-                                                <small class="d-block">29 آذر 1399- 02:26 بعدازظهر</small>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    <?php endif; ?>
                                 </ul>
                             </div>
-                            <a class="all-notification" href="#">مشاهده همه اطلاعیه‌ها <i class="ti-arrow-left"></i></a>
+                            <a class="all-notification" href="messagesList.php">مشاهده همه پیام‌ها <i class="ti-arrow-left"></i></a>
                         </div>
                     </li>
                     <li class="nav-item dropdown notification_dropdown">
