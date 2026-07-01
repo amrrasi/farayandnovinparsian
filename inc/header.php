@@ -25,7 +25,7 @@ while($row = $result->fetch_assoc()){
         <!-- Logo -->
         <a class="hp-logo" href="./">
             <img src="assets/images/logo.png"
-                 alt="<?= htmlspecialchars(setting('site_name') ?? 'ParsEMC') ?>"
+                 alt="<?= htmlspecialchars(setting('name') ?? 'ParsEMC') ?>"
                  height="52" loading="eager">
         </a>
 

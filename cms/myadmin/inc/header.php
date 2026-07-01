@@ -5,7 +5,7 @@
     <a href="./" class="brand-logo">
 <!--        <img class="logo-abbr" src="images/logo.webp" alt="">-->
 <!--        <img class="logo-compact" src="images/logo.webp" alt="">-->
-        <img class="brand-title" src="images/logo.webp" alt="<?= setting('site_name') ?>">
+        <img class="brand-title" src="images/logo.webp" alt="<?= setting('name') ?>">
     </a>
 
     <div class="nav-control">

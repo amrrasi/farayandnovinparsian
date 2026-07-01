@@ -177,7 +177,7 @@
         </ul>
 
         <div class="copyright">
-            <p> ارائه توسط <span class="heart"></span> <?= setting('site_name') ?> </p>
+            <p> ارائه توسط <span class="heart"></span> <?= setting('name') ?> </p>
         </div>
     </div>
 </div>
