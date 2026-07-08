@@ -242,22 +242,31 @@ PRODUCT HERO
                             <strong><?= number_format($product['price']) ?> تومان</strong>
                         <?php else: ?>
                             <strong class="price-on-request">جهت استعلام قیمت تماس بگیرید <br> <a style="font-size: 16px; color: var(--clr-text)"
-                                        href="tel:<?= setting('phone') ?>"><?= setting('phone') ?></a> </strong>
+                                                                                                  href="tel:<?= setting('phone') ?>"><?= setting('phone') ?></a> </strong>
                         <?php endif; ?>
                     </div>
 
+                    <?php $inStock = (int) $product['availability'] === 1; ?>
+
                     <div class="qty-box">
-                        <button class="minus" aria-label="کاهش تعداد">−</button>
-                        <input type="number" inputmode="numeric" id="qty" min="1" value="1" aria-label="تعداد" readonly>
-                        <button class="plus" aria-label="افزایش تعداد">+</button>
+                        <button class="minus" aria-label="کاهش تعداد" <?= $inStock ? '' : 'disabled' ?>>−</button>
+                        <input type="number" inputmode="numeric" id="qty" min="1" value="1" aria-label="تعداد" readonly <?= $inStock ? '' : 'disabled' ?>>
+                        <button class="plus" aria-label="افزایش تعداد" <?= $inStock ? '' : 'disabled' ?>>+</button>
                     </div>
 
                     <div class="buy-buttons">
-                        <button class="btn-main add-cart" data-id="<?= $product['id'] ?>">
-                            <i class="fa-solid fa-cart-plus"></i>
-                            افزودن به سبد خرید
-                        </button>
-                        <button class="btn-border">خرید سریع</button>
+                        <?php if ($inStock): ?>
+                            <button class="btn-main add-cart" data-id="<?= $product['id'] ?>">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                افزودن به سبد خرید
+                            </button>
+                            <button class="btn-border">خرید سریع</button>
+                        <?php else: ?>
+                            <button class="btn-main" disabled title="این محصول موجود نیست">
+                                <i class="fa-solid fa-ban"></i>
+                                ناموجود
+                            </button>
+                        <?php endif; ?>
                     </div>
 
                     <div class="aside-tools">
@@ -353,25 +362,25 @@ PRODUCT HERO
                 <?php endif; ?>
 
                 <!-- Downloads -->
-<!--                <div class="tab-content" id="downloads" role="tabpanel">-->
-<!--                    <div class="content-card">-->
-<!--                        <h2>فایل‌های محصول</h2>-->
-<!--                        <div class="download-list">-->
-<!--                            <a href="#">-->
-<!--                                <i class="fa-solid fa-file-pdf"></i>-->
-<!--                                دیتاشیت محصول-->
-<!--                            </a>-->
-<!--                            <a href="#">-->
-<!--                                <i class="fa-solid fa-book"></i>-->
-<!--                                راهنمای نصب-->
-<!--                            </a>-->
-<!--                            <a href="#">-->
-<!--                                <i class="fa-solid fa-download"></i>-->
-<!--                                آخرین Firmware-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="tab-content" id="downloads" role="tabpanel">-->
+                <!--                    <div class="content-card">-->
+                <!--                        <h2>فایل‌های محصول</h2>-->
+                <!--                        <div class="download-list">-->
+                <!--                            <a href="#">-->
+                <!--                                <i class="fa-solid fa-file-pdf"></i>-->
+                <!--                                دیتاشیت محصول-->
+                <!--                            </a>-->
+                <!--                            <a href="#">-->
+                <!--                                <i class="fa-solid fa-book"></i>-->
+                <!--                                راهنمای نصب-->
+                <!--                            </a>-->
+                <!--                            <a href="#">-->
+                <!--                                <i class="fa-solid fa-download"></i>-->
+                <!--                                آخرین Firmware-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
             </div>
 
@@ -481,5 +490,86 @@ RELATED PRODUCTS
     };
 </script>
 <script src="assets/js/pages/product-single.js?v=<?= filemtime('assets/js/pages/product-single.js') ?>"></script>
+<script>
+    // Show a toast left over from the add-to-cart action that just triggered a reload.
+    $(function () {
+
+        let pendingMessage = sessionStorage.getItem("cartToastMessage");
+
+        if (pendingMessage) {
+
+            showToast(pendingMessage);
+
+            sessionStorage.removeItem("cartToastMessage");
+
+        }
+
+    });
+
+    $(document).on("click", ".add-cart", function () {
+
+        let btn = $(this);
+
+        if (btn.prop("disabled")) {
+
+            return;
+
+        }
+
+        $.ajax({
+
+            url: "ajax/cart/addToCart.php",
+
+            type: "POST",
+
+            dataType: "json",
+
+            data: {
+
+                id: btn.data("id"),
+
+                qty: $("#qty").val()
+
+            },
+
+            beforeSend() {
+
+                btn.prop("disabled", true);
+
+            },
+
+            success(res) {
+
+                if (res.status) {
+
+                    $(".cart-count").text(res.count);
+
+                    // Persist the message across the reload so it can be shown once the new page loads.
+                    sessionStorage.setItem("cartToastMessage", res.message);
+
+                    location.reload();
+
+                } else {
+
+                    btn.prop("disabled", false);
+
+                    showToast(res.message);
+
+                }
+
+            },
+
+            error() {
+
+                btn.prop("disabled", false);
+
+                showToast("خطا در ارتباط با سرور");
+
+            }
+
+        });
+
+    });
+</script>
 </body>
 </html>

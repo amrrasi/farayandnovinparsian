@@ -80,6 +80,7 @@ while($row = $result->fetch_assoc()){
         <div class="hp-actions">
             <a href="cart/" class="hp-icon-btn" title="سبد خرید">
                 <i class="fas fa-shopping-cart"></i>
+                <?= $cartCount ?>
             </a>
             <a href="account/" class="hp-icon-btn" title="حساب کاربری">
                 <i class="fas fa-user"></i>
