@@ -2262,35 +2262,351 @@ CUSTOM SCROLLBAR
     -moz-appearance: textfield;
     appearance: textfield;
 }
-.fac-toast {
-    position: absolute;
-    left: calc(100% + 12px);
-    top: 50%;
-    transform: translateY(-50%) scale(.9);
-    background: var(--clr-text);
-    color: var(--clr-bg);
-    font-size: .78rem;
-    font-weight: var(--fw-semibold);
-    padding: 7px 14px;
-    border-radius: var(--radius-md);
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .25s ease, transform .25s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+/*=====================================================
+ TOAST CONTAINER
+=====================================================*/
+
+.fac-toast-container{
+
+    position:fixed;
+
+    top:26px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    pointer-events:none;
+
+    z-index:9999999;
+
+    width:auto;
+
 }
 
-.fac-toast::after {
-    content: '';
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 6px solid transparent;
-    border-left-color: var(--clr-text);
+
+/*=====================================================
+ TOAST
+=====================================================*/
+
+.fac-toast{
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:14px;
+
+    min-width:320px;
+
+    max-width:520px;
+
+    padding:16px 26px;
+
+    color:#fff;
+
+    border-radius:22px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    rgba(24,32,38,.92),
+                    rgba(34,45,52,.88)
+            );
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(26px);
+
+    -webkit-backdrop-filter:blur(26px);
+
+    box-shadow:
+            0 30px 60px rgba(0,0,0,.28),
+            0 12px 30px rgba(0,0,0,.18),
+            inset 0 1px 0 rgba(255,255,255,.08);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:
+            translateY(-45px)
+            scale(.88);
+
+    transition:
+            opacity .35s,
+            transform .45s cubic-bezier(.22,1,.36,1),
+            visibility .35s;
+
 }
 
-.fac-toast.fac-toast-show {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
+
+/*=====================================================
+ GREEN GLOW
+=====================================================*/
+
+.fac-toast::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-45px;
+    top:-45px;
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    background:
+
+            radial-gradient(
+
+                    rgba(34,197,94,.22),
+
+                    transparent 70%
+
+            );
+
+    pointer-events:none;
+
+}
+
+
+/*=====================================================
+ BOTTOM TIMER
+=====================================================*/
+
+.fac-toast::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:100%;
+    height:3px;
+
+    background:
+
+            linear-gradient(
+                    90deg,
+                    #22c55e,
+                    #4ade80
+            );
+
+    transform-origin:left;
+
+}
+
+.fac-toast-show::after{
+
+    animation:toastTimer 3s linear forwards;
+
+}
+
+@keyframes toastTimer{
+
+    to{
+
+        transform:scaleX(0);
+
+    }
+
+}
+
+
+/*=====================================================
+ SHOW
+=====================================================*/
+
+.fac-toast.fac-toast-show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:
+            translateY(0)
+            scale(1);
+
+}
+
+
+/*=====================================================
+ ICON
+=====================================================*/
+
+.fac-toast i{
+
+    width:44px;
+
+    height:44px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:14px;
+
+    color:#fff;
+
+    background:
+
+            linear-gradient(
+                    135deg,
+                    #22c55e,
+                    #16a34a
+            );
+
+    box-shadow:
+
+            0 10px 25px rgba(34,197,94,.35);
+
+    font-size:17px;
+
+}
+
+
+/*=====================================================
+ TEXT
+=====================================================*/
+
+.fac-toast span{
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    letter-spacing:.2px;
+
+    color:#fff;
+
+}
+
+
+/*=====================================================
+ HOVER
+=====================================================*/
+
+.fac-toast:hover{
+
+    transform:
+            translateY(-3px)
+            scale(1.02);
+
+}
+
+
+/*=====================================================
+ MOBILE
+=====================================================*/
+
+@media(max-width:768px){
+
+    .fac-toast-container{
+
+        top:18px;
+
+        width:100%;
+
+        padding:0 16px;
+
+    }
+
+    .fac-toast{
+
+        min-width:unset;
+
+        width:100%;
+
+        max-width:none;
+
+        padding:15px 18px;
+
+        border-radius:18px;
+        border-top:2px solid rgba(74,222,128,.55);
+
+    }
+
+    .fac-toast span{
+
+        font-size:.88rem;
+
+    }
+
+}
+.fac-toast .shine{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+}
+
+.fac-toast .shine::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:80px;
+
+    height:100%;
+
+    transform:skewX(-25deg);
+
+    background:
+
+            linear-gradient(
+
+                    transparent,
+
+                    rgba(255,255,255,.18),
+
+                    transparent
+
+            );
+
+}
+
+.fac-toast-show .shine::before{
+
+    animation:toastShine 1.2s ease;
+
+}
+
+@keyframes toastShine{
+
+    to{
+
+        left:140%;
+
+    }
+
 }

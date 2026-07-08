@@ -162,7 +162,13 @@ $categorySlug = url_slug($product['name'])
 <body>
 
 <?php require_once "inc/header.php" ?>
-
+<div class="shine"></div>
+<div class="fac-toast-container">
+    <div class="fac-toast" id="facToast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>لینک محصول کپی شد!</span>
+    </div>
+</div>
 <!--==========================================
 PRODUCT HERO
 ===========================================-->
@@ -261,9 +267,7 @@ PRODUCT HERO
                         </button>
                     </div>
 
-                    <div class="fac-toast" id="facToast">
-                        لینک محصول کپی شد!
-                    </div>
+
 
                     <div class="guarantee-box">
                         <div>
