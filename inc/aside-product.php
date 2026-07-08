@@ -20,7 +20,7 @@
 
     <div class="cart-actions">
 
-        <a href="cart">
+        <a href="cart/">
 
             مشاهده سبد
 
