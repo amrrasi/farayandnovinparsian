@@ -138,10 +138,10 @@ $pageTitle      = 'ورود و ثبت‌نام | ' . htmlspecialchars(setting('n
                     </div>
 
                     <div class="form-group">
-                        <label for="regEmail">ایمیل <span class="optional-tag">(اختیاری)</span></label>
+                        <label for="regEmail">ایمیل <span class="optional-tag"></span></label>
                         <div class="input-wrap">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="email" id="regEmail" name="email" placeholder="example@mail.com">
+                            <input type="email" id="regEmail" name="email" placeholder="example@mail.com" required>
                         </div>
                     </div>
 
