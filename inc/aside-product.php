@@ -18,6 +18,7 @@
 
     </div>
 
+    
     <div class="cart-actions">
 
         <a href="cart/">
