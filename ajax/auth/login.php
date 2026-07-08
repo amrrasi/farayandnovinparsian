@@ -35,7 +35,7 @@ try {
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-} catch (\PDOException $e) {
+} catch (PDOException $e) {
 
     error_log($e->getMessage());
 
