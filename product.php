@@ -98,7 +98,7 @@ if ($product['availability'] == 1){
 }else{
     $available = "<strong class='text-fail'>ناموجود</strong>";
 }
-
+$pageUrl   = ($baseAddress . 'blog/' . htmlspecialchars($product['seo_slug']));
 $categorySlug = url_slug($product['name'])
 ?>
 <!doctype html>
@@ -255,10 +255,14 @@ PRODUCT HERO
                     </div>
 
                     <div class="aside-tools">
-                        <button>
+                        <button id="facShare">
                             <i class="fa-solid fa-share-nodes"></i>
                             اشتراک‌گذاری
                         </button>
+                    </div>
+
+                    <div class="fac-toast" id="facToast">
+                        لینک محصول کپی شد!
                     </div>
 
                     <div class="guarantee-box">
@@ -467,19 +471,11 @@ RELATED PRODUCTS
 <script src="assets/js/owl.carousel.min.js"></script>
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/pages/product-single.js?v=<?= filemtime('assets/js/pages/product-single.js') ?>"></script>
 <script>
-    const qty = document.getElementById('qty');
-
-    qty.addEventListener('input', function () {
-        this.value = this.value
-            // اعداد فارسی
-            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
-            // اعداد عربی
-            .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-            // حذف هر چیزی غیر از عدد
-            .replace(/\D/g, '');
-    });
+    window.ARTICLE = {
+        url:     <?= json_encode($pageUrl, JSON_UNESCAPED_UNICODE) ?>,
+    };
 </script>
+<script src="assets/js/pages/product-single.js?v=<?= filemtime('assets/js/pages/product-single.js') ?>"></script>
 </body>
 </html>

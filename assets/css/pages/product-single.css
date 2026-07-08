@@ -2262,3 +2262,35 @@ CUSTOM SCROLLBAR
     -moz-appearance: textfield;
     appearance: textfield;
 }
+.fac-toast {
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) scale(.9);
+    background: var(--clr-text);
+    color: var(--clr-bg);
+    font-size: .78rem;
+    font-weight: var(--fw-semibold);
+    padding: 7px 14px;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+}
+
+.fac-toast::after {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: var(--clr-text);
+}
+
+.fac-toast.fac-toast-show {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}

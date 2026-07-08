@@ -1,7 +1,3 @@
-/*======================================
-PRODUCT PAGE
-======================================*/
-
 $(function () {
 
     initGallery();
@@ -346,3 +342,55 @@ $(".add-cart").click(function(){
     });
 
 });
+
+const facShare = document.getElementById('facShare');
+const facToast = document.getElementById('facToast');
+
+let toastTimer;
+
+function copyToClipboard(text) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+    } else {
+        fallbackCopy(text);
+    }
+}
+
+function fallbackCopy(text) {
+    const el = document.createElement("textarea");
+    el.value = text;
+    el.style.cssText = "position:fixed;opacity:0";
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+}
+
+function showToast(msg) {
+    if (!facToast) return;
+
+    facToast.textContent = msg;
+    facToast.classList.add("fac-toast-show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        facToast.classList.remove("fac-toast-show");
+    }, 2400);
+}
+
+if (facShare) {
+    facShare.addEventListener("click", () => {
+        const url = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                url: url
+            }).catch(() => {});
+        } else {
+            copyToClipboard(url);
+            showToast("لینک محصول کپی شد!");
+        }
+    });
+}

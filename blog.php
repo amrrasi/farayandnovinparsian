@@ -381,7 +381,6 @@ require_once "inc/footer.php"
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/main.js"></script>
 
-<!-- Pass PHP vars to JS -->
 <script>
     window.ARTICLE = {
         url:     <?= json_encode($pageUrl, JSON_UNESCAPED_UNICODE) ?>,
