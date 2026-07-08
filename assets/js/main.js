@@ -166,3 +166,13 @@ document.addEventListener("DOMContentLoaded",function(){
     observer.observe(section);
 
 });
+const qty = document.getElementById('qty')
+
+qty.addEventListener('input', function(){
+
+    this.value = this.value
+        .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+        .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+        .replace(/\D/g, '');
+
+});

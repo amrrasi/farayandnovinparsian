@@ -93,6 +93,11 @@ $pageTitle = htmlspecialchars($product['seo_title'] ?: $product['name']);
 $pageDesc = htmlspecialchars($product['seo_description'] ?? '');
 $pageRobots = htmlspecialchars($product['meta_robots'] ?? 'index,follow');
 $canonical = $product['canonical_url'] ? htmlspecialchars($product['canonical_url']) : $pageUrl;
+if ($product['availability'] == 1){
+    $available = "<strong class='text-success'>موجود</strong>";
+}else{
+    $available = "<strong class='text-fail'>ناموجود</strong>";
+}
 
 $categorySlug = url_slug($product['name'])
 ?>
@@ -221,7 +226,7 @@ PRODUCT HERO
                         </div>
                         <div>
                             <span>وضعیت</span>
-                            <strong class="text-success">موجود</strong>
+                            <?= $available ?>
                         </div>
                     </div>
 
@@ -237,7 +242,7 @@ PRODUCT HERO
 
                     <div class="qty-box">
                         <button class="minus" aria-label="کاهش تعداد">−</button>
-                        <input type="number" id="qty" min="1" value="1" aria-label="تعداد">
+                        <input type="number" inputmode="numeric" id="qty" min="1" value="1" aria-label="تعداد" readonly>
                         <button class="plus" aria-label="افزایش تعداد">+</button>
                     </div>
 
@@ -260,10 +265,6 @@ PRODUCT HERO
                         <div>
                             <i class="fa-solid fa-shield"></i>
                             ضمانت اصالت کالا
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-truck-fast"></i>
-                            ارسال سریع
                         </div>
                         <div>
                             <i class="fa-solid fa-headset"></i>
@@ -467,6 +468,18 @@ RELATED PRODUCTS
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/pages/product-single.js?v=<?= filemtime('assets/js/pages/product-single.js') ?>"></script>
+<script>
+    const qty = document.getElementById('qty');
 
+    qty.addEventListener('input', function () {
+        this.value = this.value
+            // اعداد فارسی
+            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+            // اعداد عربی
+            .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+            // حذف هر چیزی غیر از عدد
+            .replace(/\D/g, '');
+    });
+</script>
 </body>
 </html>

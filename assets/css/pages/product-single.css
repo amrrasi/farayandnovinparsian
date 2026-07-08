@@ -1055,6 +1055,11 @@ STICKY PRODUCT INFO
     color:var(--clr-success);
 
 }
+.text-fail{
+
+    color:var(--clr-danger) !important;
+
+}
 
 .mini-card strong.price-highlight{
 
@@ -2246,4 +2251,14 @@ CUSTOM SCROLLBAR
 
     background:var(--clr-blue);
 
+}
+#qty::-webkit-outer-spin-button,
+#qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#qty {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
