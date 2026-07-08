@@ -1,0 +1,434 @@
+/* =========================================================
+   ENTRY PAGE (Login / Register / Forgot Password)
+   Built entirely on the tokens defined in base.css
+   ========================================================= */
+
+.entry-body {
+    min-height: 100vh;
+    background: var(--clr-bg-2);
+}
+
+.entry-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ---------------------------------------------------------
+   VISUAL / BRAND SIDE
+--------------------------------------------------------- */
+.entry-visual {
+    position: relative;
+    flex: 1 1 46%;
+    display: flex;
+    align-items: center;
+    padding: 56px;
+    overflow: hidden;
+    background: var(--grad-brand);
+    color: #fff;
+}
+
+.entry-visual-blob {
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,0) 65%);
+    filter: blur(10px);
+    animation: entry-blob-float 12s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes entry-blob-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-30px, 40px) scale(1.08); }
+}
+
+.entry-visual-content {
+    position: relative;
+    z-index: 1;
+    max-width: 440px;
+}
+
+.entry-logo {
+    display: inline-block;
+    font-weight: var(--fw-black);
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 48px;
+}
+
+.entry-visual-content h1 {
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+    line-height: 1.35;
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.entry-visual-content h1 .text-gradient {
+    background: linear-gradient(120deg, #ffffff, #E9F6FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.entry-visual-content p {
+    color: rgba(255, 255, 255, .85);
+    font-size: .98rem;
+    line-height: 1.9;
+    margin-bottom: 36px;
+}
+
+.entry-perks {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.entry-perks li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .92rem;
+    color: rgba(255, 255, 255, .92);
+}
+
+.entry-perks i {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, .16);
+    font-size: .9rem;
+}
+
+/* ---------------------------------------------------------
+   FORM SIDE
+--------------------------------------------------------- */
+.entry-form-panel {
+    flex: 1 1 54%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+}
+
+.entry-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 36px;
+    border-radius: var(--radius-xl);
+}
+
+.entry-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+}
+
+.auth-sub {
+    color: var(--clr-text-muted);
+    font-size: .88rem;
+    margin-bottom: 26px;
+}
+
+/* Tabs */
+.auth-tabs {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--clr-bg-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-pill);
+    padding: 4px;
+    margin-bottom: 30px;
+}
+
+.tab-indicator {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    width: calc(50% - 4px);
+    right: 4px;
+    background: var(--grad-brand);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-blue);
+    transition: transform var(--tr-normal);
+}
+
+.auth-tabs[data-active="register"] .tab-indicator {
+    transform: translateX(calc(-100% - 0px));
+}
+
+.tab-btn {
+    position: relative;
+    z-index: 1;
+    padding: 10px 0;
+    border-radius: var(--radius-pill);
+    font-weight: var(--fw-semibold);
+    font-size: .9rem;
+    color: var(--clr-text-muted);
+    transition: color var(--tr-fast);
+}
+
+.tab-btn.active {
+    color: #fff;
+}
+
+/* Forms */
+.auth-form {
+    display: none;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.auth-form.active {
+    display: flex;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: .84rem;
+    font-weight: var(--fw-medium);
+    color: var(--clr-text-muted);
+}
+
+.optional-tag {
+    color: var(--clr-text-faint);
+    font-weight: var(--fw-regular);
+}
+
+.input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    padding: 0 14px;
+    transition: border-color var(--tr-fast), box-shadow var(--tr-fast);
+}
+
+.input-wrap:focus-within {
+    border-color: var(--clr-blue);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, .12);
+}
+
+.input-wrap i:first-child {
+    color: var(--clr-text-faint);
+    font-size: .9rem;
+}
+
+.input-wrap input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 13px 10px;
+    font-family: var(--font-base);
+    font-size: .92rem;
+    color: var(--clr-text);
+    outline: none;
+}
+
+.toggle-pass {
+    color: var(--clr-text-faint);
+    padding: 6px;
+    display: flex;
+}
+
+.toggle-pass:hover {
+    color: var(--clr-text-muted);
+}
+
+.pass-strength {
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: var(--clr-border);
+    overflow: hidden;
+}
+
+.pass-strength span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--clr-danger);
+    transition: width var(--tr-normal), background var(--tr-normal);
+}
+
+.form-row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .82rem;
+    color: var(--clr-text-muted);
+}
+
+.checkbox-line input {
+    accent-color: var(--clr-blue);
+    width: 16px;
+    height: 16px;
+}
+
+.checkbox-line a {
+    color: var(--clr-blue-dark);
+    text-decoration: underline;
+}
+
+.link-btn {
+    font-size: .82rem;
+    color: var(--clr-blue-dark);
+    font-weight: var(--fw-medium);
+}
+
+.link-btn:hover {
+    text-decoration: underline;
+}
+
+.link-btn:disabled {
+    color: var(--clr-text-faint);
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Back button (forgot password view) */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .84rem;
+    color: var(--clr-text-muted);
+    margin-bottom: 22px;
+}
+
+.back-btn:hover {
+    color: var(--clr-text);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* OTP boxes */
+.otp-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    direction: ltr;
+}
+
+.otp-box {
+    width: 46px;
+    height: 54px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: var(--fw-bold);
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    color: var(--clr-text);
+    outline: none;
+    transition: border-color var(--tr-fast), box-shadow var(--tr-fast);
+}
+
+.otp-box:focus {
+    border-color: var(--clr-blue);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, .12);
+}
+
+.resend-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .8rem;
+    color: var(--clr-text-faint);
+}
+
+/* ---------------------------------------------------------
+   TOAST
+--------------------------------------------------------- */
+.fac-toast-container {
+    position: fixed;
+    top: 20px;
+    inset-inline-end: 20px;
+    z-index: 999;
+}
+
+.fac-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--clr-text);
+    color: var(--clr-bg);
+    padding: 13px 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    font-size: .86rem;
+    font-weight: var(--fw-medium);
+    transform: translateY(-16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--tr-normal), opacity var(--tr-normal);
+}
+
+.fac-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.fac-toast.error {
+    background: var(--clr-danger);
+    color: #fff;
+}
+
+.fac-toast i {
+    font-size: 1rem;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------- */
+@media (max-width: 960px) {
+    .entry-shell {
+        display: block;
+    }
+
+    .entry-form-panel {
+        min-height: 100vh;
+        padding: 32px 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .entry-card {
+        padding: 30px 22px;
+    }
+
+    .otp-box {
+        width: 40px;
+        height: 48px;
+    }
+}

@@ -82,7 +82,7 @@ while($row = $result->fetch_assoc()){
                 <i class="fas fa-shopping-cart"></i>
                 <?= $cartCount ?>
             </a>
-            <a href="account/" class="hp-icon-btn" title="حساب کاربری">
+            <a href="entry/" class="hp-icon-btn" title="حساب کاربری">
                 <i class="fas fa-user"></i>
             </a>
             <a href="contact-us/" class="hp-btn-cta">ثبت درخواست پشتیبانی</a>
@@ -148,6 +148,7 @@ while($row = $result->fetch_assoc()){
 
     <a href="cart/" class="hp-icon-btn" style="width:100%;border-radius:12px;gap:10px;padding:12px;justify-content:center">
         <i class="fas fa-shopping-cart"></i> سبد خرید
+        <?= $cartCount ?>
     </a>
     <a href="contact-us/" class="hp-drawer-cta">درخواست پشتیبانی</a>
 
