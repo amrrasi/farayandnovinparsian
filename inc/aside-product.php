@@ -12,7 +12,7 @@
 
         <strong id="floatingCartCount">
 
-            0
+            <?= $cartCount ?>
 
         </strong>
 
