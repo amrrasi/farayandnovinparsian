@@ -25,7 +25,7 @@ try {
 
     $stmt = $pdo->prepare("
         SELECT id, name, mobile, email, password
-        FROM   users
+        FROM   user
         WHERE  (mobile = :identifier OR email = :identifier)
           AND  deleted = 0
         LIMIT  1
@@ -54,7 +54,7 @@ establishUserSession($user);
 try {
 
     $pdo->prepare("
-        UPDATE users
+        UPDATE user
         SET    is_login = 1, updated_at = NOW()
         WHERE  id = :id
     ")->execute([':id' => $user['id']]);
@@ -66,7 +66,7 @@ try {
         $expiresAt   = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 30);
 
         $pdo->prepare("
-            UPDATE users
+            UPDATE user
             SET    session_token = :token, session_expires = :expires
             WHERE  id = :id
         ")->execute([

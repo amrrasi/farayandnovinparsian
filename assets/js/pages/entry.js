@@ -79,7 +79,7 @@ $(function () {
         const $btn = $(this).find('button[type=submit]');
         $btn.prop('disabled', true).text('در حال ورود...');
 
-        $.post('../../../ajax/auth/login.php', {
+        $.post('ajax/auth/login.php', {
             csrf: csrfToken,
             identifier: $('#loginIdentifier').val().trim(),
             password: $('#loginPassword').val(),

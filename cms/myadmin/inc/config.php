@@ -144,7 +144,6 @@ function setting(string $key,$default=null)
 
 }
 
-// Number of distinct products in the cart, not total quantity.
 $cartCount = !empty($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 $global_base_address =
     '<base href="http://farayand_novin.local/" />';

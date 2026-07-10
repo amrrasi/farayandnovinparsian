@@ -50,7 +50,7 @@ try {
 
     $dupStmt = $pdo->prepare("
         SELECT id
-        FROM   users
+        FROM   user
         WHERE  deleted = 0
           AND  (mobile = :mobile OR (email IS NOT NULL AND email = :email))
         LIMIT  1
@@ -66,7 +66,7 @@ try {
     }
 
     $insert = $pdo->prepare("
-        INSERT INTO users (name, mobile, email, password, deleted, mobile_verified, is_login)
+        INSERT INTO user (name, mobile, email, password, deleted, mobile_verified, is_login)
         VALUES (:name, :mobile, :email, :password, 0, 0, 1)
     ");
 
