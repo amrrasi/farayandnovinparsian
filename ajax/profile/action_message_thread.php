@@ -16,12 +16,6 @@ if (!$message) {
     exit;
 }
 
-// mark as seen by user (this flag is used by admin panel too, so only
-// touch it if you want "seen" to mean "seen by either side" — otherwise
-// consider adding a separate `seen_by_user` column instead).
-// Left commented out on purpose to avoid clobbering the admin's own
-// "seen" tracking:
-// $pdo->prepare("UPDATE contact_messages SET seen = 1 WHERE id = :id")->execute([':id' => $messageId]);
 
 $repliesStmt = $pdo->prepare("SELECT * FROM `message_replies` WHERE message_id = :id ORDER BY created_at ASC, id ASC");
 $repliesStmt->execute([':id' => $messageId]);
@@ -56,10 +50,14 @@ $replies = $repliesStmt->fetchAll();
     </div>
 
     <form class="pf-thread-reply" id="pf-reply-form" data-message-id="<?= (int)$message['id'] ?>">
-        <textarea name="body" placeholder="پاسخ خود را بنویسید…" required maxlength="2000"></textarea>
-        <button type="submit" class="btn btn-primary">
-            <i class="fa-solid fa-paper-plane"></i>
-            <span>ارسال پاسخ</span>
-        </button>
+
+            <div class="col-md-9 col-sm-12">
+                <textarea name="body" placeholder="پاسخ خود را بنویسید…" required maxlength="2000"></textarea>
+            </div>
+            <div class="col-md-3 col-sm-12"><button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>ارسال پاسخ</span>
+                </button></div>
+
     </form>
 </div>
