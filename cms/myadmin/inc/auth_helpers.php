@@ -64,6 +64,5 @@ function establishUserSession(array $user): void
         'name'   => $user['name'],
         'mobile' => $user['mobile'],
         'email'  => $user['email'],
-        'created_at'  => $user['created_at'],
     ];
 }

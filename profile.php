@@ -2,7 +2,6 @@
 require_once  'cms/myadmin/inc/config.php';
 require_once  'cms/myadmin/inc/auth_helpers.php';
 
-// --- quick sidebar stats (order count, unread messages) ---
 $ordersCountStmt = $pdo->prepare("SELECT COUNT(*) FROM `all_orders` WHERE `user_id` = :uid AND `deleted` = 0");
 $ordersCountStmt->execute([':uid' => $_SESSION['user']['id']]);
 $ordersCount = (int) $ordersCountStmt->fetchColumn();
@@ -92,7 +91,7 @@ $initials = profile_initials($_SESSION['user']['name']);
             </button>
         </nav>
 
-        <a href="/logout.php" class="pf-logout">
+        <a href="ajax/auth/logout.php" class="pf-logout">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
             <span>خروج از حساب</span>
         </a>
