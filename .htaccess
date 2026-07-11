@@ -12,20 +12,21 @@ RewriteCond %{REQUEST_FILENAME} -d [OR]
 RewriteCond %{REQUEST_FILENAME} -l
 RewriteRule ^ - [L]
 
-RewriteRule ^about-us/?$ about-us.php [END]
-RewriteRule ^profile/?$ profile.php [END]
-RewriteRule ^contact-us/?$ contact-us.php [END]
-RewriteRule ^entry/?$ entry.php [END]
-RewriteRule ^account/?$ account.php [END]
-RewriteRule ^cart/?$ cart.php [END]
-RewriteRule ^checkout/?$ checkout.php [END]
-RewriteRule ^orders/?$ orders.php [END]
+RewriteRule ^about-us/?$ about-us.php [L]
 
-RewriteRule ^blogs/?$ blogs.php [END]
+RewriteRule ^profile/?$ profile.php [L]
+RewriteRule ^contact-us/?$ contact-us.php [L]
+RewriteRule ^entry/?$ entry.php [L]
+RewriteRule ^account/?$ account.php [L]
+RewriteRule ^cart/?$ cart.php [L]
+RewriteRule ^checkout/?$ checkout.php [L]
+RewriteRule ^orders/?$ orders.php [L]
 
-RewriteRule ^team/?$ team.php [END]
+RewriteRule ^blogs/?$ blogs.php [L]
 
-RewriteRule ^products/?$ products.php [END]
+RewriteRule ^team/?$ team.php [L]
+RewriteRule ^terms/?$ terms.php [L]
+RewriteRule ^products/?$ products.php [L]
 
 RewriteRule ^products/([^/]+)/?$ products.php?category=$1 [END,QSA]
 
@@ -34,4 +35,5 @@ RewriteRule ^product/([^/]+)/?$ product.php?category=$1 [END,QSA]
 RewriteRule ^blog/([^/]+)/?$ blog.php?slug=$1 [END,QSA]
 
 ErrorDocument 404 /404.php
+
 

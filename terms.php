@@ -6,8 +6,8 @@ require_once "cms/myadmin/inc/config.php"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> <?= setting('name') ?> </title>
-
+    <title> <?= setting('name') ?> | قوانین و مقررات</title>
+    <?= $global_base_address ?>
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">
     <link rel="stylesheet" href="assets/css/base/flaticon.css">

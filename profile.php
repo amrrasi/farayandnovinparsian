@@ -17,7 +17,8 @@ $initials = profile_initials($_SESSION['user']['name']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> <?= setting('name') ?> </title>
+    <title> <?= setting('name') ?> | حساب کاربری</title>
+    <?= $global_base_address ?>
 
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">
@@ -36,7 +37,6 @@ $initials = profile_initials($_SESSION['user']['name']);
 
     <link rel="stylesheet"
           href="assets/css/pages/profile.css?v=<?php echo filemtime(__DIR__ . '/assets/css/pages/profile.css'); ?>">
-    <?= $global_base_address ?>
 
 </head>
 <body>
