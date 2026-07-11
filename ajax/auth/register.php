@@ -12,11 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 verifyCsrf();
 
-$name            = trim((string) ($_POST['name'] ?? ''));
-$mobile          = trim((string) ($_POST['mobile'] ?? ''));
-$email           = trim((string) ($_POST['email'] ?? ''));
-$password        = (string) ($_POST['password'] ?? '');
-$confirmPassword = (string) ($_POST['confirmPassword'] ?? '');
+$name            = trim((string)($_POST['name'] ?? ''));
+$mobile          = trim((string)($_POST['mobile'] ?? ''));
+$email           = trim((string)($_POST['email'] ?? ''));
+$password        = (string)($_POST['password'] ?? '');
+$confirmPassword = (string)($_POST['confirmPassword'] ?? '');
 $terms           = !empty($_POST['terms']);
 $redirect        = sanitizeRedirect($_POST['redirect'] ?? null);
 
@@ -48,39 +48,69 @@ if (!$terms) {
 
 try {
 
-    $dupStmt = $pdo->prepare("
+    $stmt = $mysqli->prepare("
         SELECT id
-        FROM   user
-        WHERE  deleted = 0
-          AND  (mobile = :mobile OR (email IS NOT NULL AND email = :email))
-        LIMIT  1
+        FROM user
+        WHERE deleted = 0
+        AND (
+            mobile = ?
+            OR (email IS NOT NULL AND email = ?)
+        )
+        LIMIT 1
     ");
 
-    $dupStmt->execute([
-        ':mobile' => $mobile,
-        ':email'  => $email,
-    ]);
+    $stmt->bind_param("ss", $mobile, $email);
+    $stmt->execute();
 
-    if ($dupStmt->fetch()) {
+    $result = $stmt->get_result();
+
+    if ($result->fetch_assoc()) {
+        $stmt->close();
         jsonRespond(false, 'کاربری با این شماره موبایل یا ایمیل قبلاً ثبت‌نام کرده است.');
     }
 
-    $insert = $pdo->prepare("
-        INSERT INTO user (name, mobile, email, password, deleted, mobile_verified, is_login)
-        VALUES (:name, :mobile, :email, :password, 0, 0, 1)
+    $stmt->close();
+
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+    $stmt = $mysqli->prepare("
+        INSERT INTO user
+        (
+            name,
+            mobile,
+            email,
+            password,
+            deleted,
+            mobile_verified,
+            is_login
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?,
+            ?,
+            0,
+            0,
+            1
+        )
     ");
 
-    $insert->execute([
-        ':name'     => $name,
-        ':mobile'   => $mobile,
-        ':email'    => $email,
-        ':password' => password_hash($password, PASSWORD_DEFAULT),
-    ]);
+    $stmt->bind_param(
+        "ssss",
+        $name,
+        $mobile,
+        $email,
+        $passwordHash
+    );
 
-    $userId = (int) $pdo->lastInsertId();
+    $stmt->execute();
 
-} catch (PDOException $e) {
+    $userId = $mysqli->insert_id;
 
+    $stmt->close();
+
+} catch (Exception $e) {
     error_log($e->getMessage());
 
     http_response_code(500);
@@ -95,4 +125,10 @@ establishUserSession([
     'email'  => $email,
 ]);
 
-jsonRespond(true, 'ثبت‌نام با موفقیت انجام شد.', ['redirect' => $redirect]);
+jsonRespond(
+    true,
+    'ثبت‌نام با موفقیت انجام شد.',
+    [
+        'redirect' => $redirect
+    ]
+);

@@ -9,13 +9,20 @@ if (!empty($_SESSION['user']['id'])) {
 
     try {
 
-        $pdo->prepare("
-            UPDATE users
-            SET    is_login = 0, session_token = NULL, session_expires = NULL
-            WHERE  id = :id
-        ")->execute([':id' => $_SESSION['user']['id']]);
+        $stmt = $mysqli->prepare("
+            UPDATE user
+            SET
+                is_login = 0,
+                session_token = NULL,
+                session_expires = NULL
+            WHERE id = ?
+        ");
 
-    } catch (PDOException $e) {
+        $stmt->bind_param("i", $_SESSION['user']['id']);
+        $stmt->execute();
+        $stmt->close();
+
+    } catch (mysqli_sql_exception $e) {
 
         error_log($e->getMessage());
     }
@@ -24,14 +31,29 @@ if (!empty($_SESSION['user']['id'])) {
 $_SESSION = [];
 
 if (ini_get('session.use_cookies')) {
+
     $params = session_get_cookie_params();
-    setcookie('PHPSESSID', '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+
+    setcookie(
+        session_name(),
+        '',
+        time() - 42000,
+        $params['path'],
+        $params['domain'],
+        $params['secure'],
+        $params['httponly']
+    );
 }
 
-setcookie('remember_token', '', time() - 42000, '/');
+setcookie('remember_token', '', [
+    'expires'  => time() - 42000,
+    'path'     => '/',
+    'secure'   => !empty($_SERVER['HTTPS']),
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
 
 session_destroy();
 
 header('Location: ../../entry.php');
-
 exit;

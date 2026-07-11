@@ -39,7 +39,7 @@ try {
 
     $stmt = $pdo->prepare("
         SELECT id, otp_hash, otp_expires, otp_attempts
-        FROM   users
+        FROM   user
         WHERE  email = :email
           AND  deleted = 0
         LIMIT  1
@@ -64,14 +64,14 @@ try {
     if (!hash_equals($user['otp_hash'], hash('sha256', $otp))) {
 
         $pdo->prepare("
-            UPDATE users SET otp_attempts = otp_attempts + 1 WHERE id = :id
+            UPDATE user SET otp_attempts = otp_attempts + 1 WHERE id = :id
         ")->execute([':id' => $user['id']]);
 
         jsonRespond(false, 'کد وارد شده صحیح نیست.');
     }
 
     $pdo->prepare("
-        UPDATE users
+        UPDATE user
         SET    password = :password,
                otp_hash = NULL,
                otp_expires = NULL,
@@ -85,7 +85,7 @@ try {
         ':id'       => $user['id'],
     ]);
 
-} catch (PDOException $e) {
+} catch (Exception $e) {
 
     error_log($e->getMessage());
 

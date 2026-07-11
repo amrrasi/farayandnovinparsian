@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 verifyCsrf();
 
-$identifier = trim((string) ($_POST['identifier'] ?? ''));
-$password   = (string) ($_POST['password'] ?? '');
+$identifier = trim((string)($_POST['identifier'] ?? ''));
+$password   = (string)($_POST['password'] ?? '');
 $remember   = !empty($_POST['remember']);
 $redirect   = sanitizeRedirect($_POST['redirect'] ?? null);
 
@@ -23,29 +23,35 @@ if ($identifier === '' || $password === '') {
 
 try {
 
-    $stmt = $pdo->prepare("
+    $stmt = $mysqli->prepare("
         SELECT id, name, mobile, email, password
-        FROM   user
-        WHERE  (mobile = :identifier OR email = :identifier)
-          AND  deleted = 0
-        LIMIT  1
+        FROM user
+        WHERE (mobile = ? OR email = ?)
+        AND deleted = 0
+        LIMIT 1
     ");
 
-    $stmt->execute([':identifier' => $identifier]);
+    if (!$stmt) {
+        throw new Exception($mysqli->error);
+    }
 
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->bind_param("ss", $identifier, $identifier);
+    $stmt->execute();
 
-} catch (PDOException $e) {
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    $stmt->close();
+
+} catch (Exception $e) {
 
     error_log($e->getMessage());
 
     http_response_code(500);
-
     jsonRespond(false, 'خطا در ارتباط با پایگاه داده.');
 }
 
 if (!$user || !password_verify($password, $user['password'])) {
-
     jsonRespond(false, 'شماره موبایل/ایمیل یا رمز عبور اشتباه است.');
 }
 
@@ -53,27 +59,47 @@ establishUserSession($user);
 
 try {
 
-    $pdo->prepare("
+    $stmt = $mysqli->prepare("
         UPDATE user
-        SET    is_login = 1, updated_at = NOW()
-        WHERE  id = :id
-    ")->execute([':id' => $user['id']]);
+        SET is_login = 1,
+            updated_at = NOW()
+        WHERE id = ?
+    ");
+
+    if (!$stmt) {
+        throw new Exception($mysqli->error);
+    }
+
+    $stmt->bind_param("i", $user['id']);
+    $stmt->execute();
+    $stmt->close();
 
     if ($remember) {
 
-        $token       = bin2hex(random_bytes(32));
-        $tokenHash   = hash('sha256', $token);
-        $expiresAt   = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 30);
+        $token      = bin2hex(random_bytes(32));
+        $tokenHash  = hash('sha256', $token);
+        $expiresAt  = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 30);
 
-        $pdo->prepare("
+        $stmt = $mysqli->prepare("
             UPDATE user
-            SET    session_token = :token, session_expires = :expires
-            WHERE  id = :id
-        ")->execute([
-            ':token'   => $tokenHash,
-            ':expires' => $expiresAt,
-            ':id'      => $user['id'],
-        ]);
+            SET session_token = ?,
+                session_expires = ?
+            WHERE id = ?
+        ");
+
+        if (!$stmt) {
+            throw new Exception($mysqli->error);
+        }
+
+        $stmt->bind_param(
+            "ssi",
+            $tokenHash,
+            $expiresAt,
+            $user['id']
+        );
+
+        $stmt->execute();
+        $stmt->close();
 
         setcookie('remember_token', $user['id'] . ':' . $token, [
             'expires'  => time() + 60 * 60 * 24 * 30,
@@ -84,9 +110,11 @@ try {
         ]);
     }
 
-} catch (PDOException $e) {
+} catch (Exception $e) {
 
     error_log($e->getMessage());
 }
 
-jsonRespond(true, 'خوش آمدید!', ['redirect' => $redirect]);
+jsonRespond(true, 'خوش آمدید!', [
+    'redirect' => $redirect
+]);
