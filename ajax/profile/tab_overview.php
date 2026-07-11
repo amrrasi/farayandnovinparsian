@@ -34,7 +34,6 @@ $memberSince = profile_format_date($_SESSION['user']['id']);
 
     <div class="pf-welcome">
         <h1>سلام، <?= htmlspecialchars($_SESSION['user']['name'], ENT_QUOTES, 'UTF-8') ?> 👋</h1>
-        <p class="text-muted">عضو از <?= $memberSince ?> — این‌جا خلاصه‌ی وضعیت حساب شماست.</p>
     </div>
 
     <div class="pf-stat-grid">
