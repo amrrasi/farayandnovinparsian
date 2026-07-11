@@ -159,6 +159,8 @@
 
                     <li><a href="team/">تیم ما</a></li>
 
+                    <li><a href="terms/">قوانین و مقررات</a></li>
+
                 </ul>
 
             </div>
