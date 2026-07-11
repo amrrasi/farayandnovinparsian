@@ -35,7 +35,7 @@ require_once "cms/myadmin/inc/config.php"
 Terms Hero
 ========================================== -->
 
-<section class="terms-hero">
+<section class="terms-hero reveal">
 
     <div class="container">
 
@@ -57,7 +57,7 @@ Terms Hero
 
         <h1>
 
-            شرایط و ضوابط استفاده از وب‌سایت
+             شرایط و ضوابط استفاده از وب‌سایت <?= setting('name') ?>
 
         </h1>
 
@@ -74,7 +74,7 @@ Terms Hero
                 <i class="fa-regular fa-calendar"></i>
 
                 آخرین بروزرسانی:
-                <strong>۱۱ جولای ۲۰۲۶</strong>
+                <strong>۲۰ تیرماه ۱۴۰۳</strong>
 
             </div>
 
@@ -111,6 +111,22 @@ Terms Content
                 <li><a href="#t6">6. قیمت محصولات</a></li>
                 <li><a href="#t7">7. موجودی کالا</a></li>
                 <li><a href="#t8">8. پرداخت</a></li>
+                <li><a href="#t9">9. ارسال سفارش</a></li>
+                <li><a href="#t10">10. تحویل کالا</a></li>
+                <li><a href="#t11">11. بازگشت کالا</a></li>
+                <li><a href="#t12">12. گارانتی و هدمات پس از فروش</a></li>
+                <li><a href="#t13">13. محتوای کاربران</a></li>
+                <li><a href="#t14">14. مالکیت معنوی</a></li>
+                <li><a href="#t15">15. محدودیت استفاده</a></li>
+                <li><a href="#t16">16. حریم خصوصی</a></li>
+                <li><a href="#t17">17. کوکی‌ها</a></li>
+                <li><a href="#t18">18. محدودیت مسئولیت</a></li>
+                <li><a href="#t19">19. تعلیق یا حذف حساب کاربری</a></li>
+                <li><a href="#t20">20. تغییر قوانین</a></li>
+                <li><a href="#t21">21. فورس ماژور</a></li>
+                <li><a href="#t22">22. قوانین حاکم </a></li>
+                <li><a href="#t23">23. ارتباط با پشتیبانی</a></li>
+                <li><a href="#t24">24. پذیرش نهای</a></li>
 
             </ul>
 
@@ -118,7 +134,7 @@ Terms Content
 
         <div class="terms-content">
 
-            <div class="terms-card">
+            <div class="terms-card reveal">
 
                 <h2>
 
@@ -129,8 +145,7 @@ Terms Content
                 <p>
 
                     <strong>آخرین بروزرسانی:</strong>
-                    ۱۱ جولای ۲۰۲۶
-
+                    ۲۰ تیرماه ۱۴۰۳
                 </p>
 
                 <p>
@@ -144,7 +159,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t1">
+            <div class="terms-card reveal" id="t1">
 
                 <span class="term-number">
 
@@ -185,7 +200,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t2">
+            <div class="terms-card reveal" id="t2">
 
                 <span class="term-number">
 
@@ -216,7 +231,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t3">
+            <div class="terms-card reveal" id="t3">
 
                 <span class="term-number">
 
@@ -255,7 +270,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t4">
+            <div class="terms-card reveal" id="t4">
 
                 <span class="term-number">
 
@@ -298,7 +313,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t5">
+            <div class="terms-card reveal" id="t5">
 
                 <span class="term-number">
 
@@ -351,7 +366,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t6">
+            <div class="terms-card reveal" id="t6">
 
                 <span class="term-number">
 
@@ -380,7 +395,7 @@ Terms Content
             </div>
             <!-- ========================= -->
 
-            <div class="terms-card" id="t7">
+            <div class="terms-card reveal" id="t7">
 
                 <span class="term-number">07</span>
 
@@ -409,7 +424,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t8">
+            <div class="terms-card reveal" id="t8">
 
                 <span class="term-number">08</span>
 
@@ -444,7 +459,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t9">
+            <div class="terms-card reveal" id="t9">
 
                 <span class="term-number">09</span>
 
@@ -481,7 +496,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t10">
+            <div class="terms-card reveal" id="t10">
 
                 <span class="term-number">10</span>
 
@@ -516,7 +531,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t11">
+            <div class="terms-card reveal" id="t11">
 
                 <span class="term-number">11</span>
 
@@ -553,7 +568,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t12">
+            <div class="terms-card reveal" id="t12">
 
                 <span class="term-number">12</span>
 
@@ -574,7 +589,7 @@ Terms Content
             </div>
             <!-- ========================= -->
 
-            <div class="terms-card" id="t13">
+            <div class="terms-card reveal" id="t13">
 
                 <span class="term-number">13</span>
 
@@ -619,7 +634,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t14">
+            <div class="terms-card reveal" id="t14">
 
                 <span class="term-number">14</span>
 
@@ -654,7 +669,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t15">
+            <div class="terms-card reveal" id="t15">
 
                 <span class="term-number">15</span>
 
@@ -699,7 +714,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t16">
+            <div class="terms-card reveal" id="t16">
 
                 <span class="term-number">16</span>
 
@@ -750,7 +765,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t17">
+            <div class="terms-card reveal" id="t17">
 
                 <span class="term-number">17</span>
 
@@ -787,7 +802,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t18">
+            <div class="terms-card reveal" id="t18">
 
                 <span class="term-number">18</span>
 
@@ -822,7 +837,7 @@ Terms Content
             </div>
             <!-- ========================= -->
 
-            <div class="terms-card" id="t19">
+            <div class="terms-card reveal" id="t19">
 
                 <span class="term-number">19</span>
 
@@ -861,7 +876,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t20">
+            <div class="terms-card reveal" id="t20">
 
                 <span class="term-number">20</span>
 
@@ -884,7 +899,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t21">
+            <div class="terms-card reveal" id="t21">
 
                 <span class="term-number">21</span>
 
@@ -921,7 +936,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t22">
+            <div class="terms-card reveal" id="t22">
 
                 <span class="term-number">22</span>
 
@@ -944,7 +959,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t23">
+            <div class="terms-card reveal" id="t23">
 
                 <span class="term-number">23</span>
 
@@ -961,7 +976,7 @@ Terms Content
 
             <!-- ========================= -->
 
-            <div class="terms-card" id="t24">
+            <div class="terms-card reveal" id="t24">
 
                 <span class="term-number">24</span>
 
