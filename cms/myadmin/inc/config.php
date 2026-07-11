@@ -144,6 +144,29 @@ function setting(string $key,$default=null)
 
 }
 
+function profile_initials(string $name): string
+{
+    $name = trim($name);
+    if ($name === '') return '?';
+    return mb_strtoupper(mb_substr($name, 0, 1, 'UTF-8'), 'UTF-8');
+}
+
+function profile_format_price(int $toman): string
+{
+    return number_format($toman) . ' تومان';
+}
+
+function profile_format_date(?string $datetime): string
+{
+    if (!$datetime) return '-';
+    $ts = strtotime($datetime);
+    if (!$ts) return '-';
+    if (function_exists('jdate')) {
+        return jdate('Y/m/d H:i', $ts);
+    }
+    return date('Y/m/d H:i', $ts);
+}
+
 $cartCount = !empty($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 $global_base_address =
     '<base href="http://farayand_novin.local/" />';

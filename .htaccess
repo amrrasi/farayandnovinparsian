@@ -13,6 +13,7 @@ RewriteCond %{REQUEST_FILENAME} -l
 RewriteRule ^ - [L]
 
 RewriteRule ^about-us/?$ about-us.php [END]
+RewriteRule ^profile/?$ profile.php [END]
 RewriteRule ^contact-us/?$ contact-us.php [END]
 RewriteRule ^entry/?$ entry.php [END]
 RewriteRule ^account/?$ account.php [END]
