@@ -82,7 +82,15 @@ while($row = $result->fetch_assoc()){
                 <i class="fas fa-shopping-cart"></i>
                 <?= $cartCount ?>
             </a>
-            <a href="entry/" class="hp-icon-btn" title="حساب کاربری">
+            <?php
+                if (isset($_SESSION['user']['id'])){
+                    $accountLink = "profile";
+                }else{
+                    $accountLink = "entry";
+                }
+
+            ?>
+            <a href="<?= $accountLink ?>" class="hp-icon-btn" title="حساب کاربری">
                 <i class="fas fa-user"></i>
             </a>
             <a href="contact-us/" class="hp-btn-cta">ثبت درخواست پشتیبانی</a>
