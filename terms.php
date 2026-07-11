@@ -103,30 +103,30 @@ Terms Content
 
             <ul>
 
-                <li><a href="#t1">1. تعاریف</a></li>
-                <li><a href="#t2">2. پذیرش قوانین</a></li>
-                <li><a href="#t3">3. شرایط عضویت</a></li>
-                <li><a href="#t4">4. امنیت حساب کاربری</a></li>
-                <li><a href="#t5">5. قوانین ثبت سفارش</a></li>
-                <li><a href="#t6">6. قیمت محصولات</a></li>
-                <li><a href="#t7">7. موجودی کالا</a></li>
-                <li><a href="#t8">8. پرداخت</a></li>
-                <li><a href="#t9">9. ارسال سفارش</a></li>
-                <li><a href="#t10">10. تحویل کالا</a></li>
-                <li><a href="#t11">11. بازگشت کالا</a></li>
-                <li><a href="#t12">12. گارانتی و هدمات پس از فروش</a></li>
-                <li><a href="#t13">13. محتوای کاربران</a></li>
-                <li><a href="#t14">14. مالکیت معنوی</a></li>
-                <li><a href="#t15">15. محدودیت استفاده</a></li>
-                <li><a href="#t16">16. حریم خصوصی</a></li>
-                <li><a href="#t17">17. کوکی‌ها</a></li>
-                <li><a href="#t18">18. محدودیت مسئولیت</a></li>
-                <li><a href="#t19">19. تعلیق یا حذف حساب کاربری</a></li>
-                <li><a href="#t20">20. تغییر قوانین</a></li>
-                <li><a href="#t21">21. فورس ماژور</a></li>
-                <li><a href="#t22">22. قوانین حاکم </a></li>
-                <li><a href="#t23">23. ارتباط با پشتیبانی</a></li>
-                <li><a href="#t24">24. پذیرش نهای</a></li>
+                <li><a href="terms#t1">1. تعاریف</a></li>
+                <li><a href="terms#t2">2. پذیرش قوانین</a></li>
+                <li><a href="terms#t3">3. شرایط عضویت</a></li>
+                <li><a href="terms#t4">4. امنیت حساب کاربری</a></li>
+                <li><a href="terms#t5">5. قوانین ثبت سفارش</a></li>
+                <li><a href="terms#t6">6. قیمت محصولات</a></li>
+                <li><a href="terms#t7">7. موجودی کالا</a></li>
+                <li><a href="terms#t8">8. پرداخت</a></li>
+                <li><a href="terms#t9">9. ارسال سفارش</a></li>
+                <li><a href="terms#t10">10. تحویل کالا</a></li>
+                <li><a href="terms#t11">11. بازگشت کالا</a></li>
+                <li><a href="terms#t12">12. گارانتی و هدمات پس از فروش</a></li>
+                <li><a href="terms#t13">13. محتوای کاربران</a></li>
+                <li><a href="terms#t14">14. مالکیت معنوی</a></li>
+                <li><a href="terms#t15">15. محدودیت استفاده</a></li>
+                <li><a href="terms#t16">16. حریم خصوصی</a></li>
+                <li><a href="terms#t17">17. کوکی‌ها</a></li>
+                <li><a href="terms#t18">18. محدودیت مسئولیت</a></li>
+                <li><a href="terms#t19">19. تعلیق یا حذف حساب کاربری</a></li>
+                <li><a href="terms#t20">20. تغییر قوانین</a></li>
+                <li><a href="terms#t21">21. فورس ماژور</a></li>
+                <li><a href="terms#t22">22. قوانین حاکم </a></li>
+                <li><a href="terms#t23">23. ارتباط با پشتیبانی</a></li>
+                <li><a href="terms#t24">24. پذیرش نهای</a></li>
 
             </ul>
 
