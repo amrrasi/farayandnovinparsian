@@ -4,7 +4,7 @@ require_once "cms/myadmin/inc/config.php";
 
 // ── Auth guard ──────────────────────────────────────────
 if (empty($_SESSION['user_id'])) {
-    header('Location: entry.php?redirect=checkout.php');
+    header('Location: ../entry.php?redirect=checkout.php');
     exit;
 }
 
@@ -51,15 +51,14 @@ $user = $user->fetch(PDO::FETCH_ASSOC) ?: [];
 
 // ── Config ────────────────────────────────────────────
 // Update these values to your real bank info
-$BANK_CARD   = '6037-9975-9999-1234';  // شماره کارت
-$BANK_OWNER  = 'فروشگاه شما – علی رضایی';
+$BANK_CARD   = '6037-9975-9999-1234';
+$BANK_OWNER  = 'فروشگاه شما – امیر عسکری';
 $BANK_SHEBA  = 'IR12 0000 0000 0000 0000 0000 00';
 
 function toman(float $n): string {
     return number_format($n) . ' تومان';
 }
 
-// ── Generate invoice number ─────────────────────────────
 $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5));
 ?>
 <!doctype html>
