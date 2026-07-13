@@ -3,12 +3,11 @@ declare(strict_types=1);
 require_once "cms/myadmin/inc/config.php";
 
 // ── Auth guard ──────────────────────────────────────────
-if (empty($_SESSION['user_id'])) {
-    header('Location: ../entry.php?redirect=checkout.php');
+if (empty($_SESSION['user']['id'])) {
+    header('Location: entry.php?redirect=checkout.php');
     exit;
 }
 
-// ── Rebuild cart ────────────────────────────────────────
 $cartItems  = [];
 $subtotal   = 0;
 
@@ -37,7 +36,7 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
 
 // Redirect to cart if empty
 if (empty($cartItems)) {
-    header('Location: cart.php');
+    header('Location: cart/');
     exit;
 }
 
@@ -45,12 +44,11 @@ $shippingFee = $subtotal >= 500000 ? 0 : 35000;
 $grandTotal  = $subtotal + $shippingFee;
 
 // ── User info ────────────────────────────────────────────
-$user = $pdo->prepare("SELECT name, phone, email, address FROM users WHERE id = :id LIMIT 1");
+$user = $pdo->prepare("SELECT name, mobile, email FROM user WHERE id = :id LIMIT 1");
 $user->execute([':id' => $_SESSION['user_id']]);
 $user = $user->fetch(PDO::FETCH_ASSOC) ?: [];
 
-// ── Config ────────────────────────────────────────────
-// Update these values to your real bank info
+
 $BANK_CARD   = '6037-9975-9999-1234';
 $BANK_OWNER  = 'فروشگاه شما – امیر عسکری';
 $BANK_SHEBA  = 'IR12 0000 0000 0000 0000 0000 00';
@@ -259,9 +257,9 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 </div>
             </div>
 
-        </div><!-- /checkout-left -->
+        </div>
 
-        <!-- ══ RIGHT — Summary ══ -->
+
         <div class="checkout-summary">
 
             <div class="checkout-summary-card">
@@ -274,7 +272,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                     <?php foreach ($cartItems as $item): ?>
                         <div class="summary-item">
                             <?php if (!empty($item['thumbnail'])): ?>
-                                <img src="<?= htmlspecialchars($item['thumbnail']) ?>"
+                                <img src="cms/<?= htmlspecialchars($item['thumbnail']) ?>"
                                      class="summary-item-thumb"
                                      alt="<?= htmlspecialchars($item['name']) ?>"
                                      loading="lazy">
@@ -319,14 +317,14 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 ثبت نهایی سفارش
             </button>
 
-            <a href="cart.php" class="btn-continue" style="display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none">
+            <a href="cart/" class="btn-continue" style="display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none">
                 <i class="fas fa-arrow-right"></i>
                 بازگشت به سبد خرید
             </a>
 
-        </div><!-- /checkout-summary -->
+        </div>
 
-    </div><!-- /container-site -->
+    </div>
 </main>
 
 <!-- ══════════════════════════════════════
@@ -341,8 +339,8 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
             <!-- Top: brand + meta -->
             <div class="invoice-top">
                 <div class="invoice-brand">
-                    <div class="invoice-brand-name">فروشگاه شما</div>
-                    <div class="invoice-brand-sub">yourstore.ir</div>
+                    <div class="invoice-brand-name">Logo</div>
+                    <div class="invoice-brand-sub">fanapit.com</div>
                 </div>
                 <div class="invoice-meta">
                     <span>شماره پیش‌فاکتور</span>
@@ -421,7 +419,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 این پیش‌فاکتور تأیید نهایی سفارش نیست. پس از بررسی رسید پرداخت، سفارش شما تأیید خواهد شد.
             </div>
 
-        </div><!-- /invoice-paper -->
+        </div>
 
         <!-- Action bar -->
         <div class="invoice-actions">
@@ -438,8 +436,8 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
             </button>
         </div>
 
-    </div><!-- /invoice-modal -->
-</div><!-- /invoice-modal-backdrop -->
+    </div>
+</div>
 
 <!-- Toast -->
 <div class="cart-toast" id="cartToast">
@@ -447,13 +445,12 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
     <span id="cartToastMsg"></span>
 </div>
 
-<!-- ── Data for JS ── -->
 <script>
 window.CHECKOUT_DATA = <?= json_encode([
     'grandTotal'  => $grandTotal,
     'invoiceNo'   => $invoiceNo,
     'csrfToken'   => $_SESSION['csrf_token'] ?? '',
-    'submitUrl'   => 'api/submitOrder.php',
+    'submitUrl'   => 'ajax/cart/submitOrder.php',
     'bankCard'    => $BANK_CARD,
 ], JSON_UNESCAPED_UNICODE) ?>;
 </script>
