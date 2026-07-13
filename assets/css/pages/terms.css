@@ -159,6 +159,12 @@ CONTENT
     border:1px solid var(--clr-border);
     backdrop-filter:blur(20px);
     box-shadow:var(--shadow-card);
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+    scrollbar-color: #7c5cff transparent;
 }
 
 
