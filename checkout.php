@@ -120,6 +120,11 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                     <div class="step-circle">۳</div>
                     <span class="step-label">تأیید و پرداخت</span>
                 </div>
+
+            </div>
+            <hr>
+            <div>
+                پس از تکمیل فرم ما با پیش‌فاکتور را دریافت کنید و در سریع‌ترین زمان ممکن کارشناسان ما جهت اتمام خرید با ما تماس خواهند گرفت
             </div>
 
             <!-- ── Receiver info ── -->
