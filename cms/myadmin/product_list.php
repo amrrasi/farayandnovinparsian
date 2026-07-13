@@ -200,7 +200,7 @@ $cats = $mysqli->query("
                                         <tbody>
 
                                         <?php $i = $offset + 1; ?>
-                                        
+
                                         <?php while($row = $result->fetch_assoc()): ?>
 
                                             <tr>
