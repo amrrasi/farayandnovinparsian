@@ -260,7 +260,7 @@ PRODUCT HERO
                                 <i class="fa-solid fa-cart-plus"></i>
                                 افزودن به سبد خرید
                             </button>
-                            <button class="btn-border">خرید سریع</button>
+                            <a href="cart/" class="btn-border">سبد خرید</a>
                         <?php else: ?>
                             <button class="btn-main" disabled title="این محصول موجود نیست">
                                 <i class="fa-solid fa-ban"></i>
@@ -291,7 +291,6 @@ PRODUCT HERO
 
                 </aside>
             </div>
-
         </div>
     </div>
 </section>
