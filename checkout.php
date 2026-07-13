@@ -45,7 +45,7 @@ $grandTotal  = $subtotal + $shippingFee;
 
 // ── User info ────────────────────────────────────────────
 $user = $pdo->prepare("SELECT name, mobile, email FROM user WHERE id = :id LIMIT 1");
-$user->execute([':id' => $_SESSION['user_id']]);
+$user->execute([':id' => $_SESSION['user']['id']]);
 $user = $user->fetch(PDO::FETCH_ASSOC) ?: [];
 
 
@@ -69,11 +69,21 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 
     <?= $global_base_address ?? '' ?>
 
+    <link rel="stylesheet" href="assets/css/base/animate.min.css">
+    <link rel="stylesheet" href="assets/css/base/flaticon.css">
     <link rel="stylesheet" href="assets/css/base/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/base/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/css/base/nice-select.css">
+    <link rel="stylesheet" href="assets/css/base/owl.carousel.min.css">
+
     <link rel="stylesheet" href="assets/fonts/font.css">
+
+    <link rel="stylesheet" href="assets/css/base/bootstrap.rtl.css">
     <link rel="stylesheet" href="assets/css/base/base.css">
     <link rel="stylesheet" href="assets/css/layout/header.css">
     <link rel="stylesheet" href="assets/css/layout/footer.css">
+
+    <link rel="stylesheet" href="assets/css/pages/cart.css">
     <link rel="stylesheet" href="assets/css/pages/checkout.css?v=<?= @filemtime('assets/css/pages/checkout.css') ?>">
 
     <script>
@@ -90,7 +100,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 
 <?php include 'inc/header.php'; ?>
 
-<main class="checkout-page">
+<main class="checkout-page mt-5">
     <div class="container-site">
 
         <!-- ══ LEFT — Form ══ -->
@@ -455,6 +465,11 @@ window.CHECKOUT_DATA = <?= json_encode([
 ], JSON_UNESCAPED_UNICODE) ?>;
 </script>
 
+
+<script src="assets/js/jquery.nice-select.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/pages/checkout.js?v=<?= @filemtime('assets/js/pages/checkout.js') ?>"></script>
