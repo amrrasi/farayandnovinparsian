@@ -79,8 +79,8 @@ while($row = $result->fetch_assoc()){
         <!-- Right-side actions -->
         <div class="hp-actions">
             <a href="cart/" class="hp-icon-btn" title="سبد خرید">
+                <span class="cart-badge"><?= $cartCount ?></span>
                 <i class="fas fa-shopping-cart"></i>
-                <?= $cartCount ?>
             </a>
             <?php
                 if (isset($_SESSION['user']['id'])){
@@ -156,7 +156,7 @@ while($row = $result->fetch_assoc()){
 
     <a href="cart/" class="hp-icon-btn" style="width:100%;border-radius:12px;gap:10px;padding:12px;justify-content:center">
         <i class="fas fa-shopping-cart"></i> سبد خرید
-        <?= $cartCount ?>
+        <span class="cart-badge"><?= $cartCount ?></span>
     </a>
     <a href="contact-us/" class="hp-drawer-cta">درخواست پشتیبانی</a>
 

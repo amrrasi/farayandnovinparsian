@@ -85,6 +85,23 @@
     transform: rotate(180deg)
 }
 
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #e74c3c;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
 /* Dropdown */
 .hp-drop {
     position: absolute;
@@ -170,6 +187,7 @@
     cursor: pointer;
     transition: background .22s, transform .22s;
     flex-shrink: 0;
+    position: relative;
 }
 
 .hp-icon-btn:hover {
