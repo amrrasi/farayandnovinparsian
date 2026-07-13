@@ -1,9 +1,6 @@
 <?php
 require_once "inc/check.php";
 
-/* =========================
-   DELETE SINGLE
-========================= */
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
 
     $id = (int)$_GET['delete'];
@@ -18,11 +15,6 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     exit;
 }
 
-
-/* =========================
-   SEARCH + FILTER + PAGINATION
-========================= */
-
 $limit = 10;
 $page  = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $page  = max(1, $page);
@@ -33,19 +25,17 @@ $search = trim($_GET['search'] ?? '');
 $cat    = (int)($_GET['cat'] ?? 0);
 
 
-/* WHERE BUILDER */
+
 $where = "WHERE p.deleted = 0";
 $params = [];
 $types = "";
 
-/* search */
 if ($search !== '') {
     $where .= " AND p.name LIKE ?";
     $params[] = "%$search%";
     $types .= "s";
 }
 
-/* category */
 if ($cat > 0) {
     $where .= " AND p.product_menu_id = ?";
     $params[] = $cat;
@@ -53,7 +43,6 @@ if ($cat > 0) {
 }
 
 
-/* COUNT */
 $countSQL = "
     SELECT COUNT(*) as total
     FROM product p
@@ -71,8 +60,6 @@ $total = $stmt->get_result()->fetch_assoc()['total'];
 
 $totalPages = ceil($total / $limit);
 
-
-/* DATA */
 $sql = "
     SELECT p.*, pm.name AS menu_name
     FROM product p
@@ -92,7 +79,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 
-/* categories */
 $cats = $mysqli->query("
     SELECT id, name FROM product_menu WHERE deleted = 0
 ");
@@ -162,7 +148,6 @@ $cats = $mysqli->query("
 
                         <div class="card-body">
 
-                            <!-- 🔍 SEARCH + FILTER -->
                             <form method="GET" class="mb-3 d-flex gap-2">
 
                                 <input type="text"
@@ -205,7 +190,7 @@ $cats = $mysqli->query("
                                             <th>#</th>
                                             <th>نام محصول</th>
                                             <th>دسته بندی</th>
-                                            <th>قیمت</th>
+                                            <th>وضعیت موجودی</th>
                                             <th>وضعیت</th>
                                             <th>بازدید</th>
                                             <th>عملیات</th>
@@ -239,7 +224,13 @@ $cats = $mysqli->query("
                                                 </td>
 
                                                 <td>
-                                                    <?= number_format($row['price']) ?> تومان
+                                                    <span class="badge light availability-badge <?= $row['availability'] == 1 ? 'badge-success' : 'badge-danger' ?>"
+                                                          data-id="<?= $row['id'] ?>"
+                                                          data-val="<?= (int)$row['availability'] ?>"
+                                                          style="cursor:pointer; user-select:none;"
+                                                          title="کلیک برای تغییر وضعیت">
+                                                        <?= $row['availability'] == 1 ? 'موجود' : 'ناموجود' ?>
+                                                    </span>
                                                 </td>
 
                                                 <td>
@@ -404,6 +395,39 @@ $cats = $mysqli->query("
         setTimeout(function () {
             carouselReview();
         }, 1000);
+    });
+
+    document.addEventListener('click', function(e) {
+        const badge = e.target.closest('.availability-badge');
+        if (!badge) return;
+
+        const id  = badge.dataset.id;
+        const val = parseInt(badge.dataset.val);
+
+        badge.style.opacity = '0.5';
+        badge.style.pointerEvents = 'none';
+
+        fetch('product_toggle_availability.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'id=' + id
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    const isAvailable     = data.availability == 1;
+                    badge.dataset.val     = data.availability;
+                    badge.textContent     = isAvailable ? 'موجود' : 'ناموجود';
+                    badge.className       = 'badge light availability-badge ' + (isAvailable ? 'badge-success' : 'badge-danger');
+                } else {
+                    alert('خطا: ' + data.message);
+                }
+            })
+            .catch(() => alert('خطا در ارتباط با سرور'))
+            .finally(() => {
+                badge.style.opacity       = '1';
+                badge.style.pointerEvents = 'auto';
+            });
     });
 </script>
 </body>
