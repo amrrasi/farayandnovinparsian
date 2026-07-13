@@ -49,8 +49,8 @@ function toman(float $n): string {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
     <title>سبد خرید</title>
-
     <?= $global_base_address ?? '' ?>
+
 
     <link rel="stylesheet" href="assets/css/base/fontawesome.min.css">
     <link rel="stylesheet" href="assets/fonts/font.css">
