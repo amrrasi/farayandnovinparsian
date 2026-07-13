@@ -2,7 +2,6 @@
 declare(strict_types=1);
 require_once "cms/myadmin/inc/config.php";
 
-// ── Auth guard ──────────────────────────────────────────
 if (empty($_SESSION['user']['id'])) {
     header('Location: entry.php?redirect=checkout.php');
     exit;
@@ -34,7 +33,6 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     }
 }
 
-// Redirect to cart if empty
 if (empty($cartItems)) {
     header('Location: cart/');
     exit;
@@ -50,7 +48,7 @@ $user = $user->fetch(PDO::FETCH_ASSOC) ?: [];
 
 
 $BANK_CARD   = '6037-9975-9999-1234';
-$BANK_OWNER  = 'فروشگاه شما – امیر عسکری';
+$BANK_OWNER  = ' – امیر عسکری' . setting('name');
 $BANK_SHEBA  = 'IR12 0000 0000 0000 0000 0000 00';
 
 function toman(float $n): string {
@@ -315,7 +313,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                         <span class="val">
                             <?= $shippingFee === 0
                                 ? '<span style="color:var(--clr-success)">رایگان</span>'
-                                : toman($shippingFee) ?>
+                                : '<span style="color:var(--clr-success)">رایگان</span>' ?>
                         </span>
                     </div>
                     <div class="total-row grand">
