@@ -257,11 +257,6 @@ require_once "cms/myadmin/inc/config.php"
                     انتخاب بهترین استوریج متناسب با نیاز سازمان شما با کمک کارشناسان متخصص.
                 </p>
 
-                <a href="#">
-                    بیشتر بدانید
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </a>
-
             </article>
 
             <article class="service-card">
@@ -275,11 +270,6 @@ require_once "cms/myadmin/inc/config.php"
                 <p>
                     طراحی و ارائه زیرساخت‌های ذخیره‌سازی امن، مقیاس‌پذیر و متناسب با نیاز سازمان.
                 </p>
-
-                <a href="#">
-                    بیشتر بدانید
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </a>
 
             </article>
 
@@ -295,11 +285,6 @@ require_once "cms/myadmin/inc/config.php"
                     ارائه خدمات تخصصی در طراحی، نصب، پیکربندی و بهینه‌سازی تجهیزات ذخیره‌سازی.
                 </p>
 
-                <a href="#">
-                    بیشتر بدانید
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </a>
-
             </article>
 
             <article class="service-card">
@@ -313,11 +298,6 @@ require_once "cms/myadmin/inc/config.php"
                 <p>
                     پشتیبانی تخصصی، رفع مشکلات و نگهداری مستمر تجهیزات Storage و EMC.
                 </p>
-
-                <a href="#">
-                    بیشتر بدانید
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                </a>
 
             </article>
         </div>
