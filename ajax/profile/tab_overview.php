@@ -6,7 +6,7 @@ $uid = $_SESSION['user']['id'];
 // latest order
 $lastOrderStmt = $pdo->prepare("
     SELECT o.*, s.status_name
-    FROM `all_orders` o
+    FROM `orders` o
     LEFT JOIN `order_status` s ON s.id = o.order_status_id
     WHERE o.user_id = :uid AND o.deleted = 0
     ORDER BY o.created_at DESC
@@ -24,7 +24,7 @@ $lastMsgStmt = $pdo->prepare("
 $lastMsgStmt->execute([':uid' => $uid]);
 $lastMsg = $lastMsgStmt->fetch();
 
-$totalSpentStmt = $pdo->prepare("SELECT COALESCE(SUM(final_total_price),0) FROM `all_orders` WHERE user_id = :uid AND deleted = 0 AND order_status_id NOT IN (5,6)");
+$totalSpentStmt = $pdo->prepare("SELECT COALESCE(SUM(grand_total),0) FROM `orders` WHERE user_id = :uid AND deleted = 0 AND order_status_id NOT IN (5,6)");
 $totalSpentStmt->execute([':uid' => $uid]);
 $totalSpent = (int) $totalSpentStmt->fetchColumn();
 

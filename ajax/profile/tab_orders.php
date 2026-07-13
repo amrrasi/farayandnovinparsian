@@ -5,7 +5,7 @@ $uid = $_SESSION['user']['id'];
 
 $stmt = $pdo->prepare("
     SELECT o.*, s.status_name
-    FROM `all_orders` o
+    FROM `orders` o
     LEFT JOIN `order_status` s ON s.id = o.order_status_id
     WHERE o.user_id = :uid AND o.deleted = 0
     ORDER BY o.created_at DESC
