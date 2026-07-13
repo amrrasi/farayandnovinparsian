@@ -2,7 +2,6 @@
 declare(strict_types=1);
 require_once "cms/myadmin/inc/config.php";
 
-// ── Pull cart items from session ───────────────────────
 $cartItems   = [];
 $subtotal    = 0;
 $totalQty    = 0;
@@ -33,11 +32,9 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
 
 $isEmpty = empty($cartItems);
 
-// Simple shipping: free over 500,000 Toman
 $shippingFee  = (!$isEmpty && $subtotal >= 500000) ? 0 : 35000;
 $grandTotal   = $subtotal + $shippingFee;
 
-// Format helper
 function toman(float $n): string {
     return number_format($n) . ' تومان';
 }
@@ -52,32 +49,30 @@ function toman(float $n): string {
     <?= $global_base_address ?? '' ?>
 
 
+    <link rel="stylesheet" href="assets/css/base/animate.min.css">
+    <link rel="stylesheet" href="assets/css/base/flaticon.css">
     <link rel="stylesheet" href="assets/css/base/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/base/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/css/base/nice-select.css">
+    <link rel="stylesheet" href="assets/css/base/owl.carousel.min.css">
+
     <link rel="stylesheet" href="assets/fonts/font.css">
+
+    <link rel="stylesheet" href="assets/css/base/bootstrap.rtl.css">
     <link rel="stylesheet" href="assets/css/base/base.css">
     <link rel="stylesheet" href="assets/css/layout/header.css">
     <link rel="stylesheet" href="assets/css/layout/footer.css">
     <link rel="stylesheet" href="assets/css/pages/cart.css?v=<?= @filemtime('assets/css/pages/cart.css') ?>">
 
-    <script>
-        (() => {
-            const h = document.documentElement;
-            const s = localStorage.getItem('theme');
-            if (s) { h.dataset.theme = s; }
-            else if (window.matchMedia('(prefers-color-scheme:dark)').matches) { h.dataset.theme = 'dark'; }
-            else { h.dataset.theme = 'light'; }
-        })();
-    </script>
 </head>
 <body>
 
 <?php include 'inc/header.php'; ?>
 
-<main class="cart-page">
+<main class="cart-page mt-5">
     <div class="container-site">
 
-        <!-- ══ LEFT — Item list ══ -->
-        <div class="cart-left">
+        <div class="cart-left ">
 
             <div class="cart-heading">
                 <h1>سبد خرید</h1>
@@ -91,7 +86,7 @@ function toman(float $n): string {
                 <div class="cart-empty reveal">
                     <i class="fas fa-cart-xmark"></i>
                     <p>سبد خرید شما خالی است</p>
-                    <a href="products.php" class="btn btn-primary">
+                    <a href="products/" class="btn btn-primary">
                         <i class="fas fa-bag-shopping"></i>
                         مشاهده محصولات
                     </a>
@@ -108,7 +103,7 @@ function toman(float $n): string {
 
                             <!-- Thumbnail -->
                             <?php if (!empty($item['thumbnail'])): ?>
-                                <img src="<?= htmlspecialchars($item['thumbnail']) ?>"
+                                <img src="cms/<?= htmlspecialchars($item['thumbnail']) ?>"
                                      alt="<?= htmlspecialchars($item['name']) ?>"
                                      class="cart-item-thumb"
                                      loading="lazy">
@@ -205,30 +200,35 @@ function toman(float $n): string {
             </div>
 
             <div class="cart-summary-footer">
-                <a href="checkout.php" class="btn-checkout" id="btnCheckout">
+                <a href="checkout/" class="btn-checkout" id="btnCheckout">
                     <i class="fas fa-lock"></i>
                     ادامه و پرداخت
                 </a>
-                <a href="products.php" class="btn-continue">
+                <a href="products/" class="btn-continue">
                     <i class="fas fa-arrow-right"></i>
                     ادامه خرید
                 </a>
             </div>
 
-        </div><!-- /cart-summary -->
+        </div>
 
-    </div><!-- /container-site -->
+    </div>
 </main>
 
-<!-- Toast -->
 <div class="cart-toast" id="cartToast">
     <i class="fas fa-circle-check"></i>
     <span id="cartToastMsg"></span>
 </div>
 
+
+
 <?php include 'inc/footer.php'; ?>
 
-<!-- ── Embedded cart state for JS ── -->
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/jquery.nice-select.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/bootstrap.bundle.js"></script>
 <script>
 window.CART_DATA = <?= json_encode([
     'items'        => array_values($cartItems),
@@ -236,9 +236,9 @@ window.CART_DATA = <?= json_encode([
     'shippingFee'  => $shippingFee,
     'grandTotal'   => $grandTotal,
     'csrfToken'    => $_SESSION['csrf_token'] ?? '',
-    'updateUrl'    => 'api/updateCart.php',
-    'removeUrl'    => 'api/removeFromCart.php',
-    'clearUrl'     => 'api/clearCart.php',
+    'updateUrl'    => 'ajax/cart/updateCart.php',
+    'removeUrl'    => 'ajax/cart/removeFromCart.php',
+    'clearUrl'     => 'ajax/cart/clearCart.php',
     'shippingThreshold' => 500000,
     'shippingCost'      => 35000,
 ], JSON_UNESCAPED_UNICODE) ?>;

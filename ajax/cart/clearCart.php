@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
-require_once "../cms/myadmin/inc/config.php";
+require_once "../../cms/myadmin/inc/config.php";
 
 function respond(bool $ok, string $msg): void {
     echo json_encode(['status' => $ok, 'message' => $msg], JSON_UNESCAPED_UNICODE);
