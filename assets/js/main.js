@@ -176,3 +176,69 @@ qty.addEventListener('input', function(){
         .replace(/\D/g, '');
 
 });
+(() => {
+    'use strict';
+
+    const allowed = (el) => {
+        return el.closest('input, textarea, [contenteditable="true"], pre code');
+    };
+
+    document.addEventListener('contextmenu', e => {
+        if (!allowed(e.target)) e.preventDefault();
+    });
+
+    document.addEventListener('selectstart', e => {
+        if (!allowed(e.target)) e.preventDefault();
+    });
+
+    document.addEventListener('dragstart', e => {
+        if (!allowed(e.target)) e.preventDefault();
+    });
+
+    document.addEventListener('copy', e => {
+        if (!allowed(e.target)) e.preventDefault();
+    });
+
+    document.addEventListener('cut', e => {
+        if (!allowed(e.target)) e.preventDefault();
+    });
+
+    document.addEventListener('paste', e => {
+        if (!allowed(e.target)) e.preventDefault();
+    });
+
+    document.addEventListener('keydown', e => {
+
+        const key = e.key.toLowerCase();
+
+        if ((e.ctrlKey || e.metaKey) &&
+            ['a', 'c', 'x', 'u', 's', 'p'].includes(key)) {
+
+            if (!allowed(document.activeElement)) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }
+
+        if ((e.ctrlKey || e.metaKey) &&
+            e.shiftKey &&
+            ['i', 'j', 'c'].includes(key)) {
+
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        if (e.key === 'F12') {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+    });
+
+    document.addEventListener('touchstart', function (e) {
+        if (!allowed(e.target)) {
+            e.target.style.webkitTouchCallout = 'none';
+        }
+    }, { passive: true });
+
+})();

@@ -220,6 +220,28 @@ html::-webkit-scrollbar-thumb:hover{
     background: var(--scrollbar-thumb-hover);
 }
 
+html,
+body{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+
+    -webkit-touch-callout:none;
+    -webkit-tap-highlight-color:transparent;
+}
+
+input,
+textarea,
+[contenteditable="true"],
+pre,
+code{
+    -webkit-user-select:text;
+    -moz-user-select:text;
+    -ms-user-select:text;
+    user-select:text;
+}
+
 body {
     font-family: IRANSansfanum;
     font-size: var(--font-size);
