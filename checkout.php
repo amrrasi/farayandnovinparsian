@@ -144,7 +144,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                         <div class="form-group">
                             <label class="form-label" for="phone">شماره تماس *</label>
                             <input type="tel" id="phone" name="phone" class="form-control"
-                                   value="<?= htmlspecialchars($user['phone'] ?? '') ?>"
+                                   value="<?= htmlspecialchars($user['mobile'] ?? '') ?>"
                                    placeholder="09xxxxxxxxx" required>
                         </div>
 
