@@ -23,21 +23,12 @@ if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
         $id  = (int) $row['id'];
         $qty = (int) ($_SESSION['cart'][$id]['qty'] ?? 1);
         $row['qty']   = $qty;
-        $row['total'] = $qty * (float) $row['price'];
-        $subtotal    += $row['total'];
         $totalQty    += $qty;
         $cartItems[$id] = $row;
     }
 }
 
 $isEmpty = empty($cartItems);
-
-$shippingFee  = (!$isEmpty && $subtotal >= 500000) ? 0 : 35000;
-$grandTotal   = $subtotal + $shippingFee;
-
-function toman(float $n): string {
-    return number_format($n) . ' تومان';
-}
 ?>
 <!doctype html>
 <html lang="fa" dir="rtl">
@@ -45,7 +36,7 @@ function toman(float $n): string {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
-    <title>سبد خرید</title>
+    <title>سبد خرید | <?= setting('name') ?></title>
     <?= $global_base_address ?? '' ?>
 
 
@@ -98,8 +89,7 @@ function toman(float $n): string {
 
                     <?php foreach ($cartItems as $item): ?>
                         <div class="cart-item reveal"
-                             data-id="<?= $item['id'] ?>"
-                             data-price="<?= $item['price'] ?>">
+                             data-id="<?= $item['id'] ?>">
 
                             <!-- Thumbnail -->
                             <?php if (!empty($item['thumbnail'])): ?>
@@ -116,9 +106,7 @@ function toman(float $n): string {
                             <!-- Info -->
                             <div class="cart-item-info">
                                 <div class="cart-item-name"><?= htmlspecialchars($item['name']) ?></div>
-                                <div class="cart-item-unit-price">
-                                    قیمت واحد: <?= toman((float)$item['price']) ?>
-                                </div>
+                                <div class="cart-item-unit-price"></div>
 
                                 <!-- Qty control -->
                                 <div class="cart-item-qty">
@@ -139,7 +127,7 @@ function toman(float $n): string {
                             <!-- Price + remove -->
                             <div class="cart-item-actions">
                                 <div class="cart-item-price" id="price-<?= $item['id'] ?>">
-                                    <?= toman($item['total']) ?>
+                                    نامعلوم
                                 </div>
                                 <button class="cart-item-remove btn-remove"
                                         data-id="<?= $item['id'] ?>"
@@ -175,26 +163,26 @@ function toman(float $n): string {
 
                 <div class="summary-row">
                     <span class="label">جمع محصولات</span>
-                    <span class="value" id="summarySubtotal"><?= toman($subtotal) ?></span>
+                    <span class="value" id="summarySubtotal">نامشخص</span>
                 </div>
 
                 <div class="summary-row">
                     <span class="label">هزینه ارسال</span>
                     <span class="value" id="summaryShipping">
-                        <?= $shippingFee === 0 ? '<span style="color:var(--clr-success)">رایگان</span>' : toman($shippingFee) ?>
+                        <span style="color:var(--clr-success)">رایگان</span>
                     </span>
                 </div>
 
-                <?php if ($shippingFee > 0): ?>
+                <?php if (1): ?>
                     <div class="shipping-note">
                         <i class="fas fa-truck-fast"></i>
-                        خرید بالای ۵۰۰٬۰۰۰ تومان ارسال رایگان
+                        تمامی ارسال‌ها درون تهران رایگان میباشد
                     </div>
                 <?php endif; ?>
 
                 <div class="summary-row total">
                     <span class="label">مجموع قابل پرداخت</span>
-                    <span class="value" id="summaryTotal"><?= toman($grandTotal) ?></span>
+                    <span class="value" id="summaryTotal">نامشخص</span>
                 </div>
 
             </div>
@@ -233,14 +221,10 @@ function toman(float $n): string {
 window.CART_DATA = <?= json_encode([
     'items'        => array_values($cartItems),
     'subtotal'     => $subtotal,
-    'shippingFee'  => $shippingFee,
-    'grandTotal'   => $grandTotal,
     'csrfToken'    => $_SESSION['csrf_token'] ?? '',
     'updateUrl'    => 'ajax/cart/updateCart.php',
     'removeUrl'    => 'ajax/cart/removeFromCart.php',
-    'clearUrl'     => 'ajax/cart/clearCart.php',
-    'shippingThreshold' => 500000,
-    'shippingCost'      => 35000,
+    'clearUrl'     => 'ajax/cart/clearCart.php'
 ], JSON_UNESCAPED_UNICODE) ?>;
 </script>
 

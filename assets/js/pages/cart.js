@@ -1,7 +1,3 @@
-/**
- * cart.js  —  handles qty +/-, remove, clear, summary recalc
- * Reads initial state from window.CART_DATA (injected by PHP)
- */
 'use strict';
 
 (function () {
@@ -11,7 +7,6 @@
     const THRESHOLD = DATA.shippingThreshold || 500000;
     const SHIP_COST = DATA.shippingCost      || 35000;
 
-    // ── Helpers ─────────────────────────────────────────
     function toman(n) {
         return Number(n).toLocaleString('fa-IR') + ' تومان';
     }
@@ -32,7 +27,6 @@
         toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // ── Summary recalc ───────────────────────────────────
     function recalcSummary() {
         const items = document.querySelectorAll('.cart-item');
         let subtotal = 0;
@@ -67,14 +61,12 @@
             }
         }
 
-        // total qty for badge
         let totalQty = 0;
         items.forEach(item => {
             totalQty += parseInt(item.querySelector('.qty-value')?.textContent || '1', 10);
         });
         if (badge) badge.textContent = totalQty;
 
-        // hide summary when cart is empty
         if (items.length === 0 && summary) {
             summary.style.display = 'none';
             showEmptyState();
@@ -93,14 +85,13 @@
             <div class="cart-empty reveal revealed">
                 <i class="fas fa-cart-xmark"></i>
                 <p>سبد خرید شما خالی است</p>
-                <a href="products.php" class="btn btn-primary">
+                <a href="products/" class="btn btn-primary">
                     <i class="fas fa-bag-shopping"></i>
                     مشاهده محصولات
                 </a>
             </div>`;
     }
 
-    // ── API calls ────────────────────────────────────────
     async function apiPost(url, body) {
         const res = await fetch(url, {
             method: 'POST',
@@ -113,7 +104,6 @@
         return res.json();
     }
 
-    // ── Qty change ───────────────────────────────────────
     async function changeQty(id, delta) {
         const item   = document.querySelector(`.cart-item[data-id="${id}"]`);
         if (!item) return;
@@ -129,9 +119,8 @@
         recalcSummary();
 
         try {
-            const data = await apiPost(DATA.updateUrl || 'api/updateCart.php', { id, qty });
+            const data = await apiPost(DATA.updateUrl || 'ajax/cart/updateCart.php', { id, qty });
             if (!data.status) {
-                // revert
                 qtyEl.textContent = qty - delta;
                 recalcSummary();
                 showToast(data.message || 'خطا در بروزرسانی', 'error');
@@ -143,7 +132,6 @@
         }
     }
 
-    // ── Remove item ──────────────────────────────────────
     async function removeItem(id) {
         const item = document.querySelector(`.cart-item[data-id="${id}"]`);
         if (!item) return;
@@ -157,7 +145,7 @@
         recalcSummary();
 
         try {
-            const data = await apiPost(DATA.removeUrl || 'api/removeFromCart.php', { id });
+            const data = await apiPost(DATA.removeUrl || 'ajax/cart/removeFromCart.php', { id });
             if (data.status) {
                 showToast('محصول از سبد حذف شد');
             } else {
@@ -168,7 +156,6 @@
         }
     }
 
-    // ── Clear all ────────────────────────────────────────
     async function clearCart() {
         if (!confirm('آیا مطمئن هستید؟ تمام محصولات از سبد حذف می‌شوند.')) return;
 
@@ -184,29 +171,24 @@
         recalcSummary();
 
         try {
-            await apiPost(DATA.clearUrl || 'api/clearCart.php', {});
+            await apiPost(DATA.clearUrl || 'ajax/cart/clearCart.php', {});
             showToast('سبد خرید پاک شد');
         } catch {
             showToast('خطا در اتصال به سرور', 'error');
         }
     }
 
-    // ── Event delegation ─────────────────────────────────
     document.addEventListener('click', function (e) {
 
-        // Plus
         const plus = e.target.closest('.btn-plus');
         if (plus) { changeQty(plus.dataset.id, +1); return; }
 
-        // Minus
         const minus = e.target.closest('.btn-minus');
         if (minus) { changeQty(minus.dataset.id, -1); return; }
 
-        // Remove
         const remove = e.target.closest('.btn-remove');
         if (remove) { removeItem(remove.dataset.id); return; }
 
-        // Clear
         const clear = e.target.closest('#btnClearCart');
         if (clear) { clearCart(); return; }
 
