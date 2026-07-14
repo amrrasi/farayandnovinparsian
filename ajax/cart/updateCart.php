@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405); respond(false, 'Method Not Allowed');
 }
 
-// CSRF check
 if (empty($_POST['csrf_token']) ||
     !hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'])) {
     if (empty($_SERVER['HTTP_X_CSRF_TOKEN']) ||
@@ -32,7 +31,6 @@ if (!isset($_SESSION['cart'][$id])) {
     http_response_code(404); respond(false, 'محصول در سبد نیست');
 }
 
-// Verify product still active
 $stmt = $pdo->prepare("SELECT id FROM product WHERE id = :id AND active = 1 AND deleted = 0 LIMIT 1");
 $stmt->execute([':id' => $id]);
 if (!$stmt->fetch()) {
