@@ -90,7 +90,6 @@ if (isset($_SESSION['cart'][$id])) {
     ];
 }
 
-// Number of distinct products in the cart, not total quantity.
 $productCount = count($_SESSION['cart']);
 
 respond(true, 'محصول به سبد خرید اضافه شد.', [
