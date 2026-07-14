@@ -127,7 +127,7 @@ $isEmpty = empty($cartItems);
                             <!-- Price + remove -->
                             <div class="cart-item-actions">
                                 <div class="cart-item-price" id="price-<?= $item['id'] ?>">
-                                    نامعلوم
+                                    نامشخص
                                 </div>
                                 <button class="cart-item-remove btn-remove"
                                         data-id="<?= $item['id'] ?>"

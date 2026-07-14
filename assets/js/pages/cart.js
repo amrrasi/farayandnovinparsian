@@ -7,10 +7,6 @@
     const THRESHOLD = DATA.shippingThreshold || 500000;
     const SHIP_COST = DATA.shippingCost      || 35000;
 
-    function toman(n) {
-        return Number(n).toLocaleString('fa-IR') + ' تومان';
-    }
-
     function showToast(msg, type = 'success') {
         const toast   = document.getElementById('cartToast');
         const msgEl   = document.getElementById('cartToastMsg');
@@ -38,11 +34,11 @@
 
             // update per-item price
             const priceEl = item.querySelector('.cart-item-price');
-            if (priceEl) priceEl.textContent = toman(price * qty);
+            if (priceEl) priceEl.textContent = ('نامشخص');
         });
 
-        const shipping    = subtotal >= THRESHOLD ? 0 : SHIP_COST;
-        const grand       = subtotal + shipping;
+        const shipping    = 'رایگان';
+        const grand       = 'نامشخص';
 
         const subEl   = document.getElementById('summarySubtotal');
         const shipEl  = document.getElementById('summaryShipping');
@@ -50,14 +46,14 @@
         const badge   = document.querySelector('.cart-badge');
         const summary = document.getElementById('cartSummary');
 
-        if (subEl)  subEl.textContent  = toman(subtotal);
-        if (totEl)  totEl.textContent  = toman(grand);
+        if (subEl)  subEl.textContent  = 'نامشخص';
+        if (totEl)  totEl.textContent  = 'نامشخص';
 
         if (shipEl) {
             if (shipping === 0) {
                 shipEl.innerHTML = '<span style="color:var(--clr-success)">رایگان</span>';
             } else {
-                shipEl.textContent = toman(shipping);
+                shipEl.innerHTML = '<span style="color:var(--clr-success)">رایگان</span>';
             }
         }
 
