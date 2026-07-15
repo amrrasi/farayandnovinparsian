@@ -6,6 +6,11 @@ $cartItems   = [];
 $subtotal    = 0;
 $totalQty    = 0;
 
+if (empty($_SESSION['user']['id'])) {
+    header('Location: ../entry/');
+    exit;
+}
+
 if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
 
     $ids = array_map('intval', array_keys($_SESSION['cart']));
@@ -138,7 +143,6 @@ $isEmpty = empty($cartItems);
 
                         </div>
                     <?php endforeach; ?>
-
                 </div>
 
                 <!-- Clear all -->
