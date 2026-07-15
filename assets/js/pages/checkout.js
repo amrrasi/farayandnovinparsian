@@ -117,7 +117,7 @@
             document.head.appendChild(s);
         });
     }
-    
+
     const btnSubmit = document.getElementById('btnSubmitOrder');
     if (btnSubmit) {
         btnSubmit.addEventListener('click', async function () {
