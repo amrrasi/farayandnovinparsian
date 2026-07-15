@@ -136,7 +136,6 @@ $statusIcon = [
                             </div>
                         <?php endif; ?>
 
-                        <!-- ═══ آپلود رسید — فقط وقتی وضعیت «در انتظار پرداخت» است ═══ -->
                         <?php if ($canUploadReceipt): ?>
                             <div class="pf-receipt-upload-box" id="receipt-box-<?= $order['id'] ?>">
                                 <div class="pf-receipt-upload-title">
@@ -146,7 +145,7 @@ $statusIcon = [
                                 <p class="pf-receipt-upload-desc">
                                     لطفاً پس از واریز مبلغ
                                     <strong><?= profile_format_price((int)$order['quoted_total']) ?></strong>،
-                                    تصویر رسید را بارگذاری کنید.
+                                    به حساب <strong dir="ltr"><?= setting('card-number') ?></strong> تصویر رسید را بارگذاری کنید.
                                 </p>
 
                                 <div class="pf-upload-zone" id="upload-zone-<?= $order['id'] ?>"
@@ -197,7 +196,6 @@ $statusIcon = [
     <?php endif; ?>
 </div>
 
-<!-- ══ آپلود رسید — JS ══ -->
 <script>
     (function () {
         'use strict';

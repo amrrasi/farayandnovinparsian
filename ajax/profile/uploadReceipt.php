@@ -60,8 +60,8 @@ if ($_FILES['receipt']['size'] > 5 * 1024 * 1024) {
     respond(false, 'حجم فایل بیش از ۵ مگابایت است');
 }
 
-$uploadDir = "uploads/receipts/";
-$fullPath  = __DIR__ . '/../../../../' . $uploadDir;
+$uploadDir = "receipts/";
+$fullPath  = __DIR__ . '../../assets/images/' . $uploadDir;
 
 if (!is_dir($fullPath)) {
     mkdir($fullPath, 0755, true);
