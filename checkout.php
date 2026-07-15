@@ -38,18 +38,14 @@ if (empty($cartItems)) {
     exit;
 }
 
-$shippingFee = $subtotal >= 500000 ? 0 : 35000;
-$grandTotal  = $subtotal + $shippingFee;
+$shippingFee = 0;
+$grandTotal  = 0;
 
 // ── User info ────────────────────────────────────────────
 $user = $pdo->prepare("SELECT name, mobile, email FROM user WHERE id = :id LIMIT 1");
 $user->execute([':id' => $_SESSION['user']['id']]);
 $user = $user->fetch(PDO::FETCH_ASSOC) ?: [];
 
-
-function toman(float $n): string {
-    return number_format($n) . ' تومان';
-}
 
 $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5));
 ?>
@@ -97,10 +93,8 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 <main class="checkout-page mt-5">
     <div class="container-site">
 
-        <!-- ══ LEFT — Form ══ -->
         <div class="checkout-left">
 
-            <!-- Step indicator -->
             <div class="checkout-steps">
                 <div class="step-item done">
                     <div class="step-circle"><i class="fas fa-check"></i></div>
@@ -173,7 +167,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 </div>
             </div>
 
-            <!-- ── روند سفارش ── -->
             <div class="checkout-card reveal">
                 <div class="checkout-card-header">
                     <i class="fas fa-circle-info"></i>
@@ -203,7 +196,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 </div>
             </div>
 
-            <!-- ── Pre-invoice actions ── -->
             <div class="checkout-card reveal">
                 <div class="checkout-card-header">
                     <i class="fas fa-file-invoice"></i>
@@ -250,7 +242,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                                 <div class="summary-item-name"><?= htmlspecialchars($item['name']) ?></div>
                                 <div class="summary-item-qty">×<?= $item['qty'] ?></div>
                             </div>
-                            <div class="summary-item-price"><?= toman($item['total']) ?></div>
+                            <div class="summary-item-price">نامشخص</div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -258,7 +250,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 <div class="checkout-totals">
                     <div class="total-row">
                         <span class="lbl">جمع محصولات</span>
-                        <span class="val"><?= toman($subtotal) ?></span>
+                        <span class="val">نامشخص</span>
                     </div>
                     <div class="total-row">
                         <span class="lbl">هزینه ارسال</span>
@@ -270,13 +262,12 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                     </div>
                     <div class="total-row grand">
                         <span class="lbl">مجموع</span>
-                        <span class="val"><?= toman($grandTotal) ?></span>
+                        <span class="val">نامشخص</span>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Submit -->
             <button class="btn-submit-order" id="btnSubmitOrder" type="button">
                 <i class="fas fa-circle-check"></i>
                 ثبت نهایی سفارش
@@ -315,7 +306,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 </div>
             </div>
 
-            <!-- Customer -->
             <div class="invoice-section-title">مشخصات مشتری</div>
             <div class="invoice-customer">
                 <div class="invoice-field">
@@ -332,7 +322,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 </div>
             </div>
 
-            <!-- Items table -->
             <div class="invoice-section-title">اقلام سفارش</div>
             <table class="invoice-table">
                 <thead>
@@ -349,9 +338,9 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                     <tr>
                         <td><?= $rowNum++ ?></td>
                         <td><?= htmlspecialchars($item['name']) ?></td>
-                        <td><?= toman((float)$item['price']) ?></td>
+                        <td>نامشخص</td>
                         <td><?= $item['qty'] ?></td>
-                        <td><?= toman($item['total']) ?></td>
+                        <td>نامشخص</td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -361,19 +350,18 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
             <div class="invoice-totals">
                 <div class="invoice-total-row">
                     <span class="lbl">جمع محصولات</span>
-                    <span class="val"><?= toman($subtotal) ?></span>
+                    <span class="val">نامشخص</span>
                 </div>
                 <div class="invoice-total-row">
                     <span class="lbl">هزینه ارسال</span>
-                    <span class="val"><?= $shippingFee === 0 ? 'رایگان' : toman($shippingFee) ?></span>
+                    <span class="val"><?= $shippingFee === 0 ? 'رایگان' : $shippingFee ?></span>
                 </div>
                 <div class="invoice-total-row grand">
                     <span class="lbl">مجموع قابل پرداخت</span>
-                    <span class="val"><?= toman($grandTotal) ?></span>
+                    <span class="val">نامشخص</span>
                 </div>
             </div>
 
-            <!-- Payment note -->
             <div class="invoice-payment-note">
                 <p>این پیش‌فاکتور یادداشت اقلام سفارش شماست. پس از بررسی کارشناسان و اعلام قیمت نهایی، اطلاعات واریز برای شما ارسال خواهد شد.</p>
             </div>
@@ -384,7 +372,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 
         </div>
 
-        <!-- Action bar -->
         <div class="invoice-actions">
             <button class="btn btn-print" id="btnPrint" type="button">
                 <i class="fas fa-print"></i>
