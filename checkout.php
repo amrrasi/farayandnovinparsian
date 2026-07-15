@@ -101,10 +101,10 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 <main class="checkout-page mt-5">
     <div class="container-site">
 
-        <!-- ══ LEFT — Form ══ -->
+
         <div class="checkout-left">
 
-            <!-- Step indicator -->
+
             <div class="checkout-steps">
                 <div class="step-item done">
                     <div class="step-circle"><i class="fas fa-check"></i></div>
@@ -125,7 +125,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 پس از تکمیل فرم ما با پیش‌فاکتور را دریافت کنید و در سریع‌ترین زمان ممکن کارشناسان ما جهت اتمام خرید با ما تماس خواهند گرفت
             </div>
 
-            <!-- ── Receiver info ── -->
             <div class="checkout-card reveal">
                 <div class="checkout-card-header">
                     <i class="fas fa-user-circle"></i>
