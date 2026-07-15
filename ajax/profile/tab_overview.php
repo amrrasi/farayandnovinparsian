@@ -24,7 +24,7 @@ $lastMsgStmt = $pdo->prepare("
 $lastMsgStmt->execute([':uid' => $uid]);
 $lastMsg = $lastMsgStmt->fetch();
 
-$totalSpentStmt = $pdo->prepare("SELECT COALESCE(SUM(grand_total),0) FROM `orders` WHERE user_id = :uid AND deleted = 0 AND order_status_id NOT IN (5,6)");
+$totalSpentStmt = $pdo->prepare("SELECT COALESCE(SUM(quoted_total),0) FROM `orders` WHERE user_id = :uid AND deleted = 0 AND order_status_id = 4");
 $totalSpentStmt->execute([':uid' => $uid]);
 $totalSpent = (int) $totalSpentStmt->fetchColumn();
 
@@ -33,7 +33,7 @@ $memberSince = profile_format_date($_SESSION['user']['id']);
 <div class="pf-overview">
 
     <div class="pf-welcome">
-        <h1>سلام، <?= htmlspecialchars($_SESSION['user']['name'], ENT_QUOTES, 'UTF-8') ?> 👋</h1>
+        <h1>سلام، <?= htmlspecialchars($_SESSION['user']['name'], ENT_QUOTES, 'UTF-8') ?> عزیز 👋</h1>
     </div>
 
     <div class="pf-stat-grid">
@@ -41,7 +41,7 @@ $memberSince = profile_format_date($_SESSION['user']['id']);
             <i class="fa-solid fa-wallet"></i>
             <div>
                 <span class="pf-stat-num"><?= profile_format_price($totalSpent) ?></span>
-                <span class="pf-stat-label">مجموع خرید</span>
+                <span class="pf-stat-label">مجموع خریدهای تکمیل‌شده</span>
             </div>
         </div>
         <div class="pf-stat-card">
