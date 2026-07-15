@@ -103,7 +103,7 @@ Contact Form
 
                 method="post"
 
-                action="contact_process.php"
+                action="ajax/contact_process.php"
 
                 enctype="multipart/form-data"
 
@@ -257,7 +257,7 @@ Contact Form
                             موضوع درخواست
                         </label>
 
-                        <i class="fa-regular fa-code-pull-request input-icon"></i>
+                        <i class="fa fa-pen input-icon"></i>
 
                         <span class="validation-icon">
 
@@ -449,7 +449,6 @@ Contact Form
 <?php require_once "inc/footer.php" ?>
 
 
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/jquery.nice-select.min.js"></script>
 <script src="assets/js/owl.carousel.min.js"></script>
