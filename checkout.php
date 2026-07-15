@@ -3,7 +3,7 @@ declare(strict_types=1);
 require_once "cms/myadmin/inc/config.php";
 
 if (empty($_SESSION['user']['id'])) {
-    header('Location: entry.php?redirect=checkout.php');
+    header('Location: ../entry/');
     exit;
 }
 
@@ -46,10 +46,6 @@ $user = $pdo->prepare("SELECT name, mobile, email FROM user WHERE id = :id LIMIT
 $user->execute([':id' => $_SESSION['user']['id']]);
 $user = $user->fetch(PDO::FETCH_ASSOC) ?: [];
 
-
-$BANK_CARD   = '6037-9975-9999-1234';
-$BANK_OWNER  = ' – امیر عسکری' . setting('name');
-$BANK_SHEBA  = 'IR12 0000 0000 0000 0000 0000 00';
 
 function toman(float $n): string {
     return number_format($n) . ' تومان';
@@ -101,10 +97,10 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 <main class="checkout-page mt-5">
     <div class="container-site">
 
-
+        <!-- ══ LEFT — Form ══ -->
         <div class="checkout-left">
 
-
+            <!-- Step indicator -->
             <div class="checkout-steps">
                 <div class="step-item done">
                     <div class="step-circle"><i class="fas fa-check"></i></div>
@@ -125,6 +121,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 پس از تکمیل فرم ما با پیش‌فاکتور را دریافت کنید و در سریع‌ترین زمان ممکن کارشناسان ما جهت اتمام خرید با ما تماس خواهند گرفت
             </div>
 
+            <!-- ── Receiver info ── -->
             <div class="checkout-card reveal">
                 <div class="checkout-card-header">
                     <i class="fas fa-user-circle"></i>
@@ -176,77 +173,33 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 </div>
             </div>
 
-            <!-- ── Payment info ── -->
+            <!-- ── روند سفارش ── -->
             <div class="checkout-card reveal">
                 <div class="checkout-card-header">
-                    <i class="fas fa-credit-card"></i>
-                    <h2>اطلاعات پرداخت</h2>
+                    <i class="fas fa-circle-info"></i>
+                    <h2>روند ثبت و پرداخت سفارش</h2>
                 </div>
                 <div class="checkout-card-body">
-
                     <div class="payment-info-card">
-
-                        <div class="payment-info-title">
-                            <i class="fas fa-info-circle"></i>
-                            نحوه پرداخت — کارت به کارت
-                        </div>
-
-                        <!-- Bank card visual -->
-                        <div class="bank-card">
-                            <div class="bank-card-logo">شماره کارت جهت واریز</div>
-                            <div class="bank-card-number" id="bankCardNumber"><?= $BANK_CARD ?></div>
-                            <div class="bank-card-owner"><?= $BANK_OWNER ?></div>
-                            <button class="copy-btn" id="copyCardBtn" type="button">
-                                <i class="fas fa-copy"></i>
-                                کپی شماره کارت
-                            </button>
-                        </div>
-
-                        <!-- Steps -->
                         <div class="payment-steps">
                             <div class="payment-step">
                                 <span class="payment-step-num">۱</span>
-                                مبلغ <strong id="payStepAmount"><?= toman($grandTotal) ?></strong>
-                                را به شماره کارت فوق واریز کنید.
+                                سفارش خود را ثبت کنید. کارشناسان ما سفارش را بررسی خواهند کرد.
                             </div>
                             <div class="payment-step">
                                 <span class="payment-step-num">۲</span>
-                                تصویر رسید واریز را در قسمت زیر بارگذاری کنید.
+                                پس از بررسی، <strong>قیمت نهایی</strong> در پنل کاربری شما اعلام می‌شود.
                             </div>
                             <div class="payment-step">
                                 <span class="payment-step-num">۳</span>
-                                پس از ثبت سفارش، سفارش شما در پنل کاربری قابل پیگیری خواهد بود.
+                                مبلغ را واریز کرده و <strong>رسید پرداخت را در پنل کاربری</strong> بارگذاری کنید.
+                            </div>
+                            <div class="payment-step">
+                                <span class="payment-step-num">۴</span>
+                                پس از تأیید رسید، سفارش شما پردازش و ارسال خواهد شد.
                             </div>
                         </div>
-
                     </div>
-
-                </div>
-            </div>
-
-            <!-- ── Receipt upload ── -->
-            <div class="checkout-card reveal">
-                <div class="checkout-card-header">
-                    <i class="fas fa-file-image"></i>
-                    <h2>بارگذاری رسید پرداخت</h2>
-                </div>
-                <div class="checkout-card-body">
-
-                    <div class="upload-zone" id="uploadZone">
-                        <input type="file" id="receiptFile" accept="image/*,application/pdf" style="user-select:auto;-webkit-user-select:auto;">
-                        <i class="fas fa-cloud-arrow-up"></i>
-                        <p>تصویر رسید واریز را اینجا بکشید یا کلیک کنید</p>
-                        <span>فرمت‌های مجاز: JPG, PNG, PDF — حداکثر ۵ مگابایت</span>
-                    </div>
-
-                    <div class="upload-preview" id="uploadPreview">
-                        <i class="fas fa-file-check"></i>
-                        <span id="uploadFileName"></span>
-                        <button class="remove-file" id="removeFile" type="button">
-                            <i class="fas fa-xmark"></i>
-                        </button>
-                    </div>
-
                 </div>
             </div>
 
@@ -311,8 +264,8 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                         <span class="lbl">هزینه ارسال</span>
                         <span class="val">
                             <?= $shippingFee === 0
-                                ? '<span style="color:var(--clr-success)">رایگان</span>'
-                                : '<span style="color:var(--clr-success)">رایگان</span>' ?>
+                                    ? '<span style="color:var(--clr-success)">رایگان</span>'
+                                    : '<span style="color:var(--clr-success)">رایگان</span>' ?>
                         </span>
                     </div>
                     <div class="total-row grand">
@@ -383,24 +336,24 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
             <div class="invoice-section-title">اقلام سفارش</div>
             <table class="invoice-table">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>نام محصول</th>
-                        <th>قیمت واحد</th>
-                        <th>تعداد</th>
-                        <th>جمع</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>نام محصول</th>
+                    <th>قیمت واحد</th>
+                    <th>تعداد</th>
+                    <th>جمع</th>
+                </tr>
                 </thead>
                 <tbody id="invoiceTableBody">
-                    <?php $rowNum = 1; foreach ($cartItems as $item): ?>
-                        <tr>
-                            <td><?= $rowNum++ ?></td>
-                            <td><?= htmlspecialchars($item['name']) ?></td>
-                            <td><?= toman((float)$item['price']) ?></td>
-                            <td><?= $item['qty'] ?></td>
-                            <td><?= toman($item['total']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php $rowNum = 1; foreach ($cartItems as $item): ?>
+                    <tr>
+                        <td><?= $rowNum++ ?></td>
+                        <td><?= htmlspecialchars($item['name']) ?></td>
+                        <td><?= toman((float)$item['price']) ?></td>
+                        <td><?= $item['qty'] ?></td>
+                        <td><?= toman($item['total']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
 
@@ -422,13 +375,11 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 
             <!-- Payment note -->
             <div class="invoice-payment-note">
-                <p>لطفاً مبلغ فوق را به شماره کارت زیر واریز کرده و تصویر رسید را در پنل کاربری بارگذاری کنید:</p>
-                <div class="card-num"><?= $BANK_CARD ?></div>
-                <p style="margin-top:6px;font-size:.75rem"><?= $BANK_OWNER ?></p>
+                <p>این پیش‌فاکتور یادداشت اقلام سفارش شماست. پس از بررسی کارشناسان و اعلام قیمت نهایی، اطلاعات واریز برای شما ارسال خواهد شد.</p>
             </div>
 
             <div class="invoice-footer-note">
-                این پیش‌فاکتور تأیید نهایی سفارش نیست. پس از بررسی رسید پرداخت، سفارش شما تأیید خواهد شد.
+                این پیش‌فاکتور تأیید نهایی سفارش نیست. کارشناسان ما پس از بررسی با شما تماس خواهند گرفت.
             </div>
 
         </div>
@@ -458,13 +409,13 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 </div>
 
 <script>
-window.CHECKOUT_DATA = <?= json_encode([
-    'grandTotal'  => $grandTotal,
-    'invoiceNo'   => $invoiceNo,
-    'csrfToken'   => $_SESSION['csrf_token'] ?? '',
-    'submitUrl'   => 'ajax/cart/submitOrder.php',
-    'bankCard'    => $BANK_CARD,
-], JSON_UNESCAPED_UNICODE) ?>;
+    window.CHECKOUT_DATA = <?= json_encode([
+            'grandTotal'  => $grandTotal,
+            'invoiceNo'   => $invoiceNo,
+            'csrfToken'   => $_SESSION['csrf_token'] ?? '',
+            'submitUrl'   => 'ajax/cart/submitOrder.php',
+
+    ], JSON_UNESCAPED_UNICODE) ?>;
 </script>
 
 
