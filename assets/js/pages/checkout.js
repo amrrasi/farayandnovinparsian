@@ -153,7 +153,7 @@
                 if (data.status) {
                     showToast('سفارش شما ثبت شد! به پنل کاربری منتقل می‌شوید…');
                     setTimeout(() => {
-                        window.location.href = data.redirect || 'panel.php?tab=orders';
+                        window.location.href = data.redirect || 'profile.php?tab=orders';
                     }, 1800);
                 } else {
                     showToast(data.message || 'خطا در ثبت سفارش', 'error');

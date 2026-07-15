@@ -203,9 +203,8 @@ $statusIcon = [
         'use strict';
 
         const CSRF     = document.querySelector('meta[name="csrf-token"]')?.content || '';
-        const fileMap  = {}; // orderId → File
+        const fileMap  = {};
 
-        // ── کلیک روی zone → باز شدن input ──────────────────
         document.querySelectorAll('.pf-upload-zone').forEach(zone => {
             zone.addEventListener('click', function () {
                 const orderId = this.dataset.order;
@@ -224,14 +223,12 @@ $statusIcon = [
             });
         });
 
-        // ── انتخاب فایل از input ────────────────────────────
         document.querySelectorAll('.pf-receipt-input').forEach(input => {
             input.addEventListener('change', function () {
                 setFile(this.dataset.order, this.files[0]);
             });
         });
 
-        // ── حذف فایل ────────────────────────────────────────
         document.querySelectorAll('.pf-remove-file').forEach(btn => {
             btn.addEventListener('click', function () {
                 const id = this.dataset.order;
@@ -244,7 +241,6 @@ $statusIcon = [
             });
         });
 
-        // ── ارسال رسید ──────────────────────────────────────
         document.querySelectorAll('.btn-upload-receipt').forEach(btn => {
             btn.addEventListener('click', async function () {
                 const id   = this.dataset.order;
@@ -260,7 +256,7 @@ $statusIcon = [
                 fd.append('receipt',    file);
 
                 try {
-                    const res  = await fetch('ajax/orders/uploadReceipt.php', {
+                    const res  = await fetch('ajax/profile/uploadReceipt.php', {
                         method: 'POST',
                         body: fd,
                     });
@@ -274,7 +270,6 @@ $statusIcon = [
                     }
 
                     if (data.status) {
-                        // کارت سفارش را پس از ۱.۵ ثانیه رفرش کن
                         setTimeout(() => location.reload(), 1500);
                     } else {
                         this.disabled = false;
