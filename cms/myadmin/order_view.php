@@ -1,12 +1,9 @@
 <?php
 require_once "inc/check.php";
 
-/* ═══════════════════════════════════════════
- | بارگذاری سفارش
- * ══════════════════════════════════════════*/
 $id = (int) ($_GET['id'] ?? 0);
 if ($id <= 0) {
-    header("Location: orders_list.php");
+    header("Location: order_list.php");
     exit;
 }
 
@@ -22,16 +19,14 @@ $stmt->execute();
 $order = $stmt->get_result()->fetch_assoc();
 
 if (!$order) {
-    header("Location: orders_list.php");
+    header("Location: order_list.php");
     exit;
 }
 
-/* علامت‌گذاری به عنوان خوانده‌شده */
 if ((int) $order['visited'] === 0) {
     $mysqli->query("UPDATE orders SET visited=1 WHERE id={$id}");
 }
 
-/* اقلام سفارش */
 $iStmt = $mysqli->prepare("
     SELECT * FROM order_items WHERE order_id = ? ORDER BY id ASC
 ");
@@ -39,7 +34,6 @@ $iStmt->bind_param("i", $id);
 $iStmt->execute();
 $items = $iStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-/* ─── تنظیمات نمایش وضعیت ─── */
 $statusMap = [
     1 => ['cls' => 'warning',   'icon' => 'fa-clock',         'label' => 'در انتظار قیمت‌دهی'],
     2 => ['cls' => 'info',      'icon' => 'fa-credit-card',   'label' => 'در انتظار پرداخت'],
@@ -54,7 +48,6 @@ $sInfo  = $statusMap[$sid] ?? ['cls' => 'dark', 'icon' => 'fa-circle', 'label' =
 $hasQuote = (float) $order['quoted_total'] > 0;
 $hasRcpt  = !empty($order['receipt_path']);
 
-/* تابع کمکی فرمت قیمت */
 function fmt(float $n): string {
     return number_format((int)$n) . ' تومان';
 }
@@ -68,6 +61,8 @@ function fmt(float $n): string {
     <title>سفارش #<?= $id ?> — <?= setting('name') ?></title>
     <link rel="icon" type="image/png" href="images/favicon.jpg">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
     <link href="css/style.css" rel="stylesheet">
     <style>
         /* ── layout ── */
@@ -166,20 +161,18 @@ function fmt(float $n): string {
     <div class="content-body">
         <div class="container-fluid">
 
-            <!-- breadcrumb -->
             <div class="page-titles">
                 <h4>سفارش #<?= $id ?></h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="orders_list.php">سفارشات</a>
+                        <a href="order_list.php">سفارشات</a>
                     </li>
                     <li class="breadcrumb-item active">مشاهده سفارش</li>
                 </ol>
             </div>
 
-            <!-- action bar -->
             <div class="ov-action-bar">
-                <a href="orders_list.php" class="btn btn-light">
+                <a href="order_list.php" class="btn btn-light">
                     <i class="fa fa-arrow-right ml-1"></i>بازگشت
                 </a>
                 <a href="order_edit.php?id=<?= $id ?>" class="btn btn-primary">
@@ -194,27 +187,105 @@ function fmt(float $n): string {
                 <button onclick="window.print()" class="btn btn-light">
                     <i class="fa fa-print ml-1"></i>چاپ
                 </button>
-                <a href="orders_list.php?delete=<?= $id ?>"
+                <a href="order_list.php?delete=<?= $id ?>"
                    onclick="return confirm('سفارش #<?= $id ?> حذف شود؟')"
                    class="btn btn-danger mr-auto">
                     <i class="fa fa-trash ml-1"></i>حذف
                 </a>
             </div>
 
-            <!-- ══════════ MAIN GRID ══════════ -->
             <div class="ov-grid">
 
-                <!-- ══ ستون چپ (اصلی) ══ -->
                 <div>
 
-                    <!-- اطلاعات کلی -->
                     <div class="ov-card">
                         <div class="ov-card-head">
-                            <i class="fa fa-receipt" style="background:#6366f1"></i>
+                            <i class="fa fa-list" style="background:#0ea5e9"></i>
+                            <h6>اقلام سفارش</h6>
+                            <span class="badge badge-info mr-auto"><?= count($items) ?> قلم</span>
+                        </div>
+                        <div class="ov-card-body" style="padding:0">
+                            <?php if ($items): ?>
+                                <table class="ov-items">
+                                    <thead>
+                                    <tr>
+                                        <th width="40">#</th>
+                                        <th>محصول</th>
+                                        <th width="80" class="text-center">تعداد</th>
+                                        <th width="130" class="text-left">قیمت واحد</th>
+                                        <th width="130" class="text-left">جمع</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($items as $i => $item):
+                                        $unitPrice = (float) $item['price'];
+                                        $qty       = (int)   $item['qty'];
+                                        $lineTotal = $unitPrice * $qty;
+                                        ?>
+                                        <tr>
+                                            <td class="text-muted"><?= $i + 1 ?></td>
+                                            <td>
+                                                <strong>
+                                                    <?= htmlspecialchars($item['product_name'] ?? 'محصول حذف‌شده', ENT_QUOTES, 'UTF-8') ?>
+                                                </strong>
+                                                <?php if (!empty($item['sku'])): ?>
+                                                    <br><small class="text-muted">SKU: <?= htmlspecialchars($item['sku'], ENT_QUOTES, 'UTF-8') ?></small>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-center">× <?= $qty ?></td>
+                                            <td class="col-price">
+                                                <?= $unitPrice > 0 ? number_format((int)$unitPrice) : '—' ?>
+                                            </td>
+                                            <td class="col-price">
+                                                <?php if ($lineTotal > 0): ?>
+                                                    <span class="text-success"><?= number_format((int)$lineTotal) ?></span>
+                                                <?php else: ?>
+                                                    <span class="text-muted">—</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+
+                                <div class="ov-card-body pt-0">
+                                    <div class="ov-totals">
+                                        <?php if ((float) $order['grand_total'] > 0): ?>
+                                            <div class="ov-total-row">
+                                                <span class="ov-info-label">جمع اولیه (مشتری)</span>
+                                                <span class="ov-total-val"><?= fmt((float)$order['grand_total']) ?></span>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($hasQuote): ?>
+                                            <div class="ov-total-row final">
+                                                <span>مبلغ نهایی (کارشناس)</span>
+                                                <span class="ov-total-val"><?= fmt((float)$order['quoted_total']) ?></span>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="ov-total-row">
+                                                <span class="ov-info-label">مبلغ نهایی</span>
+                                                <span class="badge badge-warning">در انتظار قیمت‌گذاری</span>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                            <?php else: ?>
+                                <div class="text-center py-4 text-muted">
+                                    <i class="fa fa-inbox fa-2x d-block mb-2"></i>
+                                    ریز اقلام ثبت نشده
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="ov-card">
+                        <div class="ov-card-head">
+                            <i class="flaticon-381-list" style="background:#6366f1"></i>
                             <h6>اطلاعات سفارش</h6>
                             <span class="mr-auto">
                                 <span class="ov-status-pill badge-<?= $sInfo['cls'] ?>"
-                                      style="background:var(--badge-<?= $sInfo['cls'] ?>,#e5e7eb)">
+                                      style="background: #3c910f)">
                                     <i class="fa-solid <?= $sInfo['icon'] ?>"></i>
                                     <?= htmlspecialchars($sInfo['label'], ENT_QUOTES, 'UTF-8') ?>
                                 </span>
@@ -290,90 +361,6 @@ function fmt(float $n): string {
                         </div>
                     </div>
 
-                    <!-- اقلام سفارش -->
-                    <div class="ov-card">
-                        <div class="ov-card-head">
-                            <i class="fa fa-list" style="background:#0ea5e9"></i>
-                            <h6>اقلام سفارش</h6>
-                            <span class="badge badge-info mr-auto"><?= count($items) ?> قلم</span>
-                        </div>
-                        <div class="ov-card-body" style="padding:0">
-                            <?php if ($items): ?>
-                                <table class="ov-items">
-                                    <thead>
-                                    <tr>
-                                        <th width="40">#</th>
-                                        <th>محصول</th>
-                                        <th width="80" class="text-center">تعداد</th>
-                                        <th width="130" class="text-left">قیمت واحد</th>
-                                        <th width="130" class="text-left">جمع</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php foreach ($items as $i => $item):
-                                        $unitPrice = (float) $item['price'];
-                                        $qty       = (int)   $item['qty'];
-                                        $lineTotal = $unitPrice * $qty;
-                                        ?>
-                                        <tr>
-                                            <td class="text-muted"><?= $i + 1 ?></td>
-                                            <td>
-                                                <strong>
-                                                    <?= htmlspecialchars($item['product_name'] ?? 'محصول حذف‌شده', ENT_QUOTES, 'UTF-8') ?>
-                                                </strong>
-                                                <?php if (!empty($item['sku'])): ?>
-                                                    <br><small class="text-muted">SKU: <?= htmlspecialchars($item['sku'], ENT_QUOTES, 'UTF-8') ?></small>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td class="text-center">× <?= $qty ?></td>
-                                            <td class="col-price">
-                                                <?= $unitPrice > 0 ? number_format((int)$unitPrice) : '—' ?>
-                                            </td>
-                                            <td class="col-price">
-                                                <?php if ($lineTotal > 0): ?>
-                                                    <span class="text-success"><?= number_format((int)$lineTotal) ?></span>
-                                                <?php else: ?>
-                                                    <span class="text-muted">—</span>
-                                                <?php endif; ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-
-                                <!-- totals -->
-                                <div class="ov-card-body pt-0">
-                                    <div class="ov-totals">
-                                        <?php if ((float) $order['grand_total'] > 0): ?>
-                                            <div class="ov-total-row">
-                                                <span class="ov-info-label">جمع اولیه (مشتری)</span>
-                                                <span class="ov-total-val"><?= fmt((float)$order['grand_total']) ?></span>
-                                            </div>
-                                        <?php endif; ?>
-                                        <?php if ($hasQuote): ?>
-                                            <div class="ov-total-row final">
-                                                <span>مبلغ نهایی (کارشناس)</span>
-                                                <span class="ov-total-val"><?= fmt((float)$order['quoted_total']) ?></span>
-                                            </div>
-                                        <?php else: ?>
-                                            <div class="ov-total-row">
-                                                <span class="ov-info-label">مبلغ نهایی</span>
-                                                <span class="badge badge-warning">در انتظار قیمت‌گذاری</span>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-
-                            <?php else: ?>
-                                <div class="text-center py-4 text-muted">
-                                    <i class="fa fa-inbox fa-2x d-block mb-2"></i>
-                                    ریز اقلام ثبت نشده
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                    <!-- یادداشت‌ها -->
                     <?php if (!empty($order['note']) || !empty($order['admin_note'])): ?>
                         <div class="ov-card">
                             <div class="ov-card-head">
@@ -398,12 +385,9 @@ function fmt(float $n): string {
                     <?php endif; ?>
 
                 </div>
-                <!-- /ستون اصلی -->
 
-                <!-- ══ ستون راست (sidebar) ══ -->
                 <div>
 
-                    <!-- تایم‌لاین وضعیت -->
                     <div class="ov-card">
                         <div class="ov-card-head">
                             <i class="fa fa-list-check" style="background:#8b5cf6"></i>
@@ -420,7 +404,6 @@ function fmt(float $n): string {
                                     5 => ['label' => 'تأیید و آماده ارسال','icon' => 'fa-box-check',      'col' => '#10b981'],
                                     6 => ['label' => 'ارسال شد',           'icon' => 'fa-truck',          'col' => '#10b981'],
                                 ];
-                                // نمایش مراحل تا وضعیت فعلی + مرحله بعدی
                                 $showUpTo = min($sid + 1, 6);
                                 foreach ($steps as $step => $s):
                                     if ($step > $showUpTo) break;
@@ -432,7 +415,7 @@ function fmt(float $n): string {
                                         <div class="ov-tl-dot"
                                              style="background:<?= $done ? $s['col'] : '#e9ecef' ?>;
                                                  color:<?= $done ? '#fff' : '#9ca3af' ?>">
-                                            <i class="fa-solid <?= $s['icon'] ?>" style="font-size:.75rem"></i>
+                                            <i class="fas fa fa-solid <?= $s['icon'] ?>" style="font-size:.75rem"></i>
                                         </div>
                                         <div class="ov-tl-content">
                                             <strong style="color:<?= $current ? $s['col'] : ($done ? 'inherit' : '#9ca3af') ?>">
@@ -451,7 +434,6 @@ function fmt(float $n): string {
                         </div>
                     </div>
 
-                    <!-- رسید پرداخت -->
                     <div class="ov-card">
                         <div class="ov-card-head">
                             <i class="fa fa-file-image" style="background:<?= $hasRcpt ? '#10b981' : '#9ca3af' ?>"></i>
@@ -491,7 +473,6 @@ function fmt(float $n): string {
                         </div>
                     </div>
 
-                    <!-- لینک‌های سریع -->
                     <div class="ov-card">
                         <div class="ov-card-head">
                             <i class="fa fa-bolt" style="background:#f59e0b"></i>
@@ -501,14 +482,14 @@ function fmt(float $n): string {
                             <a href="order_edit.php?id=<?= $id ?>" class="btn btn-primary btn-block">
                                 <i class="fa fa-edit ml-2"></i>ویرایش و تغییر وضعیت
                             </a>
-                            <a href="orders_list.php" class="btn btn-light btn-block">
+                            <a href="order_list.php" class="btn btn-light btn-block">
                                 <i class="fa fa-list ml-2"></i>بازگشت به لیست
                             </a>
                             <button onclick="window.print()" class="btn btn-light btn-block">
                                 <i class="fa fa-print ml-2"></i>چاپ این صفحه
                             </button>
                             <hr class="my-1">
-                            <a href="orders_list.php?delete=<?= $id ?>"
+                            <a href="order_list.php?delete=<?= $id ?>"
                                onclick="return confirm('سفارش #<?= $id ?> حذف شود؟')"
                                class="btn btn-outline-danger btn-block">
                                 <i class="fa fa-trash ml-2"></i>حذف سفارش
@@ -517,10 +498,8 @@ function fmt(float $n): string {
                     </div>
 
                 </div>
-                <!-- /sidebar -->
 
             </div>
-            <!-- /grid -->
 
         </div>
     </div>

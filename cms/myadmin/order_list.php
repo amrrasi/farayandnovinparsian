@@ -94,9 +94,10 @@ function statusBadge(int $id, string $name): string
     <title>مدیریت سفارش‌ها — <?= setting('name') ?></title>
     <link rel="icon" type="image/png" href="images/favicon.jpg">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="assets/css/fontawesome.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <style>
-        /* ── stat cards ── */
+
         .ord-stat-card {
             border-radius: 12px;
             border: none;
@@ -197,11 +198,11 @@ function statusBadge(int $id, string $name): string
             <div class="row mb-4">
 
                 <!-- کل -->
-                <div class="col-xl-2 col-lg-4 col-sm-6 mb-3">
+                <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
                             <div class="ord-stat-icon" style="background:#6366f1">
-                                <i class="fa fa-boxes"></i>
+                                <i class="flaticon-381-box"></i>
                             </div>
                             <div>
                                 <div class="ord-stat-num"><?= number_format($stats['all']) ?></div>
@@ -212,11 +213,11 @@ function statusBadge(int $id, string $name): string
                 </div>
 
                 <!-- جمع فروش -->
-                <div class="col-xl-2 col-lg-4 col-sm-6 mb-3">
+                <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
                             <div class="ord-stat-icon" style="background:#10b981">
-                                <i class="fa fa-money-bill-wave"></i>
+                                <i class="fa fa-money"></i>
                             </div>
                             <div>
                                 <div class="ord-stat-num" style="font-size:1.1rem"><?= number_format($stats['sum']) ?></div>
@@ -227,7 +228,7 @@ function statusBadge(int $id, string $name): string
                 </div>
 
                 <!-- در انتظار قیمت -->
-                <div class="col-xl-2 col-lg-4 col-sm-6 mb-3">
+                <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
                             <div class="ord-stat-icon" style="background:#f59e0b">
@@ -242,7 +243,7 @@ function statusBadge(int $id, string $name): string
                 </div>
 
                 <!-- در انتظار پرداخت -->
-                <div class="col-xl-2 col-lg-4 col-sm-6 mb-3">
+                <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
                             <div class="ord-stat-icon" style="background:#0ea5e9">
@@ -257,7 +258,7 @@ function statusBadge(int $id, string $name): string
                 </div>
 
                 <!-- خوانده نشده -->
-                <div class="col-xl-2 col-lg-4 col-sm-6 mb-3">
+                <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
                             <div class="ord-stat-icon" style="background:#ef4444">
@@ -272,7 +273,7 @@ function statusBadge(int $id, string $name): string
                 </div>
 
                 <!-- ارسال شده -->
-                <div class="col-xl-2 col-lg-4 col-sm-6 mb-3">
+                <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
                             <div class="ord-stat-icon" style="background:#8b5cf6">
