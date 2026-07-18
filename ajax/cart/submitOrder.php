@@ -30,6 +30,7 @@ if (empty($_SESSION['cart'])) {
 
 $fullName   = trim($_POST['full_name']   ?? '');
 $phone      = trim($_POST['phone']       ?? '');
+$order_name = trim($_POST['order_name']       ?? '');
 $email      = trim($_POST['email']       ?? '');
 $address    = trim($_POST['address']     ?? '');
 $postalCode = trim($_POST['postal_code'] ?? '');
@@ -76,21 +77,22 @@ try {
 
     $orderStmt = $pdo->prepare("
         INSERT INTO orders
-            (user_id, full_name, phone, email, address, postal_code, note,
+            (user_id, full_name, order_name, phone, email, address, postal_code, note,
              subtotal, shipping_fee, grand_total, order_status_id, created_at)
         VALUES
-            (:uid, :name, :phone, :email, :addr, :postal, :note,
+            (:uid, :name, :order_name, :phone, :email, :addr, :postal, :note,
              0, 0, 0, 1, NOW())
     ");
 
     $orderStmt->execute([
-        ':uid'    => $_SESSION['user']['id'],
-        ':name'   => $fullName,
-        ':phone'  => $phone,
-        ':email'  => $email,
-        ':addr'   => $address,
-        ':postal' => $postalCode,
-        ':note'   => $orderNote,
+        ':uid'          => $_SESSION['user']['id'],
+        ':name'         => $fullName,
+        ':order_name'   => $order_name,
+        ':phone'        => $phone,
+        ':email'        => $email,
+        ':addr'         => $address,
+        ':postal'       => $postalCode,
+        ':note'         => $orderNote,
     ]);
 
     $orderId = (int) $pdo->lastInsertId();
@@ -124,5 +126,5 @@ $_SESSION['cart'] = [];
 
 respond(true, 'سفارش با موفقیت ثبت شد. کارشناسان ما پس از بررسی با قیمت نهایی با شما تماس خواهند گرفت.', [
     'order_id' => $orderId,
-    'redirect' => 'panel.php?tab=orders',
+    'redirect' => 'profile.php?tab=orders',
 ]);

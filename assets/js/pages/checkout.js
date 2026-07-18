@@ -125,6 +125,7 @@
             const fullName = document.getElementById('fullName')?.value.trim();
             const phone    = document.getElementById('phone')?.value.trim();
             const address  = document.getElementById('address')?.value.trim();
+            const order_name  = document.getElementById('invoiceNo')?.value.trim();
 
             if (!fullName) { showToast('نام و نام خانوادگی الزامی است', 'error'); return; }
             if (!phone)    { showToast('شماره تماس الزامی است', 'error'); return; }
@@ -141,6 +142,7 @@
                 formData.append('phone',       phone);
                 formData.append('email',       document.getElementById('email')?.value.trim() || '');
                 formData.append('address',     address);
+                formData.append('order_name',     order_name);
                 formData.append('postal_code', document.getElementById('postalCode')?.value.trim() || '');
                 formData.append('order_note',  document.getElementById('orderNote')?.value.trim() || '');
 

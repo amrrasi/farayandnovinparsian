@@ -122,7 +122,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                     <h2>اطلاعات گیرنده</h2>
                 </div>
                 <div class="checkout-card-body">
-                    <div class="form-grid">
+                    <div class="form-grid"
 
                         <div class="form-group">
                             <label class="form-label" for="fullName">نام و نام خانوادگی *</label>
@@ -130,6 +130,8 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                                    value="<?= htmlspecialchars($user['name'] ?? '') ?>"
                                    placeholder="نام کامل خود را وارد کنید" required>
                         </div>
+                            <input type="hidden" id="invoiceNo" name="invoiceNo"
+                                   value="<?= htmlspecialchars($invoiceNo ?? '') ?>">
 
                         <div class="form-group">
                             <label class="form-label" for="phone">شماره تماس *</label>
