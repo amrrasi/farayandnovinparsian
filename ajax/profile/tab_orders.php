@@ -13,7 +13,6 @@ $stmt = $pdo->prepare("
 $stmt->execute([':uid' => $uid]);
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// وضعیت → رنگ badge
 $statusTone = [
         1 => 'warning',
         2 => 'info',
@@ -137,17 +136,26 @@ $statusIcon = [
                         <?php endif; ?>
 
                         <?php if ($canUploadReceipt): ?>
-                            <div class="pf-receipt-upload-box" id="receipt-box-<?= $order['id'] ?>">
-                                <div class="pf-receipt-upload-title">
-                                    <i class="fa-solid fa-file-arrow-up"></i>
-                                    بارگذاری رسید پرداخت
-                                </div>
-                                <p class="pf-receipt-upload-desc">
-                                    لطفاً پس از واریز مبلغ
-                                    <strong><?= profile_format_price((int)$order['quoted_total']) ?></strong>،
-                                    به حساب <strong dir="ltr"><?= setting('card-number') ?></strong> تصویر رسید را بارگذاری کنید.
-                                </p>
+                            <div class="pf-upload-card" id="receipt-box-<?= $order['id'] ?>">
 
+                                <!-- header -->
+                                <div class="pf-upload-header">
+                                    <div class="pf-upload-icon">
+                                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <div class="pf-upload-info">
+                                        <h4>بارگذاری رسید پرداخت</h4>
+                                        <p>
+                                            لطفاً پس از واریز
+                                            <strong><?= profile_format_price((int)$order['quoted_total']) ?></strong>
+                                            به شماره کارت
+                                            <strong dir="ltr"><?= setting('card-number') ?></strong>،
+                                            تصویر رسید را بارگذاری کنید.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- drop zone -->
                                 <div class="pf-upload-zone" id="upload-zone-<?= $order['id'] ?>"
                                      data-order="<?= $order['id'] ?>">
                                     <input type="file"
@@ -155,14 +163,25 @@ $statusIcon = [
                                            class="pf-receipt-input"
                                            accept="image/jpeg,image/png,image/webp,application/pdf"
                                            data-order="<?= $order['id'] ?>">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                                    <p>تصویر رسید را اینجا بکشید یا کلیک کنید</p>
-                                    <span>JPG، PNG، PDF — حداکثر ۵ مگابایت</span>
+                                    <div class="pf-upload-circle">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <div class="pf-upload-content">
+                                        <h5>فایل را اینجا بکشید یا <span>کلیک کنید</span></h5>
+                                        <p>JPG، PNG، WebP یا PDF</p>
+                                        <small>حداکثر ۵ مگابایت</small>
+                                    </div>
                                 </div>
 
+                                <!-- file preview (hidden until file chosen) -->
                                 <div class="pf-upload-preview hidden" id="receipt-preview-<?= $order['id'] ?>">
-                                    <i class="fa-solid fa-file-check"></i>
-                                    <span class="pf-upload-name" id="receipt-name-<?= $order['id'] ?>"></span>
+                                    <div class="pf-preview-icon">
+                                        <i class="fa-solid fa-file-check"></i>
+                                    </div>
+                                    <div class="pf-preview-info">
+                                        <span class="pf-upload-name" id="receipt-name-<?= $order['id'] ?>"></span>
+                                        <small>آماده ارسال</small>
+                                    </div>
                                     <button type="button"
                                             class="pf-remove-file"
                                             data-order="<?= $order['id'] ?>">
@@ -204,15 +223,14 @@ $statusIcon = [
         const fileMap  = {};
 
         document.querySelectorAll('.pf-upload-zone').forEach(zone => {
-            zone.addEventListener('click', function () {
-                const orderId = this.dataset.order;
-                document.getElementById('receipt-file-' + orderId)?.click();
-            });
+
             zone.addEventListener('dragover', e => {
                 e.preventDefault();
                 zone.classList.add('drag-over');
             });
-            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+            zone.addEventListener('dragleave', e => {
+                if (!zone.contains(e.relatedTarget)) zone.classList.remove('drag-over');
+            });
             zone.addEventListener('drop', e => {
                 e.preventDefault();
                 zone.classList.remove('drag-over');

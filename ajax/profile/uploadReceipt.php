@@ -61,7 +61,7 @@ if ($_FILES['receipt']['size'] > 5 * 1024 * 1024) {
 }
 
 $uploadDir = "receipts/";
-$fullPath  = __DIR__ . '../../assets/images/' . $uploadDir;
+$fullPath  = __DIR__ . '/../../assets/images/' . $uploadDir;
 
 if (!is_dir($fullPath)) {
     mkdir($fullPath, 0755, true);
