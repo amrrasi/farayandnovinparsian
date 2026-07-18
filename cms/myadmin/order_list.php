@@ -447,7 +447,7 @@ function statusBadge(int $id, string $name): string
                                             </a>
 
                                             <?php if ($hasRcpt): ?>
-                                                <a href="../assets/images/<?= htmlspecialchars($row['receipt_path'], ENT_QUOTES, 'UTF-8') ?>"
+                                                <a href="../../<?= htmlspecialchars($row['receipt_path'], ENT_QUOTES, 'UTF-8') ?>"
                                                    target="_blank"
                                                    class="btn btn-sm btn-success"
                                                    title="مشاهده رسید">
