@@ -179,7 +179,7 @@ function fmt(float $n): string {
                     <i class="fa fa-edit ml-1"></i>ویرایش سفارش
                 </a>
                 <?php if ($hasRcpt): ?>
-                    <a href="../assets/images/<?= htmlspecialchars($order['receipt_path'], ENT_QUOTES, 'UTF-8') ?>"
+                    <a href="../../<?= htmlspecialchars($order['receipt_path'], ENT_QUOTES, 'UTF-8') ?>"
                        target="_blank" class="btn btn-success">
                         <i class="fa fa-file-image ml-1"></i>دانلود رسید
                     </a>
@@ -441,7 +441,7 @@ function fmt(float $n): string {
                         </div>
                         <div class="ov-card-body">
                             <?php if ($hasRcpt):
-                                $rcptUrl  = '../assets/images/' . $order['receipt_path'];
+                                $rcptUrl  = '../../' . $order['receipt_path'];
                                 $rcptExt  = strtolower(pathinfo($order['receipt_path'], PATHINFO_EXTENSION));
                                 $isPdf    = ($rcptExt === 'pdf');
                                 ?>
