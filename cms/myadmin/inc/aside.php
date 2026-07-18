@@ -26,6 +26,15 @@
             </li>
 
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-381-calculator-1"></i>
+                    <span class="nav-text">مدیریت سفارش‌ها</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="order_list.php">مدیریت سفارش‌ها</a></li>
+                </ul>
+            </li>
+
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-settings-8"></i>
                     <span class="nav-text">مدیریت سایت</span>
                 </a>
