@@ -1,12 +1,9 @@
 <?php
 require_once "inc/check.php";
 
-/* ═══════════════════════════════════════════
- | بارگذاری سفارش
- * ══════════════════════════════════════════*/
 $id = (int) ($_GET['id'] ?? 0);
 if ($id <= 0) {
-    header("Location: orders_list.php");
+    header("Location: order_list.php");
     exit;
 }
 
@@ -22,19 +19,15 @@ $stmt->execute();
 $order = $stmt->get_result()->fetch_assoc();
 
 if (!$order) {
-    header("Location: orders_list.php");
+    header("Location: order_list.php");
     exit;
 }
 
-/* اقلام سفارش */
 $iStmt = $mysqli->prepare("SELECT * FROM order_items WHERE order_id = ? ORDER BY id ASC");
 $iStmt->bind_param("i", $id);
 $iStmt->execute();
 $items = $iStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-/* ═══════════════════════════════════════════
- | پردازش فرم
- * ══════════════════════════════════════════*/
 $success = false;
 $errors  = [];
 
@@ -55,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_save'])) {
     if ($fullName === '')                  $errors[] = 'نام مشتری الزامی است';
     if ($phone === '')                     $errors[] = 'شماره موبایل الزامی است';
 
-    /* آپلود رسید جدید (اختیاری) */
     $newReceiptPath = $order['receipt_path'];
     if (!empty($_FILES['receipt_file']['name'])) {
         $allowed  = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
@@ -112,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_save'])) {
         }
     }
 
-    /* بارگذاری مجدد داده برای نمایش در فرم */
     $order = array_merge($order, [
         'order_status_id' => $newStatus,
         'quoted_total'    => $quotedTotal,
@@ -130,7 +121,6 @@ $hasRcpt  = !empty($order['receipt_path']);
 $hasQuote = (float) $order['quoted_total'] > 0;
 $sid      = (int) $order['order_status_id'];
 
-/* ─── map وضعیت → رنگ ─── */
 $statusColors = [
     1 => '#f59e0b', 2 => '#0ea5e9', 3 => '#6366f1',
     4 => '#10b981', 5 => '#8b5cf6', 6 => '#ef4444',
@@ -149,13 +139,13 @@ function val(string $key, array $arr): string {
     <title>ویرایش سفارش #<?= $id ?> — <?= setting('name') ?></title>
     <link rel="icon" type="image/png" href="images/favicon.jpg">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+
     <link href="css/style.css" rel="stylesheet">
     <style>
-        /* ── layout ── */
         .ed-grid      { display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:start; }
         @media(max-width:992px){ .ed-grid { grid-template-columns:1fr; } }
 
-        /* ── section card ── */
         .ed-card      { border-radius:14px; border:1px solid #e9ecef; background:#fff;
             margin-bottom:20px; overflow:hidden; }
         .ed-card-head { display:flex; align-items:center; gap:10px; padding:14px 20px;
@@ -165,7 +155,6 @@ function val(string $key, array $arr): string {
         .ed-card-head h6{ margin:0;font-weight:700;font-size:.9rem; }
         .ed-card-body { padding:22px; }
 
-        /* ── form fields ── */
         .ed-field     { margin-bottom:18px; }
         .ed-label     { display:block; font-size:.8rem; font-weight:600;
             color:#374151; margin-bottom:6px; }
@@ -177,7 +166,6 @@ function val(string $key, array $arr): string {
             box-shadow:0 0 0 3px rgba(99,102,241,.12); }
         textarea.ed-input{ resize:vertical; min-height:80px; }
 
-        /* ── status selector ── */
         .status-grid  { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
         .status-opt   { position:relative; }
         .status-opt input[type=radio]{ position:absolute; opacity:0; width:0; height:0; }
@@ -196,14 +184,12 @@ function val(string $key, array $arr): string {
         }
         .status-opt label:hover{ border-color:var(--sc); color:var(--sc); }
 
-        /* ── items readonly table ── */
         .ed-items     { width:100%; border-collapse:collapse; font-size:.85rem; }
         .ed-items th  { background:#f8f9fa; padding:9px 12px; font-weight:700;
             font-size:.75rem; color:#6b7280; border-bottom:2px solid #e9ecef; }
         .ed-items td  { padding:10px 12px; border-bottom:1px solid #f3f4f6; vertical-align:middle; }
         .ed-items tbody tr:last-child td{ border-bottom:none; }
 
-        /* ── receipt upload zone ── */
         .ed-drop-zone { border:2px dashed #d1d5db; border-radius:12px; padding:28px 20px;
             text-align:center; cursor:pointer; transition:.25s; position:relative; }
         .ed-drop-zone:hover,
@@ -218,18 +204,15 @@ function val(string $key, array $arr): string {
         .ed-drop-preview i{ color:#10b981;font-size:1.2rem; }
         .ed-drop-preview span{ font-size:.85rem;font-weight:600; }
 
-        /* ── existing receipt thumb ── */
         .ed-rcpt-thumb{ width:100%;border-radius:10px;border:1px solid #e9ecef;
             max-height:200px;object-fit:contain; }
 
-        /* ── totals box ── */
         .ed-totals    { background:#f8f9fa;border-radius:10px;padding:14px;
             border:1px solid #e9ecef;font-size:.875rem; }
         .ed-total-row { display:flex;justify-content:space-between;padding:5px 0;
             border-bottom:1px dashed #e9ecef; }
         .ed-total-row:last-child{ border:none;font-weight:700;font-size:1rem;padding-top:10px; }
 
-        /* ── save bar ── */
         .ed-save-bar  { position:sticky;bottom:0;z-index:50;background:#fff;
             border-top:2px solid #e9ecef;padding:14px 0;
             display:flex;gap:12px;align-items:center; }
@@ -253,17 +236,15 @@ function val(string $key, array $arr): string {
     <div class="content-body">
         <div class="container-fluid">
 
-            <!-- breadcrumb -->
             <div class="page-titles">
                 <h4>ویرایش سفارش #<?= $id ?></h4>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="orders_list.php">سفارشات</a></li>
+                    <li class="breadcrumb-item"><a href="order_list.php">سفارشات</a></li>
                     <li class="breadcrumb-item"><a href="order_view.php?id=<?= $id ?>">سفارش #<?= $id ?></a></li>
                     <li class="breadcrumb-item active">ویرایش</li>
                 </ol>
             </div>
 
-            <!-- errors -->
             <?php if ($errors): ?>
                 <div class="alert alert-danger alert-dismissible fade show">
                     <ul class="mb-0">
@@ -281,13 +262,11 @@ function val(string $key, array $arr): string {
 
                 <div class="ed-grid">
 
-                    <!-- ══ ستون اصلی ══ -->
                     <div>
 
-                        <!-- ── وضعیت ── -->
                         <div class="ed-card">
                             <div class="ed-card-head">
-                                <i class="fa fa-diagram-project" style="background:#8b5cf6"></i>
+                                <i class="fa fa-list" style="background:#8b5cf6"></i>
                                 <h6>وضعیت سفارش</h6>
                             </div>
                             <div class="ed-card-body">
@@ -309,7 +288,7 @@ function val(string $key, array $arr): string {
                                                    value="<?= $sVal ?>"
                                                 <?= ($sid === $sVal) ? 'checked' : '' ?>>
                                             <label for="st<?= $sVal ?>">
-                                                <i class="fa-solid <?= $s['icon'] ?>"></i>
+                                                <i class="fa-solid fa fas fab <?= $s['icon'] ?>"></i>
                                                 <?= $s['label'] ?>
                                             </label>
                                         </div>
@@ -318,7 +297,6 @@ function val(string $key, array $arr): string {
                             </div>
                         </div>
 
-                        <!-- ── اطلاعات مشتری ── -->
                         <div class="ed-card">
                             <div class="ed-card-head">
                                 <i class="fa fa-user" style="background:#6366f1"></i>
@@ -368,10 +346,9 @@ function val(string $key, array $arr): string {
                             </div>
                         </div>
 
-                        <!-- ── جزئیات سفارش ── -->
                         <div class="ed-card">
                             <div class="ed-card-head">
-                                <i class="fa fa-receipt" style="background:#0ea5e9"></i>
+                                <i class="fa fa-calculator" style="background:#0ea5e9"></i>
                                 <h6>جزئیات سفارش</h6>
                             </div>
                             <div class="ed-card-body">
@@ -408,7 +385,6 @@ function val(string $key, array $arr): string {
                             </div>
                         </div>
 
-                        <!-- ── اقلام (فقط نمایش) ── -->
                         <?php if ($items): ?>
                             <div class="ed-card">
                                 <div class="ed-card-head">
@@ -471,12 +447,8 @@ function val(string $key, array $arr): string {
                         <?php endif; ?>
 
                     </div>
-                    <!-- /ستون اصلی -->
-
-                    <!-- ══ sidebar ══ -->
                     <div>
 
-                        <!-- ── رسید پرداخت ── -->
                         <div class="ed-card">
                             <div class="ed-card-head">
                                 <i class="fa fa-file-image" style="background:<?= $hasRcpt ? '#10b981' : '#9ca3af' ?>"></i>
@@ -512,7 +484,6 @@ function val(string $key, array $arr): string {
                                     </div>
                                 <?php endif; ?>
 
-                                <!-- drop zone -->
                                 <div class="ed-drop-zone" id="dropZone">
                                     <input type="file" name="receipt_file" id="receiptFile"
                                            accept="image/jpeg,image/png,image/webp,application/pdf">
@@ -533,7 +504,6 @@ function val(string $key, array $arr): string {
                             </div>
                         </div>
 
-                        <!-- ── اطلاعات خلاصه ── -->
                         <div class="ed-card">
                             <div class="ed-card-head">
                                 <i class="fa fa-circle-info" style="background:#6366f1"></i>
@@ -564,7 +534,6 @@ function val(string $key, array $arr): string {
                             </div>
                         </div>
 
-                        <!-- ── دکمه‌های sidebar ── -->
                         <div class="ed-card">
                             <div class="ed-card-body" style="display:flex;flex-direction:column;gap:10px">
                                 <button type="submit" class="btn btn-primary btn-block btn-lg">
@@ -573,19 +542,16 @@ function val(string $key, array $arr): string {
                                 <a href="order_view.php?id=<?= $id ?>" class="btn btn-light btn-block">
                                     <i class="fa fa-eye ml-2"></i>مشاهده سفارش
                                 </a>
-                                <a href="orders_list.php" class="btn btn-light btn-block">
+                                <a href="order_list.php" class="btn btn-light btn-block">
                                     <i class="fa fa-list ml-2"></i>بازگشت به لیست
                                 </a>
                             </div>
                         </div>
 
                     </div>
-                    <!-- /sidebar -->
 
                 </div>
-                <!-- /grid -->
 
-                <!-- sticky save bar (mobile-friendly) -->
                 <div class="ed-save-bar">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save ml-1"></i>ذخیره تغییرات
@@ -598,7 +564,6 @@ function val(string $key, array $arr): string {
                 </div>
 
             </form>
-            <!-- /form -->
 
         </div>
     </div>
@@ -614,7 +579,6 @@ function val(string $key, array $arr): string {
     (function () {
         'use strict';
 
-        /* ── drop zone ── */
         const zone     = document.getElementById('dropZone');
         const fileIn   = document.getElementById('receiptFile');
         const preview  = document.getElementById('dropPreview');
@@ -646,7 +610,6 @@ function val(string $key, array $arr): string {
             zone.style.borderColor = '#10b981';
         }
 
-        /* ── confirm before leaving with unsaved changes ── */
         let formDirty = false;
         document.getElementById('editForm').addEventListener('change', () => { formDirty = true; });
         document.getElementById('editForm').addEventListener('submit',  () => { formDirty = false; });

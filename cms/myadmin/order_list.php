@@ -94,7 +94,7 @@ function statusBadge(int $id, string $name): string
     <title>مدیریت سفارش‌ها — <?= setting('name') ?></title>
     <link rel="icon" type="image/png" href="images/favicon.jpg">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="assets/css/fontawesome.min.css" rel="stylesheet">
+    <link href="assets/css/fontawesome.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <style>
 

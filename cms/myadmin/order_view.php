@@ -61,7 +61,7 @@ function fmt(float $n): string {
     <title>سفارش #<?= $id ?> — <?= setting('name') ?></title>
     <link rel="icon" type="image/png" href="images/favicon.jpg">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
 
     <link href="css/style.css" rel="stylesheet">
     <style>
