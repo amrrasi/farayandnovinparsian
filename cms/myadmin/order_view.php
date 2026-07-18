@@ -162,7 +162,7 @@ function fmt(float $n): string {
         <div class="container-fluid">
 
             <div class="page-titles">
-                <h4>سفارش #<?= $id ?></h4>
+                <h4>سفارش #<?= $order['order_name'] ?></h4>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="order_list.php">سفارشات</a>
@@ -466,7 +466,7 @@ function fmt(float $n): string {
                             <?php endif; ?>
                             <?php else: ?>
                                 <div class="text-center py-4 text-muted">
-                                    <i class="fa fa-file-circle-xmark fa-2x d-block mb-2" style="color:#d1d5db"></i>
+                                    <i class="fa fa-file-image-o fa-2x d-block mb-2" style="color:#d1d5db"></i>
                                     رسیدی بارگذاری نشده
                                 </div>
                             <?php endif; ?>
