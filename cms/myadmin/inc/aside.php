@@ -39,6 +39,9 @@
                     <span class="nav-text">مدیریت سایت</span>
                 </a>
                 <ul aria-expanded="false">
+                    <li><a href="user_list.php">مدیریت کاربران سایت </a></li>
+                </ul>
+                <ul aria-expanded="false">
                     <li><a href="messagesList.php">پیام‌های ثبت شده در سایت </a></li>
                 </ul>
                 <ul aria-expanded="false">
