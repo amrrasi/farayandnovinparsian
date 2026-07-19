@@ -69,7 +69,7 @@ $statusIcon = [
                 <details class="pf-order-card" id="order-card-<?= $order['id'] ?>">
                     <summary class="pf-order-summary">
                         <div class="pf-order-summary-main">
-                            <span class="pf-order-number">سفارش #<?= (int)$order['id'] ?></span>
+                            <span class="pf-order-number"> سفارش <?= $order['order_name'] ?></span>
                             <span class="pf-order-date"><?= profile_format_date($order['created_at']) ?></span>
                         </div>
                         <div class="pf-order-summary-side">
