@@ -67,7 +67,7 @@ if (!is_dir($fullPath)) {
     mkdir($fullPath, 0755, true);
 }
 
-$ext         = strtolower(pathinfo($_FILES['receipt']['name'], PATHINFO_EXTENSION));
+$ext         = strtolower(pathinfo('assets/images/' . $_FILES['receipt']['name'], PATHINFO_EXTENSION));
 $fileName    = 'receipt_' . $uid . '_' . $orderId . '_' . time() . '.' . $ext;
 $destination = $fullPath . $fileName;
 

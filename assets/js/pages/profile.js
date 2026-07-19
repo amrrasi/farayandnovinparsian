@@ -447,6 +447,10 @@
     function bindPanelEvents(tab){
 
 
+        if(tab==='orders')
+            bindOrdersTab();
+
+
         if(tab==='messages')
             bindMessagesTab();
 
@@ -461,6 +465,388 @@
     }
 
 
+
+
+
+
+// ------------------------------------------------
+// Orders / receipt upload
+// ------------------------------------------------
+
+    function bindOrdersTab(){
+
+
+        const CSRF =
+            document.querySelector(
+                'meta[name="csrf-token"]'
+            )?.content
+            ||
+            '';
+
+
+        const fileMap = {};
+
+
+
+        function setFile(orderId, file){
+
+            if(!file) return;
+
+
+            if(file.size > 5 * 1024 * 1024){
+
+                showToast(
+                    'حجم فایل بیش از ۵ مگابایت است',
+                    true
+                );
+
+                return;
+
+            }
+
+
+            fileMap[orderId] = file;
+
+
+            const nameEl =
+                document.getElementById(
+                    'receipt-name-' + orderId
+                );
+
+
+            if(nameEl)
+                nameEl.textContent = file.name;
+
+
+            document.getElementById(
+                'receipt-preview-' + orderId
+            )?.classList.remove('hidden');
+
+
+            const upBtn =
+                document.getElementById(
+                    'btn-upload-' + orderId
+                );
+
+
+            if(upBtn)
+                upBtn.disabled = false;
+
+        }
+
+
+
+        /* drag-drop */
+
+        document.querySelectorAll(
+            '.pf-upload-zone'
+        ).forEach(zone=>{
+
+
+            zone.addEventListener(
+                'dragover',
+                e=>{
+
+                    e.preventDefault();
+
+                    zone.classList.add(
+                        'drag-over'
+                    );
+
+                });
+
+
+            zone.addEventListener(
+                'dragleave',
+                e=>{
+
+                    if(!zone.contains(
+                        e.relatedTarget
+                    ))
+
+                        zone.classList.remove(
+                            'drag-over'
+                        );
+
+                });
+
+
+            zone.addEventListener(
+                'drop',
+                e=>{
+
+                    e.preventDefault();
+
+                    zone.classList.remove(
+                        'drag-over'
+                    );
+
+                    setFile(
+                        zone.dataset.order,
+                        e.dataTransfer.files[0]
+                    );
+
+                });
+
+        });
+
+
+
+        /* file input change */
+
+        document.querySelectorAll(
+            '.pf-receipt-input'
+        ).forEach(input=>{
+
+
+            input.addEventListener(
+                'change',
+                function(){
+
+                    setFile(
+                        this.dataset.order,
+                        this.files[0]
+                    );
+
+                });
+
+        });
+
+
+
+        /* remove file */
+
+        document.querySelectorAll(
+            '.pf-remove-file'
+        ).forEach(btn=>{
+
+
+            btn.addEventListener(
+                'click',
+                function(){
+
+
+                    const id =
+                        this.dataset.order;
+
+
+                    delete fileMap[id];
+
+
+                    const inp =
+                        document.getElementById(
+                            'receipt-file-' + id
+                        );
+
+
+                    if(inp)
+                        inp.value = '';
+
+
+                    document.getElementById(
+                        'receipt-preview-' + id
+                    )?.classList.add('hidden');
+
+
+                    const upBtn =
+                        document.getElementById(
+                            'btn-upload-' + id
+                        );
+
+
+                    if(upBtn)
+                        upBtn.disabled = true;
+
+                });
+
+        });
+
+
+
+        /* upload */
+
+        document.querySelectorAll(
+            '.btn-upload-receipt'
+        ).forEach(btn=>{
+
+
+            btn.addEventListener(
+                'click',
+                async function(){
+
+
+                    const id =
+                        this.dataset.order;
+
+
+                    const file =
+                        fileMap[id];
+
+
+                    if(!file)
+                        return;
+
+
+                    this.disabled = true;
+
+                    this.innerHTML =
+                        '<i class="fa-solid fa-spinner fa-spin"></i> در حال ارسال…';
+
+
+                    const fd =
+                        new FormData();
+
+
+                    fd.append('csrf_token', CSRF);
+                    fd.append('order_id',   id);
+                    fd.append('receipt',    file);
+
+
+                    const msgEl =
+                        document.getElementById(
+                            'upload-msg-' + id
+                        );
+
+
+                    try{
+
+
+                        const res =
+                            await fetch(
+                                'ajax/profile/uploadReceipt.php',
+                                {
+                                    method:'POST',
+                                    body:fd
+                                }
+                            );
+
+
+                        if(res.status===401){
+
+                            location.href='/login';
+
+                            return;
+
+                        }
+
+
+                        const data =
+                            await res.json();
+
+
+                        if(msgEl){
+
+                            msgEl.textContent =
+                                data.message
+                                ||
+                                (
+                                    data.status
+                                        ?
+                                        'رسید با موفقیت ارسال شد.'
+                                        :
+                                        'خطا در ارسال'
+                                );
+
+
+                            msgEl.className =
+                                'pf-upload-msg '
+                                +
+                                (
+                                    data.status
+                                        ?
+                                        'success'
+                                        :
+                                        'error'
+                                );
+
+
+                            msgEl.classList.remove(
+                                'hidden'
+                            );
+
+                        }
+
+
+                        if(data.status){
+
+
+                            showToast(
+                                data.message
+                                ||
+                                'رسید با موفقیت ارسال شد.'
+                            );
+
+
+                            setTimeout(
+                                ()=>loadTab(
+                                    'orders',
+                                    {
+                                        pushState:false
+                                    }
+                                ),
+                                1200
+                            );
+
+
+                        }
+                        else{
+
+
+                            this.disabled = false;
+
+                            this.innerHTML =
+                                '<i class="fa-solid fa-paper-plane"></i> ارسال رسید';
+
+
+                            showToast(
+                                data.message
+                                ||
+                                'خطا در ارسال رسید',
+                                true
+                            );
+
+                        }
+
+
+                    }
+                    catch(err){
+
+
+                        this.disabled = false;
+
+                        this.innerHTML =
+                            '<i class="fa-solid fa-paper-plane"></i> ارسال رسید';
+
+
+                        if(msgEl){
+
+                            msgEl.textContent =
+                                'خطا در اتصال به سرور';
+
+                            msgEl.className =
+                                'pf-upload-msg error';
+
+                            msgEl.classList.remove(
+                                'hidden'
+                            );
+
+                        }
+
+
+                        showToast(
+                            'خطا در اتصال به سرور',
+                            true
+                        );
+
+                    }
+
+
+                });
+
+        });
+
+
+    }
 
 
 
