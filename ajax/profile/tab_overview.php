@@ -23,8 +23,11 @@ $lastMsgStmt->execute([':uid' => $uid]);
 $lastMsg = $lastMsgStmt->fetch();
 
 $totalSpentStmt = $pdo->prepare("
-    SELECT COALESCE(SUM(quoted_total),0) FROM `orders`
-    WHERE user_id = :uid AND deleted = 0 AND order_status_id = 4
+    SELECT COALESCE(SUM(quoted_total), 0)
+    FROM `orders`
+    WHERE user_id = :uid
+      AND deleted = 0
+      AND order_status_id IN (4, 5)
 ");
 $totalSpentStmt->execute([':uid' => $uid]);
 $totalSpent = (int) $totalSpentStmt->fetchColumn();
