@@ -34,7 +34,7 @@ $statusIcon = [
 <div class="pf-orders">
     <div class="pf-panel-title">
         <h2>سفارش‌های من</h2>
-        <span class="text-muted"><?= count($orders) ?> سفارش</span>
+        <span class="badge bg-secondary"><?= count($orders) ?> سفارش</span>
     </div>
 
     <?php if (!$orders): ?>
@@ -51,25 +51,19 @@ $statusIcon = [
 
                 $itemsStmt = $pdo->prepare("
                     SELECT * FROM `order_items`
-                    WHERE order_id = :oid
-                    ORDER BY id ASC
+                    WHERE order_id = :oid ORDER BY id ASC
                 ");
                 $itemsStmt->execute([':oid' => $order['id']]);
                 $items = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-                $hasQuote    = isset($order['quoted_total']) && $order['quoted_total'] > 0;
-                $displayPrice = $hasQuote
-                        ? profile_format_price((int) $order['quoted_total'])
-                        : '<span class="pf-price-pending">در انتظار قیمت‌دهی</span>';
-
+                $hasQuote         = isset($order['quoted_total']) && $order['quoted_total'] > 0;
                 $canUploadReceipt = ($statusId === 2 && empty($order['receipt_path']));
-
-                $receiptUploaded = ($statusId === 3 && !empty($order['receipt_path']));
+                $receiptUploaded  = ($statusId === 3 && !empty($order['receipt_path']));
                 ?>
                 <details class="pf-order-card" id="order-card-<?= $order['id'] ?>">
                     <summary class="pf-order-summary">
                         <div class="pf-order-summary-main">
-                            <span class="pf-order-number"> سفارش <?= $order['order_name'] ?></span>
+                            <span class="pf-order-number">سفارش <?= htmlspecialchars($order['order_name'], ENT_QUOTES, 'UTF-8') ?></span>
                             <span class="pf-order-date"><?= profile_format_date($order['created_at']) ?></span>
                         </div>
                         <div class="pf-order-summary-side">
@@ -77,7 +71,13 @@ $statusIcon = [
                             <i class="fa-solid <?= $icon ?>"></i>
                             <?= htmlspecialchars($order['status_name'] ?? 'نامشخص', ENT_QUOTES, 'UTF-8') ?>
                         </span>
-                            <span class="pf-order-price"><?= $displayPrice ?></span>
+                            <span class="pf-order-price">
+                            <?php if ($hasQuote): ?>
+                                <?= profile_format_price((int) $order['quoted_total']) ?>
+                            <?php else: ?>
+                                <span class="pf-price-pending">در انتظار قیمت</span>
+                            <?php endif; ?>
+                        </span>
                             <i class="fa-solid fa-chevron-down pf-order-chevron"></i>
                         </div>
                     </summary>
@@ -86,11 +86,13 @@ $statusIcon = [
 
                         <!-- اقلام -->
                         <?php if ($items): ?>
-                            <ul class="pf-order-items">
+                            <ul class="pf-order-items list-unstyled">
                                 <?php foreach ($items as $item): ?>
-                                    <li>
-                                        <span class="pf-order-item-name"><?= htmlspecialchars($item['product_name'] ?? 'محصول حذف‌شده', ENT_QUOTES, 'UTF-8') ?></span>
-                                        <span class="pf-order-item-qty">× <?= (int)$item['qty'] ?></span>
+                                    <li class="d-flex align-items-center gap-2 flex-wrap">
+                                <span class="pf-order-item-name flex-grow-1">
+                                    <?= htmlspecialchars($item['product_name'] ?? 'محصول حذف‌شده', ENT_QUOTES, 'UTF-8') ?>
+                                </span>
+                                        <span class="pf-order-item-qty text-muted">× <?= (int)$item['qty'] ?></span>
                                         <span class="pf-order-item-price">
                                     <?= (float)$item['price'] > 0
                                             ? profile_format_price((int)((float)$item['price'] * (int)$item['qty']))
@@ -100,10 +102,10 @@ $statusIcon = [
                                 <?php endforeach; ?>
                             </ul>
                         <?php else: ?>
-                            <p class="text-muted pf-order-no-items">ریز اقلام ثبت نشده.</p>
+                            <p class="text-muted small">ریز اقلام ثبت نشده.</p>
                         <?php endif; ?>
 
-                        <!-- مجموع‌ها -->
+                        <!-- مجموع -->
                         <?php if ($hasQuote): ?>
                             <div class="pf-order-totals">
                                 <div class="pf-order-total-final">
@@ -130,15 +132,16 @@ $statusIcon = [
                         <?php if (!empty($order['admin_note'])): ?>
                             <div class="pf-order-admin-note">
                                 <i class="fa-solid fa-comment-dots"></i>
-                                <strong>پیام کارشناس:</strong>
-                                <?= htmlspecialchars($order['admin_note'], ENT_QUOTES, 'UTF-8') ?>
+                                <div>
+                                    <strong>پیام کارشناس:</strong>
+                                    <?= htmlspecialchars($order['admin_note'], ENT_QUOTES, 'UTF-8') ?>
+                                </div>
                             </div>
                         <?php endif; ?>
 
+                        <!-- آپلود رسید -->
                         <?php if ($canUploadReceipt): ?>
                             <div class="pf-upload-card" id="receipt-box-<?= $order['id'] ?>">
-
-                                <!-- header -->
                                 <div class="pf-upload-header">
                                     <div class="pf-upload-icon">
                                         <i class="fa-solid fa-file-invoice-dollar"></i>
@@ -155,7 +158,6 @@ $statusIcon = [
                                     </div>
                                 </div>
 
-                                <!-- drop zone -->
                                 <div class="pf-upload-zone" id="upload-zone-<?= $order['id'] ?>"
                                      data-order="<?= $order['id'] ?>">
                                     <input type="file"
@@ -173,7 +175,6 @@ $statusIcon = [
                                     </div>
                                 </div>
 
-                                <!-- file preview (hidden until file chosen) -->
                                 <div class="pf-upload-preview hidden" id="receipt-preview-<?= $order['id'] ?>">
                                     <div class="pf-preview-icon">
                                         <i class="fa-solid fa-file-check"></i>
@@ -182,9 +183,7 @@ $statusIcon = [
                                         <span class="pf-upload-name" id="receipt-name-<?= $order['id'] ?>"></span>
                                         <small>آماده ارسال</small>
                                     </div>
-                                    <button type="button"
-                                            class="pf-remove-file"
-                                            data-order="<?= $order['id'] ?>">
+                                    <button type="button" class="pf-remove-file" data-order="<?= $order['id'] ?>">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
@@ -208,7 +207,7 @@ $statusIcon = [
                             </div>
                         <?php endif; ?>
 
-                    </div>
+                    </div><!-- /pf-order-detail -->
                 </details>
             <?php endforeach; ?>
         </div>
@@ -219,51 +218,46 @@ $statusIcon = [
     (function () {
         'use strict';
 
-        const CSRF     = document.querySelector('meta[name="csrf-token"]')?.content || '';
-        const fileMap  = {};
+        const CSRF    = document.querySelector('meta[name="csrf-token"]')?.content || '';
+        const fileMap = {};
 
+        /* drag-drop */
         document.querySelectorAll('.pf-upload-zone').forEach(zone => {
-
-            zone.addEventListener('dragover', e => {
-                e.preventDefault();
-                zone.classList.add('drag-over');
-            });
-            zone.addEventListener('dragleave', e => {
-                if (!zone.contains(e.relatedTarget)) zone.classList.remove('drag-over');
-            });
+            zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+            zone.addEventListener('dragleave', e => { if (!zone.contains(e.relatedTarget)) zone.classList.remove('drag-over'); });
             zone.addEventListener('drop', e => {
                 e.preventDefault();
                 zone.classList.remove('drag-over');
-                const orderId = zone.dataset.order;
-                setFile(orderId, e.dataTransfer.files[0]);
+                setFile(zone.dataset.order, e.dataTransfer.files[0]);
             });
         });
 
+        /* file input change */
         document.querySelectorAll('.pf-receipt-input').forEach(input => {
-            input.addEventListener('change', function () {
-                setFile(this.dataset.order, this.files[0]);
-            });
+            input.addEventListener('change', function () { setFile(this.dataset.order, this.files[0]); });
         });
 
+        /* remove file */
         document.querySelectorAll('.pf-remove-file').forEach(btn => {
             btn.addEventListener('click', function () {
                 const id = this.dataset.order;
                 delete fileMap[id];
-                const input = document.getElementById('receipt-file-' + id);
-                if (input) input.value = '';
+                const inp = document.getElementById('receipt-file-' + id);
+                if (inp) inp.value = '';
                 document.getElementById('receipt-preview-' + id)?.classList.add('hidden');
-                const uploadBtn = document.getElementById('btn-upload-' + id);
-                if (uploadBtn) uploadBtn.disabled = true;
+                const upBtn = document.getElementById('btn-upload-' + id);
+                if (upBtn) upBtn.disabled = true;
             });
         });
 
+        /* upload */
         document.querySelectorAll('.btn-upload-receipt').forEach(btn => {
             btn.addEventListener('click', async function () {
                 const id   = this.dataset.order;
                 const file = fileMap[id];
                 if (!file) return;
 
-                this.disabled = true;
+                this.disabled  = true;
                 this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> در حال ارسال…';
 
                 const fd = new FormData();
@@ -272,29 +266,24 @@ $statusIcon = [
                 fd.append('receipt',    file);
 
                 try {
-                    const res  = await fetch('ajax/profile/uploadReceipt.php', {
-                        method: 'POST',
-                        body: fd,
-                    });
+                    const res  = await fetch('ajax/profile/uploadReceipt.php', { method: 'POST', body: fd });
                     const data = await res.json();
-
                     const msgEl = document.getElementById('upload-msg-' + id);
+
                     if (msgEl) {
-                        msgEl.textContent  = data.message || (data.status ? 'رسید با موفقیت ارسال شد.' : 'خطا در ارسال');
-                        msgEl.className    = 'pf-upload-msg ' + (data.status ? 'success' : 'error');
+                        msgEl.textContent = data.message || (data.status ? 'رسید با موفقیت ارسال شد.' : 'خطا در ارسال');
+                        msgEl.className   = 'pf-upload-msg ' + (data.status ? 'success' : 'error');
                         msgEl.classList.remove('hidden');
                     }
 
                     if (data.status) {
                         setTimeout(() => location.reload(), 1500);
                     } else {
-                        this.disabled = false;
+                        this.disabled  = false;
                         this.innerHTML = '<i class="fa-solid fa-paper-plane"></i> ارسال رسید';
                     }
-
-                } catch (err) {
-                    console.error(err);
-                    this.disabled = false;
+                } catch {
+                    this.disabled  = false;
                     this.innerHTML = '<i class="fa-solid fa-paper-plane"></i> ارسال رسید';
                     const msgEl = document.getElementById('upload-msg-' + id);
                     if (msgEl) {
@@ -308,17 +297,13 @@ $statusIcon = [
 
         function setFile(orderId, file) {
             if (!file) return;
-            if (file.size > 5 * 1024 * 1024) {
-                alert('حجم فایل بیش از ۵ مگابایت است');
-                return;
-            }
+            if (file.size > 5 * 1024 * 1024) { alert('حجم فایل بیش از ۵ مگابایت است'); return; }
             fileMap[orderId] = file;
             const nameEl = document.getElementById('receipt-name-' + orderId);
             if (nameEl) nameEl.textContent = file.name;
             document.getElementById('receipt-preview-' + orderId)?.classList.remove('hidden');
-            const uploadBtn = document.getElementById('btn-upload-' + orderId);
-            if (uploadBtn) uploadBtn.disabled = false;
+            const upBtn = document.getElementById('btn-upload-' + orderId);
+            if (upBtn) upBtn.disabled = false;
         }
-
     })();
 </script>
