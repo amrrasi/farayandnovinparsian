@@ -100,13 +100,23 @@ function sessionBadge(int $isLogin): string
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>مدیریت کاربران — <?= setting('name') ?></title>
-    <link rel="icon" type="image/png" href="images/favicon.jpg">
+    <title><?= setting('name') ?></title>
+    <!-- Favicon icon -->
+    <link href="css/fontawesome.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
+    <!-- Vectormap -->
+    <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="assets/css/fontawesome.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+
     <style>
 
+        .setcard{
+            margin-right: 20px;
+        }
         .ord-stat-card {
             border-radius: 12px;
             border: none;
@@ -205,7 +215,7 @@ function sessionBadge(int $isLogin): string
                             <div class="ord-stat-icon" style="background:#6366f1">
                                 <i class="fa fa-users"></i>
                             </div>
-                            <div>
+                            <div class="setcard">
                                 <div class="ord-stat-num"><?= number_format($stats['all']) ?></div>
                                 <div class="ord-stat-lbl">کل کاربران</div>
                             </div>
@@ -220,7 +230,7 @@ function sessionBadge(int $isLogin): string
                             <div class="ord-stat-icon" style="background:#10b981">
                                 <i class="fa fa-shield-alt"></i>
                             </div>
-                            <div>
+                            <div class="setcard">
                                 <div class="ord-stat-num"><?= number_format($stats['verified']) ?></div>
                                 <div class="ord-stat-lbl">موبایل تایید شده</div>
                             </div>
@@ -235,7 +245,7 @@ function sessionBadge(int $isLogin): string
                             <div class="ord-stat-icon" style="background:#0ea5e9">
                                 <i class="fa fa-signal"></i>
                             </div>
-                            <div>
+                            <div class="setcard">
                                 <div class="ord-stat-num"><?= number_format($stats['online']) ?></div>
                                 <div class="ord-stat-lbl">نشست فعال (آنلاین)</div>
                             </div>
@@ -250,7 +260,7 @@ function sessionBadge(int $isLogin): string
                             <div class="ord-stat-icon" style="background:#f59e0b">
                                 <i class="fa fa-user-plus"></i>
                             </div>
-                            <div>
+                            <div class="setcard">
                                 <div class="ord-stat-num"><?= number_format($stats['new30']) ?></div>
                                 <div class="ord-stat-lbl">کاربران جدید (۳۰ روز)</div>
                             </div>
@@ -265,7 +275,7 @@ function sessionBadge(int $isLogin): string
                             <div class="ord-stat-icon" style="background:#8b5cf6">
                                 <i class="fa fa-shopping-cart"></i>
                             </div>
-                            <div>
+                            <div class="setcard">
                                 <div class="ord-stat-num"><?= number_format($stats['withOrder']) ?></div>
                                 <div class="ord-stat-lbl">دارای حداقل یک سفارش</div>
                             </div>
@@ -280,7 +290,7 @@ function sessionBadge(int $isLogin): string
                             <div class="ord-stat-icon" style="background:#ef4444">
                                 <i class="fa fa-envelope"></i>
                             </div>
-                            <div>
+                            <div class="setcard">
                                 <div class="ord-stat-num"><?= number_format($stats['messages']) ?></div>
                                 <div class="ord-stat-lbl">پیام‌های تماس ثبت‌شده</div>
                             </div>
@@ -539,7 +549,19 @@ function sessionBadge(int $isLogin): string
      ══════════════════════════════════════════════════════ -->
 <script src="vendor/global/global.min.js"></script>
 <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="js/custom.min.js"></script>
+<script src="js/deznav-init.js"></script>
+<script src="vendor/owl-carousel/owl.carousel.js"></script>
+
+<!-- Chart piety plugin files -->
+<script src="vendor/peity/jquery.peity.min.js"></script>
+
+<!-- Apex Chart -->
+<script src="vendor/apexchart/apexchart.js"></script>
+
+<!-- Dashboard 1 -->
+<script src="js/dashboard/dashboard-1.js"></script>
 <script>
     (function () {
         'use strict';
