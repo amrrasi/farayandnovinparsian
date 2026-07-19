@@ -125,12 +125,18 @@ function val(string $key, array $arr): string {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ویرایش کاربر #<?= $id ?> — <?= setting('name') ?></title>
-    <link rel="icon" type="image/png" href="images/favicon.jpg">
+    <title><?= setting('name') ?></title>
+    <!-- Favicon icon -->
+    <link href="css/fontawesome.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
+    <!-- Vectormap -->
+    <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-
     <link href="css/style.css" rel="stylesheet">
+    <link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+
     <style>
         .ed-grid      { display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:start; }
         @media(max-width:992px){ .ed-grid { grid-template-columns:1fr; } }
@@ -446,7 +452,19 @@ function val(string $key, array $arr): string {
 
 <script src="vendor/global/global.min.js"></script>
 <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="js/custom.min.js"></script>
+<script src="js/deznav-init.js"></script>
+<script src="vendor/owl-carousel/owl.carousel.js"></script>
+
+<!-- Chart piety plugin files -->
+<script src="vendor/peity/jquery.peity.min.js"></script>
+
+<!-- Apex Chart -->
+<script src="vendor/apexchart/apexchart.js"></script>
+
+<!-- Dashboard 1 -->
+<script src="js/dashboard/dashboard-1.js"></script>
 <script>
     (function () {
         'use strict';
