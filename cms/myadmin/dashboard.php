@@ -1,12 +1,5 @@
 <?php
 require_once "inc/check.php";
-
-/* =====================================================================
-   DASHBOARD STATS
-   Every number/chart on this page below is pulled live from the DB.
-   ===================================================================== */
-
-/* ---- 1) Revenue from confirmed / shipped orders (status 4 & 5) ---- */
 $revStmt = $mysqli->prepare("
     SELECT COALESCE(SUM(COALESCE(quoted_total, grand_total)), 0) AS total_revenue,
            COUNT(*) AS total_count
