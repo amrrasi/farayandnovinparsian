@@ -54,9 +54,9 @@
     let toastTimer;
 
 
-    function showToast(message,error=false){
+    function showToast(message, error = false) {
 
-        if(!toastEl) return;
+        if (!toastEl) return;
 
 
         toastEl.textContent = message;
@@ -76,13 +76,13 @@
         clearTimeout(toastTimer);
 
 
-        toastTimer=setTimeout(()=>{
+        toastTimer = setTimeout(() => {
 
             toastEl.classList.remove(
                 'is-visible'
             );
 
-        },3200);
+        }, 3200);
 
     }
 
@@ -92,9 +92,9 @@
 // Rail
 // ------------------------------------------------
 
-    function moveRailTo(btn){
+    function moveRailTo(btn) {
 
-        if(!rail || !btn) return;
+        if (!rail || !btn) return;
 
 
         rail.style.transform =
@@ -113,11 +113,11 @@
 // Load tab
 // ------------------------------------------------
 
-    async function loadTab(tabName, options={}){
+    async function loadTab(tabName, options = {}) {
 
 
         const {
-            pushState=true
+            pushState = true
         } = options;
 
 
@@ -126,11 +126,11 @@
             TAB_ENDPOINTS[tabName];
 
 
-        if(!endpoint) return;
+        if (!endpoint) return;
 
 
 
-        if(requestController){
+        if (requestController) {
 
             requestController.abort();
 
@@ -156,7 +156,7 @@
 
 
 
-        try{
+        try {
 
 
             const res =
@@ -166,7 +166,7 @@
                         signal:
                         requestController.signal,
 
-                        headers:{
+                        headers: {
                             'X-Requested-With':
                                 'XMLHttpRequest'
                         }
@@ -175,9 +175,9 @@
 
 
 
-            if(res.status===401){
+            if (res.status === 401) {
 
-                location.href='/login';
+                location.href = '/login';
 
                 return;
 
@@ -212,7 +212,7 @@
 
 
 
-            if(pushState){
+            if (pushState) {
 
 
                 const url =
@@ -221,7 +221,7 @@
 
                 history.pushState(
                     {
-                        tab:tabName
+                        tab: tabName
                     },
                     '',
                     url
@@ -231,12 +231,11 @@
             }
 
 
-
         }
-        catch(err){
+        catch (err) {
 
 
-            if(err.name==='AbortError')
+            if (err.name === 'AbortError')
                 return;
 
 
@@ -257,7 +256,7 @@
 
 
         }
-        finally{
+        finally {
 
 
             loadingEl?.classList.remove(
@@ -276,14 +275,14 @@
 // Active button
 // ------------------------------------------------
 
-    function updateActiveTab(tab){
+    function updateActiveTab(tab) {
 
 
-        navItems.forEach(btn=>{
+        navItems.forEach(btn => {
 
 
             const active =
-                btn.dataset.tab===tab;
+                btn.dataset.tab === tab;
 
 
 
@@ -303,7 +302,7 @@
             );
 
 
-            if(active)
+            if (active)
                 moveRailTo(btn);
 
 
@@ -315,17 +314,16 @@
 
 
 
-
 // ------------------------------------------------
 // Navigation
 // ------------------------------------------------
 
-    navItems.forEach(btn=>{
+    navItems.forEach(btn => {
 
 
         btn.addEventListener(
             'click',
-            ()=>{
+            () => {
 
 
                 const tab =
@@ -333,7 +331,7 @@
 
 
 
-                if(tab!==currentTab)
+                if (tab !== currentTab)
 
                     loadTab(tab);
 
@@ -347,12 +345,11 @@
 
 
 
-
 // داخل صفحات Ajax
 
     document.addEventListener(
         'click',
-        e=>{
+        e => {
 
 
             const btn =
@@ -361,7 +358,7 @@
                 );
 
 
-            if(!btn)
+            if (!btn)
                 return;
 
 
@@ -376,14 +373,13 @@
 
 
 
-
 // ------------------------------------------------
 // Browser back forward
 // ------------------------------------------------
 
     window.addEventListener(
         'popstate',
-        ()=>{
+        () => {
 
 
             const params =
@@ -407,7 +403,7 @@
                     :
                     'overview',
                 {
-                    pushState:false
+                    pushState: false
                 }
             );
 
@@ -423,7 +419,7 @@
 
     window.addEventListener(
         'resize',
-        ()=>{
+        () => {
 
             const active =
                 document.querySelector(
@@ -431,7 +427,7 @@
                 );
 
 
-            if(active)
+            if (active)
                 moveRailTo(active);
 
 
@@ -444,27 +440,26 @@
 // Events
 // ------------------------------------------------
 
-    function bindPanelEvents(tab){
+    function bindPanelEvents(tab) {
 
 
-        if(tab==='orders')
+        if (tab === 'orders')
             bindOrdersTab();
 
+        // FIX: messages tab manages its own JS via the inline <script> in tab_messages.php
+        // bindMessagesTab() is intentionally removed — calling it here caused a conflict
+        // because it looked for a non-existent #pf-thread-body element and re-bound
+        // row clicks that are already handled by the tab's own script.
 
-        if(tab==='messages')
-            bindMessagesTab();
-
-
-        if(tab==='personal')
+        if (tab === 'personal')
             bindPersonalForm();
 
 
-        if(tab==='security')
+        if (tab === 'security')
             bindSecurityForm();
 
+
     }
-
-
 
 
 
@@ -473,157 +468,79 @@
 // Orders / receipt upload
 // ------------------------------------------------
 
-    function bindOrdersTab(){
+    function bindOrdersTab() {
 
-
-        const CSRF =
-            document.querySelector(
-                'meta[name="csrf-token"]'
-            )?.content
-            ||
-            '';
-
+        const CSRF = document.querySelector('meta[name="csrf-token"]')?.content || '';
 
         const fileMap = {};
 
-
-
-        function setFile(orderId, file){
-
-            if(!file) return;
-
-
-            if(file.size > 5 * 1024 * 1024){
-
-                showToast(
-                    'حجم فایل بیش از ۵ مگابایت است',
-                    true
-                );
-
-                return;
-
-            }
-
-
-            fileMap[orderId] = file;
-
-
-            const nameEl =
-                document.getElementById(
-                    'receipt-name-' + orderId
-                );
-
-
-            if(nameEl)
-                nameEl.textContent = file.name;
-
-
-            document.getElementById(
-                'receipt-preview-' + orderId
-            )?.classList.remove('hidden');
-
-
-            const upBtn =
-                document.getElementById(
-                    'btn-upload-' + orderId
-                );
-
-
-            if(upBtn)
-                upBtn.disabled = false;
-
-        }
-
-
-
-        /* drag-drop */
-
         document.querySelectorAll(
-            '.pf-upload-zone'
-        ).forEach(zone=>{
+            '.receipt-file-input'
+        ).forEach(inp => {
 
 
-            zone.addEventListener(
-                'dragover',
-                e=>{
-
-                    e.preventDefault();
-
-                    zone.classList.add(
-                        'drag-over'
-                    );
-
-                });
+            inp.addEventListener(
+                'change',
+                function () {
 
 
-            zone.addEventListener(
-                'dragleave',
-                e=>{
+                    const id =
+                        this.dataset.order;
 
-                    if(!zone.contains(
-                        e.relatedTarget
-                    ))
 
-                        zone.classList.remove(
-                            'drag-over'
+                    const file =
+                        this.files[0];
+
+
+                    if (!file) return;
+
+
+                    fileMap[id] = file;
+
+
+                    const preview =
+                        document.getElementById(
+                            'receipt-preview-' + id
                         );
 
+
+                    if (preview) {
+
+                        preview.src =
+                            URL.createObjectURL(file);
+
+
+                        preview.classList.remove(
+                            'hidden'
+                        );
+
+                    }
+
+
+                    const upBtn =
+                        document.getElementById(
+                            'btn-upload-' + id
+                        );
+
+
+                    if (upBtn)
+                        upBtn.disabled = false;
+
+
                 });
 
-
-            zone.addEventListener(
-                'drop',
-                e=>{
-
-                    e.preventDefault();
-
-                    zone.classList.remove(
-                        'drag-over'
-                    );
-
-                    setFile(
-                        zone.dataset.order,
-                        e.dataTransfer.files[0]
-                    );
-
-                });
 
         });
 
 
-
-        /* file input change */
-
         document.querySelectorAll(
-            '.pf-receipt-input'
-        ).forEach(input=>{
-
-
-            input.addEventListener(
-                'change',
-                function(){
-
-                    setFile(
-                        this.dataset.order,
-                        this.files[0]
-                    );
-
-                });
-
-        });
-
-
-
-        /* remove file */
-
-        document.querySelectorAll(
-            '.pf-remove-file'
-        ).forEach(btn=>{
+            '.btn-clear-receipt'
+        ).forEach(btn => {
 
 
             btn.addEventListener(
                 'click',
-                function(){
+                function () {
 
 
                     const id =
@@ -639,7 +556,7 @@
                         );
 
 
-                    if(inp)
+                    if (inp)
                         inp.value = '';
 
 
@@ -654,8 +571,9 @@
                         );
 
 
-                    if(upBtn)
+                    if (upBtn)
                         upBtn.disabled = true;
+
 
                 });
 
@@ -667,12 +585,12 @@
 
         document.querySelectorAll(
             '.btn-upload-receipt'
-        ).forEach(btn=>{
+        ).forEach(btn => {
 
 
             btn.addEventListener(
                 'click',
-                async function(){
+                async function () {
 
 
                     const id =
@@ -683,7 +601,7 @@
                         fileMap[id];
 
 
-                    if(!file)
+                    if (!file)
                         return;
 
 
@@ -698,8 +616,8 @@
 
 
                     fd.append('csrf_token', CSRF);
-                    fd.append('order_id',   id);
-                    fd.append('receipt',    file);
+                    fd.append('order_id', id);
+                    fd.append('receipt', file);
 
 
                     const msgEl =
@@ -708,22 +626,22 @@
                         );
 
 
-                    try{
+                    try {
 
 
                         const res =
                             await fetch(
                                 'ajax/profile/uploadReceipt.php',
                                 {
-                                    method:'POST',
-                                    body:fd
+                                    method: 'POST',
+                                    body: fd
                                 }
                             );
 
 
-                        if(res.status===401){
+                        if (res.status === 401) {
 
-                            location.href='/login';
+                            location.href = '/login';
 
                             return;
 
@@ -734,7 +652,7 @@
                             await res.json();
 
 
-                        if(msgEl){
+                        if (msgEl) {
 
                             msgEl.textContent =
                                 data.message
@@ -767,7 +685,7 @@
                         }
 
 
-                        if(data.status){
+                        if (data.status) {
 
 
                             showToast(
@@ -778,10 +696,10 @@
 
 
                             setTimeout(
-                                ()=>loadTab(
+                                () => loadTab(
                                     'orders',
                                     {
-                                        pushState:false
+                                        pushState: false
                                     }
                                 ),
                                 1200
@@ -789,7 +707,7 @@
 
 
                         }
-                        else{
+                        else {
 
 
                             this.disabled = false;
@@ -809,7 +727,7 @@
 
 
                     }
-                    catch(err){
+                    catch (err) {
 
 
                         this.disabled = false;
@@ -818,7 +736,7 @@
                             '<i class="fa-solid fa-paper-plane"></i> ارسال رسید';
 
 
-                        if(msgEl){
+                        if (msgEl) {
 
                             msgEl.textContent =
                                 'خطا در اتصال به سرور';
@@ -852,107 +770,10 @@
 
 
 // ------------------------------------------------
-// Messages
-// ------------------------------------------------
-
-    function bindMessagesTab(){
-
-
-        const rows =
-            document.querySelectorAll('.pf-msg-row');
-
-
-        const overlay =
-            document.getElementById(
-                'pf-thread-overlay'
-            );
-
-
-        const threadBody =
-            document.getElementById(
-                'pf-thread-body'
-            );
-
-
-
-        rows.forEach(row=>{
-
-
-            row.onclick=async()=>{
-
-
-                const id =
-                    row.dataset.messageId;
-
-
-                overlay.hidden=false;
-
-
-                threadBody.innerHTML =
-                    '<span class="pf-spinner"></span>';
-
-
-
-                const res =
-                    await fetch(
-                        `ajax/profile/action_message_thread.php?id=${id}`
-                    );
-
-
-
-                threadBody.innerHTML =
-                    await res.text();
-
-
-                bindThreadEvents(
-                    overlay
-                );
-
-
-
-            };
-
-        });
-
-
-    }
-
-
-
-
-
-    function bindThreadEvents(overlay){
-
-
-        const back =
-            overlay.querySelector(
-                '#pf-thread-back'
-            );
-
-
-
-        back?.addEventListener(
-            'click',
-            ()=>{
-
-                overlay.hidden=true;
-
-            });
-
-
-
-    }
-
-
-
-
-
-
-// ------------------------------------------------
 // Forms
 // ------------------------------------------------
 
-    function bindPersonalForm(){
+    function bindPersonalForm() {
 
 
         const form =
@@ -961,11 +782,11 @@
             );
 
 
-        if(!form)
+        if (!form)
             return;
 
 
-        form.onsubmit=async e=>{
+        form.onsubmit = async e => {
 
 
             e.preventDefault();
@@ -980,8 +801,8 @@
                 await fetch(
                     'ajax/profile/action_update_personal.php',
                     {
-                        method:'POST',
-                        body:fd
+                        method: 'POST',
+                        body: fd
                     }
                 );
 
@@ -991,7 +812,7 @@
 
 
 
-            if(data.ok){
+            if (data.ok) {
 
                 showToast(
                     'اطلاعات ذخیره شد'
@@ -1008,7 +829,7 @@
 
 
 
-    function bindSecurityForm(){
+    function bindSecurityForm() {
 
 
         const form =
@@ -1017,11 +838,11 @@
             );
 
 
-        if(!form)
+        if (!form)
             return;
 
 
-        form.onsubmit=async e=>{
+        form.onsubmit = async e => {
 
 
             e.preventDefault();
@@ -1037,8 +858,8 @@
                 await fetch(
                     'ajax/profile/action_update_password.php',
                     {
-                        method:'POST',
-                        body:fd
+                        method: 'POST',
+                        body: fd
                     }
                 );
 
@@ -1049,7 +870,7 @@
 
 
 
-            if(data.ok){
+            if (data.ok) {
 
                 showToast(
                     'رمز عبور تغییر کرد'
@@ -1066,8 +887,6 @@
 
 
     }
-
-
 
 
 
@@ -1097,7 +916,7 @@
             :
             'overview',
         {
-            pushState:false
+            pushState: false
         }
     );
 
