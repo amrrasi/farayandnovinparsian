@@ -814,10 +814,11 @@
 
             if (data.ok) {
 
-                showToast(
-                    'اطلاعات ذخیره شد'
-                );
+                showToast('اطلاعات ذخیره شد');
 
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
 
             }
 
