@@ -343,6 +343,98 @@ function order_status_badge($statusId, $statusName) {
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header d-block d-sm-flex border-0">
+                                    <div class="ml-3">
+                                        <h4 class="fs-20 text-black">آخرین سفارش‌ها</h4>
+                                        <p class="mb-0 fs-13">۸ سفارش اخیر ثبت شده در سایت</p>
+                                    </div>
+                                    <div class="card-action card-tabs mt-3 mt-sm-0">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#recentOrdersTab" role="tab">اخیر</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#todayOrdersTab" role="tab">امروز</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body tab-content p-0">
+                                    <div class="tab-pane active show fade" id="recentOrdersTab" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive-md card-table previous-transactions">
+                                                <tbody>
+                                                <?php if (empty($recentOrders)): ?>
+                                                    <tr>
+                                                        <td class="text-center fs-14 py-4">هنوز سفارشی ثبت نشده است.</td>
+                                                    </tr>
+                                                <?php else: foreach ($recentOrders as $order):
+                                                    $amount = $order['quoted_total'] !== null ? $order['quoted_total'] : $order['grand_total'];
+                                                    $displayName = $order['order_name'] !== '' ? $order['order_name'] : ('سفارش #' . $order['id']);
+                                                    ?>
+                                                    <tr>
+                                                        <td style="width:63px;">
+                                                            <div class="rounded-circle d-flex align-items-center justify-content-center bg-light"
+                                                                 style="width:48px;height:48px;">
+                                                                <i class="fa fa-shopping-cart text-primary"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <h6 class="fs-16 font-w600 mb-0 text-black"><?= htmlspecialchars($displayName) ?></h6>
+                                                            <span class="fs-14"><?= htmlspecialchars($order['full_name']) ?></span>
+                                                        </td>
+                                                        <td>
+                                                            <h6 class="fs-16 text-black font-w400 mb-0"><?= date('Y/m/d', strtotime($order['created_at'])) ?></h6>
+                                                            <span class="fs-14"><?= date('H:i', strtotime($order['created_at'])) ?></span>
+                                                        </td>
+                                                        <td><span class="fs-16 text-black font-w500"><?= fmt_toman($amount) ?></span></td>
+                                                        <td><?= order_status_badge($order['order_status_id'], $order['status_name']) ?></td>
+                                                    </tr>
+                                                <?php endforeach; endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="todayOrdersTab" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <table class="table card-table previous-transactions">
+                                                <tbody>
+                                                <?php if (empty($todayOrders)): ?>
+                                                    <tr>
+                                                        <td class="text-center fs-14 py-4">امروز هنوز سفارشی ثبت نشده است.</td>
+                                                    </tr>
+                                                <?php else: foreach ($todayOrders as $order):
+                                                    $amount = $order['quoted_total'] !== null ? $order['quoted_total'] : $order['grand_total'];
+                                                    $displayName = $order['order_name'] !== '' ? $order['order_name'] : ('سفارش #' . $order['id']);
+                                                    ?>
+                                                    <tr>
+                                                        <td style="width:63px;">
+                                                            <div class="rounded-circle d-flex align-items-center justify-content-center bg-light"
+                                                                 style="width:48px;height:48px;">
+                                                                <i class="fa fa-shopping-cart text-primary"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <h6 class="fs-16 font-w600 mb-0 text-black"><?= htmlspecialchars($displayName) ?></h6>
+                                                            <span class="fs-14"><?= htmlspecialchars($order['full_name']) ?></span>
+                                                        </td>
+                                                        <td>
+                                                            <h6 class="fs-16 text-black font-w400 mb-0"><?= date('Y/m/d', strtotime($order['created_at'])) ?></h6>
+                                                            <span class="fs-14"><?= date('H:i', strtotime($order['created_at'])) ?></span>
+                                                        </td>
+                                                        <td><span class="fs-16 text-black font-w500"><?= fmt_toman($amount) ?></span></td>
+                                                        <td><?= order_status_badge($order['order_status_id'], $order['status_name']) ?></td>
+                                                    </tr>
+                                                <?php endforeach; endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -491,98 +583,7 @@ function order_status_badge($statusId, $statusName) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-header d-block d-sm-flex border-0">
-                                    <div class="ml-3">
-                                        <h4 class="fs-20 text-black">آخرین سفارش‌ها</h4>
-                                        <p class="mb-0 fs-13">۸ سفارش اخیر ثبت شده در سایت</p>
-                                    </div>
-                                    <div class="card-action card-tabs mt-3 mt-sm-0">
-                                        <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#recentOrdersTab" role="tab">اخیر</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#todayOrdersTab" role="tab">امروز</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-body tab-content p-0">
-                                    <div class="tab-pane active show fade" id="recentOrdersTab" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-md card-table previous-transactions">
-                                                <tbody>
-                                                <?php if (empty($recentOrders)): ?>
-                                                    <tr>
-                                                        <td class="text-center fs-14 py-4">هنوز سفارشی ثبت نشده است.</td>
-                                                    </tr>
-                                                <?php else: foreach ($recentOrders as $order):
-                                                    $amount = $order['quoted_total'] !== null ? $order['quoted_total'] : $order['grand_total'];
-                                                    $displayName = $order['order_name'] !== '' ? $order['order_name'] : ('سفارش #' . $order['id']);
-                                                    ?>
-                                                    <tr>
-                                                        <td style="width:63px;">
-                                                            <div class="rounded-circle d-flex align-items-center justify-content-center bg-light"
-                                                                 style="width:48px;height:48px;">
-                                                                <i class="fa fa-shopping-cart text-primary"></i>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="fs-16 font-w600 mb-0 text-black"><?= htmlspecialchars($displayName) ?></h6>
-                                                            <span class="fs-14"><?= htmlspecialchars($order['full_name']) ?></span>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="fs-16 text-black font-w400 mb-0"><?= date('Y/m/d', strtotime($order['created_at'])) ?></h6>
-                                                            <span class="fs-14"><?= date('H:i', strtotime($order['created_at'])) ?></span>
-                                                        </td>
-                                                        <td><span class="fs-16 text-black font-w500"><?= fmt_toman($amount) ?></span></td>
-                                                        <td><?= order_status_badge($order['order_status_id'], $order['status_name']) ?></td>
-                                                    </tr>
-                                                <?php endforeach; endif; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="todayOrdersTab" role="tabpanel">
-                                        <div class="table-responsive">
-                                            <table class="table card-table previous-transactions">
-                                                <tbody>
-                                                <?php if (empty($todayOrders)): ?>
-                                                    <tr>
-                                                        <td class="text-center fs-14 py-4">امروز هنوز سفارشی ثبت نشده است.</td>
-                                                    </tr>
-                                                <?php else: foreach ($todayOrders as $order):
-                                                    $amount = $order['quoted_total'] !== null ? $order['quoted_total'] : $order['grand_total'];
-                                                    $displayName = $order['order_name'] !== '' ? $order['order_name'] : ('سفارش #' . $order['id']);
-                                                    ?>
-                                                    <tr>
-                                                        <td style="width:63px;">
-                                                            <div class="rounded-circle d-flex align-items-center justify-content-center bg-light"
-                                                                 style="width:48px;height:48px;">
-                                                                <i class="fa fa-shopping-cart text-primary"></i>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="fs-16 font-w600 mb-0 text-black"><?= htmlspecialchars($displayName) ?></h6>
-                                                            <span class="fs-14"><?= htmlspecialchars($order['full_name']) ?></span>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="fs-16 text-black font-w400 mb-0"><?= date('Y/m/d', strtotime($order['created_at'])) ?></h6>
-                                                            <span class="fs-14"><?= date('H:i', strtotime($order['created_at'])) ?></span>
-                                                        </td>
-                                                        <td><span class="fs-16 text-black font-w500"><?= fmt_toman($amount) ?></span></td>
-                                                        <td><?= order_status_badge($order['order_status_id'], $order['status_name']) ?></td>
-                                                    </tr>
-                                                <?php endforeach; endif; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
