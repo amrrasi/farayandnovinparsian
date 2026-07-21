@@ -32,10 +32,6 @@ require_once "cms/myadmin/inc/config.php";
 
 <main class="team-page">
 
-    <!--==============================
-        HERO
-        ==============================-->
-
     <section class="team-hero">
 
         <div class="hero-grid"></div>
@@ -74,10 +70,6 @@ require_once "cms/myadmin/inc/config.php";
 
     </section>
 
-
-    <!--==============================
-        FOUNDER
-        ==============================-->
 
     <section class="founder-section">
 
@@ -199,9 +191,6 @@ require_once "cms/myadmin/inc/config.php";
         </div>
 
     </section>
-    <!--=========================================
-    TEAM DNA
-    ==========================================-->
 
     <section class="team-dna">
 
@@ -331,11 +320,6 @@ require_once "cms/myadmin/inc/config.php";
 
     </section>
 
-
-    <!--=========================================
-    CORE TEAM
-    ==========================================-->
-
     <section class="core-team">
 
         <div class="container">
@@ -359,7 +343,6 @@ require_once "cms/myadmin/inc/config.php";
 
             <div class="team-grid">
 
-                <!-- ==================== -->
 
                 <article class="team-card">
 
@@ -413,8 +396,6 @@ require_once "cms/myadmin/inc/config.php";
                 </article>
 
 
-                <!-- ==================== -->
-
                 <article class="team-card">
 
                     <div class="member-image">
@@ -465,8 +446,6 @@ require_once "cms/myadmin/inc/config.php";
 
                 </article>
 
-
-                <!-- ==================== -->
 
                 <article class="team-card">
 
@@ -525,10 +504,6 @@ require_once "cms/myadmin/inc/config.php";
 
     </section>
 
-    <!--=========================================
-TECHNICAL TEAM
-==========================================-->
-
     <section class="technical-team">
 
         <div class="container">
@@ -556,8 +531,6 @@ TECHNICAL TEAM
             </div>
 
             <div class="technical-layout">
-
-                <!-- Member 4 -->
 
                 <article class="team-card large">
 
@@ -611,8 +584,6 @@ TECHNICAL TEAM
                 </article>
 
 
-                <!-- Member 5 -->
-
                 <article class="team-card large offset">
 
                     <div class="member-image">
@@ -662,8 +633,6 @@ TECHNICAL TEAM
 
                 </article>
 
-
-                <!-- Member 6 -->
 
                 <article class="team-card center-card">
 
@@ -721,10 +690,6 @@ TECHNICAL TEAM
 
     </section>
 
-
-    <!--=========================================
-    TEAM SKILLS
-    ==========================================-->
 
     <section class="team-skills">
 
@@ -827,10 +792,6 @@ TECHNICAL TEAM
     </section>
 
 
-    <!--=========================================
-    WORKSPACE
-    ==========================================-->
-
 <!--    <section class="workspace-gallery">-->
 <!---->
 <!--        <div class="container">-->
@@ -882,10 +843,6 @@ TECHNICAL TEAM
 <!--        </div>-->
 <!---->
 <!--    </section>-->
-
-    <!--=========================================
-TEAM VALUES
-==========================================-->
 
     <section class="team-values">
 
@@ -988,10 +945,6 @@ TEAM VALUES
     </section>
 
 
-    <!--=========================================
-    TECH STACK
-    ==========================================-->
-
     <section class="team-stack">
 
         <div class="container">
@@ -1044,10 +997,6 @@ TEAM VALUES
 
     </section>
 
-    <!--=========================================
-    BACKGROUND DECOR
-    ==========================================-->
-
     <div class="team-background">
 
         <span></span>
@@ -1067,7 +1016,6 @@ TEAM VALUES
 </main>
 
 
-<!-- footer -->
 <?php require_once "inc/footer.php" ?>
 
 
