@@ -31,7 +31,6 @@ require_once "cms/myadmin/inc/config.php"
 
 <?php require_once "inc/header.php" ?>
 
-<!-- Hero Section -->
 <section class="hp-hero">
 
     <div class="hp-grid" aria-hidden="true"></div>
@@ -89,7 +88,6 @@ require_once "cms/myadmin/inc/config.php"
 </section>
 
 
-<!-- Our Customers -->
 <section class="clients-section">
 
     <div class="container">
@@ -119,7 +117,6 @@ require_once "cms/myadmin/inc/config.php"
 
         <div class="clients-slider ">
 
-            <!-- National Gas -->
 
             <div class="item">
 
@@ -153,7 +150,6 @@ require_once "cms/myadmin/inc/config.php"
 
             </div>
 
-            <!-- Tehran Municipality -->
 
             <div class="item">
 
@@ -222,7 +218,6 @@ require_once "cms/myadmin/inc/config.php"
 </section>
 
 
-<!-- Our Services -->
 <section id="our-services" class="services-section">
     <div class="container">
 
@@ -306,7 +301,6 @@ require_once "cms/myadmin/inc/config.php"
 </section>
 
 
-<!-- Buying Procedure -->
 <section class="order-process" id="orderProcess">
 
     <div class="container">
@@ -336,8 +330,6 @@ require_once "cms/myadmin/inc/config.php"
         </div>
 
         <div class="row process-slider">
-
-            <!-- Step 1 -->
 
             <div class="col-lg process-col">
 
@@ -376,8 +368,6 @@ require_once "cms/myadmin/inc/config.php"
 
             </div>
 
-            <!-- Step 2 -->
-
             <div class="col-lg process-col">
 
                 <div class="process-item">
@@ -414,8 +404,6 @@ require_once "cms/myadmin/inc/config.php"
                 </div>
 
             </div>
-
-            <!-- Step 3 -->
 
             <div class="col-lg process-col">
 
@@ -454,8 +442,6 @@ require_once "cms/myadmin/inc/config.php"
 
             </div>
 
-            <!-- Step 4 -->
-
             <div class="col-lg process-col">
 
                 <div class="process-item">
@@ -492,8 +478,6 @@ require_once "cms/myadmin/inc/config.php"
                 </div>
 
             </div>
-
-            <!-- Step 5 -->
 
             <div class="col-lg process-col">
 
@@ -539,7 +523,6 @@ require_once "cms/myadmin/inc/config.php"
 </section>
 
 
-<!-- Products -->
 <?php
 
 $groups = [];
@@ -684,7 +667,6 @@ while ($row = $result->fetch_assoc()) {
 </section>
 
 
-<!-- About Us -->
 <section class="about-banner">
 
     <div class="about-overlay"></div>
@@ -766,7 +748,6 @@ while ($row = $result->fetch_assoc()) {
 </section>
 
 
-<!-- Blog -->
 <?php
 
 $blogs = [];
@@ -820,8 +801,6 @@ if (count($blogs) > 0):
             </div>
 
             <div class="row g-4">
-
-                <!-- Featured -->
 
                 <div class="col-lg-6">
 
@@ -878,8 +857,6 @@ if (count($blogs) > 0):
                     </article>
 
                 </div>
-
-                <!-- Other Articles -->
 
                 <div class="col-lg-6">
 
@@ -962,7 +939,6 @@ if (count($blogs) > 0):
 <?php endif; ?>
 
 
-<!-- footer -->
 <?php require_once "inc/footer.php"?>
 
 
