@@ -3,7 +3,6 @@
 require_once "cms/myadmin/inc/config.php";
 require_once "cms/myadmin/inc/auth_helpers.php";
 
-// Already logged in? no reason to see this page.
 if (!empty($_SESSION['user']['id'])) {
     header('Location: ' . $baseAddress);
     exit;
@@ -72,7 +71,6 @@ $pageTitle      = 'ورود و ثبت‌نام | ' . htmlspecialchars(setting('n
     <section class="entry-form-panel">
         <div class="entry-card card-glass">
 
-            <!-- LOGIN / REGISTER -->
             <div id="authTabsView">
 
                 <div class="auth-tabs" role="tablist">
@@ -81,7 +79,6 @@ $pageTitle      = 'ورود و ثبت‌نام | ' . htmlspecialchars(setting('n
                     <button type="button" class="tab-btn" data-tab="register" role="tab" aria-selected="false">ثبت‌نام</button>
                 </div>
 
-                <!-- LOGIN FORM -->
                 <form id="loginForm" class="auth-form active" autocomplete="on">
                     <h2>خوش برگشتید</h2>
                     <p class="auth-sub">برای ادامه خرید وارد حساب خود شوید</p>
@@ -116,7 +113,6 @@ $pageTitle      = 'ورود و ثبت‌نام | ' . htmlspecialchars(setting('n
                     <button type="submit" class="btn btn-primary btn-block">ورود</button>
                 </form>
 
-                <!-- REGISTER FORM -->
                 <form id="registerForm" class="auth-form" autocomplete="on">
                     <h2>ساخت حساب کاربری</h2>
                     <p class="auth-sub">چند ثانیه‌ای، ثبت‌نام کنید و بلافاصله وارد شوید</p>
@@ -178,14 +174,12 @@ $pageTitle      = 'ورود و ثبت‌نام | ' . htmlspecialchars(setting('n
 
             </div>
 
-            <!-- FORGOT PASSWORD -->
             <div id="forgotPasswordView" class="hidden">
 
                 <button type="button" class="back-btn" id="backToLogin">
                     <i class="fa-solid fa-arrow-right"></i> بازگشت به ورود
                 </button>
 
-                <!-- STEP 1: request code -->
                 <form id="fpRequestForm" class="auth-form active">
                     <h2>بازیابی رمز عبور</h2>
                     <p class="auth-sub">ایمیل حساب کاربری خود را وارد کنید تا کد تایید برایتان ارسال شود</p>
@@ -201,7 +195,6 @@ $pageTitle      = 'ورود و ثبت‌نام | ' . htmlspecialchars(setting('n
                     <button type="submit" class="btn btn-primary btn-block" id="fpSendBtn">ارسال کد تایید</button>
                 </form>
 
-                <!-- STEP 2: verify code + set new password -->
                 <form id="fpVerifyForm" class="auth-form">
                     <h2>کد تایید را وارد کنید</h2>
                     <p class="auth-sub">کد ۶ رقمی ارسال‌شده به <strong id="fpSentToEmail"></strong> را وارد کنید</p>
