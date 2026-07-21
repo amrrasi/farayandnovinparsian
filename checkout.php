@@ -41,7 +41,6 @@ if (empty($cartItems)) {
 $shippingFee = 0;
 $grandTotal  = 0;
 
-// ── User info ────────────────────────────────────────────
 $user = $pdo->prepare("SELECT name, mobile, email FROM user WHERE id = :id LIMIT 1");
 $user->execute([':id' => $_SESSION['user']['id']]);
 $user = $user->fetch(PDO::FETCH_ASSOC) ?: [];
@@ -115,7 +114,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 پس از تکمیل فرم ما با پیش‌فاکتور را دریافت کنید و در سریع‌ترین زمان ممکن کارشناسان ما جهت اتمام خرید با ما تماس خواهند گرفت
             </div>
 
-            <!-- ── Receiver info ── -->
             <div class="checkout-card reveal">
                 <div class="checkout-card-header">
                     <i class="fas fa-user-circle"></i>
@@ -285,16 +283,11 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
     </div>
 </main>
 
-<!-- ══════════════════════════════════════
-     PRE-INVOICE MODAL
-════════════════════════════════════════ -->
 <div class="invoice-modal-backdrop" id="invoiceModal">
     <div class="invoice-modal">
 
-        <!-- Printable paper -->
         <div class="invoice-paper" id="invoicePaper">
 
-            <!-- Top: brand + meta -->
             <div class="invoice-top">
                 <div class="invoice-brand">
                     <div class="invoice-brand-name">Logo</div>
@@ -348,7 +341,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
                 </tbody>
             </table>
 
-            <!-- Totals -->
             <div class="invoice-totals">
                 <div class="invoice-total-row">
                     <span class="lbl">جمع محصولات</span>
@@ -391,7 +383,6 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
     </div>
 </div>
 
-<!-- Toast -->
 <div class="cart-toast" id="cartToast">
     <i class="fas fa-circle-check"></i>
     <span id="cartToastMsg"></span>
