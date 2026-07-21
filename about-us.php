@@ -27,12 +27,8 @@ require_once "cms/myadmin/inc/config.php"
           href="assets/css/pages/about-us.css?v=<?php echo filemtime('assets/css/pages/about-us.css'); ?>">
 <body>
 
-<!-- header -->
 <?php require_once "inc/header.php" ?>
 
-<!-- ===========================================================
-ABOUT COMPANY
-=========================================================== -->
 
 <section class="about-company">
 
@@ -141,10 +137,6 @@ ABOUT COMPANY
 
 </section>
 
-
-<!-- ===========================================================
-WHY US
-=========================================================== -->
 
 <section class="why-us">
 
@@ -258,10 +250,6 @@ WHY US
     </div>
 
 </section>
-
-<!-- ===========================================================
-COMPANY TIMELINE
-=========================================================== -->
 
 <section class="company-timeline">
 
@@ -418,10 +406,6 @@ COMPANY TIMELINE
 
 </section>
 
-<!-- ===========================================================
-GOOGLE MAP
-=========================================================== -->
-
 <section class="about-map">
 
     <div class="container">
@@ -450,8 +434,6 @@ GOOGLE MAP
 
         <div class="map-wrapper">
 
-            <!-- این iframe را بعداً با آدرس خودت جایگزین کن -->
-
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d356.0060644254501!2d51.43465695628917!3d35.728438579752215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1782632764625!5m2!1sen!2s"
                     width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -463,11 +445,8 @@ GOOGLE MAP
 </section>
 
 
-<!-- footer -->
 <?php require_once "inc/footer.php" ?>
 
-
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/jquery.nice-select.min.js"></script>
 <script src="assets/js/owl.carousel.min.js"></script>
