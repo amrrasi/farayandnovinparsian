@@ -90,9 +90,6 @@ function getBadge(array $row): array {
 
 <main class="blog-page">
 
-    <!-- ══════════════════════════════════
-         HERO
-    ══════════════════════════════════ -->
     <section class="blog-hero">
         <div class="container">
             <div class="row justify-content-center">
@@ -115,9 +112,6 @@ function getBadge(array $row): array {
         </div>
     </section>
 
-    <!-- ══════════════════════════════════
-         SEARCH + SORT
-    ══════════════════════════════════ -->
     <section class="blog-search">
         <div class="container">
             <div class="blog-search-box">
@@ -141,23 +135,18 @@ function getBadge(array $row): array {
         </div>
     </section>
 
-    <!-- ══════════════════════════════════
-         BLOG GRID
-    ══════════════════════════════════ -->
     <section class="blog-grid">
         <div class="container">
 
             <div id="blogGrid" class="row g-4">
 
                 <?php
-                // Encode all data as JSON for JS sorting/filtering
                 $blogsJson = [];
 
                 foreach ($blogs as $i => $row):
                     $b       = getBadge($row);
-                    $isWide  = (($i + 1) % 7 === 0); // every 7th card spans full row
+                    $isWide  = (($i + 1) % 7 === 0);
 
-                    // Collect data for JS
                     $blogsJson[] = [
                             'id'         => $row['id'],
                             'title'      => $row['namefull'],
@@ -225,9 +214,8 @@ function getBadge(array $row): array {
 
                 <?php endforeach; ?>
 
-            </div><!-- #blogGrid -->
+            </div>
 
-            <!-- Empty state -->
             <div id="blogEmpty" class="blog-empty" style="display:none;">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <p>مقاله‌ای با این عنوان یافت نشد.</p>
@@ -237,9 +225,6 @@ function getBadge(array $row): array {
     </section>
 
 
-    <!-- ══════════════════════════════════
-         SPOTLIGHT (featured article)
-    ══════════════════════════════════ -->
     <?php if (!empty($featured)): ?>
         <?php $f = getBadge($featured); ?>
 
