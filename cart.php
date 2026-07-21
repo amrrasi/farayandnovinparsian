@@ -96,7 +96,6 @@ $isEmpty = empty($cartItems);
                         <div class="cart-item reveal"
                              data-id="<?= $item['id'] ?>">
 
-                            <!-- Thumbnail -->
                             <?php if (!empty($item['thumbnail'])): ?>
                                 <img src="cms/<?= htmlspecialchars($item['thumbnail']) ?>"
                                      alt="<?= htmlspecialchars($item['name']) ?>"
@@ -108,12 +107,10 @@ $isEmpty = empty($cartItems);
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Info -->
                             <div class="cart-item-info">
                                 <div class="cart-item-name"><?= htmlspecialchars($item['name']) ?></div>
                                 <div class="cart-item-unit-price"></div>
 
-                                <!-- Qty control -->
                                 <div class="cart-item-qty">
                                     <button class="qty-btn btn-minus"
                                             data-id="<?= $item['id'] ?>"
@@ -129,7 +126,6 @@ $isEmpty = empty($cartItems);
                                 </div>
                             </div>
 
-                            <!-- Price + remove -->
                             <div class="cart-item-actions">
                                 <div class="cart-item-price" id="price-<?= $item['id'] ?>">
                                     نامشخص
@@ -145,7 +141,6 @@ $isEmpty = empty($cartItems);
                     <?php endforeach; ?>
                 </div>
 
-                <!-- Clear all -->
                 <div class="cart-clear-row">
                     <button class="btn-clear-cart" id="btnClearCart">
                         <i class="fas fa-broom"></i>
@@ -156,7 +151,6 @@ $isEmpty = empty($cartItems);
             <?php endif; ?>
         </div>
 
-        <!-- ══ RIGHT — Summary ══ -->
         <div class="cart-summary" id="cartSummary" <?= $isEmpty ? 'style="display:none"' : '' ?>>
 
             <div class="cart-summary-header">
