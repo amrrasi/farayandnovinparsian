@@ -14,7 +14,10 @@
 require_once '../../cms/myadmin/inc/config.php';
 
 $uid = (int) $_SESSION['user']['id'];
-
+if (empty($_SESSION['user']['id'])) {
+    header('Location: ../entry/');
+    exit;
+}
 $stmt = $pdo->prepare("
     SELECT
         cm.id,
