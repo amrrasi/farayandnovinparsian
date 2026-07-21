@@ -42,12 +42,10 @@ try {
 
     $stmt->close();
 
-    // اگر ایمیل وجود نداشت
     if (!$user) {
         jsonRespond(true, $genericMessage, ['step' => 'otp']);
     }
 
-    // بررسی محدودیت ارسال مجدد
     if (!empty($user['otp_last_sent_at'])) {
 
         $secondsSinceLast = time() - strtotime($user['otp_last_sent_at']);
