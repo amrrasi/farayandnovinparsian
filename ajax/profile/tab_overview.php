@@ -2,7 +2,10 @@
 require_once '../../cms/myadmin/inc/config.php';
 
 $uid = $_SESSION['user']['id'];
-
+if (empty($_SESSION['user']['id'])) {
+    header('Location: ../entry/');
+    exit;
+}
 $lastOrderStmt = $pdo->prepare("
     SELECT o.*, s.status_name
     FROM `orders` o
