@@ -22,14 +22,12 @@ while($row = $result->fetch_assoc()){
 <nav class="hp-nav">
     <div class="hp-nav-inner">
 
-        <!-- Logo -->
         <a class="hp-logo" href="./">
             <img src="assets/images/logo.png"
                  alt="<?= htmlspecialchars(setting('name') ?? 'ParsEMC') ?>"
                  height="52" loading="eager">
         </a>
 
-        <!-- Desktop nav links -->
         <ul class="hp-links" id="hpLinks">
             <li><a href="./"><span class="fa fa-house"></span> خانه</a></li>
 
@@ -76,7 +74,6 @@ while($row = $result->fetch_assoc()){
             <li><a href="about-us/">درباره ما</a></li>
         </ul>
 
-        <!-- Right-side actions -->
         <div class="hp-actions">
             <a href="cart/" class="hp-icon-btn" title="سبد خرید">
                 <span class="cart-badge"><?= $cartCount ?></span>
@@ -100,7 +97,6 @@ while($row = $result->fetch_assoc()){
             </button>
         </div>
 
-        <!-- Hamburger (mobile only) -->
         <button class="hp-burger" id="hpBurger" aria-label="باز/بستن منو">
             <span></span><span></span><span></span>
         </button>
