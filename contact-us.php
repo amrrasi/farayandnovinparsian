@@ -27,18 +27,13 @@ require_once "cms/myadmin/inc/config.php";
           href="assets/css/pages/contact-us.css?v=<?php echo filemtime('assets/css/pages/contact-us.css'); ?>">
 <body>
 
-<!-- header -->
 <?php require_once "inc/header.php" ?>
 
-<!--=========================================
-Contact Form
-==========================================-->
 
 <div class="contact-form-container mt-5">
 
     <div class="contact-form-card">
 
-        <!-- Top -->
 
         <div class="form-top">
 
@@ -67,7 +62,6 @@ Contact Form
 
             </div>
 
-            <!-- Progress -->
 
             <div class="form-progress">
 
@@ -93,7 +87,6 @@ Contact Form
 
         </div>
 
-        <!-- Ajax Messages -->
 
         <div id="formAlert"></div>
 
@@ -112,12 +105,6 @@ Contact Form
                 novalidate>
 
             <div class="row gy-4">
-
-                <!--================================-->
-
-                <!-- Full Name -->
-
-                <!--================================-->
 
                 <div class="col-lg-6">
 
@@ -152,12 +139,6 @@ Contact Form
                     <small class="error-text"></small>
 
                 </div>
-
-                <!--================================-->
-
-                <!-- Mobile -->
-
-                <!--================================-->
 
                 <div class="col-lg-6">
 
@@ -197,12 +178,6 @@ Contact Form
 
                 </div>
 
-                <!--================================-->
-
-                <!-- Email -->
-
-                <!--================================-->
-
                 <div class="col-lg-6">
 
                     <div class="floating-input">
@@ -235,11 +210,6 @@ Contact Form
 
                 </div>
 
-                <!--================================-->
-
-                <!-- Subject -->
-
-                <!--================================-->
                 <div class="col-lg-6">
 
                     <div class="floating-input">
@@ -269,12 +239,6 @@ Contact Form
                     <small class="error-text"></small>
 
                 </div>
-
-                <!--================================-->
-
-                <!-- Message -->
-
-                <!--================================-->
 
                 <div class="col-12">
 
@@ -325,12 +289,6 @@ Contact Form
 
                 </div>
 
-                <!--================================-->
-
-                <!-- Upload -->
-
-                <!--================================-->
-
                 <div class="col-12">
 
                     <div class="upload-box">
@@ -367,12 +325,6 @@ Contact Form
 
                 </div>
 
-                <!--================================-->
-
-                <!-- Privacy -->
-
-                <!--================================-->
-
                 <div class="col-12">
 
                     <div class="privacy-box">
@@ -396,12 +348,6 @@ Contact Form
                     </div>
 
                 </div>
-
-                <!--================================-->
-
-                <!-- Submit -->
-
-                <!--================================-->
 
                 <div class="col-12">
 
@@ -445,7 +391,6 @@ Contact Form
 
 </div>
 
-<!-- footer -->
 <?php require_once "inc/footer.php" ?>
 
 
