@@ -45,7 +45,6 @@ $initials = profile_initials($_SESSION['user']['name']);
 
     <aside class="pf-side card-glass">
 
-        <!-- shown on desktop only -->
         <div class="pf-side-head">
             <div class="pf-avatar" aria-hidden="true">
                 <?= htmlspecialchars($initials, ENT_QUOTES, 'UTF-8') ?>
@@ -60,7 +59,6 @@ $initials = profile_initials($_SESSION['user']['name']);
             </div>
         </div>
 
-        <!-- nav tabs -->
         <nav class="pf-nav" role="tablist" aria-label="بخش‌های پروفایل">
             <span class="pf-nav-rail" aria-hidden="true"></span>
 
@@ -96,16 +94,12 @@ $initials = profile_initials($_SESSION['user']['name']);
             </button>
         </nav>
 
-        <!-- logout — always visible as last item -->
         <a href="ajax/auth/logout.php" class="pf-logout" title="خروج از حساب">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
             <span>خروج</span>
         </a>
     </aside>
 
-    <!-- ════════════════════════════════════
-         MAIN PANEL
-         ════════════════════════════════════ -->
     <main class="pf-main">
         <div id="pf-toast" class="pf-toast" role="status" aria-live="polite"></div>
 
