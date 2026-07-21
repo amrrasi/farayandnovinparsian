@@ -169,9 +169,6 @@ $categorySlug = url_slug($product['name'])
         <span>لینک محصول کپی شد!</span>
     </div>
 </div>
-<!--==========================================
-PRODUCT HERO
-===========================================-->
 <section class="product-single mt-5">
     <div class="container">
 
@@ -388,9 +385,6 @@ PRODUCT HERO
 </section>
 
 
-<!--==========================================
-RELATED PRODUCTS
-===========================================-->
 <?php if (!empty($related)): ?>
     <section class="related-products">
         <div class="container">
@@ -543,7 +537,6 @@ RELATED PRODUCTS
 
                     $(".cart-count").text(res.count);
 
-                    // Persist the message across the reload so it can be shown once the new page loads.
                     sessionStorage.setItem("cartToastMessage", res.message);
 
                     location.reload();
