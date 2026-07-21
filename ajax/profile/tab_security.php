@@ -1,5 +1,9 @@
 <?php
 require_once '../../cms/myadmin/inc/config.php';
+if (empty($_SESSION['user']['id'])) {
+    header('Location: ../entry/');
+    exit;
+}
 ?>
 <div class="pf-security">
     <div class="pf-panel-title">
