@@ -31,9 +31,6 @@ require_once "cms/myadmin/inc/config.php"
 
 <?php require_once "inc/header.php" ?>
 
-<!-- ==========================================
-Terms Hero
-========================================== -->
 
 <section class="terms-hero reveal">
 
@@ -84,10 +81,6 @@ Terms Hero
 
 </section>
 
-
-<!-- ==========================================
-Terms Content
-========================================== -->
 
 <section class="terms-section">
 
@@ -157,8 +150,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t1">
 
                 <span class="term-number">
@@ -198,8 +189,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t2">
 
                 <span class="term-number">
@@ -228,8 +217,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t3">
 
@@ -267,8 +254,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t4">
 
@@ -310,8 +295,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t5">
 
@@ -364,8 +347,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t6">
 
                 <span class="term-number">
@@ -388,7 +369,6 @@ Terms Content
                 
 
             </div>
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t7">
 
@@ -416,8 +396,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t8">
 
@@ -451,8 +429,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t9">
 
@@ -489,8 +465,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t10">
 
                 <span class="term-number">10</span>
@@ -523,8 +497,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t11">
 
@@ -561,8 +533,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t12">
 
                 <span class="term-number">12</span>
@@ -582,7 +552,6 @@ Terms Content
                 </p>
 
             </div>
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t13">
 
@@ -627,8 +596,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t14">
 
                 <span class="term-number">14</span>
@@ -661,8 +628,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t15">
 
@@ -706,8 +671,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t16">
 
@@ -758,8 +721,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t17">
 
                 <span class="term-number">17</span>
@@ -795,8 +756,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t18">
 
                 <span class="term-number">18</span>
@@ -830,7 +789,6 @@ Terms Content
                 </ul>
 
             </div>
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t19">
 
@@ -869,8 +827,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t20">
 
                 <span class="term-number">20</span>
@@ -891,8 +847,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t21">
 
@@ -929,8 +883,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t22">
 
                 <span class="term-number">22</span>
@@ -952,8 +904,6 @@ Terms Content
             </div>
 
 
-            <!-- ========================= -->
-
             <div class="terms-card reveal" id="t23">
 
                 <span class="term-number">23</span>
@@ -968,8 +918,6 @@ Terms Content
 
             </div>
 
-
-            <!-- ========================= -->
 
             <div class="terms-card reveal" id="t24">
 
