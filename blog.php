@@ -1,10 +1,6 @@
 <?php
 require_once "cms/myadmin/inc/config.php";
 
-// ─────────────────────────────────────────
-//  ROUTER — get slug from URL
-//  e.g.  /blog/my-article-slug
-// ─────────────────────────────────────────
 $slug = trim($_GET['slug'] ?? '', '/');
 
 if (empty($slug)) {
@@ -12,9 +8,6 @@ if (empty($slug)) {
     exit;
 }
 
-// ─────────────────────────────────────────
-//  MAIN ARTICLE
-// ─────────────────────────────────────────
 $stmt = $pdo->prepare("
     SELECT *
     FROM page
@@ -28,21 +21,14 @@ $blog = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$blog) {
     http_response_code(404);
-    // include your 404 page or redirect
     header('Location: ' . $baseAddress . '404');
     exit;
 }
 
-// ─────────────────────────────────────────
-//  INCREMENT VISIT COUNT
-// ─────────────────────────────────────────
 $pdo->prepare("UPDATE page SET visit = visit + 1 WHERE id = :id")
         ->execute([':id' => $blog['id']]);
-$blog['visit']++; // reflect in current request
+$blog['visit']++;
 
-// ─────────────────────────────────────────
-//  READING META
-// ─────────────────────────────────────────
 function wordCountFa(string $html): int
 {
     $text = html_entity_decode(strip_tags($html));
@@ -65,9 +51,6 @@ elseif ($blog['visit'] >= 1000) { $badge = 'HOT';   $badgeClass = 'badge-hot'; }
 elseif ($words >= 1800)       { $badge = 'PRO';     $badgeClass = 'badge-pro'; }
 else                          { $badge = 'ARTICLE'; $badgeClass = 'badge-read'; }
 
-// ─────────────────────────────────────────
-//  RELATED ARTICLES  (same parent_id, exclude self)
-// ─────────────────────────────────────────
 $relatedStmt = $pdo->prepare("
     SELECT id, namefull, seo_slug, thumb, abstract, visit, created_at, body
     FROM page
@@ -84,7 +67,6 @@ $relatedStmt->execute([
 ]);
 $related = $relatedStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fallback: if not enough related, fill with latest popular
 if (count($related) < 3) {
     $existingIds = array_merge([$blog['id']], array_column($related, 'id'));
     $placeholders = implode(',', array_fill(0, count($existingIds), '?'));
@@ -101,9 +83,6 @@ if (count($related) < 3) {
     $related = array_merge($related, $fallbackStmt->fetchAll(PDO::FETCH_ASSOC));
 }
 
-// ─────────────────────────────────────────
-//  SEO / SHARE URL
-// ─────────────────────────────────────────
 $pageUrl   = ($baseAddress . 'blog/' . htmlspecialchars($blog['seo_slug']));
 $pageTitle = htmlspecialchars($blog['seo_title'] ?: $blog['namefull']);
 $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
@@ -120,20 +99,17 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
         <meta name="keywords" content="<?= htmlspecialchars($blog['seo_keywords']) ?>">
     <?php endif; ?>
 
-    <!-- Open Graph -->
     <meta property="og:type"        content="article">
     <meta property="og:title"       content="<?= $pageTitle ?>">
     <meta property="og:description" content="<?= $pageDesc ?>">
     <meta property="og:url"         content="<?= $pageUrl ?>">
     <meta property="og:image"       content="<?= htmlspecialchars($blog['thumb']) ?>">
 
-    <!-- Twitter Card -->
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:title"       content="<?= $pageTitle ?>">
     <meta name="twitter:description" content="<?= $pageDesc ?>">
     <meta name="twitter:image"       content="<?= htmlspecialchars($blog['thumb']) ?>">
 
-    <!-- Article Schema -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -164,9 +140,6 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
 </head>
 <body class="single-blog-body">
 
-<!-- ══════════════════════════════════════════
-     TOP READING PROGRESS BAR
-══════════════════════════════════════════ -->
 <div class="top-reading-bar" id="topReadingBar">
     <div class="top-reading-fill" id="topReadingFill"></div>
 </div>
@@ -175,9 +148,6 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
 
 <main class="single-blog-page">
 
-    <!-- ══════════════════════════════════
-         BREADCRUMB
-    ══════════════════════════════════ -->
     <section class="blog-breadcrumb">
         <div class="container">
             <nav aria-label="breadcrumb">
@@ -215,9 +185,6 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
     </section>
 
 
-    <!-- ══════════════════════════════════
-         HERO
-    ══════════════════════════════════ -->
     <header class="article-hero">
         <div class="container">
             <div class="row justify-content-center">
@@ -262,9 +229,6 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
     </header>
 
 
-    <!-- ══════════════════════════════════
-         COVER IMAGE  (parallax wrapper)
-    ══════════════════════════════════ -->
     <section class="article-cover">
         <div class="container">
             <div class="cover-wrapper" id="coverParallax">
@@ -279,15 +243,11 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
     </section>
 
 
-    <!-- ══════════════════════════════════
-         CONTENT AREA
-    ══════════════════════════════════ -->
     <section class="article-body-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-9 col-lg-10">
 
-                    <!-- TABLE OF CONTENTS (auto-generated by JS) -->
                     <div class="toc-box" id="tocBox" style="display:none;">
                         <div class="toc-header">
                             <i class="fa-solid fa-list-ul"></i>
@@ -299,7 +259,6 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
                         <nav class="toc-nav" id="tocNav"></nav>
                     </div>
 
-                    <!-- ARTICLE BODY -->
                     <article class="article-body" id="articleBody">
                         <?= $blog['body'] ?>
                     </article>
@@ -310,9 +269,6 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
     </section>
 
 
-    <!-- ══════════════════════════════════
-         RELATED ARTICLES
-    ══════════════════════════════════ -->
     <?php if (!empty($related)): ?>
         <section class="related-articles">
             <div class="container">
@@ -363,7 +319,7 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
         </section>
     <?php endif; ?>
 
-</main><!-- /single-blog-page -->
+</main>
 
 
 
