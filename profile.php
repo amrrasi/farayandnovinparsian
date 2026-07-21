@@ -1,6 +1,10 @@
 <?php
 require_once  'cms/myadmin/inc/config.php';
 require_once  'cms/myadmin/inc/auth_helpers.php';
+if (empty($_SESSION['user']['id'])) {
+    header('Location: ../entry/');
+    exit;
+}
 
 $ordersCountStmt = $pdo->prepare("SELECT COUNT(*) FROM `orders` WHERE `user_id` = :uid AND `deleted` = 0");
 $ordersCountStmt->execute([':uid' => $_SESSION['user']['id']]);
