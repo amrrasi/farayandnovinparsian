@@ -30,7 +30,6 @@ if ($categorySlug !== 'all-product') {
 }
 
 if ($categorySlug === 'all-product' || $activeMenu === null) {
-    // Show everything
     $prodStmt = $pdo->query("
         SELECT p.*, pm.name AS menu_name
         FROM   product p
@@ -126,7 +125,6 @@ $pageTitle = $activeMenu
 <section class="products-hero">
     <div class="container">
 
-        <!-- Breadcrumb -->
         <div class="hero-breadcrumb">
             <a href="./"><i class="fa-solid fa-house"></i> خانه</a>
             <i class="fa-solid fa-angle-left"></i>
@@ -237,9 +235,6 @@ $pageTitle = $activeMenu
 <!--</nav>-->
 
 
-<!-- ================================================================
-     FILTER BAR
-     ================================================================ -->
 <div class="filter-bar">
     <div class="container">
         <div class="filter-inner">
@@ -270,9 +265,6 @@ $pageTitle = $activeMenu
 </div>
 
 
-<!-- ================================================================
-     PRODUCTS MASONRY GRID
-     ================================================================ -->
 <section class="products-masonry-section" id="products-list">
     <div class="container">
         <div class="masonry-grid" id="masonryGrid">
@@ -290,7 +282,6 @@ $pageTitle = $activeMenu
 
                     $productUrl = "product/{$slug}";
 
-                    // Category label for the card
                     $cardCategory = $product['menu_name'] ?? ($activeMenu ? $activeMenu['name'] : 'محصولات سازمانی');
                     $menuId       = $product['product_menu_id'] ?? 0;
                     ?>
@@ -368,14 +359,11 @@ $pageTitle = $activeMenu
                 </div>
             <?php endif; ?>
 
-        </div><!-- /masonry-grid -->
+        </div>
     </div>
 </section>
 
 
-<!-- ================================================================
-     CONSULTANT SECTION
-     ================================================================ -->
 <section class="consultant-section">
     <div class="container">
         <div class="consultant-inner">
@@ -410,7 +398,6 @@ $pageTitle = $activeMenu
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/main.js"></script>
 
-<!-- Pass PHP menu data to JS -->
 <script>
     const MENU_DATA = <?= json_encode(array_map(function($m) {
         return [
