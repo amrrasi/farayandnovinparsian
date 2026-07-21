@@ -1,6 +1,3 @@
-<!-- ══════════════════════════════════════════
-     FLOATING ACTION CARD
-══════════════════════════════════════════ -->
 <aside class="floating-card" id="floatingCard" aria-label="ابزارهای مقاله">
 
     <div class="fac-item fac-time" title="زمان مطالعه">
@@ -41,7 +38,6 @@
         <small id="readingPercent">0%</small>
 
     </div>
-    <!-- Copy toast -->
     <div class="fac-toast" id="facToast">لینک کپی شد!</div>
 
 </aside>
