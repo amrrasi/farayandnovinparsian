@@ -2612,6 +2612,5 @@ CUSTOM SCROLLBAR
 }
 
 #floatingDock {
-    left: 0 !important;
-    right: 28px !important;
+    display: none !important;
 }
