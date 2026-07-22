@@ -890,3 +890,7 @@ Mobile
     .related-articles { padding-top: 44px; padding-bottom: 64px; }
     .bc-current { max-width: 160px; }
 }
+
+#floatingDock {
+    display: none !important;
+}
