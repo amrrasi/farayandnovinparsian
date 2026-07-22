@@ -237,3 +237,21 @@
     </div>
 
 </footer>
+
+<div class="floating-dock" id="floatingDock" >
+
+    <a href="tel:+982112345678" class="dock-call" id="dockCall" title="تماس" aria-label="تماس با ما">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+        <span class="dock-call-label">تماس</span>
+    </a>
+
+
+    <button class="dock-top" id="goTop" title="بازگشت به بالا" aria-label="بازگشت به بالای صفحه">
+        <svg class="dock-progress" viewBox="0 0 52 52" aria-hidden="true">
+            <circle class="progress-track" cx="26" cy="26" r="22"/>
+            <circle class="progress-bar"  cx="26" cy="26" r="22" id="scrollBar"/>
+        </svg>
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+</div>

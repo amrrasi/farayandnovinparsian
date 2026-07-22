@@ -373,3 +373,179 @@
     }
 
 }
+
+/* ── Capsule ── */
+.floating-dock {
+    position: fixed;
+    left: 28px;
+    bottom: 28px;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    background: var(--clr-bg-2);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-pill);
+    padding: 20px;
+    height: 58px;
+
+    /* width animates on .expanded */
+    width: 58px;
+    overflow: hidden;
+    transition:
+            width 460ms cubic-bezier(.34,1.5,.64,1),
+            opacity 340ms ease,
+            transform 340ms cubic-bezier(.34,1.3,.64,1),
+            box-shadow 200ms ease;
+
+    /* hidden until scroll */
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    will-change: width, transform;
+
+    box-shadow: var(--shadow-card);
+}
+
+.floating-dock.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.floating-dock.expanded {
+    width: 148px;
+}
+
+/* ── Divider ── */
+.dock-divider {
+    width: 1px;
+    height: 22px;
+    background: var(--clr-border);
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 180ms ease 100ms;
+    margin: 0 2px;
+}
+.floating-dock.expanded .dock-divider {
+    opacity: 1;
+}
+
+/* ── GoTop button ── */
+.dock-top {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-text);
+    cursor: pointer;
+    transition: background var(--tr-fast), transform var(--tr-normal);
+    /* stays on the right side (rtl: left visually = right in DOM) */
+    order: 2;
+}
+.dock-top:hover {
+    background: rgba(79,140,255,.12);
+    transform: translateY(-2px);
+}
+.dock-top:active { transform: scale(.94); }
+.dock-top i {
+    font-size: 17px;
+    position: relative;
+    z-index: 2;
+    background: var(--grad-brand-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Progress ring ── */
+.dock-progress {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+.progress-track,
+.progress-bar {
+    fill: none;
+    stroke-width: 2.2;
+}
+.progress-track {
+    stroke: var(--clr-border);
+}
+.progress-bar {
+    stroke: var(--clr-blue);
+    stroke-linecap: round;
+    stroke-dasharray: 138.23;
+    stroke-dashoffset: 138.23;
+    transition: stroke-dashoffset 80ms linear;
+}
+
+/* ── Call link ── */
+.dock-call {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 10px 0 6px;
+    height: 46px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    color: var(--clr-text);
+    white-space: nowrap;
+    flex-shrink: 0;
+    order: 1;
+
+    /* hidden → grows in from left */
+    opacity: 0;
+    transform: scale(.75) translateX(12px);
+    transition:
+            opacity 240ms cubic-bezier(.4,0,.2,1) 60ms,
+            transform 360ms cubic-bezier(.34,1.4,.64,1) 40ms,
+            background var(--tr-fast);
+    pointer-events: none;
+}
+.floating-dock.expanded .dock-call {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+    pointer-events: all;
+}
+.dock-call:hover {
+    background: rgba(34,197,94,.1);
+}
+.dock-call i {
+    font-size: 15px;
+    color: var(--clr-success);
+    flex-shrink: 0;
+}
+.dock-call-label {
+    font-family: var(--font-base);
+    font-size: 13px;
+    font-weight: var(--fw-medium);
+    color: var(--clr-text);
+}
+
+/* ── Mobile: center bottom ── */
+@media (max-width: 768px) {
+    .floating-dock {
+        left: 50%;
+        right: auto;
+        bottom: 18px;
+        transform: translateX(-50%) translateY(16px);
+    }
+    .floating-dock.visible {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+    .floating-dock,
+    .dock-call,
+    .progress-bar { transition: none; }
+}

@@ -1,5 +1,41 @@
 (() => {
 
+    (function () {
+        const dock     = document.getElementById('floatingDock');
+        const goTop    = document.getElementById('goTop');
+        const bar      = document.getElementById('scrollBar');
+        const CIRCUM   = 138.23;
+        const SHOW_AT  = 180;
+        const EXPAND_AT = 480;
+
+        let ticking = false;
+
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const scrollY  = window.scrollY;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = maxScroll > 0 ? scrollY / maxScroll : 0;
+
+                bar.style.strokeDashoffset = CIRCUM * (1 - pct);
+
+                dock.classList.toggle('visible',  scrollY > SHOW_AT);
+
+                dock.classList.toggle('expanded', scrollY > EXPAND_AT);
+
+                ticking = false;
+            });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        goTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        onScroll();
+    })();
     const html = document.documentElement;
 
     const saved = localStorage.getItem("theme");
