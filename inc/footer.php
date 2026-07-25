@@ -89,7 +89,7 @@
                     <a href="<?= setting('bale') ?>"><i><img src="assets/images/bale-icon.png"
                                                              alt="بله"
                                                              width="30"
-                                                             height="30"></i></a> 
+                                                             height="30"></i></a>
 
                 </div>
 
