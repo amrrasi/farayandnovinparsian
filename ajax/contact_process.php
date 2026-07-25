@@ -66,7 +66,7 @@ if (!empty($_FILES['attachment']['name'])) {
         respond('error', 'حجم فایل نباید بیشتر از ۵ مگابایت باشد.');
     }
 
-    $uploadDir = __DIR__ . '/cms/myupload/contact/';
+    $uploadDir = '../cms/myupload/contact/';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0755, true);
     }
