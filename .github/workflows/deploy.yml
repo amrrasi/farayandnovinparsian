@@ -7,6 +7,7 @@ on:
 
 jobs:
   ftp-deploy:
+    name: Deploy website
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +22,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftp
+
+          # چون FTP user مستقیم به public_html وصل است
           server-dir: /
+
           exclude: |
             **/.git*
             **/.github/**
