@@ -357,7 +357,7 @@ $initial = mb_substr(trim($ticket['fullname']) !== '' ? $ticket['fullname'] : '?
                             <?php endif; ?>
                         </div>
                         <?php if (!empty($ticket['attachment_path'])): ?>
-                            <a class="ticket-attachment" href="<?= htmlspecialchars($ticket['attachment_path']) ?>" target="_blank">
+                            <a class="ticket-attachment" href="../../<?= htmlspecialchars($ticket['attachment_path']) ?>" target="_blank">
                                 <i class="fa fa-paperclip"></i> مشاهده پیوست
                             </a>
                         <?php endif; ?>
