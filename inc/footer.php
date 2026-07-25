@@ -188,7 +188,8 @@
 
                         <i class="fas fa-phone"></i>
 
-                        <a href="tel:<?= setting('phone') ?>"><?= setting('phone') ?></a>
+                        <a href="tel:<?= setting('phone') ?>"><?= setting('phone') ?></a>,
+                        <a href="tel:<?= setting('phone2') ?>"><?= setting('phone2') ?></a>
 
                     </div>
 
