@@ -101,7 +101,7 @@
         $submitBtn.prop("disabled", true);
 
         $.ajax({
-            url: "ahax/contact_process.php",
+            url: "ajax/contact_process.php",
             type: "POST",
             data: formData,
             processData: false,
