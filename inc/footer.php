@@ -80,13 +80,13 @@
 
                 <div class="footer-social">
 
-                    <a href="<?= setting('email') ?>"><i class="fas fa-envelope"></i></a>
+                    <a href="<?= setting('email') ?>" target="_blank"><i class="fas fa-envelope"></i></a>
 
-                    <a href="<?= setting('telegram') ?>"><i class="fab fa-telegram"></i></a>
+                    <a href="<?= setting('telegram') ?>" target="_blank"><i class="fab fa-telegram"></i></a>
 
-                    <a href="<?= setting('whatsapp') ?>"><i class="fab fa-whatsapp"></i></a>
+                    <a href="<?= setting('whatsapp') ?>" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-                    <a href="<?= setting('bale') ?>"><i><img src="assets/images/bale-icon.png"
+                    <a href="<?= setting('bale') ?>" target="_blank"><i><img src="assets/images/bale-icon.png"
                                                              alt="بله"
                                                              width="30"
                                                              height="30"></i></a>
