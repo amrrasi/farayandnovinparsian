@@ -143,8 +143,8 @@ if ($email !== '') {
 
         $mail->send();
     } catch (PHPMailerException $e) {
-//        respond('warning', 'درخواست شما با موفقیت ثبت شد، اما ارسال ایمیل تأیید با خطا مواجه شد.');
-        respond('error', $mail->ErrorInfo);
+        respond('warning', 'درخواست شما با موفقیت ثبت شد، اما ارسال ایمیل تأیید با خطا مواجه شد.');
+//        respond('error', $mail->ErrorInfo);
     }
 }
 
