@@ -129,7 +129,7 @@ if ($email !== '') {
 
         $siteName = function_exists('setting') ? setting('name') : 'فرآیند نوین';
 
-        $mail->setFrom('', $siteName);
+        $mail->setFrom('info@fanapit.com', $siteName);
         $mail->addAddress($email, $fullname);
 
         if ($attachmentAbsPath) {
@@ -143,7 +143,8 @@ if ($email !== '') {
 
         $mail->send();
     } catch (PHPMailerException $e) {
-        respond('warning', 'درخواست شما با موفقیت ثبت شد، اما ارسال ایمیل تأیید با خطا مواجه شد.');
+//        respond('warning', 'درخواست شما با موفقیت ثبت شد، اما ارسال ایمیل تأیید با خطا مواجه شد.');
+        respond('error', $mail->ErrorInfo);
     }
 }
 
