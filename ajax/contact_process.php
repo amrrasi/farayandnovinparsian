@@ -117,10 +117,10 @@ if ($email !== '') {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host       = '';
+        $mail->Host       = 'mail.fanapit.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = '';
-        $mail->Password   = '';
+        $mail->Username   = 'info@fanapit.com';
+        $mail->Password   = '[P{u&;Z$6G(kT%1N';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
 
