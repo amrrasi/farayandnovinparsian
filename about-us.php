@@ -103,6 +103,9 @@ require_once "cms/myadmin/inc/config.php"
                             <h3>شماره تماس</h3>
                             <p>
                                 <a href="tel:<?= setting('phone') ?>"><?= setting('phone') ?> </a>
+                                <br>
+                                <a href="tel:<?= setting('phone2') ?>"><?= setting('phone2') ?> </a>
+
                             </p>
                         </div>
 
