@@ -29,8 +29,8 @@ require_once "cms/myadmin/inc/config.php"
 </head>
 <body>
 
-<?php //require_once "inc/header.php" ?>
-  
+<?php require_once "inc/header.php" ?>
+
 <section class="hp-hero">
 
     <div class="hp-grid" aria-hidden="true"></div>
