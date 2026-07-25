@@ -240,7 +240,7 @@
 
 <div class="floating-dock" id="floatingDock" >
 
-    <a href="tel:+982112345678" class="dock-call" id="dockCall" title="تماس" aria-label="تماس با ما">
+    <a href="tel:<?= setting('phone') ?>" class="dock-call" id="dockCall" title="تماس" aria-label="تماس با ما">
         <i class="fa-solid fa-phone" aria-hidden="true"></i>
         <span class="dock-call-label">تماس</span>
     </a>
