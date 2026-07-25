@@ -7,7 +7,6 @@ on:
 
 jobs:
   ftp-deploy:
-    name: Deploy website
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +19,9 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
-
-          server-dir: /public_html/
-
+          port: 21
+          protocol: ftp
+          server-dir: /
           exclude: |
             **/.git*
             **/.github/**
