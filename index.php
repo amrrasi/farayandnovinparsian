@@ -725,13 +725,13 @@ while ($row = $result->fetch_assoc()) {
 
                 <div class="about-buttons">
 
-                    <a href="" class="btn-primary-custom">
+                    <a href="about-us/" class="btn-primary-custom">
 
                         درباره ما
 
                     </a>
 
-                    <a href="" class="btn-outline-custom">
+                    <a href="contact-us/" class="btn-outline-custom">
 
                         تماس با کارشناسان
 
