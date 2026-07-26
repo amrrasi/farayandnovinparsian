@@ -83,11 +83,13 @@ $dna_map = [
         'default'     => ['performance'=>100,'security'=>100,'scalability'=>100,'cloud'=>100],
 ];
 
-function str_contains(string $haystack, string $needle): bool {}
-function get_dna(string $slug, array $map): array {
+function get_dna(string $slug, array $map): array
+{
     $slug = strtolower($slug);
     foreach ($map as $key => $vals) {
-        if ($key !== 'default' && str_contains($slug, $key)) return $vals;
+        if ($key !== 'default' && strpos($slug, $key) !== false) {
+            return $vals;
+        }
     }
     return $map['default'];
 }
