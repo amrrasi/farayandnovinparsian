@@ -1,5 +1,5 @@
 <?php
-require_once "cms/myadmin/inc/config.php"
+require_once "cms/myadmin/inc/config.php";
 ?>
 <!doctype html>
 <html lang="fa" dir="rtl">
