@@ -86,7 +86,7 @@ require_once "cms/myadmin/inc/config.php";
                             <div class="image-bg"></div>
 
                             <img
-                                    src="assets/images/team/team.jpg"
+                                    src="assets/images/team/team.png"
                                     alt="Founder">
 
                             <span class="founder-badge">
@@ -348,7 +348,7 @@ require_once "cms/myadmin/inc/config.php";
 
                     <div class="member-image">
 
-                        <img src="assets/images/team/team.jpg" alt="">
+                        <img src="assets/images/team/team.png" alt="">
 
                         <span class="member-status online">
 
@@ -400,7 +400,7 @@ require_once "cms/myadmin/inc/config.php";
 
                     <div class="member-image">
 
-                        <img src="assets/images/team/team.jpg" alt="">
+                        <img src="assets/images/team/team.png" alt="">
 
                         <span class="member-status busy">
 
@@ -451,7 +451,7 @@ require_once "cms/myadmin/inc/config.php";
 
                     <div class="member-image">
 
-                        <img src="assets/images/team/team.jpg" alt="">
+                        <img src="assets/images/team/team.png" alt="">
 
                         <span class="member-status online">
 
@@ -536,7 +536,7 @@ require_once "cms/myadmin/inc/config.php";
 
                     <div class="member-image">
 
-                        <img src="assets/images/team/team.jpg" alt="">
+                        <img src="assets/images/team/team.png" alt="">
 
                         <span class="member-status online">
 
@@ -588,7 +588,7 @@ require_once "cms/myadmin/inc/config.php";
 
                     <div class="member-image">
 
-                        <img src="assets/images/team/team.jpg" alt="">
+                        <img src="assets/images/team/team.png" alt="">
 
                         <span class="member-status busy">
 
@@ -638,7 +638,7 @@ require_once "cms/myadmin/inc/config.php";
 
                     <div class="member-image">
 
-                        <img src="assets/images/team/team.jpg" alt="">
+                        <img src="assets/images/team/team.png" alt="">
 
                         <span class="member-status online">
 
@@ -816,25 +816,25 @@ require_once "cms/myadmin/inc/config.php";
 <!---->
 <!--                <div class="gallery-item">-->
 <!---->
-<!--                    <img src="assets/images/team/team.jpg" alt="">-->
+<!--                    <img src="assets/images/team/team.png" alt="">-->
 <!---->
 <!--                </div>-->
 <!---->
 <!--                <div class="gallery-item tall">-->
 <!---->
-<!--                    <img src="assets/images/team/team.jpg" alt="">-->
+<!--                    <img src="assets/images/team/team.png" alt="">-->
 <!---->
 <!--                </div>-->
 <!---->
 <!--                <div class="gallery-item">-->
 <!---->
-<!--                    <img src="assets/images/team/team.jpg" alt="">-->
+<!--                    <img src="assets/images/team/team.png" alt="">-->
 <!---->
 <!--                </div>-->
 <!---->
 <!--                <div class="gallery-item wide">-->
 <!---->
-<!--                    <img src="assets/images/team/team.jpg" alt="">-->
+<!--                    <img src="assets/images/team/team.png" alt="">-->
 <!---->
 <!--                </div>-->
 <!---->
