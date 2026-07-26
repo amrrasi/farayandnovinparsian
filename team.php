@@ -117,7 +117,7 @@ require_once "cms/myadmin/inc/config.php";
 
                             <h5>
 
-                                مدیرعامل
+                                مدیرعامل و مدیریت فروش
 
                             </h5>
 
@@ -141,40 +141,44 @@ require_once "cms/myadmin/inc/config.php";
                             </blockquote>
 
 
-                            <div class="founder-tech">
-
-                                <span>PHP</span>
-
-                                <span>Linux</span>
-
-                                <span>MySQL</span>
-
-                                <span>Docker</span>
-
-                                <span>Cisco</span>
-
-                                <span>Mikrotik</span>
-
-                            </div>
+<!--                            <div class="founder-tech">-->
+<!---->
+<!--                                <span>PHP</span>-->
+<!---->
+<!--                                <span>Linux</span>-->
+<!---->
+<!--                                <span>MySQL</span>-->
+<!---->
+<!--                                <span>Docker</span>-->
+<!---->
+<!--                                <span>Cisco</span>-->
+<!---->
+<!--                                <span>Mikrotik</span>-->
+<!---->
+<!--                            </div>-->
 
 
                             <div class="founder-social">
 
-                                <a href="#">
+                                <a href="<?= setting('telegram') ?>">
 
-                                    <i class="fab fa-linkedin-in"></i>
+                                    <i class="fab fa-telegram"></i>
+
+                                </a>
+
+                                <a href="<?= setting('whatsapp') ?>">
+
+                                    <i class="fab fa-whatsapp"></i>
 
                                 </a>
 
                                 <a href="#">
 
-                                    <i class="fab fa-github"></i>
-
-                                </a>
-
-                                <a href="#">
-
-                                    <i class="fas fa-envelope"></i>
+                                    <i><img src="assets/images/bale-icon.png"
+                                            alt="بله"
+                                            width="30"
+                                            height="30" >
+                                    </i>
 
                                 </a>
 
@@ -350,44 +354,37 @@ require_once "cms/myadmin/inc/config.php";
 
                         <img src="assets/images/team/team.png" alt="">
 
-                        <span class="member-status online">
-
-                        Available
-
-                    </span>
-
+                        <span class="member-status offline">
+                        </span>
                     </div>
 
                     <div class="member-content">
 
                         <h3>
 
-                           آقای نصیری
+                           محمدرضا نصیری
 
                         </h3>
 
                         <span class="member-role">
 
-                        Network Engineer
+                        مدیر مالی
 
-                    </span>
+                        </span>
 
                         <p>
 
-                            طراحی و اجرای زیرساخت شبکه،
-                            تجهیزات Cisco،
-                            Mikrotik
-                            و امنیت سازمانی.
+                            مدیریت مالی مجموعه <?= setting('name')?>
 
                         </p>
 
                         <div class="member-skills">
 
-                            <span>Cisco</span>
-
-                            <span>Mikrotik</span>
-
-                            <span>Routing</span>
+<!--                            <span>Cisco</span>-->
+<!---->
+<!--                            <span>Mikrotik</span>-->
+<!---->
+<!--                            <span>Routing</span>-->
 
                         </div>
 
@@ -402,11 +399,7 @@ require_once "cms/myadmin/inc/config.php";
 
                         <img src="assets/images/team/team.png" alt="">
 
-                        <span class="member-status busy">
-
-                        On Project
-
-                    </span>
+                        <span class="member-status "></span>
 
                     </div>
 
@@ -420,25 +413,23 @@ require_once "cms/myadmin/inc/config.php";
 
                         <span class="member-role">
 
-                        Backend Developer
+                             مدیرعامل
 
                     </span>
 
                         <p>
 
-                            توسعه سامانه‌های اختصاصی،
-                            API
-                            و طراحی بانک اطلاعاتی.
+                                مدیرعامل مجموعه <?= setting('name') ?>
 
                         </p>
 
                         <div class="member-skills">
 
-                            <span>PHP</span>
-
-                            <span>MySQL</span>
-
-                            <span>Linux</span>
+<!--                            <span>PHP</span>-->
+<!---->
+<!--                            <span>MySQL</span>-->
+<!---->
+<!--                            <span>Linux</span>-->
 
                         </div>
 
@@ -453,9 +444,9 @@ require_once "cms/myadmin/inc/config.php";
 
                         <img src="assets/images/team/team.png" alt="">
 
-                        <span class="member-status online">
+                        <span class="member-status ">
 
-                        Available
+
 
                     </span>
 
@@ -465,32 +456,20 @@ require_once "cms/myadmin/inc/config.php";
 
                         <h3>
 
-                            امیررضا عسکری
-
+                             امین نصیری
                         </h3>
 
                         <span class="member-role">
 
-                        Smart Home Specialist
-
+                            مدیر فنی
                     </span>
 
                         <p>
 
-                            طراحی و اجرای
-                            سیستم‌های هوشمند،
-                            KNX
-                            و BMS.
-
+                            مدیر فنی مجموعه <?= setting('name') ?>
                         </p>
 
                         <div class="member-skills">
-
-                            <span>KNX</span>
-
-                            <span>BMS</span>
-
-                            <span>IoT</span>
 
                         </div>
 
@@ -538,9 +517,9 @@ require_once "cms/myadmin/inc/config.php";
 
                         <img src="assets/images/team/team.png" alt="">
 
-                        <span class="member-status online">
+                        <span class="member-status ">
 
-                        Available
+
 
                     </span>
 
@@ -550,32 +529,31 @@ require_once "cms/myadmin/inc/config.php";
 
                         <h3>
 
-                            محمد رضایی
+                          بهنام زیدآبادی
 
                         </h3>
 
                         <span class="member-role">
 
-                        Front-End Developer
+                        انباردار
 
                     </span>
 
                         <p>
 
-                            طراحی رابط کاربری، توسعه صفحات وب،
-                            بهینه‌سازی تجربه کاربری و رابط‌های واکنش‌گرا.
+                           انباردار مجموعه <?= setting('name') ?>
 
                         </p>
 
                         <div class="member-skills">
 
-                            <span>HTML</span>
-
-                            <span>CSS</span>
-
-                            <span>JavaScript</span>
-
-                            <span>Bootstrap</span>
+<!--                            <span>HTML</span>-->
+<!---->
+<!--                            <span>CSS</span>-->
+<!---->
+<!--                            <span>JavaScript</span>-->
+<!---->
+<!--                            <span>Bootstrap</span>-->
 
                         </div>
 
@@ -590,59 +568,9 @@ require_once "cms/myadmin/inc/config.php";
 
                         <img src="assets/images/team/team.png" alt="">
 
-                        <span class="member-status busy">
-
-                        On Project
-
-                    </span>
-
-                    </div>
-
-                    <div class="member-content">
-
-                        <h3>
-
-                            حسین احمدی
-
-                        </h3>
-
-                        <span class="member-role">
-
-                        CCTV & Security
-
-                    </span>
-
-                        <p>
-
-                            طراحی و اجرای سیستم‌های نظارتی،
-                            دوربین مداربسته و کنترل تردد.
-
-                        </p>
-
-                        <div class="member-skills">
-
-                            <span>CCTV</span>
-
-                            <span>NVR</span>
-
-                            <span>Access Control</span>
-
-                        </div>
-
-                    </div>
-
-                </article>
+                        <span class="member-status ">
 
 
-                <article class="team-card center-card">
-
-                    <div class="member-image">
-
-                        <img src="assets/images/team/team.png" alt="">
-
-                        <span class="member-status online">
-
-                        Available
 
                     </span>
 
@@ -652,37 +580,86 @@ require_once "cms/myadmin/inc/config.php";
 
                         <h3>
 
-                            امیر عباسی
+                           حسین جعفری دلیوند
 
                         </h3>
 
                         <span class="member-role">
 
-                        Technical Support
+                       تسهیلدار
 
                     </span>
 
                         <p>
 
-                            پشتیبانی پروژه‌ها،
-                            عیب‌یابی،
-                            مانیتورینگ و نگهداری زیرساخت.
+                            تسهیلدار مجموعه <?= setting('name') ?>
 
                         </p>
 
                         <div class="member-skills">
 
-                            <span>Support</span>
-
-                            <span>Linux</span>
-
-                            <span>Monitoring</span>
+<!--                            <span>CCTV</span>-->
+<!---->
+<!--                            <span>NVR</span>-->
+<!---->
+<!--                            <span>Access Control</span>-->
 
                         </div>
 
                     </div>
 
                 </article>
+
+
+<!--                <article class="team-card center-card">-->
+<!---->
+<!--                    <div class="member-image">-->
+<!---->
+<!--                        <img src="assets/images/team/team.png" alt="">-->
+<!---->
+<!--                        <span class="member-status online">-->
+<!---->
+<!--                        Available-->
+<!---->
+<!--                    </span>-->
+<!---->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="member-content">-->
+<!---->
+<!--                        <h3>-->
+<!---->
+<!--                            امیر عباسی-->
+<!---->
+<!--                        </h3>-->
+<!---->
+<!--                        <span class="member-role">-->
+<!---->
+<!--                        Technical Support-->
+<!---->
+<!--                    </span>-->
+<!---->
+<!--                        <p>-->
+<!---->
+<!--                            پشتیبانی پروژه‌ها،-->
+<!--                            عیب‌یابی،-->
+<!--                            مانیتورینگ و نگهداری زیرساخت.-->
+<!---->
+<!--                        </p>-->
+<!---->
+<!--                        <div class="member-skills">-->
+<!---->
+<!--                            <span>Support</span>-->
+<!---->
+<!--                            <span>Linux</span>-->
+<!---->
+<!--                            <span>Monitoring</span>-->
+<!---->
+<!--                        </div>-->
+<!---->
+<!--                    </div>-->
+<!---->
+<!--                </article>-->
 
             </div>
 
@@ -751,7 +728,7 @@ require_once "cms/myadmin/inc/config.php";
 
                 <div class="skill-item">
 
-                    <span>Smart Building</span>
+                    <span>Servers and Storages</span>
 
                     <div class="skill-bar">
 
@@ -979,7 +956,7 @@ require_once "cms/myadmin/inc/config.php";
 
                 <span>Cisco</span>
 
-                <span>Bootstrap</span>
+                <span>Dell Storage</span>
 
                 <span>JavaScript</span>
 
