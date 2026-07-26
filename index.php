@@ -8,7 +8,6 @@ require_once "cms/myadmin/inc/config.php"
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> <?= setting('name') ?> </title>
 
-
     <link rel="stylesheet" href="assets/css/base/animate.min.css">
     <link rel="stylesheet" href="assets/css/base/flaticon.css">
     <link rel="stylesheet" href="assets/css/base/fontawesome.min.css">
@@ -19,6 +18,7 @@ require_once "cms/myadmin/inc/config.php"
     <link rel="stylesheet" href="assets/fonts/font.css">
 
     <link rel="stylesheet" href="assets/css/base/bootstrap.rtl.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.webp">
     <link rel="stylesheet" href="assets/css/base/base.css">
     <link rel="stylesheet" href="assets/css/layout/header.css">
     <link rel="stylesheet" href="assets/css/layout/footer.css">
