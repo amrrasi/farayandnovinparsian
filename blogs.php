@@ -81,7 +81,6 @@ function getBadge(array $row): array {
     <link rel="stylesheet" href="assets/fonts/font.css">
     <link rel="stylesheet" href="assets/css/base/bootstrap.rtl.css">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.webp">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.webp">
     <link rel="stylesheet" href="assets/css/base/base.css">
     <link rel="stylesheet" href="assets/css/layout/header.css">
     <link rel="stylesheet" href="assets/css/layout/footer.css">
