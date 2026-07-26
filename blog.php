@@ -123,6 +123,7 @@ $pageDesc  = htmlspecialchars($blog['seo_description'] ?: $blog['abstract']);
     }
     </script>
 
+    <meta name="description" content="<?= setting('meta_description') ?>">
     <?= $global_base_address ?>
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">

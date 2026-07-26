@@ -7,6 +7,7 @@ require_once "cms/myadmin/inc/config.php"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> <?= setting('name') ?> </title>
+    <meta name="description" content="<?= setting('meta_description') ?>">
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">
     <link rel="stylesheet" href="assets/css/base/flaticon.css">

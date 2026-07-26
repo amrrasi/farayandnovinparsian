@@ -143,6 +143,7 @@ $categorySlug = url_slug($product['name'])
     }
     </script>
 
+    <meta name="description" content="<?= setting('meta_description') ?>">
     <?= $global_base_address ?>
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">

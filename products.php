@@ -104,6 +104,7 @@ $pageTitle = $activeMenu
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars(setting('name')) ?> | <?= $pageTitle ?></title>
+    <meta name="description" content="<?= setting('meta_description') ?>">
     <?= $global_base_address ?>
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">

@@ -25,6 +25,7 @@ $initials = profile_initials($_SESSION['user']['name']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="<?= htmlspecialchars(getCsrfToken(), ENT_QUOTES, 'UTF-8') ?>">
     <title><?= htmlspecialchars(setting('name'), ENT_QUOTES, 'UTF-8') ?> | حساب کاربری</title>
+    <meta name="description" content="<?= setting('meta_description') ?>">
     <?= $global_base_address ?>
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">

@@ -23,6 +23,7 @@ $pageTitle      = 'ورود و ثبت‌نام | ' . htmlspecialchars(setting('n
     <meta name="csrf-token" content="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
     <title><?= $pageTitle ?></title>
 
+    <meta name="description" content="<?= setting('meta_description') ?>">
     <?= $global_base_address ?>
 
     <link rel="stylesheet" href="assets/css/base/animate.min.css">
