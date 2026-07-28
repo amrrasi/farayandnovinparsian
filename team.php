@@ -119,7 +119,7 @@ require_once "cms/myadmin/inc/config.php";
 
                             <h5>
 
-                                مدیرعامل و مدیریت فروش
+                                مدیرعامل و مدیر فروش
 
                             </h5>
 
