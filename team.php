@@ -174,7 +174,7 @@ require_once "cms/myadmin/inc/config.php";
 
                                 </a>
 
-                                <a href="#">
+                                <a href="<?= setting('bale')?>">
 
                                     <i><img src="assets/images/bale-icon.png"
                                             alt="بله"
