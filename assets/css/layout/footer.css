@@ -150,9 +150,9 @@
 
 .footer-logo{
 
-    height:45%;
+    height:45% !important;
     margin-bottom:30px;
-    width: 100%;
+    width: 100% !important;
 }
 
 .footer-about{
