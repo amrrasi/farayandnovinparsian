@@ -11,7 +11,6 @@ $revRow = $revStmt->get_result()->fetch_assoc();
 $totalRevenue        = (float) $revRow['total_revenue'];
 $confirmedOrdersCount = (int) $revRow['total_count'];
 
-/* revenue in the last 30 days vs the 30 days before that -> growth % */
 $rev30 = $mysqli->query("
     SELECT COALESCE(SUM(COALESCE(quoted_total, grand_total)), 0) AS r
     FROM orders
@@ -33,22 +32,18 @@ if ($revPrev30 > 0) {
     $revenueGrowth = $rev30 > 0 ? 100.0 : 0.0;
 }
 
-/* ---- 2) Headline counters ---- */
 $totalOrders   = (int) $mysqli->query("SELECT COUNT(*) AS c FROM orders WHERE deleted = 0")->fetch_assoc()['c'];
 $totalUsers    = (int) $mysqli->query("SELECT COUNT(*) AS c FROM user WHERE deleted = 0")->fetch_assoc()['c'];
 $totalProducts = (int) $mysqli->query("SELECT COUNT(*) AS c FROM product WHERE deleted = 0 AND active = 1")->fetch_assoc()['c'];
 
-/* ---- 3) Unread contact tickets (kept from the original page) ---- */
 $notifCountDash = $mysqli->prepare("SELECT COUNT(*) AS unreaded FROM contact_messages WHERE seen = 0 AND deleted = 0");
 $notifCountDash->execute();
 $notifAll = (int) $notifCountDash->get_result()->fetch_assoc()['unreaded'];
 
-/* ---- 4) Orders still waiting for admin pricing (پیش‌فاکتور بررسی‌نشده) ---- */
 $pendingPriceCount = (int) $mysqli->query("
     SELECT COUNT(*) AS c FROM orders WHERE deleted = 0 AND order_status_id = 1
 ")->fetch_assoc()['c'];
 
-/* ---- 5) Best selling product (by quantity across all orders) ---- */
 $topProductStmt = $mysqli->prepare("
     SELECT oi.product_id, oi.product_name, SUM(oi.qty) AS total_qty
     FROM order_items oi
@@ -61,7 +56,6 @@ $topProductStmt = $mysqli->prepare("
 $topProductStmt->execute();
 $topProduct = $topProductStmt->get_result()->fetch_assoc();
 
-/* monthly quantity trend for that top product, last 6 months (for its sparkline) */
 $topProductTrendLabels = [];
 $topProductTrendQty    = [];
 if ($topProduct) {
@@ -83,7 +77,6 @@ if ($topProduct) {
     }
 }
 
-/* ---- 6) Product sales share (top 4 products by quantity sold) ---- */
 $shareStmt = $mysqli->prepare("
     SELECT oi.product_name, SUM(oi.qty) AS qty
     FROM order_items oi
@@ -103,7 +96,6 @@ while ($row = $shareResult->fetch_assoc()) {
     $totalQtyShare  += (int) $row['qty'];
 }
 
-/* ---- 7) Orders per month, last 6 months (for the overview chart) ---- */
 $monthlyStmt = $mysqli->query("
     SELECT DATE_FORMAT(created_at, '%Y-%m') AS ym, COUNT(*) AS cnt,
            COALESCE(SUM(COALESCE(quoted_total, grand_total)), 0) AS rev
@@ -121,7 +113,6 @@ while ($row = $monthlyStmt->fetch_assoc()) {
     $monthlyRevenue[] = (float) $row['rev'];
 }
 
-/* ---- 8) Latest orders, for the "recent transactions" table ---- */
 $recentOrders = $mysqli->query("
     SELECT o.id, o.order_name, o.full_name, o.grand_total, o.quoted_total,
            o.order_status_id, o.created_at, s.status_name
@@ -141,17 +132,16 @@ $todayOrders = $mysqli->query("
     ORDER BY o.created_at DESC
 ")->fetch_all(MYSQLI_ASSOC);
 
-/* ---- small view helpers ---- */
 function fmt_toman($n) { return number_format((float) $n) . ' تومان'; }
 
 function order_status_badge($statusId, $statusName) {
     $map = [
-            1 => 'secondary', // در انتظار قیمت‌دهی
-            2 => 'info',      // در انتظار پرداخت
-            3 => 'warning',   // در حال بررسی
-            4 => 'success',   // تأیید شده
-            5 => 'primary',   // ارسال شده
-            6 => 'dark',      // آرشیو / لغو شده
+            1 => 'secondary',
+            2 => 'info',
+            3 => 'warning',
+            4 => 'success',
+            5 => 'primary',
+            6 => 'dark',
     ];
     $color = $map[(int) $statusId] ?? 'secondary';
     return '<span class="badge badge-' . $color . ' light">' . htmlspecialchars($statusName ?: '-') . '</span>';
@@ -582,36 +572,13 @@ function order_status_badge($statusId, $statusName) {
             </div>
         </div>
     </div>
-    <!--**********************************
-        Content body end
-    ***********************************-->
 
-    <!--**********************************
-        Footer start
-    ***********************************-->
     <?php require_once "inc/footer.php"?>
-    <!--**********************************
-        Footer end
-    ***********************************-->
 
-    <!--**********************************
-       Support ticket button start
-    ***********************************-->
-
-    <!--**********************************
-       Support ticket button end
-    ***********************************-->
 
 
 </div>
-<!--**********************************
-    Main wrapper end
-***********************************-->
 
-<!--**********************************
-    Scripts
-***********************************-->
-<!-- Required vendors -->
 <script src="vendor/global/global.min.js"></script>
 <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="vendor/chart.js/Chart.bundle.min.js"></script>
@@ -619,22 +586,17 @@ function order_status_badge($statusId, $statusName) {
 <script src="js/deznav-init.js"></script>
 <script src="vendor/owl-carousel/owl.carousel.js"></script>
 
-<!-- Chart piety plugin files -->
 <script src="vendor/peity/jquery.peity.min.js"></script>
 
-<!-- Apex Chart -->
 <script src="vendor/apexchart/apexchart.js"></script>
 
-<!-- Dashboard 1 -->
 <script src="js/dashboard/dashboard-1.js"></script>
 
 
 <script>
     function carouselReview() {
-        /*  testimonial one function by = owl.carousel.js */
-        /*  testimonial one function by = owl.carousel.js */
+
         jQuery('.testimonial-one').owlCarousel({
-            // rtl:true,
             loop: true,
             margin: 10,
             nav: false,
@@ -674,16 +636,12 @@ function order_status_badge($statusId, $statusName) {
 
 
 
-    /* ==================================================================
-       Real-data charts (built from the values PHP pulled from the DB)
-       ================================================================== */
 
-    // ---- monthly order count / revenue (used by both the small sparkline and the overview chart)
+
     const monthlyLabels  = <?= json_encode($monthlyLabels) ?>;
     const monthlyCounts  = <?= json_encode($monthlyCounts) ?>;
     const monthlyRevenue = <?= json_encode($monthlyRevenue) ?>;
 
-    // ---- small revenue sparkline in the "فروش کل وبسایت" card
     const revenueCtx = document.getElementById('dashRevenueChart');
     if (revenueCtx && monthlyRevenue.length) {
         new Chart(revenueCtx, {
@@ -713,7 +671,6 @@ function order_status_badge($statusId, $statusName) {
         });
     }
 
-    // ---- small sparkline for the best-selling product's monthly quantity
     const topProductLabels = <?= json_encode($topProductTrendLabels) ?>;
     const topProductQty    = <?= json_encode($topProductTrendQty) ?>;
     const topProductCtx = document.getElementById('dashTopProductChart');
@@ -740,7 +697,6 @@ function order_status_badge($statusId, $statusName) {
         });
     }
 
-    // ---- orders overview (ApexCharts) with a toggle between count & revenue
     const overviewEl = document.querySelector('#chartOrdersOverview');
     if (overviewEl && monthlyLabels.length) {
         let overviewChart = new ApexCharts(overviewEl, {
@@ -788,7 +744,6 @@ function order_status_badge($statusId, $statusName) {
             const res = await fetch('api/usd.php');
 
             if (!res.ok) {
-                // e.g. 404 "no_data_yet" or 500 db error from usd.php
                 let reason = res.status;
                 try {
                     const errBody = await res.json();
@@ -801,7 +756,6 @@ function order_status_badge($statusId, $statusName) {
 
             const data = await res.json();
 
-            // Guard: make sure price is actually a usable number
             const price = Number(data.price);
             if (!data || data.price === undefined || data.price === null || Number.isNaN(price)) {
                 console.warn("usd.php returned unexpected payload:", data);
@@ -809,7 +763,6 @@ function order_status_badge($statusId, $statusName) {
                 return;
             }
 
-            // 💥 رنگ بر اساس رشد یا کاهش
             if (lastPrice !== null) {
                 if (price > lastPrice) {
                     el.classList.remove("text-danger");
@@ -822,16 +775,13 @@ function order_status_badge($statusId, $statusName) {
 
             lastPrice = price;
 
-            // 💰 قیمت
             el.innerText = new Intl.NumberFormat('fa-IR').format(price) + " تومان";
 
-            // 🕒 زمان
             if (data.time) {
                 document.getElementById("usd-time").innerText =
                     "آپدیت: " + new Date(data.time).toLocaleTimeString('fa-IR');
             }
 
-            // 📊 high / low
             if (data.high) {
                 document.getElementById("high").innerText =
                     "High: " + new Intl.NumberFormat('fa-IR').format(data.high);
