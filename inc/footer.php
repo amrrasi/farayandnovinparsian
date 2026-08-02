@@ -246,7 +246,7 @@
 
     <a href="tel:<?= setting('phone') ?>" class="dock-call" id="dockCall" title="تماس" aria-label="تماس با ما">
         <i class="fa-solid fa-phone" aria-hidden="true"></i>
-        <span class="dock-call-label">تماس</span>
+        <span class="dock-call-label" style="font-family: IRANSansfanum">تماس</span>
     </a>
 
 
