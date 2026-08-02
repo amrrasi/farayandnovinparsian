@@ -389,12 +389,14 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
     <span id="cartToastMsg"></span>
 </div>
 
+<?php include 'inc/footer.php'; ?>
+
 <script>
     window.CHECKOUT_DATA = <?= json_encode([
-            'grandTotal'  => $grandTotal,
-            'invoiceNo'   => $invoiceNo,
-            'csrfToken'   => $_SESSION['csrf_token'] ?? '',
-            'submitUrl'   => 'ajax/cart/submitOrder.php',
+    'grandTotal'  => $grandTotal,
+    'invoiceNo'   => $invoiceNo,
+    'csrfToken'   => $_SESSION['csrf_token'] ?? '',
+    'submitUrl'   => 'ajax/cart/submitOrder.php',
 
     ], JSON_UNESCAPED_UNICODE) ?>;
 </script>
