@@ -156,11 +156,9 @@ function order_status_badge($statusId, $statusName) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= setting('name') ?></title>
-    <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
-    <!-- Vectormap -->
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -170,9 +168,6 @@ function order_status_badge($statusId, $statusName) {
 
 <body>
 
-<!--*******************
-    Preloader start
-********************-->
 <div id="preloader">
     <div class="sk-three-bounce">
         <div class="sk-child sk-bounce1"></div>
@@ -180,13 +175,6 @@ function order_status_badge($statusId, $statusName) {
         <div class="sk-child sk-bounce3"></div>
     </div>
 </div>
-<!--*******************
-    Preloader end
-********************-->
-
-<!--**********************************
-    Main wrapper start
-***********************************-->
 <div id="main-wrapper">
 
     <?php
@@ -196,11 +184,7 @@ function order_status_badge($statusId, $statusName) {
 
 
 
-    <!--**********************************
-        Content body start
-    ***********************************-->
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
             <div class="form-head mb-4">
                 <h2 class="text-black font-w600 mb-0">داشبورد وبسایت <?= setting('name') ?></h2>
@@ -269,7 +253,6 @@ function order_status_badge($statusId, $statusName) {
                                         <a href="javascript:void(0)" class="btn btn-rounded btn-light ml-3" data-toggle="modal"
                                            data-target="#DownloadReport"><i class="las la-download text-primary scale5 ml-3"></i>دانلود گزارش
                                         </a>
-                                        <!-- Modal -->
                                         <div class="modal fade" id="DownloadReport">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
