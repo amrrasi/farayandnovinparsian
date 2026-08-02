@@ -35,12 +35,12 @@ $iStmt->execute();
 $items = $iStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 $statusMap = [
-    1 => ['cls' => 'warning',   'icon' => 'fa-clock',         'label' => 'در انتظار قیمت‌دهی'],
-    2 => ['cls' => 'info',      'icon' => 'fa-credit-card',   'label' => 'در انتظار پرداخت'],
-    3 => ['cls' => 'primary',   'icon' => 'fa-magnifying-glass','label' => 'در حال بررسی'],
-    4 => ['cls' => 'success',   'icon' => 'fa-circle-check',  'label' => 'تأیید شده'],
-    5 => ['cls' => 'secondary', 'icon' => 'fa-truck',         'label' => 'ارسال شده'],
-    6 => ['cls' => 'danger',    'icon' => 'fa-box-archive',   'label' => 'آرشیو / لغو شده'],
+    1 => ['cls' => 'warning',   'icon' => 'fa fa-clock',         'label' => 'در انتظار قیمت‌دهی'],
+    2 => ['cls' => 'info',      'icon' => 'fa fa-credit-card',   'label' => 'در انتظار پرداخت'],
+    3 => ['cls' => 'primary',   'icon' => 'fa fa-magnifying-glass','label' => 'در حال بررسی'],
+    4 => ['cls' => 'success',   'icon' => 'fa fa-circle-check',  'label' => 'تأیید شده'],
+    5 => ['cls' => 'secondary', 'icon' => 'fa fa-truck',         'label' => 'ارسال شده'],
+    6 => ['cls' => 'danger',    'icon' => 'fa fa-box-archive',   'label' => 'آرشیو / لغو شده'],
 ];
 $sid    = (int) $order['order_status_id'];
 $sInfo  = $statusMap[$sid] ?? ['cls' => 'dark', 'icon' => 'fa-circle', 'label' => 'نامشخص'];
