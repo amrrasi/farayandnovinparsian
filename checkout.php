@@ -291,7 +291,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
 
             <div class="invoice-top">
                 <div class="invoice-brand">
-                    <div class="invoice-brand-name">Logo</div>
+                    <div class="invoice-brand-name"><img style="height: 120px; width: 120px" src="assets/images/logo.webp" alt="<?= setting("name") ?>"></div>
                     <div class="invoice-brand-sub">fanapit.com</div>
                 </div>
                 <div class="invoice-meta">
