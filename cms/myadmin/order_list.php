@@ -4,9 +4,7 @@ require_once "inc/check.php";
 $error   = false;
 $errText = "";
 
-/* ═══════════════════════════════════════════════════
- | حذف سفارش (soft-delete)
- * ══════════════════════════════════════════════════*/
+
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $id   = (int) $_GET['delete'];
     $stmt = $mysqli->prepare("UPDATE orders SET deleted=1 WHERE id=?");
@@ -19,15 +17,11 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $errText = "خطا در حذف سفارش";
 }
 
-/* ═══════════════════════════════════════════════════
- | فیلترها
- * ══════════════════════════════════════════════════*/
+
 $search = trim($_GET['search'] ?? '');
 $status = (int) ($_GET['status'] ?? 0);
 
-/* ═══════════════════════════════════════════════════
- | آمار کارت‌های بالا
- * ══════════════════════════════════════════════════*/
+
 $stats       = [];
 $stats['all'] = (int) $mysqli->query("SELECT COUNT(*) c FROM orders WHERE deleted=0")->fetch_assoc()['c'];
 $stats['sum'] = (int) $mysqli->query("SELECT COALESCE(SUM(quoted_total),0) s FROM orders WHERE deleted=0 AND quoted_total>0")->fetch_assoc()['s'];
@@ -36,9 +30,7 @@ for ($i = 1; $i <= 6; $i++) {
 }
 $stats['unread'] = (int) $mysqli->query("SELECT COUNT(*) c FROM orders WHERE deleted=0 AND visited=0")->fetch_assoc()['c'];
 
-/* ═══════════════════════════════════════════════════
- | Query اصلی با فیلتر
- * ══════════════════════════════════════════════════*/
+
 $sql    = "
     SELECT o.*, s.status_name
     FROM   orders o
@@ -68,9 +60,7 @@ if (count($params)) {
 $stmt->execute();
 $result = $stmt->get_result();
 
-/* ═══════════════════════════════════════════════════
- | تابع badge وضعیت
- * ══════════════════════════════════════════════════*/
+
 function statusBadge(int $id, string $name): string
 {
     $map = [
@@ -92,12 +82,10 @@ function statusBadge(int $id, string $name): string
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= setting('name') ?></title>
-    <!-- Favicon icon -->
     <link href="css/fontawesome.css" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
-    <!-- Vectormap -->
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -124,17 +112,14 @@ function statusBadge(int $id, string $name): string
         .ord-stat-num  { font-size: 1.65rem; font-weight: 700; line-height: 1.1; }
         .ord-stat-lbl  { font-size: .78rem; color: #8a8fa3; margin-top: 3px; }
 
-        /* row highlight for unread */
         tr.ord-unread { background: #fffbeb !important; font-weight: 600; }
         tr.ord-unread td { border-right: 3px solid #f59e0b; }
 
-        /* receipt thumbnail */
         .receipt-thumb {
             width: 38px; height: 38px; border-radius: 6px;
             object-fit: cover; border: 1px solid #dee2e6; cursor: pointer;
         }
 
-        /* modal — order detail */
         #orderModal .modal-header  { background: #f8f9fa; border-bottom: 1px solid #e9ecef; }
         #orderModal .modal-title   { font-weight: 700; }
         #orderModal .detail-label  { font-size: .75rem; color: #8a8fa3; margin-bottom: 2px; }
@@ -147,14 +132,11 @@ function statusBadge(int $id, string $name): string
         .modal-receipt-wrap { border-radius: 10px; overflow: hidden; border: 1px solid #dee2e6; }
         .modal-receipt-wrap img { width: 100%; display: block; }
 
-        /* status change select inside modal */
         #modalStatusSelect { border-radius: 8px; }
 
-        /* tighter table */
         .table td, .table th { vertical-align: middle !important; }
         .action-btns .btn  { margin: 1px; }
 
-        /* filter bar */
         .filter-bar { background: #f8f9fa; border-radius: 10px; padding: 16px 18px; margin-bottom: 20px; }
     </style>
 </head>
@@ -176,7 +158,6 @@ function statusBadge(int $id, string $name): string
     <div class="content-body">
         <div class="container-fluid">
 
-            <!-- breadcrumb -->
             <div class="page-titles">
                 <h4>مدیریت سفارش‌ها</h4>
                 <ol class="breadcrumb">
@@ -184,7 +165,6 @@ function statusBadge(int $id, string $name): string
                 </ol>
             </div>
 
-            <!-- alerts -->
             <?php if (isset($_GET['deleted'])): ?>
                 <div class="alert alert-success alert-dismissible fade show">
                     <i class="fa fa-check-circle ml-1"></i>سفارش با موفقیت حذف شد.
@@ -204,10 +184,8 @@ function statusBadge(int $id, string $name): string
                 </div>
             <?php endif; ?>
 
-            <!-- ══════════ STAT CARDS ══════════ -->
             <div class="row mb-4">
 
-                <!-- کل -->
                 <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
@@ -222,7 +200,6 @@ function statusBadge(int $id, string $name): string
                     </div>
                 </div>
 
-                <!-- جمع فروش -->
                 <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
@@ -237,7 +214,6 @@ function statusBadge(int $id, string $name): string
                     </div>
                 </div>
 
-                <!-- در انتظار قیمت -->
                 <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
@@ -252,7 +228,6 @@ function statusBadge(int $id, string $name): string
                     </div>
                 </div>
 
-                <!-- در انتظار پرداخت -->
                 <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
@@ -267,7 +242,6 @@ function statusBadge(int $id, string $name): string
                     </div>
                 </div>
 
-                <!-- خوانده نشده -->
                 <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
@@ -282,7 +256,6 @@ function statusBadge(int $id, string $name): string
                     </div>
                 </div>
 
-                <!-- ارسال شده -->
                 <div class="col-xl-4 col-lg-4 col-sm-6 mb-3">
                     <div class="card ord-stat-card h-100">
                         <div class="card-body d-flex align-items-center gap-3">
@@ -298,9 +271,7 @@ function statusBadge(int $id, string $name): string
                 </div>
 
             </div>
-            <!-- /stat cards -->
 
-            <!-- ══════════ MAIN CARD ══════════ -->
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
                     <h4 class="card-title mb-0">
@@ -313,7 +284,6 @@ function statusBadge(int $id, string $name): string
 
                 <div class="card-body">
 
-                    <!-- ── filter bar ── -->
                     <form method="get" class="filter-bar">
                         <div class="row align-items-end">
                             <div class="col-md-5 mb-2 mb-md-0">
@@ -349,7 +319,6 @@ function statusBadge(int $id, string $name): string
                         </div>
                     </form>
 
-                    <!-- ── table ── -->
                     <div class="table-responsive">
                         <table class="table table-hover table-responsive-md">
                             <thead class="thead-light">
@@ -381,7 +350,6 @@ function statusBadge(int $id, string $name): string
                                     $hasQuote = (float) $row['quoted_total'] > 0;
                                     $hasRcpt  = !empty($row['receipt_path']);
 
-                                    // encode row data for modal
                                     $rowJson = htmlspecialchars(json_encode($row, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
                                     ?>
 
@@ -484,21 +452,15 @@ function statusBadge(int $id, string $name): string
 
                 </div>
             </div>
-            <!-- /main card -->
 
         </div>
     </div>
-    <!-- /content-body -->
 
     <?php require_once "inc/footer.php"; ?>
 
 </div>
-<!-- /main-wrapper -->
 
 
-<!-- ══════════════════════════════════════════════════════
-     ORDER DETAIL MODAL
-     ══════════════════════════════════════════════════════ -->
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -514,7 +476,6 @@ function statusBadge(int $id, string $name): string
             <div class="modal-body">
                 <div class="row">
 
-                    <!-- ── ستون مشتری ── -->
                     <div class="col-md-4 border-left pb-3">
                         <div class="section-head">اطلاعات مشتری</div>
 
@@ -534,7 +495,6 @@ function statusBadge(int $id, string $name): string
                         <div class="detail-value" id="mPostal" dir="ltr" style="text-align:right">—</div>
                     </div>
 
-                    <!-- ── ستون یادداشت‌ها ── -->
                     <div class="col-md-4 pb-3">
                         <div class="section-head">یادداشت‌ها</div>
 
@@ -551,7 +511,6 @@ function statusBadge(int $id, string $name): string
                         <div class="detail-value" id="mBadge"></div>
                     </div>
 
-                    <!-- ── ستون رسید + قیمت ── -->
                     <div class="col-md-4 pb-3">
                         <div class="section-head">رسید و مبلغ</div>
 
@@ -581,7 +540,6 @@ function statusBadge(int $id, string $name): string
                     </div>
                 </div>
 
-                <!-- ── تغییر وضعیت سریع ── -->
                 <hr>
                 <form id="modalStatusForm" class="row align-items-end">
                     <input type="hidden" id="modalOrderId" name="order_id">
@@ -629,12 +587,8 @@ function statusBadge(int $id, string $name): string
         </div>
     </div>
 </div>
-<!-- /modal -->
 
 
-<!-- ══════════════════════════════════════════════════════
-     SCRIPTS
-     ══════════════════════════════════════════════════════ -->
 <script src="vendor/global/global.min.js"></script>
 <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="vendor/chart.js/Chart.bundle.min.js"></script>
@@ -642,13 +596,10 @@ function statusBadge(int $id, string $name): string
 <script src="js/deznav-init.js"></script>
 <script src="vendor/owl-carousel/owl.carousel.js"></script>
 
-<!-- Chart piety plugin files -->
 <script src="vendor/peity/jquery.peity.min.js"></script>
 
-<!-- Apex Chart -->
 <script src="vendor/apexchart/apexchart.js"></script>
 
-<!-- Dashboard 1 -->
 <script src="js/dashboard/dashboard-1.js"></script>
 <script>
     (function () {
@@ -656,9 +607,7 @@ function statusBadge(int $id, string $name): string
 
         const ASSET_BASE = '../assets/images/';
 
-        /* ─────────────────────────────────────────
-           badge helper
-        ───────────────────────────────────────── */
+
         const STATUS_MAP = {
             1: { cls: 'warning',   label: 'در انتظار قیمت‌دهی' },
             2: { cls: 'info',      label: 'در انتظار پرداخت' },
@@ -682,9 +631,7 @@ function statusBadge(int $id, string $name): string
             if (el) el.textContent = val || '—';
         }
 
-        /* ─────────────────────────────────────────
-           populate modal
-        ───────────────────────────────────────── */
+
         document.querySelectorAll('tr[data-order]').forEach(tr => {
             tr.addEventListener('click', function () {
                 let order;
@@ -693,30 +640,29 @@ function statusBadge(int $id, string $name): string
 
                 const id = order.id;
 
-                /* header */
+
                 document.getElementById('mTitle').textContent = 'سفارش #' + id;
 
-                /* customer */
+
                 txt(document.getElementById('mFullName'),  order.full_name);
                 txt(document.getElementById('mPhone'),     order.phone);
                 txt(document.getElementById('mEmail'),     order.email || '—');
                 txt(document.getElementById('mAddress'),   order.address || '—');
                 txt(document.getElementById('mPostal'),    order.postal_code || '—');
 
-                /* notes */
+
                 txt(document.getElementById('mOrderName'),  order.order_name);
                 txt(document.getElementById('mNote'),       order.note || 'ندارد');
                 txt(document.getElementById('mAdminNote'),  order.admin_note || 'ندارد');
 
-                /* badge */
+
                 const badgeEl = document.getElementById('mBadge');
                 if (badgeEl) badgeEl.innerHTML = makeBadge(parseInt(order.order_status_id));
 
-                /* price */
+
                 txt(document.getElementById('mGrandTotal'),  fmtNum(order.grand_total));
                 txt(document.getElementById('mQuotedTotal'), fmtNum(order.quoted_total));
 
-                /* receipt */
                 const hasRcpt    = order.receipt_path && order.receipt_path !== '';
                 const rcptWrap   = document.getElementById('mReceiptWrap');
                 const noRcpt     = document.getElementById('mNoReceipt');
@@ -734,7 +680,6 @@ function statusBadge(int $id, string $name): string
                     noRcpt?.classList.remove('d-none');
                 }
 
-                /* quick-status form */
                 const ordIdEl   = document.getElementById('modalOrderId');
                 const selEl     = document.getElementById('modalStatusSelect');
                 const qInput    = document.getElementById('modalQuotedInput');
@@ -747,29 +692,24 @@ function statusBadge(int $id, string $name): string
                 if (noteInput) noteInput.value = order.admin_note || '';
                 if (msgEl)     msgEl.innerHTML = '';
 
-                /* footer links */
                 const viewBtn = document.getElementById('mViewBtn');
                 const editBtn = document.getElementById('mEditBtn');
                 if (viewBtn) viewBtn.href = 'order_view.php?id=' + id;
                 if (editBtn) editBtn.href = 'order_edit.php?id=' + id;
 
-                /* mark as read via AJAX (fire & forget) */
                 if (parseInt(order.visited) === 0) {
                     fetch('ajax/order_mark_read.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: 'id=' + id
                     }).then(() => {
-                        /* remove highlight from row */
                         this.classList.remove('ord-unread');
                     }).catch(() => {});
                 }
             });
         });
 
-        /* ─────────────────────────────────────────
-           modal status form submit
-        ───────────────────────────────────────── */
+
         document.getElementById('modalStatusForm')?.addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -791,12 +731,10 @@ function statusBadge(int $id, string $name): string
                 </div>`;
 
                 if (data.ok) {
-                    /* update badge in modal */
                     const newSid  = parseInt(fd.get('new_status'));
                     const badgeEl = document.getElementById('mBadge');
                     if (badgeEl) badgeEl.innerHTML = makeBadge(newSid);
 
-                    /* update badge in table row */
                     const ordId = fd.get('order_id');
                     const row   = document.querySelector(`tr[data-order*='"id":"${ordId}"'], tr[data-order*='"id":${ordId}']`);
                     if (row) {

@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_save'])) {
     $postalCode  = trim(   $_POST['postal_code']      ?? '');
     $orderName   = trim(   $_POST['order_name']       ?? '');
 
-    /* validation */
+
     if ($newStatus < 1 || $newStatus > 6) $errors[] = 'وضعیت نامعتبر است';
     if ($fullName === '')                  $errors[] = 'نام مشتری الزامی است';
     if ($phone === '')                     $errors[] = 'شماره موبایل الزامی است';
@@ -137,12 +137,12 @@ function val(string $key, array $arr): string {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= setting('name') ?></title>
-    <!-- Favicon icon -->
+
     <link href="css/fontawesome.css" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
-    <!-- Vectormap -->
+
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -262,7 +262,7 @@ function val(string $key, array $arr): string {
                 </div>
             <?php endif; ?>
 
-            <!-- ══ FORM ══ -->
+
             <form method="post" enctype="multipart/form-data" id="editForm">
                 <input type="hidden" name="_save" value="1">
 
@@ -585,13 +585,13 @@ function val(string $key, array $arr): string {
 <script src="js/deznav-init.js"></script>
 <script src="vendor/owl-carousel/owl.carousel.js"></script>
 
-<!-- Chart piety plugin files -->
+
 <script src="vendor/peity/jquery.peity.min.js"></script>
 
-<!-- Apex Chart -->
+
 <script src="vendor/apexchart/apexchart.js"></script>
 
-<!-- Dashboard 1 -->
+
 <script src="js/dashboard/dashboard-1.js"></script>
 <script>
     (function () {

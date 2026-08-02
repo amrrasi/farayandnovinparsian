@@ -59,23 +59,19 @@ function fmt(float $n): string {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= setting('name') ?></title>
-    <!-- Favicon icon -->
     <link href="css/fontawesome.css" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
-    <!-- Vectormap -->
     <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
 
     <style>
-        /* ── layout ── */
         .ov-grid       { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
         @media(max-width:992px){ .ov-grid { grid-template-columns: 1fr; } }
 
-        /* ── section card ── */
         .ov-card       { border-radius: 14px; border: 1px solid #e9ecef; background:#fff; margin-bottom: 20px; overflow: hidden; }
         .ov-card-head  { display:flex; align-items:center; gap:10px; padding:16px 20px;
             background:#f8f9fa; border-bottom:1px solid #e9ecef; }
@@ -84,7 +80,6 @@ function fmt(float $n): string {
         .ov-card-head h6{ margin:0;font-weight:700;font-size:.92rem; }
         .ov-card-body  { padding:20px; }
 
-        /* ── info rows ── */
         .ov-info-row   { display:flex; justify-content:space-between; align-items:baseline;
             padding:9px 0; border-bottom:1px dashed #f0f0f0; font-size:.875rem; }
         .ov-info-row:last-child{ border-bottom:none; }
@@ -92,7 +87,6 @@ function fmt(float $n): string {
         .ov-info-value { font-weight:600; text-align:left; direction:ltr; }
         .ov-info-value.rtl-val{ direction:rtl; text-align:right; }
 
-        /* ── status timeline ── */
         .ov-timeline   { display:flex; flex-direction:column; gap:0; }
         .ov-tl-item    { display:flex; gap:14px; position:relative; padding-bottom:20px; }
         .ov-tl-item:last-child{ padding-bottom:0; }
@@ -105,7 +99,6 @@ function fmt(float $n): string {
         .ov-tl-content strong{ display:block; font-size:.875rem; }
         .ov-tl-content small { color:#8a8fa3; font-size:.78rem; }
 
-        /* ── items table ── */
         .ov-items      { width:100%; border-collapse:collapse; font-size:.875rem; }
         .ov-items th   { background:#f8f9fa; padding:10px 12px; font-weight:700;
             font-size:.78rem; color:#6b7280; border-bottom:2px solid #e9ecef; }
@@ -114,7 +107,6 @@ function fmt(float $n): string {
         .ov-items tbody tr:hover td    { background:#fafafa; }
         .ov-items .col-price{ direction:ltr; text-align:left; font-weight:600; }
 
-        /* ── totals ── */
         .ov-totals     { margin-top:16px; padding:14px 16px; border-radius:10px;
             background:#f8f9fa; border:1px solid #e9ecef; }
         .ov-total-row  { display:flex;justify-content:space-between;font-size:.875rem;padding:5px 0; }
@@ -122,24 +114,19 @@ function fmt(float $n): string {
             border-top:2px solid #e9ecef;margin-top:6px; }
         .ov-total-row.final .ov-total-val{ font-size:1.1rem; }
 
-        /* ── receipt preview ── */
         .ov-receipt-img { width:100%;border-radius:10px;border:1px solid #e9ecef;
             cursor:zoom-in;transition:.2s; }
         .ov-receipt-img:hover{ transform:scale(1.02);box-shadow:0 6px 20px rgba(0,0,0,.12); }
 
-        /* ── status badge pill ── */
         .ov-status-pill{ display:inline-flex;align-items:center;gap:8px;
             padding:8px 16px;border-radius:50px;font-weight:700;font-size:.875rem; }
 
-        /* ── note box ── */
         .ov-note-box   { background:#fffbeb;border:1px solid #fde68a;border-radius:10px;
             padding:14px 16px;font-size:.875rem;line-height:1.7;color:#78350f; }
         .ov-admin-note { background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af; }
 
-        /* ── action bar ── */
         .ov-action-bar { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px; }
 
-        /* print */
         @media print {
             #main-wrapper > nav,
             #main-wrapper > .nav-header,
@@ -521,13 +508,10 @@ function fmt(float $n): string {
 <script src="js/deznav-init.js"></script>
 <script src="vendor/owl-carousel/owl.carousel.js"></script>
 
-<!-- Chart piety plugin files -->
 <script src="vendor/peity/jquery.peity.min.js"></script>
 
-<!-- Apex Chart -->
 <script src="vendor/apexchart/apexchart.js"></script>
 
-<!-- Dashboard 1 -->
 <script src="js/dashboard/dashboard-1.js"></script>
 </body>
 </html>
