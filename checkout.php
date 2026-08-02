@@ -389,6 +389,7 @@ $invoiceNo = 'INV-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid()), 0, 5)
     <span id="cartToastMsg"></span>
 </div>
 
+
 <?php include 'inc/footer.php'; ?>
 
 <script>
