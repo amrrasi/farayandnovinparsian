@@ -10,16 +10,6 @@ $ordersCountStmt = $pdo->prepare("SELECT COUNT(*) FROM `orders` WHERE `user_id` 
 $ordersCountStmt->execute([':uid' => $_SESSION['user']['id']]);
 $ordersCount = (int) $ordersCountStmt->fetchColumn();
 
-/*
- * "Unread" for the user means: admin has replied to a thread AND
- * the last reply in that thread came from admin (sender_type='admin').
- * seen=1 means admin has seen the latest user message — i.e. admin has responded
- * and is now waiting on the user.  seen=0 means admin hasn't seen the user's
- * latest reply yet (user just replied).
- *
- * So the badge shows threads the user should check: those where the latest
- * message was sent by an admin (seen=1, last_sender='admin').
- */
 $unreadMsgStmt = $pdo->prepare("
     SELECT COUNT(*)
     FROM `contact_messages` cm
