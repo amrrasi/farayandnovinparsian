@@ -10,8 +10,16 @@
  *   message_replies   — id, message_id, sender_type ENUM('admin','user'), user_id, body, created_at
  */
 require_once '../../cms/myadmin/inc/config.php';
+require_once '../../cms/myadmin/inc/auth_helpers.php';  // provides profile_format_date()
 
 header('Content-Type: application/json; charset=utf-8');
+
+// ── XHR-only guard — reject direct browser navigation ────────────────────────
+if (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') !== 'XMLHttpRequest') {
+    http_response_code(403);
+    echo json_encode(['status' => false, 'message' => 'دسترسی مستقیم مجاز نیست.']);
+    exit;
+}
 
 // ── Auth guard ──────────────────────────────────────────────────────────────
 if (empty($_SESSION['user']['id'])) {

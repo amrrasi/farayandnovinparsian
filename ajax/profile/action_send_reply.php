@@ -19,8 +19,16 @@
  *   { status: false, message: "..." }       on any error
  */
 require_once '../../cms/myadmin/inc/config.php';
+require_once '../../cms/myadmin/inc/auth_helpers.php';  // provides profile_format_date() + verifyCsrf()
 
 header('Content-Type: application/json; charset=utf-8');
+
+// ── XHR-only guard ────────────────────────────────────────────────────────────
+if (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') !== 'XMLHttpRequest') {
+    http_response_code(403);
+    echo json_encode(['status' => false, 'message' => 'دسترسی مستقیم مجاز نیست.']);
+    exit;
+}
 
 // ── Method guard ─────────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

@@ -10,7 +10,34 @@ $ordersCountStmt = $pdo->prepare("SELECT COUNT(*) FROM `orders` WHERE `user_id` 
 $ordersCountStmt->execute([':uid' => $_SESSION['user']['id']]);
 $ordersCount = (int) $ordersCountStmt->fetchColumn();
 
-$unreadMsgStmt = $pdo->prepare("SELECT COUNT(*) FROM `contact_messages` WHERE `user_id` = :uid AND `deleted` = 0 AND `seen` = 0");
+/*
+ * "Unread" for the user means: admin has replied to a thread AND
+ * the last reply in that thread came from admin (sender_type='admin').
+ * seen=1 means admin has seen the latest user message — i.e. admin has responded
+ * and is now waiting on the user.  seen=0 means admin hasn't seen the user's
+ * latest reply yet (user just replied).
+ *
+ * So the badge shows threads the user should check: those where the latest
+ * message was sent by an admin (seen=1, last_sender='admin').
+ */
+$unreadMsgStmt = $pdo->prepare("
+    SELECT COUNT(*)
+    FROM `contact_messages` cm
+    WHERE cm.user_id  = :uid
+      AND cm.deleted  = 0
+      AND cm.seen     = 1
+      AND EXISTS (
+          SELECT 1 FROM `message_replies` mr
+          WHERE mr.message_id  = cm.id
+            AND mr.sender_type = 'admin'
+            AND mr.id = (
+                SELECT id FROM `message_replies`
+                WHERE message_id = cm.id
+                ORDER BY created_at DESC, id DESC
+                LIMIT 1
+            )
+      )
+");
 $unreadMsgStmt->execute([':uid' => $_SESSION['user']['id']]);
 $unreadMessages = (int) $unreadMsgStmt->fetchColumn();
 
@@ -134,5 +161,6 @@ $initials = profile_initials($_SESSION['user']['name']);
     window.PF_CSRF = document.querySelector('meta[name="csrf-token"]')?.content || '';
 </script>
 <script src="assets/js/pages/profile.js"></script>
+<script src="assets/js/pages/profile_messages.js"></script>
 </body>
 </html>

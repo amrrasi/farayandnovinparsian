@@ -233,7 +233,8 @@ body {
     height: auto;
     max-height: none;
     display: block;
-    overflow: visible;
+    /* overflow must be hidden so the thread overlay is clipped to the panel */
+    overflow: hidden;
 }
 
 .pf-panel-body {
@@ -566,6 +567,17 @@ body {
 /* ------------------------------------------------------------------ */
 /* MESSAGES TAB                                                        */
 /* ------------------------------------------------------------------ */
+
+/*
+ * CRITICAL: position:relative makes .pf-thread-overlay's position:absolute
+ * anchor to this element instead of the viewport.
+ * Without this the overlay renders somewhere random or invisible.
+ */
+.pf-messages {
+    position: relative;
+    min-height: 380px;
+}
+
 .pf-msg-list {
     display: flex;
     flex-direction: column;
@@ -642,13 +654,24 @@ body {
     color: var(--clr-text-faint);
 }
 
-/* Thread overlay - slides in over the message list, mail-app style */
+/* Thread overlay - slides in over the message list, mail-app style.
+ *
+ * IMPORTANT:
+ *  - position:absolute + inset:0 fills .pf-messages (which is position:relative).
+ *  - Default display:none; JS toggles it to '' (removes inline style) to show it.
+ *  - Do NOT use the [hidden] attribute for this element — the browser's UA sheet
+ *    sets [hidden] { display:none } but our display:flex declaration below would
+ *    win the specificity battle once [hidden] is removed, so [hidden] alone
+ *    cannot reliably hide the overlay in all browsers. Using JS style.display is safer.
+ *  - z-index:10 layers it above the message list and the panel loading overlay (z:2).
+ */
 .pf-thread-overlay {
     position: absolute;
     inset: 0;
     background: var(--clr-bg);
-    border-radius: var(--radius-xl);
+    border-radius: inherit;   /* match the parent panel's radius */
     display: flex;
+    z-index: 10;
     animation: pf-slide-in .3s ease;
 }
 
@@ -668,6 +691,8 @@ body {
     flex-direction: column;
     width: 100%;
     height: 100%;
+    padding: 24px;
+    box-sizing: border-box;
 }
 
 .pf-thread {
@@ -704,15 +729,37 @@ body {
 
 .pf-thread-scroll {
     flex: 1;
-    /* independent viewport-based cap: no matter how tall the panel around it
-       gets (or how short the underlying message list behind it is), a long
-       conversation always scrolls internally instead of pushing past the footer */
-    max-height: 60vh;
     overflow-y: auto;
-    padding: 20px 4px;
+    padding: 16px 4px;
+    /* Use a fixed height based on the panel, not viewport — the panel itself
+       is already height-constrained by .pf-panel min-height. */
+    min-height: 0;          /* critical for flex children to shrink and scroll */
+}
+
+/* Loading spinner centred inside the scroll area */
+.pf-thread-loading-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+}
+
+/* Bubbles column */
+.pf-thread-bubbles {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+/* Inline error message inside thread */
+.pf-thread-error {
+    text-align: center;
+    font-size: .82rem;
+    color: var(--clr-danger);
+    padding: 8px;
+    border-radius: var(--radius-md);
+    background: rgba(239, 68, 68, .08);
+    margin: 4px 0;
 }
 
 .pf-bubble {
@@ -1112,8 +1159,13 @@ body {
     .pf-panel {
         padding: 16px;
         height: auto;
-        min-height: 300px;
+        min-height: 400px;   /* taller on mobile so the thread overlay has room */
         border-radius: var(--radius-lg);
+    }
+
+    /* Give .pf-messages a taller floor on mobile */
+    .pf-messages {
+        min-height: 360px;
     }
 
     .pf-panel-title {
@@ -1183,11 +1235,15 @@ body {
 
     /* thread */
     .pf-thread-overlay {
-        border-radius: var(--radius-lg);
+        border-radius: var(--radius-lg);  /* match the mobile panel radius */
+    }
+
+    .pf-thread-panel {
+        padding: 16px;
     }
 
     .pf-thread-scroll {
-        max-height: 45vh;
+        /* No max-height needed — min-height:0 + flex:1 handles it */
     }
 
     .pf-bubble {
@@ -1645,13 +1701,7 @@ body {
     width: 100%;
     height: 100%;
 }
-/* ------------------------------------------------------------------ */
-/* THREAD OVERLAY — mobile fill fix                                    */
-/* ------------------------------------------------------------------ */
-.pf-thread-overlay {
-    /* On mobile the panel has border-radius — match it */
-    border-radius: inherit;
-}
+/* (thread overlay mobile fix merged into the canonical .pf-thread-overlay rule above) */
 
 /* Thread subject area */
 #pf-thread-subject {
