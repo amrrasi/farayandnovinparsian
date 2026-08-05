@@ -1,20 +1,7 @@
 <?php
-/**
- * ajax/profile/tab_messages.php
- *
- * DB tables:
- *   contact_messages  cols: id, user_id, subject, message, seen, deleted, created_at
- *   message_replies   cols: id, message_id, sender_type ENUM('admin','user'), user_id, body, created_at
- *
- * seen flag semantics:
- *   0 = admin has NOT read the latest activity (set to 0 when user replies)
- *   1 = admin has read the thread
- *   We show an unread dot when reply_count > 0 AND seen = 1
- *   (meaning admin answered and the user hasn't replied since — the "new reply from admin" state).
- */
+
 require_once '../../cms/myadmin/inc/config.php';
 
-// ── Auth guard — must come BEFORE any use of $_SESSION['user']['id'] ─────────
 if (empty($_SESSION['user']['id'])) {
     header('Location: ../entry/');
     exit;
@@ -59,12 +46,6 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $snippet = mb_substr($plain, 0, 90, 'UTF-8');
                     if (mb_strlen($plain, 'UTF-8') > 90) $snippet .= '…';
 
-                    /*
-                     * Show unread dot when the LAST reply was from admin (last_sender = 'admin')
-                     * AND the thread is seen = 1 (admin has read their own reply,
-                     * but the user hasn't responded yet — so it's "new for user").
-                     * seen = 0 means the user just replied and admin hasn't seen it yet.
-                     */
                     $isUnread = ($m['reply_count'] > 0)
                             && ($m['last_sender'] === 'admin')
                             && ((int)$m['seen'] === 1);
@@ -101,7 +82,6 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <?php endif; ?>
 
-        <!-- Thread overlay: sits INSIDE .pf-messages which must be position:relative (see CSS) -->
         <div class="pf-thread-overlay" id="pf-thread-overlay" aria-hidden="true" style="display:none;">
             <div class="pf-thread-panel">
 
@@ -139,18 +119,3 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     </div>
 <?php
-/*
- * NOTE: The inline <script> block has been REMOVED from here intentionally.
- *
- * When profile.js loads this tab via fetch() and writes it into panelBody with
- * innerHTML, any <script> tags inside the injected HTML are NOT executed by
- * the browser — this is a security restriction on innerHTML (CVE-safe behaviour).
- *
- * The messages tab JS now lives in:
- *   assets/js/pages/profile-messages.js
- *
- * profile.js calls initMessagesTab() from bindPanelEvents() after the HTML is
- * injected, so all event listeners are attached correctly every time the tab loads.
- *
- * See profile.js bindPanelEvents() → case 'messages'.
- */

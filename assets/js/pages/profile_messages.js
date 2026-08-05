@@ -1,25 +1,6 @@
-/**
- * assets/js/pages/profile-messages.js
- *
- * Messages-tab logic for the user profile.
- * Called by profile.js → bindPanelEvents() → initMessagesTab()
- * every time the messages tab is loaded into the panel.
- *
- * Must be included in profile.php AFTER profile.js:
- *   <script src="assets/js/pages/profile-messages.js"></script>
- */
-
-/**
- * initMessagesTab()
- *
- * Sets up all event listeners for the messages tab UI.
- * Safe to call multiple times — previous listeners are on elements that
- * no longer exist in the DOM after each tab reload, so there is no leak.
- */
 function initMessagesTab() {
     'use strict';
 
-    // ── DOM refs ──────────────────────────────────────────────────────────────
     const root      = document.getElementById('pf-messages-root');
     const overlay   = document.getElementById('pf-thread-overlay');
     const backBtn   = document.getElementById('pf-thread-back-btn');
@@ -31,14 +12,12 @@ function initMessagesTab() {
     const replyText = document.getElementById('pf-reply-text');
     const sendBtn   = document.getElementById('pf-reply-send');
 
-    // Bail if the tab HTML isn't in the DOM (shouldn't happen, but be safe)
     if (!root || !overlay) return;
 
     const CSRF = document.querySelector('meta[name="csrf-token"]')?.content || '';
 
     let activeMessageId = null;
 
-    // ── Open thread on row click ──────────────────────────────────────────────
     root.addEventListener('click', function (e) {
         const row = e.target.closest('.pf-msg-row');
         if (!row) return;
@@ -47,50 +26,40 @@ function initMessagesTab() {
         openThread(msgId, row);
     });
 
-    // ── Back button ───────────────────────────────────────────────────────────
     backBtn.addEventListener('click', closeThread);
 
-    // ── Escape key closes overlay ─────────────────────────────────────────────
     document.addEventListener('keydown', function onKeyDown(e) {
         if (e.key === 'Escape' && activeMessageId !== null) {
             closeThread();
-            // Remove listener so it doesn't persist after the tab is unloaded
             document.removeEventListener('keydown', onKeyDown);
         }
     });
 
-    // ── Auto-resize textarea ──────────────────────────────────────────────────
     replyText.addEventListener('input', function () {
         this.style.height = 'auto';
         this.style.height = Math.min(this.scrollHeight, 140) + 'px';
     });
 
-    // ── Send button + Ctrl/Cmd + Enter ───────────────────────────────────────
     sendBtn.addEventListener('click', sendReply);
     replyText.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) sendReply();
     });
 
-    // ── Functions ─────────────────────────────────────────────────────────────
 
     function openThread(msgId, row) {
         activeMessageId = msgId;
 
-        // Show overlay
         overlay.style.display = '';   // remove the inline display:none set in PHP
         overlay.removeAttribute('aria-hidden');
 
-        // Reset state
         loadingEl.style.display = 'flex';
         bubblesEl.innerHTML     = '';
         replyText.value         = '';
         replyText.style.height  = '';
 
-        // Optimistically fill subject from the list row so it doesn't flash "در حال بارگذاری"
         subjectEl.textContent = row?.querySelector('.pf-msg-subject')?.textContent?.trim() || '…';
         dateEl.textContent    = '';
 
-        // Clear the unread dot for this row immediately (UX: user has now opened it)
         row?.classList.remove('is-unread');
 
         fetchThread(msgId);
@@ -109,7 +78,6 @@ function initMessagesTab() {
                 { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
             );
 
-            // Session expired
             if (res.status === 401) {
                 location.href = '/entry/';
                 return;
@@ -161,7 +129,6 @@ function initMessagesTab() {
 
         const body = document.createElement('div');
         body.className = 'pf-bubble-body';
-        // Use textContent to avoid XSS — server-stored text, but better safe
         body.textContent = m.body || '';
         wrap.appendChild(body);
 
@@ -183,7 +150,6 @@ function initMessagesTab() {
         const text = replyText.value.trim();
         if (!text || activeMessageId === null) return;
 
-        // Disable UI while sending
         sendBtn.disabled  = true;
         replyText.disabled = true;
         sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
@@ -216,7 +182,6 @@ function initMessagesTab() {
                 }));
                 scrollToBottom();
             } else {
-                // Show inline error instead of alert()
                 showThreadError(data.message || 'خطا در ارسال پیام');
             }
         } catch {
@@ -234,11 +199,9 @@ function initMessagesTab() {
         err.textContent = msg;
         bubblesEl.appendChild(err);
         scrollToBottom();
-        // Auto-remove after 4 s
         setTimeout(() => err.remove(), 4000);
     }
 
-    /** Minimal HTML-escape for any text going into innerHTML */
     function escHtml(str) {
         return String(str)
             .replace(/&/g, '&amp;')

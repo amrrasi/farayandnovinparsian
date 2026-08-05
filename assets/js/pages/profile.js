@@ -18,7 +18,6 @@
     let currentTab        = null;
     let requestController = null;
 
-    // ── Toast ─────────────────────────────────────────────────────────────────
     let toastTimer;
 
     function showToast(message, error = false) {
@@ -30,14 +29,12 @@
         toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 3200);
     }
 
-    // ── Sliding rail ──────────────────────────────────────────────────────────
     function moveRailTo(btn) {
         if (!rail || !btn) return;
         rail.style.transform = `translateY(${btn.offsetTop}px)`;
         rail.style.height    = `${btn.offsetHeight}px`;
     }
 
-    // ── Tab loader ────────────────────────────────────────────────────────────
     async function loadTab(tabName, options = {}) {
         const { pushState = true } = options;
         const endpoint = TAB_ENDPOINTS[tabName];
@@ -64,13 +61,11 @@
 
             const html = await res.text();
 
-            // Swap content with animation re-trigger
             panelBody.classList.remove('pf-panel-body');
             panelBody.innerHTML = html;
             void panelBody.offsetWidth;          // force reflow
             panelBody.classList.add('pf-panel-body');
 
-            // Wire up tab-specific JS AFTER the HTML is in the DOM
             bindPanelEvents(tabName);
 
             if (pushState) {
@@ -89,7 +84,6 @@
         }
     }
 
-    // ── Active nav state ──────────────────────────────────────────────────────
     function updateActiveTab(tab) {
         navItems.forEach(btn => {
             const active = btn.dataset.tab === tab;
@@ -99,7 +93,6 @@
         });
     }
 
-    // ── Nav click ─────────────────────────────────────────────────────────────
     navItems.forEach(btn => {
         btn.addEventListener('click', () => {
             const tab = btn.dataset.tab;
@@ -107,26 +100,22 @@
         });
     });
 
-    // ── data-goto-tab links inside tab panels ─────────────────────────────────
     document.addEventListener('click', e => {
         const btn = e.target.closest('[data-goto-tab]');
         if (btn) loadTab(btn.dataset.gotoTab);
     });
 
-    // ── Browser back / forward ────────────────────────────────────────────────
     window.addEventListener('popstate', () => {
         const params = new URLSearchParams(location.search);
         const tab    = params.get('tab') || 'overview';
         loadTab(TAB_ENDPOINTS[tab] ? tab : 'overview', { pushState: false });
     });
 
-    // ── Resize: keep rail aligned ─────────────────────────────────────────────
     window.addEventListener('resize', () => {
         const active = document.querySelector('.pf-nav-item.is-active');
         if (active) moveRailTo(active);
     });
 
-    // ── Bind tab-specific behaviour AFTER HTML injection ──────────────────────
     function bindPanelEvents(tab) {
         if (tab === 'orders')   bindOrdersTab();
         if (tab === 'messages') initMessagesTab();   // defined in profile-messages.js
@@ -134,7 +123,6 @@
         if (tab === 'security') bindSecurityForm();
     }
 
-    // ── Orders / receipt upload ───────────────────────────────────────────────
     function bindOrdersTab() {
         const CSRF    = document.querySelector('meta[name="csrf-token"]')?.content || '';
         const fileMap = {};
@@ -225,7 +213,6 @@
         });
     }
 
-    // ── Personal-info form ────────────────────────────────────────────────────
     function bindPersonalForm() {
         const form = document.getElementById('pf-personal-form');
         if (!form) return;
@@ -241,7 +228,6 @@
         };
     }
 
-    // ── Password-change form ──────────────────────────────────────────────────
     function bindSecurityForm() {
         const form = document.getElementById('pf-password-form');
         if (!form) return;
