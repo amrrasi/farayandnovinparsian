@@ -1,774 +1,1097 @@
-<!--**********************************
-    Nav header start
-***********************************-->
-<div class="nav-header">
-    <a href="./" class="brand-logo">
-<!--        <img class="logo-abbr" src="images/logo.webp" alt="">-->
-<!--        <img class="logo-compact" src="images/logo.webp" alt="">-->
-        <img class="brand-title" src="images/logo.webp" alt="<?= setting('name') ?>">
-    </a>
+<?php
 
-    <div class="nav-control">
-        <div class="hamburger">
-            <span class="line"></span><span class="line"></span><span class="line"></span>
-        </div>
-    </div>
-</div>
-<!--**********************************
-    Nav header end
-***********************************-->
+$new_orders = [];
+$new_orders_count = 0;
 
-<!--**********************************
-    Chat box start
-***********************************-->
-<div class="chatbox">
-    <div class="chatbox-close"></div>
-    <div class="custom-tab-1">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#notes">یادداشت‌ها</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#alerts">هشدارها</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#chat">چت ها</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade active show" id="chat" role="tabpanel">
-                <div class="card mb-sm-3 mb-md-0 contacts_card dz-chat-user-box">
-                    <div class="card-header chat-list-header text-center">
-                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                         width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                                    <rect fill="#000000" opacity="0.3"
-                                          transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) "
-                                          x="4" y="11" width="16" height="2" rx="1" />
-                                </g>
-                            </svg></a>
-                        <div>
-                            <h6 class="mb-1">لیست چت‌ها</h6>
-                            <p class="mb-0">نمایش همه</p>
-                        </div>
-                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                         width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24" />
-                                    <circle fill="#000000" cx="5" cy="12" r="2" />
-                                    <circle fill="#000000" cx="12" cy="12" r="2" />
-                                    <circle fill="#000000" cx="19" cy="12" r="2" />
-                                </g>
-                            </svg></a>
-                    </div>
-                    <div class="card-body contacts_body p-0 dz-scroll  " id="DZ_W_Contacts_Body">
-                        <ul class="contacts">
-                            <li class="name-first-letter">آ</li>
-                            <li class="active dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>آرچی پارکر</span>
-                                        <p>خلید آنلاین هست</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>الفی ماسون</span>
-                                        <p>طاهره 7 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>اهار کانیه </span>
-                                        <p>سامی آنلاین هست</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>آتن جکبوی</span>
-                                        <p>نرگس 30 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="name-first-letter">ب</li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>بهشید صمین</span>
-                                        <p>رشید 50 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>بردلی رونان</span>
-                                        <p>خلید آنلاین هست</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>جرج کارسون</span>
-                                        <p>طاهره 7 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="name-first-letter">د</li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>دری پارکر</span>
-                                        <p>سامی آنلاین هست</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>دنی هانتر</span>
-                                        <p>نرگس 30 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="name-first-letter">ج</li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>جک رونان</span>
-                                        <p>رشید 50 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>جیکوب تراکر</span>
-                                        <p>خلید آنلاین هست</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>جیمز لاگون</span>
-                                        <p>طاهره 7 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>جوشا واتسون</span>
-                                        <p>سامی آنلاین هست</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="name-first-letter">ا</li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>اولیور ارکر</span>
-                                        <p>نرگس 30 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dz-chat-user">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="" />
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>اوسکار واتسون</span>
-                                        <p>رشید 50 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card chat dz-chat-history-box d-none">
-                    <div class="card-header chat-list-header text-center">
-                        <a href="#" class="dz-chat-history-back">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px"
-                                 height="18px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <polygon points="0 0 24 0 24 24 0 24" />
-                                    <rect fill="#000000" opacity="0.3"
-                                          transform="translate(15.000000, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-15.000000, -12.000000) "
-                                          x="14" y="7" width="2" height="10" rx="1" />
-                                    <path
-                                            d="M3.7071045,15.7071045 C3.3165802,16.0976288 2.68341522,16.0976288 2.29289093,15.7071045 C1.90236664,15.3165802 1.90236664,14.6834152 2.29289093,14.2928909 L8.29289093,8.29289093 C8.67146987,7.914312 9.28105631,7.90106637 9.67572234,8.26284357 L15.6757223,13.7628436 C16.0828413,14.136036 16.1103443,14.7686034 15.7371519,15.1757223 C15.3639594,15.5828413 14.7313921,15.6103443 14.3242731,15.2371519 L9.03007346,10.3841355 L3.7071045,15.7071045 Z"
-                                            fill="#000000" fill-rule="nonzero"
-                                            transform="translate(9.000001, 11.999997) scale(-1, -1) rotate(90.000000) translate(-9.000001, -11.999997) " />
-                                </g>
-                            </svg>
-                        </a>
-                        <div>
-                            <h6 class="mb-1">گفت و گو با خالد</h6>
-                            <p class="mb-0 text-success">آنلاین</p>
-                        </div>
-                        <div class="dropdown">
-                            <a href="#" data-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                                          xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24"
-                                                                                          version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24" />
-                                        <circle fill="#000000" cx="5" cy="12" r="2" />
-                                        <circle fill="#000000" cx="12" cy="12" r="2" />
-                                        <circle fill="#000000" cx="19" cy="12" r="2" />
-                                    </g>
-                                </svg></a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item"><i class="fa fa-user-circle text-primary mr-2"></i>مشاهده پروفایل</li>
-                                <li class="dropdown-item"><i class="fa fa-users text-primary mr-2"></i>افزودن به دوستان نزدیک</li>
-                                <li class="dropdown-item"><i class="fa fa-plus text-primary mr-2"></i>افزودن به گروه</li>
-                                <li class="dropdown-item"><i class="fa fa-ban text-primary mr-2"></i>بلاک</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-body msg_card_body dz-scroll" id="DZ_W_Contacts_Body3">
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                سلام نسیم، چطوری؟
-                                <span class="msg_time">8:40 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                سلام خلید خوبم تو چطوری؟
-                                <span class="msg_time_send">8:55 بعدازظهر, امروز</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                خوبم مرسی؛ ازت بابت قالب ممنونم
-                                <span class="msg_time">9:00 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                خواهش میکنم
-                                <span class="msg_time_send">9:05 بعدازظهر, امروز</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                منتظر قالبای بعدیم
-                                <span class="msg_time">9:07 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                باشه، روز خوبی داشته باشی
-                                <span class="msg_time_send">9:10 بعدازظهر, امروز</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                خدانگهدار،میبینمت
-                                <span class="msg_time">9:12 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                سلام نسیم، چطوری؟
-                                <span class="msg_time">8:40 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                سلام خلید خوبم تو چطوری؟
-                                <span class="msg_time_send">8:55 بعدازظهر, امروز</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                خوبم مرسی؛ ازت بابت قالب ممنونم
-                                <span class="msg_time">9:00 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                خواهش میکنم
-                                <span class="msg_time_send">9:05 بعدازظهر, امروز</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                منتظر قالبای بعدیم
-                                <span class="msg_time">9:07 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                باشه، روز خوبی داشته باشی
-                                <span class="msg_time_send">9:10 بعدازظهر, امروز</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="" />
-                            </div>
-                            <div class="msg_cotainer">
-                                خدانگهدار،میبینمت
-                                <span class="msg_time">9:12 بعدازظهر, امروز</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer type_msg">
-                        <div class="input-group">
-                            <textarea class="form-control" placeholder="پیام خود را تایپ کنید..."></textarea>
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-location-arrow"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="alerts" role="tabpanel">
-                <div class="card mb-sm-3 mb-md-0 contacts_card">
-                    <div class="card-header chat-list-header text-center">
-                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                         width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24" />
-                                    <circle fill="#000000" cx="5" cy="12" r="2" />
-                                    <circle fill="#000000" cx="12" cy="12" r="2" />
-                                    <circle fill="#000000" cx="19" cy="12" r="2" />
-                                </g>
-                            </svg></a>
-                        <div>
-                            <h6 class="mb-1">اطلاعیه ها</h6>
-                            <p class="mb-0">نمایش همه</p>
-                        </div>
-                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                         width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24" />
-                                    <path
-                                            d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
-                                            fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                    <path
-                                            d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
-                                            fill="#000000" fill-rule="nonzero" />
-                                </g>
-                            </svg></a>
-                    </div>
-                    <div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body1">
-                        <ul class="contacts">
-                            <li class="name-first-letter">وضعیت سرویس</li>
-                            <li class="active">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont primary">ک</div>
-                                    <div class="user_info">
-                                        <span>تولد دیوید نستر امروز است</span>
-                                        <p class="text-primary">امروز </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="name-first-letter">شبکه اجتماعی </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont success">ر ی <i class="icon fa-birthday-cake"></i></div>
-                                    <div class="user_info">
-                                        <span>پیچیدگی ساده </span>
-                                        <p>جیمز اسمیت روی وضعیت شما نظر داد</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="name-first-letter">وضعیت سرویس</li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont primary">آ<i class="icon fa fa-user-plus"></i></div>
-                                    <div class="user_info">
-                                        <span>اهار کانیه </span>
-                                        <p>سامی آنلاین هست</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont info">ام<i class="icon fa fa-user-plus"></i></div>
-                                    <div class="user_info">
-                                        <span>آتن جکبوی</span>
-                                        <p>نرگس 30 دقیقه قبل آفلاین شد</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-footer"></div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="notes">
-                <div class="card mb-sm-3 mb-md-0 note_card">
-                    <div class="card-header chat-list-header text-center">
-                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                         width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                                    <rect fill="#000000" opacity="0.3"
-                                          transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) "
-                                          x="4" y="11" width="16" height="2" rx="1" />
-                                </g>
-                            </svg></a>
-                        <div>
-                            <h6 class="mb-1">یادداشت‌ها</h6>
-                            <p class="mb-0">افزودن یادداشت</p>
-                        </div>
-                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                         width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24" />
-                                    <path
-                                            d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
-                                            fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                    <path
-                                            d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
-                                            fill="#000000" fill-rule="nonzero" />
-                                </g>
-                            </svg></a>
-                    </div>
-                    <div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body2">
-                        <ul class="contacts">
-                            <li class="active">
-                                <div class="d-flex bd-highlight">
-                                    <div class="user_info">
-                                        <span>سفارش جدید ثبت شد</span>
-                                        <p>10 آذر 1399</p>
-                                    </div>
-                                    <div class="mr-auto">
-                                        <a href="#" class="btn btn-primary btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="user_info">
-                                        <span>یوتوپ، یک سایت اشتراک فیلم</span>
-                                        <p>10 آذر 1399</p>
-                                    </div>
-                                    <div class="mr-auto">
-                                        <a href="#" class="btn btn-primary btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="user_info">
-                                        <span>جان محصول شما را خرید</span>
-                                        <p>10 آذر 1399</p>
-                                    </div>
-                                    <div class="mr-auto">
-                                        <a href="#" class="btn btn-primary btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="user_info">
-                                        <span>آتن جکبوی</span>
-                                        <p>10 آذر 1399</p>
-                                    </div>
-                                    <div class="mr-auto">
-                                        <a href="#" class="btn btn-primary btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--**********************************
-    Chat box End
-***********************************-->
-
-<!--**********************************
-    Header start
-***********************************-->
-<div class="header">
-    <div class="header-content">
-        <nav class="navbar navbar-expand">
-            <div class="collapse navbar-collapse justify-content-between">
-                <div class="header-left">
-                    <div class="dashboard_bar">
-                        <div class="input-group search-area d-lg-inline-flex d-none">
-                            <li class="nav-item">
-                                <div class="d-flex align-items-center weather-detail gap-2 p-2 rounded">
-
-                                    <span id="clock" class="la la-clock"></span>
-
-                                </div>
-                            </li>
-<!--                            <div class="input-group-append">-->
-<!--                                <button class="input-group-text"><i class="flaticon-381-search-2"></i></button>-->
-<!--                            </div>-->
-<!--                            <input type="text" class="form-control" placeholder="جستجو...">-->
-                        </div>
-                    </div>
-                </div>
-                <ul class="navbar-nav header-right">
-
-                    <?php
-
-                    $notif_items = [];
-
-                    $msgStmt = $mysqli->prepare("
-    SELECT `id`, `fullname`, `subject`, `created_at`
-    FROM `contact_messages`
-    WHERE `seen` = 0 AND `deleted` = 0
+$orderStmt = $mysqli->prepare("
+    SELECT
+        `id`,
+        `full_name`,
+        `created_at`
+    FROM `orders`
+    WHERE `deleted` = 0
     ORDER BY `created_at` DESC
     LIMIT 8
 ");
-                    $msgStmt->execute();
-                    $msgResult = $msgStmt->get_result();
 
-                    while ($row = $msgResult->fetch_assoc()) {
-                        $notif_items[] = [
-                                'type'  => 'message',
-                                'icon'  => 'fa-envelope',
-                                'class' => 'media-primary',
-                                'title' => 'پیام جدید از ' . $row['fullname'] . ' — ' . $row['subject'],
-                                'time'  => $row['created_at'],
-                                'link'  => 'messages.php?id=' . (int)$row['id'],
-                        ];
-                    }
+if ($orderStmt) {
+    $orderStmt->execute();
 
-                    /*
-                     * --- future: orders --------------------------------------------------
-                     * $orderStmt = $mysqli->prepare("SELECT id, customer_name, created_at FROM orders WHERE seen = 0 ORDER BY created_at DESC LIMIT 8");
-                     * $orderStmt->execute();
-                     * $orderResult = $orderStmt->get_result();
-                     * while ($row = $orderResult->fetch_assoc()) {
-                     *     $notif_items[] = [
-                     *         'type'  => 'order',
-                     *         'icon'  => 'fa-shopping-cart',
-                     *         'class' => 'media-success',
-                     *         'title' => 'سفارش جدید از ' . $row['customer_name'],
-                     *         'time'  => $row['created_at'],
-                     *         'link'  => 'order-view.php?id=' . (int)$row['id'],
-                     *     ];
-                     * }
-                     *
-                     * usort($notif_items, function ($a, $b) {
-                     *     return strtotime($b['time']) <=> strtotime($a['time']);
-                     * });
-                     * $notif_items = array_slice($notif_items, 0, 8);
-                     */
+    $orderResult = $orderStmt->get_result();
 
-                    $notif_count = count($notif_items);
-                    ?>
+    while ($row = $orderResult->fetch_assoc()) {
+        $new_orders[] = $row;
+    }
 
-                    <li class="nav-item dropdown notification_dropdown">
-                        <a class="nav-link ai-icon" href="#" role="button" data-toggle="dropdown">
-                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M12.6001 4.3008V1.4C12.6001 0.627199 13.2273 0 14.0001 0C14.7715 0 15.4001 0.627199 15.4001 1.4V4.3008C17.4805 4.6004 19.4251 5.56639 20.9287 7.06999C22.7669 8.90819 23.8001 11.4016 23.8001 14V19.2696L24.9327 21.5348C25.4745 22.6198 25.4171 23.9078 24.7787 24.9396C24.1417 25.9714 23.0147 26.6 21.8023 26.6H15.4001C15.4001 27.3728 14.7715 28 14.0001 28C13.2273 28 12.6001 27.3728 12.6001 26.6H6.19791C4.98411 26.6 3.85714 25.9714 3.22014 24.9396C2.58174 23.9078 2.52433 22.6198 3.06753 21.5348L4.20011 19.2696V14C4.20011 11.4016 5.23194 8.90819 7.07013 7.06999C8.57513 5.56639 10.5183 4.6004 12.6001 4.3008ZM14.0001 6.99998C12.1423 6.99998 10.3629 7.73779 9.04973 9.05099C7.73653 10.3628 7.00011 12.1436 7.00011 14V19.6C7.00011 19.817 6.94833 20.0312 6.85173 20.2258C6.85173 20.2258 6.22871 21.4718 5.57072 22.7864C5.46292 23.0034 5.47412 23.2624 5.60152 23.4682C5.72892 23.674 5.95431 23.8 6.19791 23.8H21.8023C22.0445 23.8 22.2699 23.674 22.3973 23.4682C22.5247 23.2624 22.5359 23.0034 22.4281 22.7864C21.7701 21.4718 21.1471 20.2258 21.1471 20.2258C21.0505 20.0312 21.0001 19.817 21.0001 19.6V14C21.0001 12.1436 20.2623 10.3628 18.9491 9.05099C17.6359 7.73779 15.8565 6.99998 14.0001 6.99998Z"
-                                      fill="#3E4954" />
-                            </svg>
-                            <?php if ($notif_count > 0): ?>
-                                <span class="badge light text-white bg-primary rounded-circle"><?= $notif_count ?></span>
-                            <?php endif; ?>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3 height380">
-                                <ul class="timeline">
-                                    <?php if ($notif_count > 0): ?>
-                                        <?php foreach ($notif_items as $item): ?>
-                                            <li>
-                                                <a href="<?= htmlspecialchars($item['link']) ?>" style="text-decoration:none; color:inherit;">
-                                                    <div class="timeline-panel">
-                                                        <div class="media ml-2 <?= htmlspecialchars($item['class']) ?>">
-                                                            <i class="fa <?= htmlspecialchars($item['icon']) ?>"></i>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1"><?= htmlspecialchars($item['title']) ?></h6>
-                                                            <small class="d-block"><?= jdate("d F Y H:i", strtotime($item['time'])) ?></small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <li>
-                                            <div class="timeline-panel" style="justify-content:center;">
-                                                <div class="media-body text-center">
-                                                    <small class="d-block text-muted">اطلاعیه جدیدی وجود ندارد</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                            </div>
-                            <a class="all-notification" href="messagesList.php">مشاهده همه پیام‌ها <i class="ti-arrow-left"></i></a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown notification_dropdown">
-                        <a class="nav-link bell bell-link" href="javascript:void(0)">
-                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M25.6666 8.16666C25.6666 5.5895 23.5771 3.5 21 3.5C17.1161 3.5 10.8838 3.5 6.99998 3.5C4.42281 3.5 2.33331 5.5895 2.33331 8.16666V23.3333C2.33331 23.8058 2.61798 24.2305 3.05315 24.4113C3.48948 24.5922 3.99115 24.4918 4.32481 24.1582C4.32481 24.1582 6.59281 21.8902 7.96714 20.517C8.40464 20.0795 8.99733 19.8333 9.61683 19.8333H21C23.5771 19.8333 25.6666 17.7438 25.6666 15.1667V8.16666ZM23.3333 8.16666C23.3333 6.87866 22.2891 5.83333 21 5.83333C17.1161 5.83333 10.8838 5.83333 6.99998 5.83333C5.71198 5.83333 4.66665 6.87866 4.66665 8.16666V20.517L6.31631 18.8673C7.19132 17.9923 8.37899 17.5 9.61683 17.5H21C22.2891 17.5 23.3333 16.4558 23.3333 15.1667V8.16666ZM8.16665 15.1667H17.5C18.144 15.1667 18.6666 14.644 18.6666 14C18.6666 13.356 18.144 12.8333 17.5 12.8333H8.16665C7.52265 12.8333 6.99998 13.356 6.99998 14C6.99998 14.644 7.52265 15.1667 8.16665 15.1667ZM8.16665 10.5H19.8333C20.4773 10.5 21 9.97733 21 9.33333C21 8.68933 20.4773 8.16666 19.8333 8.16666H8.16665C7.52265 8.16666 6.99998 8.68933 6.99998 9.33333C6.99998 9.97733 7.52265 10.5 8.16665 10.5Z"
-                                      fill="#3E4954" />
-                            </svg>
-                            <span class="badge light text-white bg-primary rounded-circle">5</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown header-profile">
-                        <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-                            <div class="header-info">
-                                <span class="text-black">سلام,<strong> <?= $_SESSION['usr_username'] ?> </strong></span>
+    $orderStmt->close();
 
-                            </div>
-                            <img src="images/profile/noimage.png" width="20" alt="" />
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="app-profile.html" class="dropdown-item ai-icon">
-                                <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                <span class="ml-2">پروفایل</span>
-                            </a>
-                            <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success" width="18" height="18"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                                <span class="ml-2">ورودی</span>
-                            </a>
-                            <a href="logout.php" class="dropdown-item ai-icon">
-                                <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round">
-                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                    <polyline points="16 17 21 12 16 7"></polyline>
-                                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                                </svg>
-                                <span class="ml-2">خروج</span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+    $new_orders_count = count($new_orders);
+}
+
+
+/* -------------------------------------------------------------------------
+ | New Contact Messages
+ * ------------------------------------------------------------------------- */
+
+$new_msgs = [];
+$new_msgs_count = 0;
+
+$msgStmt = $mysqli->prepare("
+    SELECT
+        `id`,
+        `fullname`,
+        `subject`,
+        `created_at`
+    FROM `contact_messages`
+    WHERE `seen` = 0
+      AND `deleted` = 0
+    ORDER BY `created_at` DESC
+    LIMIT 8
+");
+
+if ($msgStmt) {
+    $msgStmt->execute();
+
+    $msgResult = $msgStmt->get_result();
+
+    while ($row = $msgResult->fetch_assoc()) {
+        $new_msgs[] = $row;
+    }
+
+    $msgStmt->close();
+
+    $new_msgs_count = count($new_msgs);
+}
+
+
+/* -------------------------------------------------------------------------
+ | Admin Notes
+ |
+ | Database structure:
+ |
+ | id
+ | admin_id
+ | note
+ | deleted
+ | created_at
+ | updated_at
+ |
+ * ------------------------------------------------------------------------- */
+
+$admin_notes = [];
+
+$notesStmt = $mysqli->prepare("
+    SELECT
+        n.`id`,
+        n.`admin_id`,
+        n.`note`,
+        n.`deleted`,
+        n.`created_at`,
+        n.`updated_at`,
+        a.`username` AS author
+    FROM `admin_notes` n
+    LEFT JOIN `admins` a
+        ON a.`id` = n.`admin_id`
+    WHERE n.`deleted` = 0
+    ORDER BY n.`created_at` DESC
+    LIMIT 20
+");
+
+if ($notesStmt) {
+    $notesStmt->execute();
+
+    $notesResult = $notesStmt->get_result();
+
+    while ($row = $notesResult->fetch_assoc()) {
+        $admin_notes[] = $row;
+    }
+
+    $notesStmt->close();
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| POST ACTIONS
+|--------------------------------------------------------------------------
+*/
+
+if (
+        $_SERVER['REQUEST_METHOD'] === 'POST' &&
+        isset($_POST['action'])
+) {
+
+    /* ---------------------------------------------------------------------
+     | Add Note
+     * --------------------------------------------------------------------- */
+
+    if ($_POST['action'] === 'add_note') {
+
+        $note = trim($_POST['note'] ?? '');
+
+        $author = isset($_SESSION['usr_id'])
+                ? (int) $_SESSION['usr_id']
+                : 0;
+
+        if ($author > 0 && $note !== '') {
+
+            $ins = $mysqli->prepare("
+                INSERT INTO `admin_notes`
+                (
+                    `admin_id`,
+                    `note`,
+                    `deleted`
+                )
+                VALUES (?, ?, 0)
+            ");
+
+            if ($ins) {
+
+                $ins->bind_param(
+                        'is',
+                        $author,
+                        $note
+                );
+
+                $ins->execute();
+
+                $ins->close();
+            }
+        }
+
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit;
+    }
+
+
+    /* ---------------------------------------------------------------------
+     | Delete Note
+     |
+     | Soft Delete
+     * --------------------------------------------------------------------- */
+
+    if ($_POST['action'] === 'delete_note') {
+
+        $noteId = (int) ($_POST['note_id'] ?? 0);
+
+        if ($noteId > 0) {
+
+            $del = $mysqli->prepare("
+                UPDATE `admin_notes`
+                SET
+                    `deleted` = 1,
+                    `updated_at` = NOW()
+                WHERE `id` = ?
+                  AND `deleted` = 0
+            ");
+
+            if ($del) {
+
+                $del->bind_param(
+                        'i',
+                        $noteId
+                );
+
+                $del->execute();
+
+                $del->close();
+            }
+        }
+
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit;
+    }
+}
+
+?>
+
+
+<!-- =====================================================================
+     SIDE HEADER
+===================================================================== -->
+
+<div class="nav-header">
+
+    <a href="./" class="brand-logo">
+
+        <img
+                class="brand-title"
+                src="images/logo.webp"
+                alt="<?= htmlspecialchars(setting('name')) ?>"
+        >
+
+    </a>
+
+
+    <div class="nav-control">
+
+        <div class="hamburger">
+
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+
+        </div>
+
     </div>
+
 </div>
-<!--**********************************
-    Header end ti-comment-alt
-***********************************-->
+
+
+<!-- =====================================================================
+     MAIN HEADER
+===================================================================== -->
+
+<div class="header">
+
+    <div class="header-content">
+
+        <nav
+                class="navbar navbar-expand"
+                style="height:100%;padding:0;"
+        >
+
+            <div
+                    class="collapse navbar-collapse justify-content-between"
+                    style="height:100%;"
+            >
+
+
+                <!-- =====================================================
+                     LEFT
+                ====================================================== -->
+
+                <div
+                        class="header-left d-flex align-items-center"
+                        style="gap:12px;"
+                >
+
+                    <div class="hd-clock">
+
+                        <!-- Clock Icon -->
+
+                        <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
+                        >
+
+                            <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                            />
+
+                            <polyline
+                                    points="12 6 12 12 16 14"
+                            />
+
+                        </svg>
+
+
+                        <span id="hd-clock-time">
+                            --:--:--
+                        </span>
+
+
+                        <span
+                                id="hd-clock-date"
+                                style="color:var(--hd-muted);font-size:12px;"
+                        >
+                            ---
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================================
+                     RIGHT
+                ====================================================== -->
+
+                <ul
+                        class="navbar-nav header-right d-flex align-items-center"
+                        style="
+                        flex-direction:row;
+                        gap:8px;
+                        margin:0;
+                        padding:0;
+                        list-style:none;
+                    "
+                >
+
+
+                    <!-- =================================================
+                         ORDERS
+                    ================================================== -->
+
+                    <li
+                            class="nav-item"
+                            style="position:relative;"
+                    >
+
+                        <a
+                                href="javascript:void(0)"
+                                class="hd-icon-btn"
+                                id="hd-btn-orders"
+                                title="سفارش‌های جدید"
+                        >
+
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                            >
+
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007 17h11M17 17a2 2 0 110 4 2 2 0 010-4zm-8 0a2 2 0 110 4 2 2 0 010-4z"
+                                />
+
+                            </svg>
+
+
+                            <?php if ($new_orders_count > 0): ?>
+
+                                <span class="hd-badge hd-badge-order">
+                                    <?= $new_orders_count ?>
+                                </span>
+
+                            <?php endif; ?>
+
+                        </a>
+
+
+                        <!-- Orders Dropdown -->
+
+                        <div
+                                class="hd-dropdown"
+                                id="hd-drop-orders"
+                        >
+
+                            <div class="hd-panel-head">
+
+                                <h6>
+                                    سفارش‌های جدید
+                                </h6>
+
+                                <span class="hd-count hd-count-order">
+                                    <?= $new_orders_count ?> مورد
+                                </span>
+
+                            </div>
+
+
+                            <ul class="hd-notif-list">
+
+                                <?php if (empty($new_orders)): ?>
+
+                                    <li class="hd-empty">
+
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="32"
+                                                height="32"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="1.2"
+                                        >
+
+                                            <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007 17h11"
+                                            />
+
+                                        </svg>
+
+                                        <br>
+
+                                        سفارش جدیدی وجود ندارد
+
+                                    </li>
+
+                                <?php else: ?>
+
+                                    <?php foreach ($new_orders as $order): ?>
+
+                                        <li>
+
+                                            <a
+                                                    class="hd-notif-item"
+                                                    href="order_view.php?id=<?= (int) $order['id'] ?>"
+                                            >
+
+                                                <span class="hd-notif-icon hd-notif-icon-order">
+
+                                                    <i class="fa fa-shopping-cart"></i>
+
+                                                </span>
+
+
+                                                <div class="hd-notif-body">
+
+                                                    <strong>
+                                                        سفارش از
+                                                        <?= htmlspecialchars($order['full_name']) ?>
+                                                    </strong>
+
+                                                    <small>
+                                                        <?= jdate(
+                                                                "d F Y H:i",
+                                                                strtotime($order['created_at'])
+                                                        ) ?>
+                                                    </small>
+
+                                                </div>
+
+                                            </a>
+
+                                        </li>
+
+                                    <?php endforeach; ?>
+
+                                <?php endif; ?>
+
+                            </ul>
+
+
+                            <div class="hd-panel-footer">
+
+                                <a href="order_list.php">
+                                    مشاهده همه سفارش‌ها &larr;
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+                    <!-- =================================================
+                         MESSAGES
+                    ================================================== -->
+
+                    <li
+                            class="nav-item"
+                            style="position:relative;"
+                    >
+
+                        <a
+                                href="javascript:void(0)"
+                                class="hd-icon-btn"
+                                id="hd-btn-msgs"
+                                title="پیام‌های جدید"
+                        >
+
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                            >
+
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                />
+
+                            </svg>
+
+
+                            <?php if ($new_msgs_count > 0): ?>
+
+                                <span class="hd-badge hd-badge-msg">
+                                    <?= $new_msgs_count ?>
+                                </span>
+
+                            <?php endif; ?>
+
+                        </a>
+
+
+                        <!-- Messages Dropdown -->
+
+                        <div
+                                class="hd-dropdown"
+                                id="hd-drop-msgs"
+                        >
+
+                            <div class="hd-panel-head">
+
+                                <h6>
+                                    پیام‌های جدید
+                                </h6>
+
+                                <span class="hd-count hd-count-msg">
+                                    <?= $new_msgs_count ?> مورد
+                                </span>
+
+                            </div>
+
+
+                            <ul class="hd-notif-list">
+
+                                <?php if (empty($new_msgs)): ?>
+
+                                    <li class="hd-empty">
+
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="32"
+                                                height="32"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="1.2"
+                                        >
+
+                                            <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                                            />
+
+                                        </svg>
+
+                                        <br>
+
+                                        پیام جدیدی وجود ندارد
+
+                                    </li>
+
+                                <?php else: ?>
+
+                                    <?php foreach ($new_msgs as $msg): ?>
+
+                                        <li>
+
+                                            <a
+                                                    class="hd-notif-item"
+                                                    href="messagesList.php?id=<?= (int) $msg['id'] ?>"
+                                            >
+
+                                                <span class="hd-notif-icon hd-notif-icon-msg">
+
+                                                    <i class="fa fa-envelope"></i>
+
+                                                </span>
+
+
+                                                <div class="hd-notif-body">
+
+                                                    <strong>
+
+                                                        <?= htmlspecialchars($msg['fullname']) ?>
+
+                                                        —
+
+                                                        <?= htmlspecialchars($msg['subject']) ?>
+
+                                                    </strong>
+
+
+                                                    <small>
+
+                                                        <?= jdate(
+                                                                "d F Y H:i",
+                                                                strtotime($msg['created_at'])
+                                                        ) ?>
+
+                                                    </small>
+
+                                                </div>
+
+                                            </a>
+
+                                        </li>
+
+                                    <?php endforeach; ?>
+
+                                <?php endif; ?>
+
+                            </ul>
+
+
+                            <div class="hd-panel-footer">
+
+                                <a href="messagesList.php">
+                                    مشاهده همه پیام‌ها &larr;
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+                    <!-- =================================================
+                         ADMIN NOTES
+                    ================================================== -->
+
+                    <li
+                            class="nav-item"
+                            style="position:relative;"
+                    >
+
+                        <a
+                                href="javascript:void(0)"
+                                class="hd-icon-btn"
+                                id="hd-btn-notes"
+                                title="یادداشت‌های ادمین"
+                        >
+
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                            >
+
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                />
+
+                            </svg>
+
+
+                            <?php if (count($admin_notes) > 0): ?>
+
+                                <span class="hd-badge hd-badge-accent">
+                                    <?= count($admin_notes) ?>
+                                </span>
+
+                            <?php endif; ?>
+
+                        </a>
+
+
+                        <!-- Notes Dropdown -->
+
+                        <div
+                                class="hd-dropdown hd-notes-panel"
+                                id="hd-drop-notes"
+                        >
+
+                            <div class="hd-panel-head">
+
+                                <h6>
+                                    یادداشت‌های ادمین
+                                </h6>
+
+                                <span class="hd-count hd-count-note">
+
+                                    <?= count($admin_notes) ?>
+
+                                    یادداشت
+
+                                </span>
+
+                            </div>
+
+
+                            <!-- Notes List -->
+
+                            <ul class="hd-notes-list">
+
+                                <?php if (empty($admin_notes)): ?>
+
+                                    <li class="hd-empty">
+
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="32"
+                                                height="32"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="1.2"
+                                        >
+
+                                            <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"
+                                            />
+
+                                        </svg>
+
+                                        <br>
+
+                                        یادداشتی ثبت نشده
+
+                                    </li>
+
+                                <?php else: ?>
+
+                                    <?php foreach ($admin_notes as $note): ?>
+
+                                        <li class="hd-note-card">
+
+                                            <!-- Note Content -->
+
+                                            <div class="hd-note-content">
+
+                                                <p>
+                                                    <?= nl2br(
+                                                            htmlspecialchars($note['note'])
+                                                    ) ?>
+                                                </p>
+
+                                            </div>
+
+
+                                            <!-- Note Meta -->
+
+                                            <div class="hd-note-meta">
+
+                                                <span>
+
+                                                    <strong>
+                                                        <?= htmlspecialchars(
+                                                                $note['author'] ?? 'مدیر'
+                                                        ) ?>
+                                                    </strong>
+
+                                                    ·
+
+                                                    <?= jdate(
+                                                            "d M Y H:i",
+                                                            strtotime($note['created_at'])
+                                                    ) ?>
+
+                                                </span>
+
+
+                                                <!-- Delete -->
+
+                                                <div class="hd-note-actions">
+
+                                                    <form
+                                                            method="POST"
+                                                            style="display:inline;"
+                                                            onsubmit="return confirm('آیا از حذف این یادداشت مطمئن هستید؟');"
+                                                    >
+
+                                                        <input
+                                                                type="hidden"
+                                                                name="action"
+                                                                value="delete_note"
+                                                        >
+
+                                                        <input
+                                                                type="hidden"
+                                                                name="note_id"
+                                                                value="<?= (int) $note['id'] ?>"
+                                                        >
+
+
+                                                        <button
+                                                                type="submit"
+                                                                class="btn-del"
+                                                                title="حذف یادداشت"
+                                                        >
+                                                            🗑
+                                                        </button>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+
+                                        </li>
+
+                                    <?php endforeach; ?>
+
+                                <?php endif; ?>
+
+                            </ul>
+
+
+                            <!-- =================================================
+                                 ADD NOTE
+                            ================================================== -->
+
+                            <div class="hd-add-note">
+
+                                <button
+                                        type="button"
+                                        class="hd-add-note-toggle"
+                                        id="hd-note-toggle-btn"
+                                >
+
+                                    <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="13"
+                                            height="13"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            stroke-width="2.5"
+                                    >
+
+                                        <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 4v16m8-8H4"
+                                        />
+
+                                    </svg>
+
+                                    یادداشت جدید
+
+                                </button>
+
+
+                                <form
+                                        method="POST"
+                                        class="hd-note-form"
+                                        id="hd-note-form"
+                                >
+
+                                    <input
+                                            type="hidden"
+                                            name="action"
+                                            value="add_note"
+                                    >
+
+
+                                    <textarea
+                                            name="note"
+                                            placeholder="متن یادداشت..."
+                                            required
+                                    ></textarea>
+
+
+                                    <button
+                                            type="submit"
+                                            class="hd-btn-submit"
+                                    >
+                                        ذخیره یادداشت
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+                    <!-- =================================================
+                         PROFILE
+                    ================================================== -->
+
+                    <li class="nav-item hd-profile-wrap">
+
+                        <a
+                                href="javascript:void(0)"
+                                class="hd-profile-btn"
+                                id="hd-btn-profile"
+                        >
+
+                            <img
+                                    class="hd-profile-avatar"
+                                    src="images/profile/noimage.png"
+                                    alt=""
+                            >
+
+
+                            <span class="hd-profile-name">
+
+                                <span>
+                                    سلام،
+                                </span>
+
+                                <?= htmlspecialchars(
+                                        $_SESSION['usr_username'] ?? 'مدیر'
+                                ) ?>
+
+                            </span>
+
+
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="12"
+                                    height="12"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    style="
+                                    color:var(--hd-muted);
+                                    flex-shrink:0;
+                                "
+                            >
+
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M19 9l-7 7-7-7"
+                                />
+
+                            </svg>
+
+                        </a>
+
+
+                        <!-- Profile Dropdown -->
+
+                        <div
+                                class="hd-profile-dropdown"
+                                id="hd-drop-profile"
+                        >
+
+                            <div class="hd-profile-info">
+
+                                <strong>
+
+                                    <?= htmlspecialchars(
+                                            $_SESSION['usr_username'] ?? 'مدیر'
+                                    ) ?>
+
+                                </strong>
+
+                                <small>
+                                    مدیر سیستم
+                                </small>
+
+                            </div>
+
+
+                            <ul class="hd-profile-menu">
+
+                                <!-- Profile -->
+
+                                <li>
+
+                                    <a href="app-profile.html">
+
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                        >
+
+                                            <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                            />
+
+                                        </svg>
+
+                                        پروفایل
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- Settings -->
+
+                                <li>
+
+                                    <a href="setting.php">
+
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                        >
+
+                                            <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426.608-2.296.07-2.572-1.065z"
+                                            />
+
+                                            <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="3"
+                                            />
+
+                                        </svg>
+
+                                        تنظیمات
+
+                                    </a>
+
+                                </li>
+
+
+                                <li class="divider"></li>
+
+
+                                <!-- Logout -->
+
+                                <li class="danger">
+
+                                    <a href="logout.php">
+
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                        >
+
+                                            <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                            />
+
+                                        </svg>
+
+                                        خروج از سیستم
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================================
+     HEADER JAVASCRIPT
+===================================================================== -->
+

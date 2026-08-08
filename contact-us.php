@@ -98,7 +98,7 @@ require_once "cms/myadmin/inc/config.php";
 
                 method="post"
 
-                action="ajax/contact_process.php"
+                action=""
 
                 enctype="multipart/form-data"
 

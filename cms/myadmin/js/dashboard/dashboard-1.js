@@ -157,7 +157,7 @@
 							caretPadding: 10,
 							titleAlign: 'right',
 							bodyAlign: 'right',
-							rtl: true 
+							rtl: true
 						},
 
 						legend: {
@@ -166,7 +166,7 @@
 							rtl: true,
 
 						},
-					
+
 						responsive: !0,
 						maintainAspectRatio: !1,
 						hover: {
@@ -531,3 +531,270 @@
 	});
 
 })(jQuery);
+
+(function () {
+
+	const timeEl = document.getElementById('hd-clock-time');
+	const dateEl = document.getElementById('hd-clock-date');
+
+	if (!timeEl) {
+		return;
+	}
+
+
+	const days = [
+		'یکشنبه',
+		'دوشنبه',
+		'سه‌شنبه',
+		'چهارشنبه',
+		'پنجشنبه',
+		'جمعه',
+		'شنبه'
+	];
+
+
+	function tick() {
+
+		const now = new Date();
+
+		const hh = String(
+			now.getHours()
+		).padStart(2, '0');
+
+		const mm = String(
+			now.getMinutes()
+		).padStart(2, '0');
+
+		const ss = String(
+			now.getSeconds()
+		).padStart(2, '0');
+
+
+		timeEl.textContent =
+			hh + ':' + mm + ':' + ss;
+
+
+		if (dateEl) {
+
+			dateEl.textContent =
+				days[now.getDay()];
+
+		}
+
+	}
+
+
+	tick();
+
+	setInterval(
+		tick,
+		1000
+	);
+
+})();
+
+
+/* =========================================================================
+   DROPDOWN SYSTEM
+========================================================================= */
+
+(function () {
+
+	const map = [
+
+		{
+			btn: 'hd-btn-orders',
+			drop: 'hd-drop-orders'
+		},
+
+		{
+			btn: 'hd-btn-msgs',
+			drop: 'hd-drop-msgs'
+		},
+
+		{
+			btn: 'hd-btn-notes',
+			drop: 'hd-drop-notes'
+		},
+
+		{
+			btn: 'hd-btn-profile',
+			drop: 'hd-drop-profile'
+		}
+
+	];
+
+
+	function closeAll(except) {
+
+		map.forEach(function (item) {
+
+			if (item.drop === except) {
+				return;
+			}
+
+
+			const drop =
+				document.getElementById(item.drop);
+
+			const btn =
+				document.getElementById(item.btn);
+
+
+			if (drop) {
+
+				drop.classList.remove(
+					'active'
+				);
+
+			}
+
+
+			if (btn) {
+
+				btn.classList.remove(
+					'show'
+				);
+
+			}
+
+		});
+
+	}
+
+
+	map.forEach(function (item) {
+
+		const btn =
+			document.getElementById(item.btn);
+
+		const drop =
+			document.getElementById(item.drop);
+
+
+		if (!btn || !drop) {
+			return;
+		}
+
+
+		btn.addEventListener(
+			'click',
+			function (event) {
+
+				event.preventDefault();
+
+				event.stopPropagation();
+
+
+				const isOpen =
+					drop.classList.contains('active');
+
+
+				closeAll(null);
+
+
+				if (!isOpen) {
+
+					drop.classList.add(
+						'active'
+					);
+
+					btn.classList.add(
+						'show'
+					);
+
+				}
+
+			}
+		);
+
+	});
+
+
+	/*
+     * Prevent clicking inside dropdown
+     * from closing it.
+     */
+
+	document
+		.querySelectorAll(
+			'.hd-dropdown, .hd-profile-dropdown'
+		)
+		.forEach(function (drop) {
+
+			drop.addEventListener(
+				'click',
+				function (event) {
+
+					event.stopPropagation();
+
+				}
+			);
+
+		});
+
+
+	/*
+     * Close when clicking outside.
+     */
+
+	document.addEventListener(
+		'click',
+		function () {
+
+			closeAll(null);
+
+		}
+	);
+
+})();
+
+
+/* =========================================================================
+   ADD NOTE FORM
+========================================================================= */
+
+(function () {
+
+	const btn =
+		document.getElementById(
+			'hd-note-toggle-btn'
+		);
+
+	const form =
+		document.getElementById(
+			'hd-note-form'
+		);
+
+
+	if (!btn || !form) {
+		return;
+	}
+
+
+	btn.addEventListener(
+		'click',
+		function (event) {
+
+			event.preventDefault();
+
+			event.stopPropagation();
+
+
+			const isOpen =
+				form.classList.contains('open');
+
+
+			form.classList.toggle(
+				'open',
+				!isOpen
+			);
+
+
+			btn.style.display =
+				isOpen ? '' : 'none';
+
+		}
+	);
+
+})();

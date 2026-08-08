@@ -49,7 +49,6 @@ function isValidIranianMobile(string $mobile): bool
 
 function isStrongEnoughPassword(string $password): bool
 {
-    // At least 8 characters, containing at least one letter and one digit.
     return strlen($password) >= 8
         && preg_match('/[A-Za-z]/', $password)
         && preg_match('/\d/', $password);
