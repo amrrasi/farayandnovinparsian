@@ -767,12 +767,13 @@ if (
                                                         <?= htmlspecialchars(
                                                                 $note['author'] ?? 'مدیر'
                                                         ) ?>
+                                                        <br>
                                                     </strong>
 
                                                     ·
 
                                                     <?= jdate(
-                                                            "d M Y H:i",
+                                                            "d F Y",
                                                             strtotime($note['created_at'])
                                                     ) ?>
 
