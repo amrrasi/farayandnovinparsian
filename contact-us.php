@@ -6,7 +6,7 @@ require_once "cms/myadmin/inc/config.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> <?= setting('name') ?> | ارتباط با ما</title>
+    <title><?= setting('name') ?> | ارتباط با ما</title>
     <meta name="description" content="<?= setting('meta_description') ?>">
     <?= $global_base_address ?>
 
@@ -27,374 +27,138 @@ require_once "cms/myadmin/inc/config.php";
 
     <link rel="stylesheet"
           href="assets/css/pages/contact-us.css?v=<?php echo filemtime('assets/css/pages/contact-us.css'); ?>">
+</head><!-- FIX: missing </head> tag -->
 <body>
 
 <?php require_once "inc/header.php" ?>
-
 
 <div class="contact-form-container mt-5">
 
     <div class="contact-form-card">
 
-
         <div class="form-top">
 
             <div class="form-title">
-
                 <span class="mini-badge">
-
                     <i class="fa-solid fa-paper-plane"></i>
-
                     ثبت درخواست
-
                 </span>
-
-                <h2>
-
-                    گفت‌وگو را از اینجا شروع کنیم
-
-                </h2>
-
+                <h2>گفت‌وگو را از اینجا شروع کنیم</h2>
                 <p>
-
                     اطلاعات شما نزد ما محفوظ خواهد ماند.
                     پس از ثبت درخواست، کارشناسان ما در سریع‌ترین زمان ممکن با شما تماس خواهند گرفت.
-
                 </p>
-
             </div>
 
-
             <div class="form-progress">
-
                 <div class="progress-line">
-
                     <div class="progress-fill"></div>
-
                 </div>
-
                 <span class="progress-text">
-
                     تکمیل فرم
-
-                    <strong>
-
-                        0%
-
-                    </strong>
-
+                    <strong>0%</strong>
                 </span>
-
             </div>
 
         </div>
 
-
         <div id="formAlert"></div>
 
         <form
-
                 id="contactForm"
-
                 method="post"
-
-                action=""
-
+                action="ajax/contact_process.php"
                 enctype="multipart/form-data"
-
                 autocomplete="off"
-
                 novalidate>
 
             <div class="row gy-4">
 
                 <div class="col-lg-6">
-
                     <div class="floating-input">
-
-                        <input
-
-                                id="fullname"
-
-                                name="fullname"
-
-                                type="text"
-
-                                required>
-
-                        <label>
-
-                            نام و نام خانوادگی
-
-                        </label>
-
+                        <input id="fullname" name="fullname" type="text" required>
+                        <label>نام و نام خانوادگی</label>
                         <i class="fa-regular fa-user input-icon"></i>
-
-                        <span class="validation-icon">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                        </span>
-
+                        <span class="validation-icon"><i class="fa-solid fa-circle-check"></i></span>
                     </div>
-
                     <small class="error-text"></small>
-
                 </div>
 
                 <div class="col-lg-6">
-
                     <div class="floating-input">
-
-                        <input
-
-                                id="mobile"
-
-                                name="mobile"
-
-                                type="tel"
-
-                                maxlength="11"
-
-                                inputmode="numeric"
-
-                                required>
-
-                        <label>
-
-                            شماره موبایل
-
-                        </label>
-
+                        <input id="mobile" name="mobile" type="tel" maxlength="11" inputmode="numeric" required>
+                        <label>شماره موبایل</label>
                         <i class="fa-solid fa-mobile-screen-button input-icon"></i>
-
-                        <span class="validation-icon">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                        </span>
-
+                        <span class="validation-icon"><i class="fa-solid fa-circle-check"></i></span>
                     </div>
-
                     <small class="error-text"></small>
-
                 </div>
 
                 <div class="col-lg-6">
-
                     <div class="floating-input">
-
-                        <input
-
-                                id="email"
-
-                                name="email"
-
-                                type="email">
-
-                        <label>
-
-                            ایمیل (اختیاری)
-
-                        </label>
-
+                        <input id="email" name="email" type="email">
+                        <label>ایمیل (اختیاری)</label>
                         <i class="fa-regular fa-envelope input-icon"></i>
-
-                        <span class="validation-icon">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                        </span>
-
+                        <span class="validation-icon"><i class="fa-solid fa-circle-check"></i></span>
                     </div>
-
                     <small class="error-text"></small>
-
                 </div>
 
                 <div class="col-lg-6">
-
                     <div class="floating-input">
-
-                        <input
-                                id="subject"
-
-                                name="subject"
-
-                                type="text"
-
-                                required>
-                        <label>
-
-                            موضوع درخواست
-                        </label>
-
+                        <input id="subject" name="subject" type="text" required>
+                        <label>موضوع درخواست</label>
                         <i class="fa fa-pen input-icon"></i>
-
-                        <span class="validation-icon">
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                        </span>
+                        <span class="validation-icon"><i class="fa-solid fa-circle-check"></i></span>
                     </div>
-
                     <small class="error-text"></small>
-
                 </div>
 
                 <div class="col-12">
-
                     <div class="floating-textarea">
-
-                        <textarea
-
-                                id="message"
-
-                                name="message"
-
-                                rows="7"
-
-                                maxlength="1000"
-
-                                required></textarea>
-
-                        <label>
-
-                            متن درخواست...
-
-                        </label>
-
+                        <textarea id="message" name="message" rows="7" maxlength="1000" required></textarea>
+                        <label>متن درخواست...</label>
                     </div>
-
                     <div class="textarea-bottom">
-
-                        <small>
-
-                            لطفاً درخواست خود را کامل شرح دهید.
-
-                        </small>
-
-                        <span>
-
-                            <strong id="charCounter">
-
-                                0
-
-                            </strong>
-
-                            /1000
-                        </span>
-
+                        <small>لطفاً درخواست خود را کامل شرح دهید.</small>
+                        <span><strong id="charCounter">0</strong>/1000</span>
                     </div>
-
                     <small class="error-text"></small>
-
                 </div>
 
                 <div class="col-12">
-
                     <div class="upload-box">
-
-                        <input
-
-                                type="file"
-
-                                id="attachment"
-
-                                name="attachment"
-
-                                hidden>
-
+                        <input type="file" id="attachment" name="attachment" hidden>
                         <label for="attachment">
-
                             <i class="fa-solid fa-cloud-arrow-up"></i>
-
-                            <span>
-
-                                در صورت نیاز فایل خود را بارگذاری کنید
-
-                            </span>
-
-                            <small>
-
-                                PDF - JPG - PNG - DOCX
-
-                            </small>
-
+                            <span>در صورت نیاز فایل خود را بارگذاری کنید</span>
+                            <small>PDF - JPG - PNG - DOCX</small>
                         </label>
-
                     </div>
-
                 </div>
 
                 <div class="col-12">
-
                     <div class="privacy-box">
-
-                        <input
-
-                                type="checkbox"
-
-                                id="privacy"
-
-                                name="privacy"
-
-                                required>
-
-                        <label for="privacy">
-
-                            با قوانین سایت و نحوه پردازش اطلاعات موافق هستم.
-
-                        </label>
-
+                        <input type="checkbox" id="privacy" name="privacy" required>
+                        <label for="privacy">با قوانین سایت و نحوه پردازش اطلاعات موافق هستم.</label>
                     </div>
-
                 </div>
 
                 <div class="col-12">
-
-                    <button
-
-                            id="submitBtn"
-
-                            type="submit"
-
-                            class="submit-btn"
-
-                            disabled>
-
-                        <span class="btn-loader">
-
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-
-                        </span>
-
-                        <span class="btn-icon">
-
-                            <i class="fa-solid fa-paper-plane"></i>
-
-                        </span>
-
-                        <span class="btn-text">
-
-                            ارسال درخواست
-
-                        </span>
-
+                    <button id="submitBtn" type="submit" class="submit-btn" disabled>
+                        <span class="btn-loader"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-paper-plane"></i></span>
+                        <span class="btn-text">ارسال درخواست</span>
                     </button>
-
                 </div>
 
             </div>
-
         </form>
 
     </div>
-
 </div>
 
 <?php require_once "inc/footer.php" ?>
-
 
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/jquery.nice-select.min.js"></script>
@@ -402,7 +166,9 @@ require_once "cms/myadmin/inc/config.php";
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/bootstrap.bundle.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/pages/contact-us.js"></script>
+<!-- FIX: removed contact-us.js — its submit handler conflicted with contact_submit.js.
+     All UI behaviour (floating labels, validation, progress, upload, submit) now lives
+     exclusively in contact_submit.js to avoid the double-submit race condition. -->
 <script src="assets/js/contact_submit.js"></script>
 
 </body>
