@@ -3,7 +3,7 @@
 $new_orders = [];
 $new_orders_count = 0;
 
-$orderStmt = $mysqli->prepare("
+$order1Stmt = $mysqli->prepare("
     SELECT
         `id`,
         `full_name`,
@@ -14,16 +14,16 @@ $orderStmt = $mysqli->prepare("
     LIMIT 8
 ");
 
-if ($orderStmt) {
-    $orderStmt->execute();
+if ($order1Stmt) {
+    $order1Stmt->execute();
 
-    $orderResult = $orderStmt->get_result();
+    $order1Result = $order1Stmt->get_result();
 
-    while ($row = $orderResult->fetch_assoc()) {
+    while ($row = $order1Result->fetch_assoc()) {
         $new_orders[] = $row;
     }
 
-    $orderStmt->close();
+    $order1Stmt->close();
 
     $new_orders_count = count($new_orders);
 }
@@ -422,13 +422,13 @@ if (
 
                                 <?php else: ?>
 
-                                    <?php foreach ($new_orders as $order): ?>
+                                    <?php foreach ($new_orders as $order1): ?>
 
                                         <li>
 
                                             <a
                                                     class="hd-notif-item"
-                                                    href="order_view.php?id=<?= (int) $order['id'] ?>"
+                                                    href="order_view.php?id=<?= (int) $order1['id'] ?>"
                                             >
 
                                                 <span class="hd-notif-icon hd-notif-icon-order">
@@ -442,13 +442,13 @@ if (
 
                                                     <strong>
                                                         سفارش از
-                                                        <?= htmlspecialchars($order['full_name']) ?>
+                                                        <?= htmlspecialchars($order1['full_name']) ?>
                                                     </strong>
 
                                                     <small>
                                                         <?= jdate(
                                                                 "d F Y H:i",
-                                                                strtotime($order['created_at'])
+                                                                strtotime($order1['created_at'])
                                                         ) ?>
                                                     </small>
 
