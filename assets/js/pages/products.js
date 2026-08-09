@@ -1,89 +1,183 @@
+/* ==================================================================
+   products.js
+   Rewritten for: true circular orbit motion, lower CPU/GPU cost on
+   low-end devices, and simple event wiring.
+   ================================================================== */
+
+/* ------------------------------------------------------------------
+   0. Orbit rings — radius is stored as a FRACTION of the stage's own
+      half-width (not a fixed px value), so it is recomputed from the
+      live, rendered size of #orbitStage. That's what keeps every
+      chip on a true circle and safely inside the visible rings at
+      every breakpoint, instead of overflowing a stage that CSS
+      shrinks on smaller screens.
+      Fractions below match the percentage sizes of .orbit-ring-1..5
+      in CSS (radius = diameter% / 2) — keep both in sync.
+   ------------------------------------------------------------------ */
 const ORBIT_RINGS = [
-    { r: 85,  duration: 16, items: [] },
-    { r: 140, duration: 26, items: [] },
-    { r: 195, duration: 38, items: [] },
-    { r: 260, duration: 48, items: [] },
-    { r: 315, duration: 60, items: [] },
+    { rFraction: 0.386, duration: 16 },
+    { rFraction: 0.636, duration: 26 },
+    { rFraction: 0.886, duration: 38 },
+    { rFraction: 1.182, duration: 48 },
+    { rFraction: 1.432, duration: 60 },
 ];
 
+/**
+ * Builds the orbiting category chips using pure CSS transforms
+ * (no per-item <style> injection, no JS animation loop).
+ *
+ * How the circle works:
+ *  - `.orbit-item` sits dead-center on the stage (0×0 box) and spins
+ *    a full 360° via CSS animation — this alone traces a perfect
+ *    circle for anything positioned at a fixed offset from it.
+ *  - `.orbit-chip` inside it is offset by `--r` (translateX) and
+ *    spins the same duration in reverse, cancelling the parent's
+ *    rotation so the chip's text always stays upright.
+ *  - Items on the same ring are spread evenly by giving each a
+ *    negative animation-delay of a fraction of the duration, which
+ *    starts them at different points on the same circular path
+ *    instead of stacking them all at angle 0.
+ *  - Rings whose guide circle is hidden at the current breakpoint
+ *    (see CSS `display: none` on .orbit-ring-4/5 etc.) are skipped
+ *    so chips never render outside what's visible on the ring.
+ */
 function buildOrbit() {
     const stage = document.getElementById('orbitStage');
-    if (!stage || !MENU_DATA || !MENU_DATA.length) return;
+    if (!stage || typeof MENU_DATA === 'undefined' || !MENU_DATA.length) return;
 
-    // Distribute menu items round-robin across rings
-    MENU_DATA.forEach((menu, i) => {
-        ORBIT_RINGS[i % ORBIT_RINGS.length].items.push(menu);
+    stage.querySelectorAll('.orbit-item').forEach(el => el.remove());
+
+    const stageRadius = stage.clientWidth / 2;
+    if (!stageRadius) return;
+
+    const guides = stage.querySelectorAll('.orbit-ring');
+    const activeRings = ORBIT_RINGS.filter((ring, i) => {
+        const guide = guides[i];
+        return !guide || getComputedStyle(guide).display !== 'none';
     });
+    const rings = (activeRings.length ? activeRings : ORBIT_RINGS).map(ring => ({ ...ring, items: [] }));
 
-    ORBIT_RINGS.forEach(ring => {
-        if (!ring.items.length) return;
+    MENU_DATA.forEach((menu, i) => rings[i % rings.length].items.push(menu));
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const frag = document.createDocumentFragment();
+
+    rings.forEach(ring => {
         const count = ring.items.length;
+        if (!count) return;
+        const radiusPx = stageRadius * ring.rFraction;
 
         ring.items.forEach((menu, idx) => {
-            // Each item starts evenly spaced around the ring
-            const startDeg  = (360 / count) * idx;
-            const planet    = document.createElement('div');
-            planet.className = 'orbit-planet';
+            const delay = reduceMotion ? 0 : -(ring.duration * idx) / count;
 
-            // Unique CSS animation per planet
-            const animName  = `orbit-dyn-${ring.r}-${idx}`;
-            const style     = document.createElement('style');
-            style.textContent = `
-                @keyframes ${animName} {
-                    from { transform: rotate(${startDeg}deg) translateX(${ring.r}px) rotate(-${startDeg}deg); }
-                    to   { transform: rotate(${startDeg + 360}deg) translateX(${ring.r}px) rotate(-${startDeg + 360}deg); }
-                }
-            `;
-            document.head.appendChild(style);
-            planet.style.animation = `${animName} ${ring.duration}s linear infinite`;
+            const item = document.createElement('div');
+            item.className = 'orbit-item';
+            item.style.setProperty('--r', `${radiusPx}px`);
+            item.style.setProperty('--duration', `${ring.duration}s`);
+            item.style.setProperty('--delay', `${delay}s`);
+            if (reduceMotion) item.style.setProperty('--angle', `${(360 / count) * idx}deg`);
 
-            // The clickable chip
             const chip = document.createElement('a');
-            chip.className = 'chip';
+            chip.className = 'orbit-chip';
             chip.textContent = menu.name;
-            // chip.href  = `products/${menu.slug}`;
             chip.title = menu.name;
+            chip.href = `products/${menu.slug}`;
 
-            // Highlight the active category
-            if (menu.slug === CURRENT_SLUG) {
-                chip.style.borderColor = 'var(--cyan-accent)';
-                chip.style.color       = 'var(--cyan-accent)';
-                chip.style.boxShadow   = '0 0 14px rgba(0,212,255,0.35)';
-            }
+            if (menu.slug === CURRENT_SLUG) chip.classList.add('is-active');
 
-            planet.appendChild(chip);
-            stage.appendChild(planet);
+            item.appendChild(chip);
+            frag.appendChild(item);
         });
     });
+
+    stage.appendChild(frag);
+    stage.classList.toggle('orbit-static', reduceMotion);
 }
 
 buildOrbit();
 
+let orbitResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(orbitResizeTimer);
+    orbitResizeTimer = setTimeout(buildOrbit, 200);
+});
+
 
 /* ------------------------------------------------------------------
    1. Data-center background canvas
+      Lightened for low-end devices:
+      - the dot grid is pre-rendered once to an offscreen canvas
+        instead of being redrawn every frame
+      - fewer moving lines, capped animation rate (~30fps)
+      - paused entirely when the tab is hidden or the user has
+        requested reduced motion
    ------------------------------------------------------------------ */
 (function () {
     const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    let W, H, lines = [], nodes = [];
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const CELL      = 90;   // grid spacing (bigger = fewer nodes to draw)
+    const LINE_CNT  = reduceMotion ? 0 : 10;
+    const FRAME_MS  = 1000 / 30; // throttle to ~30fps
+
+    let W, H, lines = [], gridLayer, running = true, lastTs = 0, rafId = null;
+
+    function buildGridLayer() {
+        gridLayer = document.createElement('canvas');
+        gridLayer.width  = W;
+        gridLayer.height = H;
+        const gctx = gridLayer.getContext('2d');
+
+        const cols = Math.ceil(W / CELL);
+        const rows = Math.ceil(H / CELL);
+
+        for (let r = 0; r <= rows; r++) {
+            gctx.beginPath();
+            gctx.moveTo(0, r * CELL);
+            gctx.lineTo(W, r * CELL);
+            gctx.strokeStyle = 'rgba(61,126,255,0.04)';
+            gctx.lineWidth = 1;
+            gctx.stroke();
+        }
+        for (let c = 0; c <= cols; c++) {
+            gctx.beginPath();
+            gctx.moveTo(c * CELL, 0);
+            gctx.lineTo(c * CELL, H);
+            gctx.strokeStyle = 'rgba(61,126,255,0.04)';
+            gctx.lineWidth = 1;
+            gctx.stroke();
+        }
+        for (let r = 0; r <= rows; r++) {
+            for (let c = 0; c <= cols; c++) {
+                gctx.beginPath();
+                gctx.arc(c * CELL, r * CELL, 1, 0, Math.PI * 2);
+                gctx.fillStyle = `rgba(61,126,255,${0.08 + Math.random() * 0.07})`;
+                gctx.fill();
+            }
+        }
+
+        [[W * .15, H * .3], [W * .8, H * .6], [W * .5, H * .15]].forEach(([gx, gy]) => {
+            const g = gctx.createRadialGradient(gx, gy, 0, gx, gy, 180);
+            g.addColorStop(0, 'rgba(61,126,255,0.07)');
+            g.addColorStop(1, 'transparent');
+            gctx.fillStyle = g;
+            gctx.beginPath();
+            gctx.arc(gx, gy, 180, 0, Math.PI * 2);
+            gctx.fill();
+        });
+    }
 
     function resize() {
         W = canvas.width  = window.innerWidth;
         H = canvas.height = window.innerHeight;
+        buildGridLayer();
     }
 
     function initLines() {
-        lines = []; nodes = [];
-        const cols = Math.ceil(W / 60);
-        const rows = Math.ceil(H / 60);
-
-        for (let r = 0; r <= rows; r++)
-            for (let c = 0; c <= cols; c++)
-                nodes.push({ x: c * 60, y: r * 60, a: Math.random() });
-
-        for (let i = 0; i < 18; i++) {
+        lines = [];
+        for (let i = 0; i < LINE_CNT; i++) {
             const x1    = Math.random() * W;
             const y1    = Math.random() * H;
             const angle = Math.random() * Math.PI * 2;
@@ -98,24 +192,15 @@ buildOrbit();
         }
     }
 
-    function draw() {
+    function draw(ts) {
+        if (!running) return;
+        rafId = requestAnimationFrame(draw);
+
+        if (ts - lastTs < FRAME_MS) return;
+        lastTs = ts;
+
         ctx.clearRect(0, 0, W, H);
-
-        nodes.forEach(n => {
-            ctx.beginPath();
-            ctx.arc(n.x, n.y, 1, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(61,126,255,${0.08 + n.a * 0.07})`;
-            ctx.fill();
-        });
-
-        for (let r = 0; r <= Math.ceil(H / 60); r++) {
-            ctx.beginPath(); ctx.moveTo(0, r * 60); ctx.lineTo(W, r * 60);
-            ctx.strokeStyle = 'rgba(61,126,255,0.04)'; ctx.lineWidth = 1; ctx.stroke();
-        }
-        for (let c = 0; c <= Math.ceil(W / 60); c++) {
-            ctx.beginPath(); ctx.moveTo(c * 60, 0); ctx.lineTo(c * 60, H);
-            ctx.strokeStyle = 'rgba(61,126,255,0.04)'; ctx.lineWidth = 1; ctx.stroke();
-        }
+        if (gridLayer) ctx.drawImage(gridLayer, 0, 0);
 
         lines.forEach(l => {
             l.t += l.speed;
@@ -129,20 +214,24 @@ buildOrbit();
             ctx.beginPath(); ctx.arc(px, py, 2, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(0,212,255,0.5)'; ctx.fill();
         });
-
-        [[W * .15, H * .3], [W * .8, H * .6], [W * .5, H * .15]].forEach(([gx, gy]) => {
-            const g = ctx.createRadialGradient(gx, gy, 0, gx, gy, 180);
-            g.addColorStop(0, 'rgba(61,126,255,0.07)');
-            g.addColorStop(1, 'transparent');
-            ctx.fillStyle = g;
-            ctx.beginPath(); ctx.arc(gx, gy, 180, 0, Math.PI * 2); ctx.fill();
-        });
-
-        requestAnimationFrame(draw);
     }
 
+    document.addEventListener('visibilitychange', () => {
+        running = !document.hidden;
+        if (running && !rafId) { lastTs = 0; rafId = requestAnimationFrame(draw); }
+    });
+
     window.addEventListener('resize', () => { resize(); initLines(); });
-    resize(); initLines(); draw();
+
+    resize();
+    initLines();
+
+    if (reduceMotion) {
+        // Draw a single static frame and stop — no continuous animation.
+        ctx.drawImage(gridLayer, 0, 0);
+    } else {
+        rafId = requestAnimationFrame(draw);
+    }
 })();
 
 
@@ -152,7 +241,7 @@ buildOrbit();
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('catNav');
     if (nav) nav.classList.toggle('scrolled', window.scrollY > 80);
-});
+}, { passive: true });
 
 
 /* ------------------------------------------------------------------
@@ -174,6 +263,7 @@ document.querySelectorAll('#catChips .brand-chip').forEach(chip => {
 function filterProducts() {
     const q      = searchInput ? searchInput.value.toLowerCase().trim() : '';
     const menuId = document.querySelector('#catChips .brand-chip.active')?.dataset.menuId || 'all';
+    let visibleCount = 0;
 
     document.querySelectorAll('.product-card-wrap').forEach(wrap => {
         const name    = wrap.dataset.name  || '';
@@ -181,25 +271,30 @@ function filterProducts() {
 
         const matchSearch = !q || name.includes(q);
         const matchMenu   = menuId === 'all' || wMenuId === menuId;
+        const visible     = matchSearch && matchMenu;
 
-        wrap.style.display = (matchSearch && matchMenu) ? '' : 'none';
+        wrap.classList.toggle('d-none', !visible);
+        if (visible) visibleCount++;
     });
+
+    const emptyState = document.getElementById('productsEmptyDynamic');
+    if (emptyState) emptyState.classList.toggle('d-none', visibleCount !== 0);
 }
 
 
 /* ------------------------------------------------------------------
    4. DNA bar IntersectionObserver
    ------------------------------------------------------------------ */
-const observer = new IntersectionObserver(entries => {
+const dnaObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
         if (e.isIntersecting) {
             e.target.classList.add('in-view');
-            observer.unobserve(e.target);
+            dnaObserver.unobserve(e.target);
         }
     });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
+document.querySelectorAll('.product-card').forEach(card => dnaObserver.observe(card));
 
 
 /* ------------------------------------------------------------------

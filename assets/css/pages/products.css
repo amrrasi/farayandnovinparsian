@@ -230,6 +230,12 @@ html[data-theme="dark"] .btn-primary-hero:hover {
 
 /* ================================================================
    ORBIT ANIMATION
+   Two-element technique guarantees a true circular path with only
+   cheap GPU transforms (no per-item <style> injection, no JS loop):
+     .orbit-item  spins fully around the dead-center of the stage
+     .orbit-chip  sits offset by --r and spins the opposite way at
+                  the same speed, cancelling the parent rotation so
+                  the label stays upright while tracing the circle.
    ================================================================ */
 .orbit-stage {
     position: relative;
@@ -261,7 +267,8 @@ html[data-theme="dark"] .btn-primary-hero:hover {
     filter: drop-shadow(0 0 8px var(--p-accent));
 }
 
-/* Ring guides */
+/* Ring guides — radii must stay in sync with ORBIT_RINGS in products.js
+   (r: 85 / 140 / 195 / 260 / 315 → diameter × 2) */
 .orbit-ring {
     position: absolute;
     top: 50%; left: 50%;
@@ -269,27 +276,32 @@ html[data-theme="dark"] .btn-primary-hero:hover {
     border: 1px dashed var(--p-border);
     transform: translate(-50%, -50%);
 }
-.orbit-ring-1 { width: 170px; height: 170px; animation: ring-spin 16s linear infinite; }
-.orbit-ring-2 { width: 280px; height: 280px; animation: ring-spin 26s linear infinite reverse; }
-.orbit-ring-3 { width: 390px; height: 390px; animation: ring-spin 38s linear infinite; }
-.orbit-ring-4 { width: 500px; height: 500px; animation: ring-spin 48s linear infinite reverse; }
-.orbit-ring-5 { width: 610px; height: 610px; animation: ring-spin 60s linear infinite; }
+.orbit-ring-1 { width: 38.6%;  height: 38.6%;  animation: ring-spin 16s linear infinite; }
+.orbit-ring-2 { width: 63.6%;  height: 63.6%;  animation: ring-spin 26s linear infinite reverse; }
+.orbit-ring-3 { width: 88.6%;  height: 88.6%;  animation: ring-spin 38s linear infinite; }
+.orbit-ring-4 { width: 118.2%; height: 118.2%; animation: ring-spin 48s linear infinite reverse; }
+.orbit-ring-5 { width: 143.2%; height: 143.2%; animation: ring-spin 60s linear infinite; }
 
 @keyframes ring-spin {
     from { transform: translate(-50%,-50%) rotate(0deg); }
     to   { transform: translate(-50%,-50%) rotate(360deg); }
 }
 
-/* Orbit chips */
-.orbit-planet {
+/* Orbiting chips */
+.orbit-item {
     position: absolute;
     top: 50%; left: 50%;
-    transform-origin: 0 0;
+    width: 0; height: 0;
     z-index: 4;
+    animation: orbit-spin var(--duration, 20s) linear infinite;
+    animation-delay: var(--delay, 0s);
 }
-.orbit-planet .chip {
+.orbit-chip {
     position: absolute;
+    top: 0;
+    left: var(--r, 100px);
     transform: translate(-50%, -50%);
+    display: inline-block;
     background: var(--clr-surface);
     border: 1px solid var(--p-border);
     border-radius: var(--radius-pill);
@@ -302,12 +314,36 @@ html[data-theme="dark"] .btn-primary-hero:hover {
     letter-spacing: 1px;
     text-decoration: none;
     transition: border-color var(--tr-fast), box-shadow var(--tr-fast), color var(--tr-fast);
-    backdrop-filter: blur(12px);
+    animation: orbit-counter-spin var(--duration, 20s) linear infinite;
+    animation-delay: var(--delay, 0s);
 }
-.orbit-planet .chip:hover {
+.orbit-chip:hover,
+.orbit-chip.is-active {
     border-color: var(--p-accent);
     color: var(--p-accent);
     box-shadow: 0 0 18px var(--p-glow-a);
+}
+
+@keyframes orbit-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+@keyframes orbit-counter-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* Reduced-motion / precomputed static fallback: items are placed at a
+   fixed angle instead of animating (set via --angle in products.js) */
+.orbit-static .orbit-item,
+.orbit-static .orbit-chip { animation: none; }
+.orbit-static .orbit-item { transform: rotate(var(--angle, 0deg)); }
+.orbit-static .orbit-chip { transform: translate(-50%, -50%) rotate(calc(var(--angle, 0deg) * -1)); }
+
+@media (prefers-reduced-motion: reduce) {
+    .orbit-ring,
+    .orbit-item,
+    .orbit-chip { animation: none !important; }
 }
 
 /* ================================================================
@@ -317,7 +353,6 @@ html[data-theme="dark"] .btn-primary-hero:hover {
     border-top: 1px solid var(--p-strip-border);
     border-bottom: 1px solid var(--p-strip-border);
     background: var(--p-strip-bg);
-    backdrop-filter: blur(12px);
     padding: 28px 0;
 }
 .stats-inner {
@@ -357,7 +392,7 @@ html[data-theme="dark"] .btn-primary-hero:hover {
     top: 0;
     z-index: 100;
     background: var(--p-nav-bg);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--p-border);
     transition: box-shadow var(--tr-normal);
 }
@@ -424,7 +459,6 @@ html[data-theme="dark"] .btn-primary-hero:hover {
 .filter-bar {
     padding: 22px 0;
     background: var(--p-filter-bg);
-    backdrop-filter: blur(8px);
 }
 .filter-inner {
     display: flex;
@@ -496,37 +530,40 @@ html[data-theme="dark"] .btn-primary-hero:hover {
 }
 
 /* ================================================================
-   MASONRY GRID
+   PRODUCTS GRID
+   Uses Bootstrap's row/row-cols in products.php (row-cols-1
+   row-cols-sm-2 row-cols-lg-3 g-4) instead of CSS multi-column
+   masonry — plays nicer with RTL, with the search/filter toggling
+   cards via the .d-none utility class, and is cheaper to reflow.
    ================================================================ */
 .products-masonry-section { padding: 48px 0 80px; }
-
-.masonry-grid {
-    columns: 3;
-    column-gap: 20px;
-}
-@media (max-width: 991px) { .masonry-grid { columns: 2; } }
-@media (max-width: 575px) { .masonry-grid { columns: 1; } }
 
 /* ================================================================
    PRODUCT CARD
    ================================================================ */
 .product-card-wrap {
-    break-inside: avoid;
-    margin-bottom: 20px;
     display: block;
+    height: 100%;
 }
 
+/* The whole card is a single <a> — the entire surface, image and
+   title all navigate to the product page. */
 .product-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background: var(--clr-surface);
     border: 1px solid var(--p-border);
     border-radius: var(--p-radius);
     overflow: hidden;
     transition: var(--p-tr);
     cursor: pointer;
-    backdrop-filter: blur(16px);
     box-shadow: var(--shadow-card);
+    color: inherit;
+    text-decoration: none;
 }
+.product-card:hover { color: inherit; }
 .product-card:hover {
     border-color: var(--p-border-hi);
     box-shadow:
@@ -605,13 +642,10 @@ html[data-theme="dark"] .btn-primary-hero:hover {
     color: var(--p-text);
     margin-bottom: 10px;
     line-height: 1.35;
-}
-.card-title a {
-    color: inherit;
-    text-decoration: none;
     transition: color var(--tr-fast);
 }
-.card-title a:hover { color: var(--p-accent); }
+.product-card:hover .card-title,
+.product-card:focus-visible .card-title { color: var(--p-accent); }
 
 .card-abstract {
     font-size: 13px;
@@ -669,83 +703,41 @@ html[data-theme="dark"] .btn-primary-hero:hover {
 }
 
 /* ================================================================
-   PROFESSIONAL HOVER OVERLAY
+   HOVER INDICATOR
+   The whole card is one <a>, so this is purely decorative — a soft
+   gradient + "view product" pill over the image on hover/focus.
+   No nested links, no backdrop-filter (cheap on low-end devices).
    ================================================================ */
 .card-hover-overlay {
     position: absolute;
     inset: 0;
-    background: var(--clr-surface);
-    backdrop-filter: blur(16px);
+    background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 55%);
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    gap: 12px;
+    padding: 18px;
     opacity: 0;
     transition: opacity var(--p-tr);
-    padding: 24px;
-    /* light: glass white; dark: glass dark — both via --clr-surface */
 }
-/* Slight tint so overlay feels intentional in both modes */
-html:not([data-theme="dark"]) .card-hover-overlay {
-    background: rgba(247,243,235,.93);
-}
-html[data-theme="dark"] .card-hover-overlay {
-    background: rgba(5,8,22,.93);
-}
-.product-card:hover .card-hover-overlay { opacity: 1; }
+.product-card:hover .card-hover-overlay,
+.product-card:focus-visible .card-hover-overlay { opacity: 1; }
 
-.hover-product-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--p-text);
-    margin-bottom: 4px;
-    text-align: center;
-}
-.hover-divider {
-    width: 40px; height: 1px;
-    background: var(--p-grad);
-    margin-bottom: 8px;
-    border: none;
-}
-
-.hover-btn {
-    display: flex;
+.hover-view-pill {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    width: 100%;
-    max-width: 220px;
-    padding: 10px 18px;
-    border-radius: var(--radius-md);
+    padding: 9px 20px;
+    border-radius: var(--radius-pill);
     font-size: 13px;
-    font-weight: 600;
-    font-family: var(--font-base);
-    text-decoration: none;
-    transition: var(--p-tr);
-    border: none;
-    cursor: pointer;
-}
-.hover-btn-primary {
+    font-weight: 700;
+    color: #fff;
     background: var(--p-grad);
-    color: #fff;
     box-shadow: var(--shadow-blue);
+    transform: translateY(8px);
+    transition: transform var(--p-tr);
 }
-.hover-btn-primary:hover {
-    box-shadow: 0 6px 24px rgba(14,165,233,.4);
-    transform: translateY(-1px);
-    color: #fff;
-}
-.hover-btn-ghost {
-    background: transparent;
-    color: var(--p-text-mid);
-    border: 1px solid var(--p-border);
-}
-.hover-btn-ghost:hover {
-    border-color: var(--p-accent);
-    color: var(--p-accent);
-    background: var(--p-glow-a);
-}
+.product-card:hover .hover-view-pill,
+.product-card:focus-visible .hover-view-pill { transform: translateY(0); }
 
 /* ================================================================
    EMPTY STATE
@@ -781,7 +773,6 @@ html[data-theme="dark"] .card-hover-overlay {
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-card);
-    backdrop-filter: blur(20px);
 }
 .consultant-inner::before {
     content: '';
@@ -844,17 +835,22 @@ html[data-theme="dark"] .card-hover-overlay {
    ================================================================ */
 @media (max-width: 991px) {
     .orbit-stage      { width: 300px; height: 300px; }
-    .orbit-ring-3     { display: none; }
+    .orbit-ring-4,
+    .orbit-ring-5     { display: none; }
     .stats-inner      { grid-template-columns: repeat(2, 1fr); }
     .stat-block:nth-child(2) { border-left: none; }
     .consultant-inner { flex-direction: column; text-align: center; gap: 28px; }
 }
 @media (max-width: 767px) {
     .products-hero    { padding: 100px 0 60px; min-height: auto; }
+    .orbit-stage      { width: 230px; height: 230px; }
+    .orbit-ring-3     { display: none; }
     .stats-inner      { grid-template-columns: repeat(2, 1fr); }
-    .masonry-grid     { columns: 1; }
     .consultant-inner { padding: 36px 24px; }
     .hero-actions     { flex-direction: column; }
     .btn-primary-hero,
     .btn-ghost-hero   { width: 100%; justify-content: center; }
+}
+@media (max-width: 575px) {
+    .orbit-stage      { width: 190px; height: 190px; }
 }

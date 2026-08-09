@@ -272,57 +272,41 @@ $pageTitle = $activeMenu
 
 <section class="products-masonry-section" id="products-list">
     <div class="container">
-        <div class="masonry-grid" id="masonryGrid">
 
-            <?php if (count($products)): ?>
+        <?php if (count($products)): ?>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4" id="masonryGrid">
 
                 <?php foreach ($products as $product):
                     $slug = $product['seo_slug'] ?? '';
                     $dna  = get_dna($slug, $dna_map);
 
-
-                    $menuSlugForUrl = $activeMenu
-                            ? url_slug($activeMenu['name'])
-                            : (isset($product['menu_name']) ? url_slug($product['menu_name']) : 'all-product');
-
-                    $productUrl = "product/{$slug}";
-
+                    $productUrl   = "product/{$slug}";
                     $cardCategory = $product['menu_name'] ?? ($activeMenu ? $activeMenu['name'] : 'محصولات سازمانی');
                     $menuId       = $product['product_menu_id'] ?? 0;
                     ?>
 
-                    <div class="product-card-wrap"
+                    <div class="col product-card-wrap"
                          data-menu-id="<?= (int)$menuId ?>"
                          data-name="<?= htmlspecialchars(strtolower($product['name'])) ?>">
 
-                        <article class="product-card">
+                        <!-- The entire card is one link — image, badge, title and
+                             description all navigate to the product page. -->
+                        <a href="<?= $productUrl ?>" class="product-card">
 
                             <?php if (!empty($product['thumbnail'])): ?>
                                 <div class="card-image">
                                     <img src="cms/<?= htmlspecialchars($product['thumbnail']) ?>"
-                                         alt="<?= htmlspecialchars($product['name']) ?>">
+                                         alt="<?= htmlspecialchars($product['name']) ?>"
+                                         loading="lazy">
                                     <span class="card-brand-chip">
-                                <?= htmlspecialchars($cardCategory) ?>
-                            </span>
+                                        <?= htmlspecialchars($cardCategory) ?>
+                                    </span>
                                     <div class="card-hover-overlay">
-                                        <div class="hover-product-name"><?= htmlspecialchars($product['name']) ?></div>
-                                        <div class="hover-divider"></div>
-                                        <a href="<?= $productUrl ?>"
-                                           class="hover-btn hover-btn-primary">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        <span class="hover-view-pill">
+                                            <i class="fa-solid fa-arrow-left"></i>
                                             مشاهده محصول
-                                        </a>
-                                        
-                                        <!--                                <a href="--><?php //= $productUrl ?><!--?action=download"-->
-                                        <!--                                   class="hover-btn hover-btn-ghost">-->
-                                        <!--                                    <i class="fa-solid fa-download"></i>-->
-                                        <!--                                    دانلود بروشور-->
-                                        <!--                                </a>-->
-                                        <!--                                <a href="contact-us/"-->
-                                        <!--                                   class="hover-btn hover-btn-ghost">-->
-                                        <!--                                    <i class="fa-solid fa-comments"></i>-->
-                                        <!--                                    درخواست مشاوره-->
-                                        <!--                                </a>-->
+                                        </span>
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -334,9 +318,7 @@ $pageTitle = $activeMenu
                                 </div>
 
                                 <h3 class="card-title">
-                                    <a href="<?= $productUrl ?>">
-                                        <?= htmlspecialchars($product['name']) ?>
-                                    </a>
+                                    <?= htmlspecialchars($product['name']) ?>
                                 </h3>
 
                                 <?php if (!empty($product['seo_description'])): ?>
@@ -345,26 +327,34 @@ $pageTitle = $activeMenu
                                     </p>
                                 <?php endif; ?>
 
-
                             </div>
-                        </article>
+                        </a>
                     </div>
 
                 <?php endforeach; ?>
 
-            <?php else: ?>
-                <div class="products-empty">
-                    <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
-                    <h2>محصولی پیدا نشد</h2>
-                    <p>در حال حاضر محصولی برای این دسته ثبت نشده است.</p>
-                    <a href="products/all-product" class="btn-primary-hero"
-                       style="display:inline-flex;margin:0 auto">
-                        مشاهده همه محصولات
-                    </a>
-                </div>
-            <?php endif; ?>
+            </div>
 
-        </div>
+            <!-- Shown only client-side when a search/filter combination matches
+                 nothing (all server-rendered cards are hidden). -->
+            <div class="products-empty d-none" id="productsEmptyDynamic">
+                <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
+                <h2>محصولی پیدا نشد</h2>
+                <p>عبارت جستجو یا دسته انتخابی نتیجه‌ای نداشت.</p>
+            </div>
+
+        <?php else: ?>
+            <div class="products-empty">
+                <div class="empty-icon"><i class="fa-solid fa-box-open"></i></div>
+                <h2>محصولی پیدا نشد</h2>
+                <p>در حال حاضر محصولی برای این دسته ثبت نشده است.</p>
+                <a href="products/all-product" class="btn-primary-hero"
+                   style="display:inline-flex;margin:0 auto">
+                    مشاهده همه محصولات
+                </a>
+            </div>
+        <?php endif; ?>
+
     </div>
 </section>
 
