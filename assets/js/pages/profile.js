@@ -127,7 +127,7 @@
         const CSRF    = document.querySelector('meta[name="csrf-token"]')?.content || '';
         const fileMap = {};
 
-        document.querySelectorAll('.receipt-file-input').forEach(inp => {
+        document.querySelectorAll('.pf-receipt-input').forEach(inp => {
             inp.addEventListener('change', function () {
                 const id   = this.dataset.order;
                 const file = this.files[0];
@@ -135,18 +135,21 @@
 
                 fileMap[id] = file;
 
+                const nameEl = document.getElementById('receipt-name-' + id);
+                if (nameEl) nameEl.textContent = file.name;
+
                 const preview = document.getElementById('receipt-preview-' + id);
-                if (preview) {
-                    preview.src = URL.createObjectURL(file);
-                    preview.classList.remove('hidden');
-                }
+                if (preview) preview.classList.remove('hidden');
+
+                const zone = document.getElementById('upload-zone-' + id);
+                if (zone) zone.classList.add('hidden');
 
                 const upBtn = document.getElementById('btn-upload-' + id);
                 if (upBtn) upBtn.disabled = false;
             });
         });
 
-        document.querySelectorAll('.btn-clear-receipt').forEach(btn => {
+        document.querySelectorAll('.pf-remove-file').forEach(btn => {
             btn.addEventListener('click', function () {
                 const id = this.dataset.order;
                 delete fileMap[id];
@@ -155,6 +158,9 @@
                 if (inp) inp.value = '';
 
                 document.getElementById('receipt-preview-' + id)?.classList.add('hidden');
+
+                const zone = document.getElementById('upload-zone-' + id);
+                if (zone) zone.classList.remove('hidden');
 
                 const upBtn = document.getElementById('btn-upload-' + id);
                 if (upBtn) upBtn.disabled = true;

@@ -85,7 +85,7 @@ try {
         WHERE id = :oid AND user_id = :uid
     ");
     $upd->execute([
-        ':path' => $uploadDir . $fileName,
+        ':path' => "assets/images/" . $uploadDir . $fileName,
         ':oid'  => $orderId,
         ':uid'  => $uid,
     ]);
