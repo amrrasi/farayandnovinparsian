@@ -1769,3 +1769,110 @@ body {
     color: var(--clr-text-muted);
     margin-bottom: 6px;
 }
+/* ── Thread bubbles ─────────────────────────────────────────── */
+
+.pf-thread-bubbles {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 1rem;
+}
+
+.pf-bubble-wrap {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+}
+
+.pf-bubble-wrap.pf-bubble--user {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.pf-bubble-wrap.pf-bubble--admin {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.pf-bubble {
+    padding: .55rem .85rem;
+    border-radius: 1rem;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: .9rem;
+}
+
+.pf-bubble-wrap.pf-bubble--user  .pf-bubble {
+    background: var(--bs-primary);
+    color: #fff;
+    border-bottom-right-radius: .25rem;
+}
+
+.pf-bubble-wrap.pf-bubble--admin .pf-bubble {
+    background: var(--bs-gray-100, #f8f9fa);
+    color: var(--bs-body-color, #212529);
+    border-bottom-left-radius: .25rem;
+}
+
+.pf-bubble-time {
+    font-size: .72rem;
+    margin-top: .2rem;
+    padding: 0 .25rem;
+}
+
+/* ── Error inside thread ────────────────────────────────────── */
+
+.pf-thread-error {
+    text-align: center;
+    color: var(--bs-danger, #dc3545);
+    padding: 2rem 1rem;
+}
+
+/* ── Toast ──────────────────────────────────────────────────── */
+
+.pf-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(1rem);
+    z-index: 9999;
+    padding: .65rem 1.25rem;
+    border-radius: .5rem;
+    font-size: .9rem;
+    opacity: 0;
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.pf-toast--show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.pf-toast--error {
+    background: var(--bs-danger, #dc3545);
+    color: #fff;
+}
+
+.pf-toast--success {
+    background: var(--bs-success, #198754);
+    color: #fff;
+}
+
+/* ── Unread dot visibility ──────────────────────────────────── */
+
+.pf-msg-row .pf-msg-dot {
+    display: none;
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    background: var(--bs-primary);
+    flex-shrink: 0;
+    margin-top: .3rem;
+}
+
+.pf-msg-row.is-unread .pf-msg-dot {
+    display: block;
+}

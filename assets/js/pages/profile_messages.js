@@ -49,7 +49,7 @@ function initMessagesTab() {
     function openThread(msgId, row) {
         activeMessageId = msgId;
 
-        overlay.style.display = '';   // remove the inline display:none set in PHP
+        overlay.style.display = '';
         overlay.removeAttribute('aria-hidden');
 
         loadingEl.style.display = 'flex';
@@ -73,15 +73,12 @@ function initMessagesTab() {
 
     async function fetchThread(msgId) {
         try {
-            const res  = await fetch(
+            const res = await fetch(
                 'ajax/profile/action_message_thread.php?id=' + msgId,
                 { headers: { 'X-Requested-With': 'XMLHttpRequest' } }
             );
 
-            if (res.status === 401) {
-                location.href = '/entry/';
-                return;
-            }
+            if (res.status === 401) { location.href = '/entry/'; return; }
 
             const data = await res.json();
             loadingEl.style.display = 'none';
@@ -100,8 +97,7 @@ function initMessagesTab() {
 
         } catch (err) {
             loadingEl.style.display = 'none';
-            bubblesEl.innerHTML =
-                '<p class="pf-thread-error">خطا در اتصال به سرور</p>';
+            bubblesEl.innerHTML = '<p class="pf-thread-error">خطا در اتصال به سرور</p>';
         }
     }
 
@@ -128,7 +124,7 @@ function initMessagesTab() {
         }
 
         const body = document.createElement('div');
-        body.className = 'pf-bubble-body';
+        body.className   = 'pf-bubble-body';
         body.textContent = m.body || '';
         wrap.appendChild(body);
 
@@ -150,25 +146,23 @@ function initMessagesTab() {
         const text = replyText.value.trim();
         if (!text || activeMessageId === null) return;
 
-        sendBtn.disabled  = true;
+        sendBtn.disabled   = true;
         replyText.disabled = true;
-        sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+        sendBtn.innerHTML  = '<i class="fa-solid fa-spinner fa-spin"></i>';
 
         const fd = new FormData();
-        fd.append('csrf_token',  CSRF);
-        fd.append('message_id',  activeMessageId);
-        fd.append('reply',       text);
+        fd.append('csrf',       CSRF);        // ← was 'csrf_token', must match $_POST['csrf']
+        fd.append('message_id', activeMessageId);
+        fd.append('reply',      text);
 
         try {
-            const res  = await fetch('ajax/profile/action_send_reply.php', {
-                method: 'POST',
-                body:   fd,
+            const res = await fetch('ajax/profile/action_send_reply.php', {
+                method:  'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }, // ← was missing
+                body:    fd,
             });
 
-            if (res.status === 401) {
-                location.href = '/entry/';
-                return;
-            }
+            if (res.status === 401) { location.href = '/entry/'; return; }
 
             const data = await res.json();
 

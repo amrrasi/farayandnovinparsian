@@ -40,6 +40,12 @@ if (!$msg) {
     exit;
 }
 
+// Mark as seen when the user opens the thread
+// seen=1 means "user has read the latest admin reply"
+if ((int) $msg['seen'] !== 1) {
+    $pdo->prepare("UPDATE `contact_messages` SET seen = 1 WHERE id = :id AND user_id = :uid")
+        ->execute([':id' => $messageId, ':uid' => $uid]);
+}
 
 $repliesStmt = $pdo->prepare("
     SELECT sender_type AS sender, body, created_at
